@@ -1,0 +1,86 @@
+/* =========================친구상세정보(사용중이 아님)===================================== */
+
+.friend-detail-grid{
+    column-gap: 20px;
+    /* margin-left: 20%; */
+    /* margin-right: 20%; */
+    /* margin-top: 10%; */
+    /* margin-bottom: 10%; */
+    margin: 10% 30px;
+    margin-left: 65px;
+
+}
+
+.friend-menu{
+
+align-items: center;
+
+    li{
+        background-color: #e2caca;
+        border-radius: 10px;
+        height: 47px;
+        width: 70%;
+        margin-top: 1.7%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        
+        
+    }
+
+    a{
+        vertical-align: middle;
+    }
+}
+
+.f-user-img{
+
+    width: 100px;
+    height: 100px;
+    background-color: var(--charactor-bg-3);
+    border-radius: 50px;
+    background-image: url('../img/man.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+
+/* =============================그리드===================================== */
+
+.friend-detail-grid{
+
+    display: grid;
+    grid-template: 
+    
+    "image info menu" 16px
+    "image info x" 35px
+    "image info x" 52px /100px 1fr 32px;
+    
+    align-items: center;
+    
+    }
+    
+    .friend-menu{
+    
+        display: flex;
+        flex-direction: column;
+        
+    }
+    
+    .btn-hide-menu{
+    
+        grid-area: menu;
+    }
+    
+    
+    
+    .f-user-img{
+        grid-area:image;
+    
+    }
+    
+    .friend-detail-grid ul{
+        grid-area: info;
+    }

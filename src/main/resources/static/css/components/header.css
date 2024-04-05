@@ -1,0 +1,220 @@
+.root-header{
+
+    display: grid;
+
+    grid-template :
+    "back title empty menu" 80px
+    /auto 2fr 2fr 1fr;
+
+    align-items: center;
+    padding-right: 30px;
+    background-color: var(--color-base-1);
+    background-image: var(--ribbon-1);
+    /* min-width: 400px; */
+
+    background-position: 0px 8px;
+ 
+    background-repeat: no-repeat;
+    background-size: auto;
+}
+
+.root-header-back>a{
+    /* grid-column: 1/2; */
+    grid-area: back;
+    /* margin-top: 20%; */
+    margin-left: 25%;
+    align-items: center;
+
+}
+    
+.root-header-title{
+    grid-area: title;
+    align-self: center;
+    font-size: 20px;
+    margin-left: 40px;
+    justify-content: space-between;
+
+}
+    
+.root-header-menu{
+    grid-area: menu;
+    justify-self: end;
+
+    /* grid-column: 4/5; */
+    ul{
+        display: flex;
+        justify-content: flex-end;
+
+        /* margin-left: 50px; */
+
+        li{
+            margin-left: 15px;
+
+        }
+    
+    }
+    
+}
+
+header ul{
+    align-items: center;    
+}
+/* =========================헤더폰트========================== */
+.header-title{
+    font-family: var(--font-4);
+    font-weight: 400;
+    font-size: 40px;
+    font-style: normal;}
+
+/* ==========================헤더 온라인 유저================== */
+.online-user{
+    /* text-indent: 999px; */
+    display: block;
+    height: 40px;
+    width: 40px;
+    background-color: rgb(12, 140, 224);
+    border-radius: 50px;
+    background-image: url('../../image/man.png');
+    background-size: cover;
+}
+
+.online-num{
+
+    display: block;
+    height: 40px;
+    width: 40px;
+    background-color: #E2CACA;
+    border-radius: 50px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 15px;
+}
+
+/* ============================햄버거 메뉴========================= */
+.menu{
+    width: 268px; 
+    position: fixed; 
+    right: 0; 
+    height: 60vh; 
+    background-color: #E2CACA; 
+    z-index: 1200;
+    top: 10%; 
+    border-radius:26px;
+    padding: 54px;
+    /* padding-left: 50px; */
+
+  
+}
+
+.menu ul{
+
+    display: grid;
+    gap: 20px;
+
+}
+
+.profile-place{
+    display: grid;
+    grid-template:
+    "profile icon" 100px
+    /130px 1fr;
+
+}
+
+.menu a{
+    /* display: flex; */
+    white-space: nowrap;
+    font-size: 25px;
+}
+
+.profile{
+    grid-area: profile;
+    text-indent: 999px;
+    /* white-space: nowrap; */
+    display: block;
+    height: 100px;
+    width: 100px;
+    background-color: rgb(12, 140, 224);
+    border-radius: 50px;
+    background-image: url('../../image/man.png');
+    background-size: cover;
+}
+
+.arrow{
+    display: block;
+    grid-area: icon;
+    align-self: center;
+}
+
+/* ==================모바일 버전 리본======================= */
+
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    height: 64px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 20px;
+
+    /* 뉴틸 버전
+    d:flex;
+    fl-dir:row;
+    ai:center;
+    jc:center;
+    as:stretch;
+    fl-shrink:0;
+    h:64px;
+    pos:relative;
+    of:hidden;
+    mt:5; */
+}
+
+.header-ribbon-container {
+    padding-right: 12px;
+    padding-left: 12px;
+    display: flex;
+    flex-direction: row;
+    gap: var(--gap-4);
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    width: var(--width-5);
+    height: 80px;
+    max-width: 600px;
+    position: relative;
+    background-color: var(--color-main-4);
+}
+
+.header-ribbon-container::after {
+  content: '';
+  position: absolute;
+  top: 0px;
+  right: -13px; /* 삼각형이 박스의 왼쪽 끝으로 옮겨지도록 설정 */
+  width: 0;
+  height: 0;
+  border-top: 40px solid  var(--color-main-4); /* 삼각형의 위쪽 변 */
+  border-bottom: 40px solid var(--color-main-4); /* 삼각형의 아래쪽 변 */
+  border-right: 14px solid transparent; /* 삼각형의 오른쪽 변 */
+  
+}
+
+
+.box-under-shadow {
+    /* 박스 하단 그림자 */
+  width: 100%;
+  height: 100%;
+  background-color: #D26363;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  filter: drop-shadow(0px 4px 2px rgba(0, 0, 0, 0.25));
+}
+
+/* ========================================== */

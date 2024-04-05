@@ -1,0 +1,260 @@
+/*
+utill.css 목록
+
+1.색상
+2.버튼
+3.폰트
+
+*/
+
+/* ======================1.색상======================= */
+
+.background-color\:main-4 {
+    background-color: var(--color-main-4, #D26363) !important;
+}
+
+.bg-color\:main-4 {
+    background-color: var(--color-main-4, #D26363) !important;
+}
+
+.border-color\:main-4 {
+    border-color: var(--color-main-4, #D26363) !important;
+}
+
+.bd-color\:main-4 {
+    border-color: var(--color-main-4, #D26363) !important;
+}
+
+.color\:main-4 {
+    color: var(--color-main-4, #D26363) !important;
+}
+
+.background-color\:accent-4 {
+    background-color: var(--color-accent-4, #418928) !important;
+}
+
+.bg-color\:accent-4 {
+    background-color: var(--color-accent-4, #418928) !important;
+}
+
+.border-color\:accent-4 {
+    border-color: var(--color-accent-4, #418928) !important;
+}
+
+.bd-color\:accent-4 {
+    border-color: var(--color-accent-4, #418928) !important;
+}
+
+.color\:accent-4 {
+    color: var(--color-accent-4, #418928) !important;
+}
+
+.background-color\:accent-5 {
+    background-color: var(--color-accent-5, #FCC22C) !important;
+}
+
+.bg-color\:accent-5 {
+    background-color: var(--color-accent-5, #FCC22C) !important;
+}
+
+.border-color\:accent-5 {
+    border-color: var(--color-accent-5, #FCC22C) !important;
+}
+
+.bd-color\:accent-5 {
+    border-color: var(--color-accent-5, #FCC22C) !important;
+}
+
+.color\:accent-5 {
+    color: var(--color-accent-5, #FCC22C) !important;
+}
+
+.background-color\:sub-4 {
+    background-color: var(--color-sub-4, #3D6988) !important;
+}
+
+.bg-color\:sub-4 {
+    background-color: var(--color-sub-4, #3D6988) !important;
+}
+
+.border-color\:sub-4 {
+    border-color: var(--color-sub-4, #3D6988) !important;
+}
+
+.bd-color\:sub-4 {
+    border-color: var(--color-sub-4, #3D6988) !important;
+}
+
+.color\:sub-4 {
+    color: var(--color-sub-4, #3D6988) !important;
+}
+
+.background-color\:sub-5 {
+    background-color: var(--color-sub-5, #DC74D8) !important;
+}
+
+.bg-color\:sub-5 {
+    background-color: var(--color-sub-5, #DC74D8) !important;
+}
+
+.border-color\:sub-5 {
+    border-color: var(--color-sub-5, #DC74D8) !important;
+}
+
+.bd-color\:sub-5 {
+    border-color: var(--color-sub-5, #DC74D8) !important;
+}
+
+.color\:sub-5 {
+    color: var(--color-sub-5, #DC74D8) !important;
+}
+
+.background-color\:main-5 {
+    background-color: var(--color-main-5, #EED9D9) !important;
+}
+
+.bg-color\:main-5 {
+    background-color: var(--color-main-5, #EED9D9) !important;
+}
+
+.border-color\:main-5 {
+    border-color: var(--color-main-5, #EED9D9) !important;
+}
+
+.bd-color\:main-5 {
+    border-color: var(--color-main-5, #EED9D9) !important;
+}
+
+.color\:main-5 {
+    color: var(--color-main-5, #EED9D9) !important;
+}
+
+/* =======================2.버튼===================================== */
+
+
+.n-btn-size\:4 {
+
+    height: var(--btn-height-4) !important;
+    padding: var(--btn-padding-4) !important;
+    font-size: var(--btn-font-size-4) !important;
+    border-radius: var(--btn-border-radius-4) !important;
+  
+  }
+  
+  
+  .n-btn-type\:filled-2 {
+      
+      background-color: var(--color-base-2) !important;
+      border: 1px solid transparent !important;
+      color: var(--color-base-8) !important; 
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+  }
+  
+  .n-btn-type\:filled-2:hover {
+     background-color:  #FAFAFA !important;
+  }
+  
+  .n-btn-type\:filled-2:active {
+      background-color:  var(--color-main-2) !important;
+  }
+  
+  .n-btn\:filled-2 {
+  
+      background-color: var(--color-base-2) !important;
+      border: 1px solid transparent !important;
+      color: var(--color-base-8) !important; 
+      display: flex !important;
+      justify-content: center !important;
+      align-items: center !important;
+  }
+  
+  
+  .n-btn\:filled-2:hover {
+      background-color:  #FAFAFA !important;
+   }
+   
+   .n-btn\:filled-2:active {
+       background-color:  var(--color-main-2) !important;
+   }
+
+   /* 버튼 추가3 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+.n-btn-type\:filled-3 {
+      
+    background-color: var(--color-mian-3) !important;
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+}
+
+.n-btn-type\:filled-3:hover {
+   background-color: #F8EBEB !important;
+}
+
+.n-btn-type\:filled-3:active {
+    background-color: var(--color-main-1) !important;
+}
+
+.n-btn\:filled-3 {
+
+    background-color: var(--color-main-3) !important;
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+}
+
+.n-btn\:filled-3:hover {
+    background-color: #F8EBEB !important;
+ }
+ 
+ .n-btn\:filled-3:active {
+     background-color: var(--color-main-1) !important;
+ }
+
+ /* 버튼 추가4 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ*/
+
+.n-btn-type\:filled-4 {
+      
+    background-color: var(--color-base-4) !important;
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+}
+
+.n-btn-type\:filled-4:hover {
+   background-color: #FACDCD !important;
+}
+
+.n-btn-type\:filled-4:active {
+    background-color: var(--color-base-4) !important;
+}
+
+.n-btn\:filled-4 {
+
+    background-color: var(--color-base-4) !important;
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+}
+
+.n-btn\:filled-4:hover {
+    background-color: #FACDCD !important;
+ }
+ 
+ .n-btn\:filled-4:active {
+     background-color: var(--color-base-4) !important;
+ }
+
+
+/* =======================3.폰트========================== */
+
+.font\:1{
+    font-family: var(--font-1);
+}
+.font\:2{
+    font-family: var(--font-2);
+}
+.font\:3{
+    font-family: var(--font-3);
+}
+.font\:4{
+    font-family: var(--font-4);
+}

@@ -1,0 +1,140 @@
+/* ===============root.css 함수 설정===================== */
+
+:root {
+ --color-base-1: #ffffff;       /* 웹 메뉴 하단바 */
+ --color-base-2: #F5EFEF;       /* 텍스트박스, 코코 상태 */
+ --color-base-3: #EEEAEA;       /* 게임박스, 검색, 학습하기 박스 */
+ --color-base-4: #D9D9D9;       /* 프로필, 포인트박스, 공격, 코코 용품 */
+ --color-base-5: #B1B1B1;       /* 글자3, 비활성화 */
+ --color-base-6: #897C7C;       /* 주석, 버튼 */
+ --color-base-7: #584040;       /* 글자1, 문제수/날짜, 버튼 */
+ --color-base-8: #332E2E;       /* 메인글, 글자2, 하단 아이콘 */
+
+
+ --color-main-1: #F8EBEB;       /* 팝업, 버튼 */
+ --color-main-2: #E2CACA;       /* 메뉴바, 상단버튼, 온란인 인원 */
+ --color-main-3: #FACDCD;       /* 버튼, 팝업, 말풍선 */
+ --color-main-4: #D26363;       /* header */
+ --color-main-5: #EED9D9;       /* 폼 메뉴 */ 
+ 
+
+ --color-accent-1: #FFA1A1;     /* 공격 클릭 */
+ --color-accent-2: #F15D5D;     /* H.P 체크, 스크롤 */
+ --color-accent-3: #212445;     /* Index */
+ --color-accent-4: #418928;     /* 정답, 오답 */
+ --color-accent-5: #FCC22C;     /* 즐겨찾기 */
+
+
+ --color-sub-1: #FFE99C;        /* 친구 즐겨찾기 */
+ --color-sub-2: #FFA1A1;        /* 프로필 배경1 */
+ --color-sub-3: #5BBAFF;        /* 프로필 배경2 */
+ --color-sub-4: #3D6988;        /* 프로필 배경3 */
+ --color-sub-5: #DC74D8;        /* 프로필 배경4 */
+
+ --charactor-bg-1:#289cdf;
+ --charactor-bg-2:#bd6f92;
+ --charactor-bg-3:#df4628;
+ --charactor-bg-4:#32d679;
+ 
+
+
+ /* 유저 리스트 반응 */
+ --list-width-1: 354px;
+ --list-width-2: 60%;
+
+ /* width 추가 */
+ --width-0: 188px;
+ 
+ /* height 추가 */
+ --height-0: 30px;
+
+ 
+ 
+ /* gap 추가 */
+ 
+ --gap-11: 44px; 
+ --gap-12: 48px; 
+ --gap-13: 50px; 
+ --gap-14: 56px; 
+ --gap-15: 60px; 
+ --gap-16: 64px; 
+ --gap-17: 68px; 
+ --gap-18: 72px; 
+ --gap-19: 76px; 
+ --gap-20: 80px; 
+
+
+
+/* btn-size:4 */
+--btn-height-4: 26px;
+--btn-padding-4: 4px 12px;
+--btn-font-size-4: 13px;
+--btn-border-radius-4: 8px;
+
+ /* btn-type:filled-2 */
+  --btn-filled-2-background-color-default: var(--color-base-2);
+  --btn-filled-2-background-color-hover: #FAFAFA;
+  --btn-filled-2-background-color-active: var(--color-main-2);
+  --btn-filled-2-border: 1px solid transparent;
+  --btn-filled-2-color: var(--color-base-8);  
+
+
+
+  /* btn-type:filled-3 */
+  --btn-filled-3-background-color-default: var(--color-main-3);
+  --btn-filled-3-background-color-hover: #E2CACA;
+  --btn-filled-3-background-color-active: var(--color-mian-2);
+  --btn-filled-3-border: 1px solid transparent;
+  --btn-filled-3-color: var(--color-base-8); 
+
+  /* btn-type:filled-4 */
+  --btn-filled-4-background-color-default: var(--color-base-4);
+  --btn-filled-4-background-color-hover: #FACDCD;
+  --btn-filled-4-background-color-active: var(--color-base-4);
+  --btn-filled-4-border: 1px solid transparent;
+  --btn-filled-4-color: var(--color-base-8); 
+
+
+/* ======폰트함수====== */
+  --font-1 :'DungGeunMo';
+  --font-2 : 'DOSPilgiMedium';
+  --font-3 : 'Sam3KRFont';
+  --font-4 : "Kavoon", serif;
+
+
+}
+
+.n-toggle{
+
+      /* toggle:check */
+  --toggle-check-border-color: var(--color-main-2);
+  --toggle-check-bagkground-color: var(--color-base-1);
+  --toggle-check-background-color-checked: var(--color-accent-2);
+}
+
+.n-btn{
+
+  --btn-filled-background-color-default: var(--color-main-2);
+  --btn-filled-background-color-hover: var(--color-main-2);
+  --btn-filled-background-color-active: var(--color-main-2);
+  --btn-font-size-2: 12px;
+  --btn-filled-color: var(--color-base-7);/* 버튼글자색 */
+  
+}
+
+.n-progress {
+  --progress-height: 20px;
+  --progress-border-radius: 999px;
+  --progress-background-color: rgba(var(--rgb-base-6), 0.2);
+
+  --progressbar-color-main: var(--color-main-1);
+  --progressbar-color-sub: var(--color-sub-1);
+  --progressbar-color-accent: var(--color-accent-1);
+  --progressbar-color-base: var(--color-base-6);
+}
+
+
+
+
+
+

@@ -1,0 +1,67 @@
+/* ============뉴틸에 없는것============= */
+
+.icon\:admin:after,.icon\:admin:before {
+    -webkit-mask-image: url(../../image/icon/change.svg);
+    mask-image: url(../../image/icon/change.svg);
+}
+.icon\:learning:after,.icon\:learning:before {
+    -webkit-mask-image: url(../../image/icon/learning.svg);
+    mask-image: url(../../image/icon/learning.svg);
+}
+.icon\:friend:after,.icon\:friend:before {
+    -webkit-mask-image: url(../../image/icon/friend.svg);
+    mask-image: url(../../image/icon/friend.svg);
+}
+.icon\:team:after,.icon\:team:before {
+    -webkit-mask-image: url(../../image/icon/team.svg);
+    mask-image: url(../../image/icon/team.svg);
+}
+
+.icon\:rank:after,.icon\:rank:before {
+    -webkit-mask-image: url(../../image/icon/rank.svg);
+    mask-image: url(../../image/icon/rank.svg);
+}
+.icon\:mail:after,.icon\:mail:before {
+    -webkit-mask-image: url(../../image/icon/mail.svg);
+    mask-image: url(../../image/icon/mail.svg);
+}
+.icon\:setting:after,.icon\:setting:before {
+    -webkit-mask-image: url(../../image/icon/setting.svg);
+    mask-image: url(../../image/icon/setting.svg);
+}
+.icon\:myinfo:after,.icon\:myinfo:before {
+    -webkit-mask-image: url(../../image/icon/myinfo.svg);
+    mask-image: url(../../image/icon/myinfo.svg);
+}
+.icon\:page_start:after,.icon\:page_start:before {
+    -webkit-mask-image: url(../../image/icon/page_start.svg);
+    mask-image: url(../../image/icon/page_start.svg);
+}
+.icon\:page_end:after,.icon\:page_end:before {
+    -webkit-mask-image: url(../../image/icon/page_end.svg);
+    mask-image: url(../../image/icon/page_end.svg);
+}
+.icon\:skip:after,.icon\:skip:before {
+    -webkit-mask-image: url(../../image/icon/skip.svg);
+    mask-image: url(../../image/icon/skip.svg);
+    background-color: #D26363;
+} 
+
+.icon-home{
+
+    display: flex;
+    width:27px;
+    height: 27px;
+    /* border: 1px solid red; */
+   overflow: hidden; 
+   text-indent: -999px;
+   /* margin-right: 10px; */
+   background-repeat: no-repeat;
+   background-position: center;
+
+   border-radius: 25px;
+   background-color: #D26363;
+   background-image: url('../../image/icon/home.svg');
+
+
+}

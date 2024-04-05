@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.44/dist/style.css" />
+    <link href="/css/admin/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/root.css" rel="stylesheet" type="text/css">
+    <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
+    <link href="/css/admin/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <header class="admin-hd d:flex jc:flex-start h:2 bg-color:base-8 color:base-1 p:5 ai:center">
+        <h1 class="order:2 fs:7">기출문제 수정 페이지</h1>
+        <div class="order:1"><a href="#" onclick="history.back()" class="icon icon:caret_left_bold icon-color:base-1 mr:3">뒤로가기</a></div>
+        <div class="order:3 hd-right-item"><a href="/" class="icon icon:admin icon-color:base-1">관리자-유저</a></div>
+        <div class="order:4 p:2"><a href="/admin" class="icon icon:house icon-color:base-1 js:end">홈</a></div>
+    </header>
+    <main>
+        <section class="d:flex fl-dir:column jc:center flex:1 ai:center as:stretch pos:relative px:11">
+            <h1 class="d:none">문제수정 폼</h1>
+            <form method="post" action="edit" th:action="@{edit(id=${examq.id})}">
+                <fieldset class="d:flex fl-dir:column ai:flex-start pos:relative gap:3 mt:5 w:313px">
+                    <div class="d:flex fl-dir:row ai:center jc:space-between pos:relative w:312px">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1 pr:11">질문</label><textarea type="text" name="question"  th:text="${examq.question}" class="n-textbox-admin n-textbox:outline admin-textarea:5 jc:flex-end fs:3" required autofocus minlength="3"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between pos:relative w:312px">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1 pr:11">지문</label><textarea type="text" name="context" th:text="${examq.context}" class="n-textbox-admin n-textbox:outline admin-textarea:5 jc:flex-start fs:3"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
+                        <label class="fs:3 fw:1 pos:relative pr:11">1번</label><textarea type="text" name="num1" th:text="${examq.num1}" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:3"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
+                        <label class="fs:3 fw:1 pos:relative pr:11">2번</label><textarea type="text" name="num2" th:text="${examq.num2}" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:3"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
+                        <label class="fs:3 fw:1 pos:relative pr:11">3번</label><textarea type="text" name="num3" th:text="${examq.num3}" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:3"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
+                        <label class="fs:3 fw:1 pos:relative pr:11">4번</label><textarea type="text" name="num4" th:text="${examq.num4}" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:3"></textarea>
+                    </div>
+                    <div class="color:base-5 fs:2 fw:1">* ①~④숫자를 제외한 문자만</div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
+                        <label class="admin-textarea:3 fl-dir:column jc:space-between h:19px fs:3 fw:1">답</label><textarea type="text" th:text="${examq.answer}" name="answer" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:3"></textarea>
+                    </div>
+                    <div class="color:base-5 fs:2 fw:1">*숫자로만 예)4</div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1">연도</label><textarea type="text" th:text="${examq.year}" name="year" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:3"></textarea>
+                    </div>
+                    <div class="color:base-5 fs:2 fw:1">*숫자로만 예)2007</div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1">직급</label>
+                            <select name="examOfficialRankId" th:value="${examq.examOfficialRankId}" class="n-select-admin">
+                                <option class="d:none">직급</option>
+                                <option value="1" th:selected="${examq.examOfficialRankId == 1}" class="bg-color:base-1">국가직 9급</option>
+                                <option value="2" th:selected="${examq.examOfficialRankId == 2}" class="bg-color:base-1">국가직 7급</option>
+                                <option value="3" th:selected="${examq.examOfficialRankId == 3}" class="bg-color:base-1">지방직 9급</option>
+                                <option value="4" th:selected="${examq.examOfficialRankId == 4}" class="bg-color:base-1">지방직 7급</option>
+                            </select>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
+                    <label class="admin-textarea:1 w:30px fs:3 fw:1">분류</label>
+                        <select name="typeId" th:value="${examq.typeId}" class="n-select-admin">
+                            <option class="d:none">분류</option>
+                            <option value="1" th:selected="${examq.typeId == 1}" class="bg-color:base-1">문법 (외래어표기법, 로마자표기법, 문장부호, 표준어 규정, 표준 발음법,띄어쓰기,합성어,맞춤법)</option>
+                            <option value="2" th:selected="${examq.typeId == 2}" class="bg-color:base-1">한자 (사자성어 . 두글자 한자 단어)</option>
+                            <option value="3" th:selected="${examq.typeId == 3}" class="bg-color:base-1">어휘 (속담, 관용어, 도량형,고유어,순화어,뜻 유사)</option>
+                            <option value="4" th:selected="${examq.typeId == 4}" class="bg-color:base-1">기타 (촌수보, 언어예절, 호칭어&지칭어, 논리문제,국어의 역사)</option>
+                        </select>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center as:stretch pos:relative gap:33px jc:flex-start">
+                    <label class="admin-textarea:5 fs:3 fw:1 pr:5">공개</label><input type="checkbox" name="secret" th:checked="${examq.secret == '1'}" value="1" class="admin-textarea:4 gap:10px h:auto overflow:visible">
+                    </div>
+                </fieldset>
+                <div class="d:flex fl-dir:row ai:center as:stretch pos:relative gap:2 jc:center m:5">
+                    <button class="admin-textarea:4 n-btn n-btn:filled-2">수정 완료</button>
+                    <a href="list" class="admin-textarea:4 n-btn n-btn:filled-2">나가기</a>
+                </div>
+            </form>
+            </section>
+    </main>
+</body> 
+</html>

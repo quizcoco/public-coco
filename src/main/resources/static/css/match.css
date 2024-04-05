@@ -1,0 +1,118 @@
+.match-view{
+
+    flex: 1;
+}
+
+.quiz-view{
+
+    flex: 1;
+    padding: 2%;
+    /* align-self: center;   */
+    background-color: var(--color-base-3);
+    
+}
+
+@media screen and (width>768px) {
+    
+    .adj-w\:1{
+        align-self: center;
+        width: 600px;
+        }
+    .adj-w\:2{
+        width : var(--list-width-2);
+    }
+}
+
+
+.quiz{
+    background-color: var(--color-base-1);
+    height: 25vh;
+    border-radius: 5px;
+    /* margin-left: 20px;
+    margin-right: 20px; */
+}
+
+.btn-on{
+
+    background-color:var(--color-accent-2);
+    height: 30px;
+    width: 80px;
+    border-radius: 25px;
+}
+
+.btn-off{
+
+    background-color:var(--color-base-4);
+    height: 30px;
+    width: 80px;
+    border-radius: 25px;
+    
+}
+
+
+
+/* ====================지문박스=================== */
+
+.context-box{
+
+    border: solid #858585 1px;
+    padding: 10px;
+
+}
+/* --------------타이핑 효과-------------- */
+
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+.typing-text {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 4s steps(40) forwards;
+}
+
+
+/* ========스킬 그리드=========== */
+
+/* .skill-grid{
+display: grid;
+grid-template: 
+"auto atk help runaway" 30px
+/1fr 1fr 1fr 1fr;
+place-items: center ;
+
+}
+
+
+.atk-item{
+    display: grid;
+    grid-template: 
+    "item1 item2 item3 item4" 40px
+    /1fr 1fr 1fr 1fr;
+    place-items: center ;
+
+} */
+
+.btn-auto{
+    grid-area: auto;
+    background-color: #FACDCD;
+}
+.btn-atk{
+    grid-area: atk;
+    background-color: #FACDCD;
+}
+.btn-help{
+    grid-area: help;
+    background-color: #FACDCD;
+}
+.btn-runaway{
+    grid-area: runaway;
+    background-color: #FACDCD;
+}
+
+/* .atk-item{ 
+    position: absolute;
+    grid-area: item1;   
+} */
+/* fixed absolute*/

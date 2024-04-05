@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quizcoco.web.repository.ExamQuizRepository">
+
+<select id="findAll" resultType="ExamQuiz">
+		select * from exam_quizzes eq 
+
+    <where>
+<if test="query != null">
+   eq.question LIKE '%${query}%' OR 
+   eq.context LIKE '%${query}%' OR 
+   eq.num1 LIKE '%${query}%' OR 
+   eq.num2 LIKE '%${query}%' OR 
+   eq.num3 LIKE '%${query}%' OR 
+   eq.num4 LIKE '%${query}%'
+     </if>
+    
+    </where>
+    order by reg_date desc
+ limit #{offset}, #{size}
+</select>
+
+
+<select id="count" resultType="Integer">
+select 
+count(eq.id)
+ from exam_quizzes eq
+
+    <where>
+<if test="query != null">
+   eq.question LIKE '%${query}%' OR 
+   eq.context LIKE '%${query}%' OR 
+   eq.num1 LIKE '%${query}%' OR 
+   eq.num2 LIKE '%${query}%' OR 
+   eq.num3 LIKE '%${query}%' OR 
+   eq.num4 LIKE '%${query}%'
+     </if>
+    
+    </where>
+
+ </select>
+
+<select id="findById" resultType="ExamQuiz">
+select * from exam_quizzes where id=#{id}
+ </select>
+
+
+
+
+<update id="update" parameterType="ExamQuiz">
+    UPDATE exam_quizzes
+    SET
+        year = #{year},
+        question = #{question},
+        context = #{context},
+        num1 = #{num1},
+        num2 = #{num2},
+        num3 = #{num3},
+        num4 = #{num4},
+        answer = #{answer},
+        type_id = #{typeId},
+        exam_official_rank_id = #{examOfficialRankId},
+        secret = #{secret}
+
+
+    WHERE id = #{id}
+</update>
+
+<delete id="delete" parameterType="Long">
+    DELETE FROM exam_quizzes
+    WHERE id = #{id}
+</delete>
+
+<insert id="save" parameterType="ExamQuiz">
+INSERT INTO exam_quizzes(year,question,context,num1,num2,num3,num4,answer,type_id,exam_official_rank_id,secret) 
+
+VALUES(#{year},#{question},#{context},#{num1},#{num2},#{num3},#{num4},#{answer},#{typeId},#{examOfficialRankId},#{secret}) 
+
+</insert>
+<!-- ==============================랜덤으로 정렬=========================== -->
+ 
+ <select id="rand" resultType="ExamQuiz">
+
+ SELECT * FROM exam_quizzes ORDER BY RAND();
+
+ </select>
+
+
+</mapper>

@@ -1,0 +1,52 @@
+/* ======================리스트(사용:유저 퀴즈리스트)======================== */
+/* -----------------반응형--------------------------- */
+
+@media screen and (width>768px) {
+    
+    .list-width\:1{
+        width : var(--list-width-1);
+    }
+    .list-width\:2{
+        width : var(--list-width-2);
+    }
+}
+
+/* ------------------------리스트 스타일----------------------------- */
+.list-shape{
+    border-radius: 8px;
+    /* font-size: 14px; */
+}
+
+    
+/* ------------------------------그리드--------------------------- */
+.place-grid{
+    display: grid;
+    grid-template:
+    "group" 25px
+    "num-old" 50px
+    /1fr;
+    
+    /* header{
+        display: grid;
+    } */
+}
+
+.user-q-group{
+    grid-area: group;
+    grid-column:1;
+}
+
+.menu-other{
+    grid-area: group;
+    grid-column:1;
+    
+}
+.see-num{
+    grid-area:num-old;
+    grid-column:2;
+}
+.old-new{
+    grid-area:num-old;
+    grid-column:2;
+    
+}

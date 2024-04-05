@@ -1,0 +1,47 @@
+/* ===========================익명 보드 ================================== */
+
+.n-textbox-user {
+    /* textbox-color */
+    background-color: #f5f5f5 !important;
+  
+      /* font-size */
+    padding: 10px;
+    font-size: 12px;
+  
+    /* 정렬 */
+    line-height: 20px;
+  
+    /* textbox-border-radius */
+    border-radius: 8px;    
+  
+    /* 텍스트박스 스크롤 */
+    overflow-y: auto;   
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: none;
+  }
+  
+  .n-textbox-user:focus {
+    border:solid;
+    border-width: 0.6px;
+    border-color: var(--color-base-6) !important;
+  }
+
+  
+
+/* ====================유효성 검사======================== */
+
+
+.img-label.valid{
+    background-color: var(--color-main-1);
+}
+.img-label.invalid{
+    background-color: red;
+    }
+.img-label.invalid::after{
+    content: "이미지만 등록해 주세요.";
+    display: inline-block;
+
+    }

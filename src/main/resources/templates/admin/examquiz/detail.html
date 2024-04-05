@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.48/dist/style.css" />
+    <link href="/css/admin/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/root.css" rel="stylesheet" type="text/css">
+    <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
+    <link href="/css/admin/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <header class="admin-hd d:flex jc:flex-start h:2 bg-color:base-8 color:base-1 p:5 ai:center">
+        <h1 class="order:2 fs:7">기출문제 디테일 페이지</h1>
+        <div class="order:1"><a href="#" onclick="history.back()" class="icon icon:caret_left_bold icon-color:base-1 mr:3">뒤로가기</a></div>
+        <div class="order:3 hd-right-item"><a href="/" class="icon icon:admin icon-color:base-1">관리자-유저</a></div>
+        <div class="order:4 p:2"><a href="/admin" class="icon icon:house icon-color:base-1 js:end">홈</a></div>
+    </header>
+    <main>
+        <section class="d:flex fl-dir:column jc:center flex:1 ai:center as:stretch pos:relative px:11 mx:7 my:7">
+            <h1 class="d:none">문제 디테일</h1>
+            <form>
+                <fieldset class="d:flex fl-dir:column ai:flex-start pos:relative gap:3">
+                    <div class="d:flex fl-dir:row ai:center jc:space-between pos:relative w:312px">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1 pr:11">질문</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:5 jc:flex-end fs:1"disabled th:text="${examq.question}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between pos:relative w:312px">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1 pr:11">지문</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:5 jc:flex-start fs:1"disabled th:text="${examq.context}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
+                        <label class="fs:3 fw:1 pos:relative pr:11">1번</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.num1}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
+                        <label class="fs:3 fw:1 pos:relative pr:11">2번</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.num2}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
+                        <label class="fs:3 fw:1 pos:relative pr:11">3번</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.num3}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
+                        <label class="fs:3 fw:1 pos:relative pr:11">4번</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.num4}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative mt:10">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1">답</label><textarea type="text" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.answer}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1">연도</label><textarea type="text" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.year}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
+                        <label class="admin-textarea:1 w:30px fs:3 fw:1">직급</label><textarea type="text" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:1"disabled 
+                        th:text="${examq.examOfficialRankId == 1 ? '국가직 9급' : (examq.examOfficialRankId == 2 ? '국가직 7급' : (examq.examOfficialRankId == 3 ? '지방직 9급' : '지방직 7급'))}"></textarea>
+                    </div>
+                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
+                    <label class="admin-textarea:1 w:30px fs:3 fw:1">분류</label><textarea type="text" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:1"disabled 
+                    th:text="${examq.typeId == 1 ? '문법' : examq.typeId == 2 ? '한자' : examq.typeId == 3 ? '어휘' : '기타'}"></textarea>
+                    </div>
+                </fieldset>
+                <div class="d:flex fl-dir:row ai:center as:stretch pos:relative gap:10px jc:center gap:10 mt:10">
+                    <a href="edit" th:href="@{edit(id=${examq.id})}" class="admin-textarea:4 n-btn n-btn:filled-2 ai:center">수정</a>
+                </div>
+            </form>
+            <div>
+                <form method="post" th:action="@{del(id=${examq.id})}">
+                    <button class="admin-textarea:4 n-btn n-btn:filled-2 ai:center">삭제</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body> 
+</html>

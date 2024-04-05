@@ -1,0 +1,154 @@
+/* 텍스트박스 */
+
+.n-textbox-admin {
+  /* textbox-color */
+  background-color: var(--color-main-5) !important;
+
+    /* textbox-size */
+  width: 250px;
+  height: 50px;
+  padding: 0px 12px;
+  font-size: 12px;
+
+  /* 정렬 */
+  line-height: 50px;
+
+  /* textbox-border-radius */
+  border-radius: 0px;    
+
+  /* 텍스트박스 스크롤 */
+  overflow-y: auto;   
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+}
+
+.n-textbox-admin:focus {
+  border:solid;
+  border-width: 0.6px;
+  border-color: var(--color-base-6) !important;
+}
+
+
+.n-textbox-admin-2 {
+  /* textbox-color */
+  background-color: var(--color-main-5) !important;
+
+    /* textbox-size */
+  width: 188px;
+  height: 30px;
+  padding: 0px 12px;
+  font-size: 12px;
+
+  /* 정렬 */
+  line-height: 30px;
+
+  /* textbox-border-radius */
+  border-radius: 0px;    
+
+  /* 텍스트박스 스크롤 */
+  overflow-y: hidden;   
+  overflow-x: hidden;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  resize: none;
+}
+
+.n-textbox-admin-2:focus {
+  border:solid;
+  border-width: 0.6px;
+  border-color: var(--color-base-6) !important;
+}
+
+/* 패딩 크기 11 추가*/
+
+.padding\:11 {
+  padding: var(--gap-13) !important; /* 50px */
+}
+
+.p\:11 {
+  padding: var(--gap-13) !important; /* 50px */
+
+}
+
+.padding-top\:11 {
+  padding-top: var(--gap-13) !important; /* 50px */
+}
+
+.p-top\:11 {
+  padding-top: var(--gap-13) !important; /* 50px */
+}
+
+.pt\:11 {
+  padding-top: var(--gap-13) !important; /* 50px */
+}
+
+.padding-x\:11 {
+  padding-right: var(--gap-13) !important; /* 50px */
+  padding-left: var(--gap-13) !important;
+}
+
+.px\:11 {
+  padding-right: var(--gap-13) !important; /* 50px */
+  padding-left: var(--gap-13) !important;
+}
+
+.padding-right\:11 {
+  padding-right: var(--gap-13) !important; /* 50px */
+}
+
+.p-right\:11 {
+  padding-right: var(--gap-13) !important; /* 50px */
+}
+
+.pr\:11 {
+  padding-right: var(--gap-13) !important; /* 50px */
+}
+
+/* width 0 추가 */
+
+.width\:0{
+  width: var(--width-0) !important; /* 188px */
+}
+
+.w\:0{
+  width: var(--width-0) !important; /* 188px */
+}
+
+/* height 0 추가 */
+
+.height\:0{
+  height: var(--height-0) !important; /* 30px */
+}
+
+.h\:0{
+  height: var(--height-0) !important; /* 30px */
+}
+
+ /* 셀렉트 박스 설정*/
+
+ .n-select-admin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-self: stretch;
+  position: relative;
+
+  height: 30px;
+  width: 188px;
+  padding: 0px 12px;
+  border-color: var(--color-base-3);
+  border-radius: 0px;
+  background-color: var(--color-main-5);
+
+  /* 우측 icon */
+  icon: url("/icon/caret_up_down.svg");
+  icon-top: 10px;
+  icon-right: 14px;
+  icon-size: 14px;
+  icon-transform-active: translateY(-30%) rotate(180deg);
+}
