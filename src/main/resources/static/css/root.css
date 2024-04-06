@@ -1,4 +1,4 @@
-/* ===============root.css 함수 설정===================== */
+/* ===============root.css 변수 설정===================== */
 
 :root {
  --color-base-1: #ffffff;       /* 웹 메뉴 하단바 */
@@ -35,6 +35,8 @@
  --charactor-bg-2:#bd6f92;
  --charactor-bg-3:#df4628;
  --charactor-bg-4:#32d679;
+
+ --border-color: #dcb5b5;
  
 
 
@@ -95,11 +97,13 @@
   --btn-filled-4-color: var(--color-base-8); 
 
 
-/* ======폰트함수====== */
+/* ======폰트변수====== */
   --font-1 :'DungGeunMo';
   --font-2 : 'DOSPilgiMedium';
   --font-3 : 'Sam3KRFont';
   --font-4 : "Kavoon", serif;
+  --font-5 : "Galmuri14", sans-serif;
+  --font-6 : 'DOSGothic';
 
 
 }

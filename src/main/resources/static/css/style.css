@@ -45,66 +45,74 @@
 
 html{
     height: 100%;
-    min-width: 100%;
-    
+    width: 100%;
 }
+
 body{
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
     font-family: "Galmuri14", sans-serif;
-    /* font-family: 'DungGeunMo'; */
 
-
-}
-main{
-    flex: 1;
-    /* width: 100%; */
-    display: grid;
-    grid-template: 
-    "main aside" auto
-    /* align-items: center; */
-    /1fr auto;
-    font-size: 14px;
-    
-    .real-main{
-        justify-self: center;
-        /* margin: 4vh; */
-        margin-top: 2vh;
-    }
-
-    .pc-menu{
-        grid-area: aside;
-        justify-self: end;
-        width: 295px;
-        height: 100%;
-        font-family: 'DungGeunMo';
-        font-size: 24px;
+    /* -----------------반응형------------------- */
+    @media screen and (width>768px) {
         
-        /* position: fixed;  */
-        /* right: 0; 
-        z-index: 1200;
-        top: 10%;  */
-        div{
-            padding-top: 24px;
-            width: 295px;
-        }
+      .pd-t\:0{
+          padding-top: 0;
+      }
 
-
+      display: grid;
+      grid-template: 
+      "header header" 70px
+      "main aside" auto
+      /1fr auto;
+      
     }
 }
 
+    
+main{
+  grid-area: main;
+  justify-self: center;
+  /* margin: 4vh; */
+  padding:2vh;
+  flex: 1;
+  width: 100%;
+  font-size: 15px;
+}
 
+aside{
+  grid-area: aside;
+  justify-self: end;
+  width: 255px;
+  height: 100%;
+  font-family: var(--font-5);
+  font-size: 20px;
+
+  /* position: fixed;  */
+  /* right: 0; 
+  z-index: 1200;
+  top: 10%;  */
+  div{
+    padding-top: 24px;
+    width: 255px;
+  }
+}
+
+header{
+  grid-column: 1/-1;
+}
 
 footer{
-    background-color: var(--color-base-1);
-    height:80px;
-    
+background-color: var(--color-base-1);
+height:80px;
+
 }
+
 .ad{
-    background-color: var(--color-main-1);
-    height:40px;
+background-color: var(--color-main-1);
+height:40px;
 }
 
 
