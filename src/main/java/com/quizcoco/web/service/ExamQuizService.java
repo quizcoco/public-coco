@@ -3,16 +3,16 @@ package com.quizcoco.web.service;
 import java.util.List;
 
 import com.quizcoco.web.entity.ExamQuiz;
-import com.quizcoco.web.entity.ExamQuizView;
 
 
 
 public interface ExamQuizService {
 
     List<ExamQuiz> getList(Integer page);
-    // List<ExamQuiz> getList(Integer page, Long categoryId);
+    List<ExamQuiz> getList(Integer page, Integer secret);
     List<ExamQuiz> getList(Integer page, String query);
-    // List<MenuView> getList(Integer page, Long categoryId, String query);
+    List<ExamQuiz> getList(Integer page, Integer typeId, Integer year, Integer examOfficialRankId);
+    List<ExamQuiz> getList(Integer page, String query, Integer typeId, Integer year, Integer examOfficialRankId, Integer secret);
 
     ExamQuiz getById(long id);
     int getCount();

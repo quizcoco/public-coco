@@ -16,7 +16,19 @@
    eq.num3 LIKE '%${query}%' OR 
    eq.num4 LIKE '%${query}%'
      </if>
-    
+  <if test="typeId != null and typeId != 0">
+  and type_id = #{typeId}
+    </if>
+      <if test="year != null and year != 0">
+  and year = #{year}
+    </if>
+  <if test="examOfficialRankId != null and examOfficialRankId != 0">
+  and exam_official_rank_id =#{examOfficialRankId}
+    </if>
+   <if test="secret != null">
+  and secret =#{secret}
+    </if>
+
     </where>
     order by reg_date desc
  limit #{offset}, #{size}
@@ -37,7 +49,6 @@ count(eq.id)
    eq.num3 LIKE '%${query}%' OR 
    eq.num4 LIKE '%${query}%'
      </if>
-    
     </where>
 
  </select>

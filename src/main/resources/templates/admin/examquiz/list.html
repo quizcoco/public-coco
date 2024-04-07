@@ -26,30 +26,29 @@
     <main>
         <section class="bg-color:base-2 h:1">
             <h1 class="d:none">문제 카테고리</h1>
+            <form method="get" action="list">
             <ul class="d:flex fl-dir:row jc:space-around h:1 ai:center">
                 <li><a href="list?">전체</a></li>
-                <li><select class="bg-color:base-2">
-                    <option>연도</option>
-                    <option>2007년</option>
+                <li><input type="number" value="2024" min="2007" max="2024" name="year" class="bg-color:base-2"></li>
+                <li><select class="bg-color:base-2" name="exam-official-rank-id">
+                    <option value="">직급</option>
+                    <option value="1">국가직 9급</option>
+                    <option value="2">국가직 7급</option>
+                    <option value="3">지방직 9급</option>
+                    <option value="4">지방직 7급</option>
                 </select></li>
-                <li><select class="bg-color:base-2">
-                    <option>직급</option>
-                    <option>국가직 9급</option>
-                    <option>국가직 7급</option>
-                    <option>지방직 9급</option>
-                    <option>지방직 7급</option>
-                </select></li>
-                <li><select class="bg-color:base-2">
-                    <option>분류</option>
-                    <option>문법</option>
-                    <option>한자</option>
-                    <option>어휘</option>
-                    <option>기타</option>
+                <li><select class="bg-color:base-2" name="type-id">
+                    <option value="">분류</option>
+                    <option value="1">문법</option>
+                    <option value="2">한자</option>
+                    <option value="3">어휘</option>
+                    <option value="4">기타</option>
                 </select></li>
                 <li><a href="" th:href="@{list?secret=1}">비공개</a></li>
-                <li><a href="" class="n-btn">검색</a></li>
+                <li><button class="n-btn">검색</button></li>
 
             </ul>
+            </form>
         </section>
         <section class="list-height mt:1">
             <header class="list-title bg-color:main-5 h:1 ac:center jc:center">
@@ -70,16 +69,16 @@
                     <!-- 1,2번 -->
                     <div class="num12-item display:flex">
                         <div>①</div>
-                        <div class="w:1/4 ln-clamp:1" th:text="${num1}">오늘 아침 잇따른...</div>
+                        <div class="w:1/4 ln-clamp:1" th:utext="${num1}">오늘 아침 잇따른...</div>
                         <div>②</div>
-                        <div class="w:1/4 ln-clamp:1" th:text="${num2}">그는 화가 난 상대를..</div>
+                        <div class="w:1/4 ln-clamp:1" th:utext="${num2}">그는 화가 난 상대를..</div>
                     </div>
                     <!-- 3,4번 -->
                     <div class="num34-item display:flex">
                         <div>③</div>
-                        <div class="w:1/4 ln-clamp:1" th:text="${num3}">한강 고수부지에 체육공원...</div>
+                        <div class="w:1/4 ln-clamp:1" th:utext="${num3}">한강 고수부지에 체육공원...</div>
                         <div>④</div>
-                        <div class="w:1/4 ln-clamp:1" th:text="${num4}">그는 우리 회사의 지분...</div>
+                        <div class="w:1/4 ln-clamp:1" th:utext="${num4}">그는 우리 회사의 지분...</div>
                     </div>
             </section>
         </section>
@@ -168,7 +167,7 @@
     <div class="d:flex jc:center"><button class="n-btn n-btn-size:1 mb:5" id="close-btn">확인</button></div>
 </section>
 
-
+<!-- TODO 비공개하시겟습니까, 삭제 하시겠습니까 모달 만들기 -->
 
 
 

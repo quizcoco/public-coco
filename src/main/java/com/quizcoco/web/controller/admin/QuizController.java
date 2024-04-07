@@ -25,16 +25,25 @@ public class QuizController {
     @GetMapping("list") 
     public String list(Model model
                     ,@RequestParam(name = "q",required = false) String query
-                    ,@RequestParam(name = "p",required = false, defaultValue = "1") Integer page){
+                    ,@RequestParam(name = "p",required = false, defaultValue = "1") Integer page
+                    ,@RequestParam(name = "exam-official-rank-id",required = false,defaultValue = "0") Integer examOfficialRankId
+                       ,@RequestParam(name = "type-id",required = false, defaultValue = "0") Integer typeId
+                       ,@RequestParam(required = false,defaultValue = "0") Integer year
+                       ,@RequestParam(required = false) Integer secret
+                    ){
 
-        
-        
         List<ExamQuiz> list = new ArrayList<>();
         int count = 0;
 
         if(query != null){
             list =service.getList(page,query);
             count = service.getCount(query);
+        }
+        else if(secret != null){
+            list =service.getList(page,secret);
+        }
+        else if(year != null && typeId != null && examOfficialRankId != null){
+            list =service.getList(page,typeId,year,examOfficialRankId);
         }
         else {
             list =service.getList(page);
