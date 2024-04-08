@@ -84,31 +84,18 @@
 
     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ스킬칸ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 
-    <section class="skill-grid d:flex of-x:hidden">
-        <h1 class="d:none">스킬 큰 메뉴</h1>
-        <div class="btn-auto btn-off ac:center txt-al:center mr:1">자동</div>
-        <div class="btn-auto btn-off ac:center txt-al:center mr:1">공격</div>
-        <div class="btn-auto btn-off ac:center txt-al:center mr:1">보조</div>
-        <div class="btn-auto btn-off ac:center txt-al:center">도망가기</div>
-        </section>
-        
-        
-        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <section>
-            <h1 class="d:none">스킬 하위메뉴</h1>
-        <nav>
-            <h1 class="d:none" onclick="activateAttackSkills()">공격메뉴</h1>
-            <ul class="atk-item d:flex as:center mt:2 gap:2">
-              <li class="btn-off n-btn:filled-4 ac:center txt-al:center">발차기</li>
-              <li class="btn-off n-btn:filled-4 ac:center txt-al:center">파이어볼</li>
-              <li class="btn-off n-btn:filled-4 ac:center txt-al:center w:2">공격 디버프</li>
-            </ul>
-        </nav>
+    <section class="skill-menu mx:4">
+        <h1 class="d:none">스킬메뉴</h1>
+        <div class="menu-list d:flex gap:10 jc:center">
+            <div th:data-btn="base" class="btn-base n-btn:filled-4 ac:center txt-al:center">자동</div>
+            <div th:data-btn="attack" class="btn-base n-btn:filled-4 ac:center txt-al:center">공격</div>
+            <div th:data-btn="help" class="btn-base n-btn:filled-4 ac:center txt-al:center">보조</div>
+            <div th:data-btn="run" class="btn-base n-btn:filled-4 ac:center txt-al:center">도망가기</div>
+        </div>
 
-        <nav class="d:none">
-            <h1 class="d:none">보조 메뉴</h1>
-            <div class="ac:center txt-al:center">회복</div>
-            <div class="ac:center txt-al:center">뭐뭐</div>
+        <!-- 스킬 하위메뉴 js -->
+        <nav class="bnt-detail mt:2">
+            <ul class="d:flex gap:4 mt:1 jc:center" style="height: 30px;"></ul>
         </nav>
     </section>
 
