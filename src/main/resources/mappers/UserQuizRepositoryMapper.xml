@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quizcoco.web.repository.UserQuizRepository">
+
+    <select id="findByOXId" resultType="UserOXQuiz">
+        select * from user_ox where id=#{id}
+    </select>
+
+    <select id="findByShortId" resultType="UserShortQuiz">
+        select * from user_short_answer_quiz where id=#{id}
+    </select>
+
+    <select id="findByMultiId" resultType="UserMultipleQuiz">
+        select * from user_multiple_choice_quiz where id=#{id}
+    </select>
+
+</mapper>
