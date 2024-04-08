@@ -138,6 +138,19 @@
 }
 
 
+.n-progress-card {
+  --progress-height: 10px;
+  --progress-border-radius: 0px;
+  --progress-background-color: var(--color-base-1);
+  --progressbar-color-main: var(--color-main-4);
+    margin-top: 15px; 
+    margin-bottom: 15px; 
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 270px; 
+}
+
+
 
 
 

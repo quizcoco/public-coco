@@ -45,3 +45,18 @@
     display: inline-block;
 
     }
+
+ /* =================프리뷰 패널======================= */
+
+    
+  .preview-panel {
+    overflow: hidden;
+  }
+  .preview-panel img {
+    height: 100px;
+    transform: rotate(0);
+    transition: transform 1s;
+  }
+  .preview-panel img.slide-in{
+    transform: rotate(360deg);
+  }    
