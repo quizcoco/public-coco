@@ -50,6 +50,17 @@
 }
 
 
+.check-answer{
+
+    height: 20px;
+    width: 20px;
+    background-color:var(--color-base-4);
+    border-radius: 5px;
+
+
+}
+
+
 
 /* ====================지문박스=================== */
 

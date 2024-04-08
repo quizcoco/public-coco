@@ -53,7 +53,7 @@
         </nav>
     </header>
 
-    <main class="of:auto">
+    <main class="of:auto p:0">
        
 <section class="d:flex fl-dir:column w:100p h:100p">
     <h1 class="d:none">1인 연습대결</h1>
@@ -84,19 +84,21 @@
 
     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ스킬칸ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 
-    <section class="skill-grid d:flex of-x:hidden">
-        <h1 class="d:none">스킬 큰 메뉴</h1>
-        <div class="btn-auto btn-off ac:center txt-al:center mr:1">자동</div>
-        <div class="btn-auto btn-off ac:center txt-al:center mr:1">공격</div>
-        <div class="btn-auto btn-off ac:center txt-al:center mr:1">보조</div>
-        <div class="btn-auto btn-off ac:center txt-al:center">도망가기</div>
+    <section id="skill-menus" class="vis:hidden">
+        <h1 class="d:none">스킬목록</h1>
+        <section class="skill-grid d:flex of-x:hidden">
+            <h1 class="d:none">스킬 상위 메뉴</h1>
+            <div class="btn-auto btn-off ac:center txt-al:center mr:1">자동</div>
+            <div class="btn-auto btn-off ac:center txt-al:center mr:1">공격</div>
+            <div class="btn-auto btn-off ac:center txt-al:center mr:1">보조</div>
+            <div class="btn-auto btn-off ac:center txt-al:center">도망가기</div>
         </section>
         
         
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
         <section>
             <h1 class="d:none">스킬 하위메뉴</h1>
-        <nav>
+        <nav class="vis:hidden">
             <h1 class="d:none" onclick="activateAttackSkills()">공격메뉴</h1>
             <ul class="atk-item d:flex as:center mt:2 gap:2">
               <li class="btn-off n-btn:filled-4 ac:center txt-al:center">발차기</li>
@@ -111,22 +113,23 @@
             <div class="ac:center txt-al:center">뭐뭐</div>
         </nav>
     </section>
+</section>
 
     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ문제칸ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 
-    <section class="quiz px:10 my:5 of-y:scroll">
+    <section id="quiz" class="quiz px:10 my:5 of-y:scroll"  th:data-id="${randQ[0].id}" th:data-answer="${randQ[0].answer}">
         <h1 class="d:none">문제</h1>
-        <div class="d:flex fl-direction:column jc:center">
-            <div class="d:inline jc:start mt:6"><span class="fs:6 ml:4 mr:3 va:middle">Q</span><span th:text="${randQ[0].question}">점심메뉴로 적절한 것은?</span></div> 
+        <div class="d:none fl-direction:column jc:center mt:6">
+            <div class="d:inline jc:start"><span class="fs:6 ml:4 mr:3 va:middle">Q</span><span th:text="${randQ[0].question}">점심메뉴로 적절한 것은?</span></div> 
             <div class="context-box jc:center mt:1" th:if="${randQ[0].context}!=null" th:utext="${randQ[0].context}">지문</div>
             <div class="d:flex fl-direction:column ml:5 mt:3">
-                <div class="d:flex gap:2"><button>①</button><span th:utext="${randQ[0].num1}">떡볶이</span></div>
-                <div class="d:flex gap:2"><button>②</button><span th:utext="${randQ[0].num2}">면</span></div>
-                <div class="d:flex gap:2"><button>③</button><span th:utext="${randQ[0].num3}">밥</span></div>
-                <div class="d:flex gap:2 mb:6"><button>④</button><span th:utext="${randQ[0].num4}">햄버거</span></div>
+                <div class="d:flex gap:2"><label class="check-answer"><input type="radio" name="answer" class="d:none" data-value="1">①</label><span th:utext="${randQ[0].num1}">떡볶이</span></div>
+                <div class="d:flex gap:2"><label class="check-answer"><input type="radio" name="answer" class="d:none" data-value="2">②</label><span th:utext="${randQ[0].num2}">면</span></div>
+                <div class="d:flex gap:2"><label class="check-answer"><input type="radio" name="answer" class="d:none" data-value="3">③</label><span th:utext="${randQ[0].num3}">밥</span></div>
+                <div class="d:flex gap:2 mb:6"><label class="check-answer"><input type="radio" name="answer" class="d:none" data-value="4">④</label><span th:utext="${randQ[0].num4}">햄버거</span></div>
             </div>
         </div> 
-        <div class="d:none mt:10">상대는 강해보인다</div>   
+        <div class="d:flex mt:10 deco icon:skip deco-pos:right deco-size:1 deco-ml:0 icon-color:main-4">상대는 강해보인다</div>   
         <div class="d:none mt:10">어떻게 할까요?</div>   
         <div class="d:none mt:10"><span>상대방에 물리공격을 가한다.</span><button>사용</button></div>   
         <div class="d:none">답은 <span class="color:accent-4" th:text="${randQ[0].answer == 1 ? '①' : randQ[0].answer == 2 ? '②' : randQ[0].answer == 3 ? '③' : '④'}">②</span>
