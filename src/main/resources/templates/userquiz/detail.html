@@ -1,11 +1,133 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>QUIZCOCO</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
+    <link href="/css/components/header.css" rel="stylesheet" type="text/css">
+    <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
+    <link href="/css/root.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/user-quiz.css" rel="stylesheet" type="text/css">
+    
+    <link rel="icon" type="image/png" href="/image/logo.png">
+    <script defer src="/js/header.js"></script>
 </head>
 <body>
-   
-</body>
-</html>
+<header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
+    <h1 class="root-header-title d:none md:d:flex"><span class="header-font">QUIZCOCO</span><span class="white-space:nowrap ln-h:2">- MY HOME</span></h1>
+    <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
+        <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">MY HOME</span></h1>
+        <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
+    </div>
+
+    <section class="d:none md:d:flex root-header-menu">
+        <h1 class="d:none">접속중인 친구</h1>
+        <div class="d:flex gap:4"><span class="online-user"></span><span class="online-user"></span><span class="online-user"></span><span class="online-num">6</span></div>
+    </section>
+    <nav class="root-header-menu">
+        <h1 class="d:none">유저 메뉴</h1>
+        <ul class="md:d:none">
+            <li><a href="/admin" class="icon icon:admin">관리자-유저 전환</a></li>
+            <li><a href="/" class="icon-home">홈으로</a></li>
+            <li><a href="" id="m" class="icon icon:list">메뉴</a></li>
+        </ul>
+    </nav>
+    <nav class="menu d:none md:d:none">
+        <h1 class="d:none">모바일 메뉴바</h1>
+        <ul>
+            <li class="profile-place"><a href="" class="profile">내정보</a><a href="" class="icon icon:myinfo arrow">>></a></li>
+            <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+            <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="of:auto">
+<!--=========================== 메인에 입력 ===============================-->
+
+        <section class="main-container-center">
+            <h1 class="d:none">내가 만든 문제</h1>
+            <article class="card-container">
+                <h1 class="d:none">하위그룹</h1>
+                    <section>
+                        <h1 class="d:none">카드 상단</h1> 
+                        <div class="d:flex fl-dir:row jc:space-between pb:4">
+                            <div class="icon-star">즐겨찾기 아이콘</div>
+                            <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
+                        </div>
+                            <section class="d:none">
+                                <h1 class="d:none">기타 메뉴</h1>
+                                <div><a href="">수정</a></div>
+                                <div><a href="">삭제</a></div>
+                                <div>외부로 공유</div>
+                                <div>슬라이드 시간 설정</div>
+                            </section>
+                        <div class="d:flex fl-dir:row jc:space-between pb:4">
+                            <div class="d:flex jc:flex-start">
+                                <span>12</span> 
+                                <span>/</span> 
+                                <span>52</span>
+                            </div>
+                            <div class="d:flex jc:flex-end">
+                                <span>2024-02-13</span> 
+                                <span>17:21:04</span>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="bg-color:base-1 pb:4">
+                        <h1 class="d:none">카드 내용</h1>
+                        <div class="p:2">
+                            <span class="d:inline-block pb:1">[사지선다 문제]</span><br>
+                            <span class="d:inline-block pb:3 fw:bold">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
+                            <span class="d:inline-block pb:2 fw:bold">①교언영색</span><br>
+                            <span class="d:inline-block pb:2 fw:bold color:accent-4">②곡학아세</span><br>
+                            <span class="d:inline-block pb:2 fw:bold">③다문박식</span><br>
+                            <span class="d:inline-block pb:2 fw:bold">④감언지지</span><br>
+                        </div>
+                    </section>
+                    <section>
+                        <h1 class="d:none">카드 하단</h1>
+                        <div class="n-progress n-progress-card" role="progressbar">
+                            <div style="width: 40%"></div>
+                        </div>
+                        <div class="icon icon:shuffle_fill">랜덤 재생 아이콘</div>
+                        <div class="icon icon:pause_fill">재생/멈춤 아이콘</div>
+                        <div class="icon icon:arrows_clockwise_fill">반복 재생 아이콘</div>
+                    </section>
+                </article>
+            </section>
+    </main>
+    <aside class="d:none md:d:flex jc:center right:1 zi:1">
+        <div class="pos:fixed h:100p bg-color:main-2">
+            <nav class="d:flex jc:center">
+                <h1 class="d:none">pc 메뉴바</h1>
+                <ul class="d:grid gap:4 mt:7 w:min-content">
+                    <li class="profile-place"><a href="" class="profile"></a><a href="" class="icon icon:myinfo arrow">>p></a></li>
+                    <li class="fs:1 bd-bottom"><span>김철수</span><span>Lv.5</span><br><span>인벤토리 북마크</span><li>
+                    <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+                    <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                    <li><a href="/admin" class="deco deco-margin-right:8 icon:admin">관리자</a></li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+    
+    <footer class="ad md:d:none d:flex jc:center ai:center">
+        <div>광고</div>
+    </footer>
+    
+    </body>
+    </html>
