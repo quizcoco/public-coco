@@ -125,3 +125,30 @@ place-items: center ;
     grid-area: item1;   
 } */
 /* fixed absolute*/
+
+
+/* ========결과 디테일=========== */
+
+/* .matchReport{
+    width: 354px;
+    height: 158px;
+    position: fixed; 
+    background-color: #D9D9D9; 
+    border-radius:12px;
+    padding: 10px;
+} */
+
+/* 디테일 박스 - 반응형 전 */
+.section-s{
+    display: flex;
+    min-width: 440px;
+    max-width: 500px;
+    flex-direction: column;
+}
+
+/* 박스문제 */
+.quizbox{
+    display: flex;
+    gap: 8px;
+    background-color: #ffffff ;
+}

@@ -84,8 +84,8 @@
 
   /* btn-type:filled-3 */
   --btn-filled-3-background-color-default: var(--color-main-3);
-  --btn-filled-3-background-color-hover: #E2CACA;
-  --btn-filled-3-background-color-active: var(--color-mian-2);
+  --btn-filled-3-background-color-hover: #F8EBEB;
+  --btn-filled-3-background-color-active: var(--color-mian-1);
   --btn-filled-3-border: 1px solid transparent;
   --btn-filled-3-color: var(--color-base-8); 
 

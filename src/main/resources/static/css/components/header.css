@@ -180,7 +180,7 @@ header ul{
   top: 0px;
   right: -13px; /* 삼각형이 박스의 왼쪽 끝으로 옮겨지도록 설정 */
   width: 0;
-  height: 0;
+  height: 60px;
   border-top: 30px solid  var(--color-main-4); /* 삼각형의 위쪽 변 */
   border-bottom: 31px solid var(--color-main-4); /* 삼각형의 아래쪽 변 */
   border-right: 14px solid transparent; /* 삼각형의 오른쪽 변 */
