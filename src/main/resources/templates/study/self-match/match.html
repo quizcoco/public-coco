@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QUIZCOCO</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.44/dist/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
     <link href="/css/components/header.css" rel="stylesheet" type="text/css">
     <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
     <link href="/css/root.css" rel="stylesheet" type="text/css">
@@ -86,31 +86,31 @@
 
     <section id="skill-menus" class="vis:hidden">
         <h1 class="d:none">스킬목록</h1>
-        <section class="skill-grid d:flex of-x:hidden">
+        <section class="skill-grid d:flex of-x:hidden menu-list">
             <h1 class="d:none">스킬 상위 메뉴</h1>
-            <div class="btn-auto btn-off ac:center txt-al:center mr:1">자동</div>
-            <div class="btn-auto btn-off ac:center txt-al:center mr:1">공격</div>
-            <div class="btn-auto btn-off ac:center txt-al:center mr:1">보조</div>
-            <div class="btn-auto btn-off ac:center txt-al:center">도망가기</div>
+            <div th:data-btn="base" class="btn-auto btn-off ac:center txt-al:center mr:1">자동</div>
+            <div th:data-btn="attack" class="btn-auto btn-off ac:center txt-al:center mr:1">공격</div>
+            <div th:data-btn="help" class="btn-auto btn-off ac:center txt-al:center mr:1">보조</div>
+            <div th:data-btn="run" class="btn-auto btn-off ac:center txt-al:center">도망가기</div>
         </section>
         
         
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
         <section>
             <h1 class="d:none">스킬 하위메뉴</h1>
-        <nav class="vis:hidden">
+        <!-- <nav class="vis:hidden">
             <h1 class="d:none" onclick="activateAttackSkills()">공격메뉴</h1>
             <ul class="atk-item d:flex as:center mt:2 gap:2">
               <li class="btn-off n-btn:filled-4 ac:center txt-al:center">발차기</li>
               <li class="btn-off n-btn:filled-4 ac:center txt-al:center">파이어볼</li>
               <li class="btn-off n-btn:filled-4 ac:center txt-al:center w:2">공격 디버프</li>
             </ul>
-        </nav>
+        </nav> -->
 
-        <nav class="d:none">
-            <h1 class="d:none">보조 메뉴</h1>
-            <div class="ac:center txt-al:center">회복</div>
-            <div class="ac:center txt-al:center">뭐뭐</div>
+
+        <!-- 스킬 하위메뉴 js -->
+        <nav class="bnt-detail mt:2">
+            <ul class="d:flex gap:4 mt:1 jc:center" style="height: 30px;"></ul>
         </nav>
     </section>
 </section>

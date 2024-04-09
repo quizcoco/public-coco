@@ -1,0 +1,21 @@
+/* ==========유저 퀴즈 항목================ */
+
+
+/* 사용자 페이지 카드 섹션 */
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    width:  321px;
+    height: 473px;
+    background-color: var(--color-main-1);
+    /* align-items: center; */
+    /* justify-content: center; */
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 17px;
+    padding-right: 17px;
+    
+}

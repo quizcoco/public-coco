@@ -49,6 +49,15 @@
     
 }
 
+.btn-base{
+
+    background-color:var(--color-main-3);
+    height: 30px;
+    width: 80px;
+    border-radius: 25px;
+}
+
+
 
 .check-answer{
 
