@@ -13,6 +13,6 @@ public class UserShortQuiz {
 
     private Long id;
     private String question;
-    private int answer;
+    private String answer;
 
 }
