@@ -24,14 +24,24 @@
 }
 
 
-.quiz{
+.quiz-box{
     background-color: var(--color-base-1);
     height: 25vh;
     border-radius: 5px;
     /* margin-left: 20px;
     margin-right: 20px; */
 }
+/* ==================안내문======================= */
 
+.wait-notice::after{
+    width: 400px;
+    padding-left: 10px;
+    content: "잠시만 기다려 주시기 바랍니다.";
+    color: black;
+}
+
+
+/* ====================버튼======================= */
 .btn-on{
 
     background-color:var(--color-accent-2);
@@ -59,13 +69,22 @@
 
 
 
-.check-answer{
+.check-answer>input{
+    appearance: none;
+
+}
+
+/* =====================정답 체크======================== */
+
+.check-answer>input:checked{
 
     height: 20px;
     width: 20px;
-    background-color:var(--color-base-4);
-    border-radius: 5px;
-
+    background-image:url('../image/icon/check.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: sticky;
+    
 
 }
 
