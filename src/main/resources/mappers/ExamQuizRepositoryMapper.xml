@@ -78,6 +78,7 @@ select * from exam_quizzes where id=#{id}
 
     WHERE id = #{id}
 </update>
+<!-- TODO 수정시 지문이 널아니고 빈문자열되는 문제 -->
 
 <delete id="delete" parameterType="Long">
     DELETE FROM exam_quizzes

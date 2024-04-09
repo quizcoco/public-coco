@@ -61,7 +61,12 @@
             <section id="eq-content" th:each="list:${list}" th:with="num1=${list.num1}, num2=${list.num2}, num3=${list.num3}, num4=${list.num4},question=${list.question}" 
                      class="ad-list-grid bg-color:base-2 h:3 mt:1 ac:center">
                 <!-- 상단 분류 -->
-                <h1 class="list-item ac:center"><span class="q-year" th:text="${list.year}">2007</span><span class="q-rank">국가직 9급</span><span class="q-sort">문법</span></h1>
+                <h1 class="list-item ac:center"><span class="q-year" th:text="${list.year}">2007</span>
+                    <span class="q-rank"
+                    th:text="${list.examOfficialRankId == 1 ? '국가직 9급' : (list.examOfficialRankId == 2 ? '국가직 7급' : (list.examOfficialRankId == 3 ? '지방직 9급' : '지방직 7급'))}">국가직 9급</span>
+                    <span class="q-sort"
+                    th:text="${list.typeId == 1 ? '문법' : list.typeId == 2 ? '한자' : list.typeId == 3 ? '어휘' : '기타'}">문법</span></h1>
+
                     <!-- 체크박스 -->
                     <div class="chk-item"><input type="checkbox"></div>
                     <!-- 제목 -->
