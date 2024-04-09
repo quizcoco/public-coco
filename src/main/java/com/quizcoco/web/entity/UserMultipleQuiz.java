@@ -18,4 +18,5 @@ public class UserMultipleQuiz {
     private String num3;
     private String num4;
     private int answer;
+    private String commentary;
 }
