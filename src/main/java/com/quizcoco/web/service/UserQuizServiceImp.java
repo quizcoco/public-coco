@@ -25,21 +25,21 @@ public class UserQuizServiceImp implements UserQuizService{
     }
 
     @Override
-    public UserOXQuiz getOXQuizById(long id) {
+    public UserOXQuiz getByOXQuizId(long id) {
         
         return repository.findByOXId(id);
 
     }
 
     @Override
-    public UserShortQuiz getShortQuizById(long id) {
+    public UserShortQuiz getByShortQuizId(long id) {
 
         return repository.findByShortId(id);
 
     }
 
     @Override
-    public UserMultipleQuiz getMultipleQuizById(long id) {
+    public UserMultipleQuiz getByMultipleQuizId(long id) {
 
         return repository.findByMultiId(id);
 
