@@ -34,13 +34,13 @@ public class QuizController {
             return "userquiz/detail";
         }
 
-        UserOXQuiz userOXQuiz = service. getOXQuizById(id);
+        UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
         model.addAttribute("useroxq", userOXQuiz);
 
-        UserShortQuiz userShortQuiz = service.getShortQuizById(id);
+        UserShortQuiz userShortQuiz = service.getByShortQuizId(id);
         model.addAttribute("usershortq", userShortQuiz);
 
-        UserMultipleQuiz userMultipleQuiz = service.getMultipleQuizById(id);
+        UserMultipleQuiz userMultipleQuiz = service.getByMultipleQuizId(id);
         model.addAttribute("usermultiq", userMultipleQuiz);
 
 

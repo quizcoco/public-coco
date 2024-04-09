@@ -10,8 +10,8 @@ public interface UserQuizService {
 
     List<UserOXQuiz> getList();
     
-    UserOXQuiz getOXQuizById(long id);
-    UserShortQuiz getShortQuizById(long id);
-    UserMultipleQuiz getMultipleQuizById(long id);
+    UserOXQuiz getByOXQuizId(long id);
+    UserShortQuiz getByShortQuizId(long id);
+    UserMultipleQuiz getByMultipleQuizId(long id);
     
 }
