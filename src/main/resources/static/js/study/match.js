@@ -104,22 +104,33 @@ switch (state) {
         
     //     skillSubBtn[0].classList.remove("vis:hidden");
     // })
-
-    answerInputs[0].addEventListener("click",function(){
+for (let v of answerInputs) {
+    v.addEventListener("click",function(){
         submitBtn.classList.replace("n-btn:filled-4","btn-on");
 
     })
+}
     submitBtn.addEventListener("click",function(){
-        submitBtn.disabled = true;
-        let waitMsg = document.querySelector(".wait-msg");
-        waitMsg.classList.add("wait-notice");
+        
+        for (let v of answerInputs) {
 
+            if(v.checked){
+                submitBtn.disabled = true;
+                let waitMsg = document.querySelector(".wait-msg");
+                waitMsg.classList.add("wait-notice");
+
+                for (let v of answerInputs) {
+                    v.disabled = true;
+                }
+                return;
+            }
+        }
 
     })
 
 
 
-
+//정답처리
 for (let v of answerInputs) {
     
     // if(v.target.tagName != "BUTTON")
@@ -136,6 +147,6 @@ for (let v of answerInputs) {
         if(e.target.dataset.value==quiz.answer)
         alert("정답");
         if(e.target.dataset.value!=quiz.answer)
-        quiz.wrong = e.target.dataset.value;
+        quiz.wrong = e.target.dataset.value;//오답
     })
 }
