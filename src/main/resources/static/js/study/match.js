@@ -14,6 +14,9 @@ let useBtn = quizBox.querySelector("#quiz>div>button");
 let submitBtn = quizBox.querySelector("div button");
 let answerInputs = quizBox.querySelectorAll("input[type='radio']");
 
+//=============================================================================================
+
+
 class Repository{
     getRandom(){
         return fetch("/api/examQuizs/rand");
@@ -24,20 +27,70 @@ async function value(){
     let repository = new Repository();
     let response= await repository.getRandom();
     let randQ = await response.json(); 
-    console.log(randQ);
+    return randQ;
 }
 
+class Quiz{
+   constructor(){
+    this.hp=255;
+    this.q=[];
+    this.click=0;
+
+   }
+    encounter(){
+        quizBox.addEventListener("click",()=>{
+          
+                quizDivs[1].classList.add("d:none");
+                quizDivs[2].classList.remove("d:none");
+                skillMenus.classList.remove("vis:hidden"); //스킬 창 보이기
+        });
+    }
+    newQuiz(randQ){
+    for (let div of quizDivs) {
+        div.innerHTML="";
+    }
+
+let quizHTML=``;
+if (randQ.context != null) {
+    quizHTML=`<div class="d:inline jc:start"><span class="fs:6 ml:4 mr:3 va:middle">Q</span><span>${randQ.question}</span></div> 
+    <div class="context-box jc:center mt:1">${randQ.context}</div>`;
+}
+else
+    quizHTML=`<div class="d:inline jc:start"><span class="fs:6 ml:4 mr:3 va:middle">Q</span><span>${randQ.question}</span></div> `;
+    
+    quizHTML += `
+            <div class="d:flex fl-direction:column ml:5 mt:3">
+                <div class="d:flex gap:2"><label class="check-answer"><input type="radio" name="answer" data-value="1">①</label><span>${randQ.num1}</span></div>
+                <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="2">②</label><span>${randQ.num2}</span></div>
+                <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="3">③</label><span>${randQ.num3}</span></div>
+                <div class="d:flex gap:2 mb:6"><label class="check-answer "><input type="radio" name="answer" data-value="4">④</label><span>${randQ.num4}</span></div>
+                <div class="wait-msg"><button class="btn-base n-btn:filled-4">제출</button></div>
+            </div>
+            `;
+            
+            quizDivs[0].insertAdjacentHTML("beforeend",quizHTML);
+
+        }
+
+    loadQuiz(){
+        //^^;;
+        
+    }
+}
+let quiz = new Quiz();
+quiz.encounter();
+
 async function timeLimit(value){
-
-    await new Promise((resolve,reject)=>setTimeout(()=>{
-
-        console.log(value);
-        resolve();
-        reject();
-
+    
+    await new Promise((resolve,newQuiz)=>setTimeout(async ()=>{
+        
+        let randQ = await value;
+        quiz.newQuiz(randQ);
+        
     },5000));
     
 }
+timeLimit(value()).then(resolve,reject);
 function resolve(){
     for (let div of quizDivs) {
         div.classList.add("d:none")
@@ -92,21 +145,19 @@ function reject(){
 }
 
 
-timeLimit(value()).then(resolve,reject);
 
 // quizBox.removeEventListener("click", clickHandler); 클릭 막기~~~
 
 
-quizBox.addEventListener("click",function(){
+// quizBox.addEventListener("click",function(){
      
-     quizDivs[1].classList.add("d:none"); //상대는 강해 보인다
-     quizDivs[2].classList.remove("d:none"); //어떻게 할까요?
-     skillMenus.classList.remove("vis:hidden"); //스킬 창 보이기
+     
+     
 
-     quizBox.removeEventListener("click", arguments.callee);//제거
+//      quizBox.removeEventListener("click", arguments.callee);//제거
 
      
-    })
+//     })
 //======예본 존=====
 skillMenus.addEventListener("click",function(e){
         
