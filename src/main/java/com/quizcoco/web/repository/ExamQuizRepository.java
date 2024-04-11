@@ -12,7 +12,7 @@ public interface ExamQuizRepository {
 
     List<ExamQuiz> findAll(String query,Integer typeId,Integer year,Integer examOfficialRankId,Integer secret, int offset, int size);
 
-    List<ExamQuiz> rand();
+    ExamQuiz rand();
 
     ExamQuiz findById(Long id);
     int count(String query);

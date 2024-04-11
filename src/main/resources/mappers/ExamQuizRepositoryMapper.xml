@@ -95,7 +95,7 @@ VALUES(#{year},#{question},#{context},#{num1},#{num2},#{num3},#{num4},#{answer},
  
  <select id="rand" resultType="ExamQuiz">
 
- SELECT * FROM exam_quizzes ORDER BY RAND();
+ SELECT * FROM exam_quizzes where secret='' ORDER BY RAND() limit 1;
 
  </select>
 

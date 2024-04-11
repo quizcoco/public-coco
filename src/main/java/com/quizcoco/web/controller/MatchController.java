@@ -21,7 +21,7 @@ public class MatchController {
     @GetMapping("match")
     public String load(Model model){
 
-        List<ExamQuiz> randQ = examQService.getRand();
+        ExamQuiz randQ = examQService.getRand();
 
         model.addAttribute("randQ", randQ);
 

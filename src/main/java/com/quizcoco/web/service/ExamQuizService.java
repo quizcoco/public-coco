@@ -29,7 +29,7 @@ public interface ExamQuizService {
     void reg(ExamQuiz examQuiz);
     
 // ==========================랜덤=============================
-    List<ExamQuiz> getRand();
+    ExamQuiz getRand();
 
     
 }

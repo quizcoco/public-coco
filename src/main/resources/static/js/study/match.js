@@ -14,6 +14,89 @@ let useBtn = quizBox.querySelector("#quiz>div>button");
 let submitBtn = quizBox.querySelector("div button");
 let answerInputs = quizBox.querySelectorAll("input[type='radio']");
 
+class Repository{
+    getRandom(){
+        return fetch("/api/examQuizs/rand");
+    }
+}
+
+async function value(){
+    let repository = new Repository();
+    let response= await repository.getRandom();
+    let randQ = await response.json(); 
+    console.log(randQ);
+}
+
+async function timeLimit(value){
+
+    await new Promise((resolve,reject)=>setTimeout(()=>{
+
+        console.log(value);
+        resolve();
+        reject();
+
+    },5000));
+    
+}
+function resolve(){
+    for (let div of quizDivs) {
+        div.classList.add("d:none")
+    }
+    quizDivs[4].classList.remove("d:none"); //답은 ~~다 or나는 발차기를 구성지게 했다
+
+    let count =4;
+    quizBox.addEventListener("click",function(){//다음 문제를 풀까?? 까지..
+        if (count < quizDivs.length-2) {
+            quizDivs[count].classList.add("d:none");
+            quizDivs[count+1].classList.remove("d:none");
+
+            count++;
+        }
+        if(!quizDivs[quizDivs.length-2].classList.contains("d:none"))
+        console.log("끝났냐??");
+        setTimeout(()=>{
+
+            //페이지 이동
+        },2000);
+        
+    })
+
+    //자동으로 넘어가게...
+    // quizBox.addEventListener("click",function(){
+    //     quizDivs[4].classList.add("d:none");
+    //     setTimeout(function() {
+    //         quizDivs[5].classList.remove("d:none");
+    //         setTimeout(function() {
+    //             quizDivs[5].classList.add("d:none");
+    //             quizDivs[6].classList.remove("d:none");
+    //             setTimeout(function() {
+    //                 quizDivs[6].classList.add("d:none");
+    //                 quizDivs[7].classList.remove("d:none");
+
+
+    //             },2000);
+    //         }, 2000); 
+    //     }, 0); 
+
+    //     quizBox.removeEventListener("click", arguments.callee);//제거
+
+    // })
+  
+
+
+}
+
+function reject(){
+    
+
+}
+
+
+timeLimit(value()).then(resolve,reject);
+
+// quizBox.removeEventListener("click", clickHandler); 클릭 막기~~~
+
+
 quizBox.addEventListener("click",function(){
      
      quizDivs[1].classList.add("d:none"); //상대는 강해 보인다

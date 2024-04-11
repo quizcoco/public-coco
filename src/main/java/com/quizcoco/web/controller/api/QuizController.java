@@ -48,5 +48,17 @@ public class QuizController {
         return examQuizs;
     }
 
+
+
+    @GetMapping("rand")
+    public ExamQuiz random(){
+
+        ExamQuiz random = service.getRand();
+
+       
+        return random;
+
+    }
+
     
 }
