@@ -52,6 +52,21 @@
     mask-image: url(../../image/icon/plus.svg);
 }
 
+.icon\:Lightbulb:after,.icon\:Lightbulb:before {
+    -webkit-mask-image: url(../../image/icon/Lightbulb.svg);
+    mask-image: url(../../image/icon/Lightbulb.svg);
+}
+
+.icon\:DeviceMobile:after,.icon\:DeviceMobile:before {
+    -webkit-mask-image: url(../../image/icon/DeviceMobile.svg);
+    mask-image: url(../../image/icon/DeviceMobile.svg);
+}
+
+.icon\:card:after,.icon\:card:before {
+    -webkit-mask-image: url(../../image/icon/IdentificationCard.svg);
+    mask-image: url(../../image/icon/IdentificationCard.svg);
+}
+
 .icon-home{
 
     display: flex;
