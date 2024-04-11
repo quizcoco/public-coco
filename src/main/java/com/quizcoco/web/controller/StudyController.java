@@ -12,7 +12,6 @@ public class StudyController {
     @GetMapping("userquiz/list")
     public String list(){
 
-
         return "userquiz/list";
     }   
 
@@ -27,4 +26,11 @@ public class StudyController {
 
         return "study/setting";
     }
+
+    @GetMapping("self-match/report")
+    public String studyReport(){
+
+        return "study/self-match/report";
+    }
+
 }

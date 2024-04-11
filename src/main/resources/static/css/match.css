@@ -173,15 +173,6 @@ place-items: center ;
 
 /* ========결과 디테일=========== */
 
-/* .matchReport{
-    width: 354px;
-    height: 158px;
-    position: fixed; 
-    background-color: #D9D9D9; 
-    border-radius:12px;
-    padding: 10px;
-} */
-
 /* 디테일 박스 - 반응형 전 */
 .section-s{
     display: flex;
@@ -195,4 +186,20 @@ place-items: center ;
     display: flex;
     gap: 8px;
     background-color: #ffffff ;
+}
+
+.matchReport{
+    width: 210px;
+    height: 132px;
+    position: fixed;
+    align-content: center;
+    background-color: #F8EBEB; 
+    border-radius:12px;
+    padding: 10px;
+
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 }
