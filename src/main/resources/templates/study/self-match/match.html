@@ -91,7 +91,7 @@
             <div><button data-btn="base" class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center mr:1">자동</button></div>
             <div><button data-btn="attack" class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center mr:1">공격</button></div>
             <div><button data-btn="help" class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center mr:1">보조</button></div>
-            <div><button data-btn="run" class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center">도망가기</button></div>
+            <div><button data-btn="run" class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center">나가기</button></div>
         </section>
         
         
@@ -120,14 +120,14 @@
     <section id="quiz" class="quiz-box px:10 my:5 of-y:scroll"  th:data-id="${randQ.id}" th:data-answer="${randQ.answer}">
         <h1 class="d:none">문제</h1>
         <div class="d:none fl-direction:column jc:center mt:6">
-            <div class="d:inline jc:start"><span class="fs:6 ml:4 mr:3 va:middle">Q</span><span th:text="${randQ.question}">점심메뉴로 적절한 것은?</span></div> 
+            <!-- <div class="d:inline jc:start"><span class="fs:6 ml:4 mr:3 va:middle">Q</span><span th:text="${randQ.question}">점심메뉴로 적절한 것은?</span></div> 
             <div class="context-box jc:center mt:1" th:if="${randQ.context}!=null" th:utext="${randQ.context}">지문</div>
             <div class="d:flex fl-direction:column ml:5 mt:3">
                 <div class="d:flex gap:2"><label class="check-answer"><input type="radio" name="answer" data-value="1">①</label><span th:utext="${randQ.num1}">떡볶이</span></div>
                 <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="2">②</label><span th:utext="${randQ.num2}">면</span></div>
                 <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="3">③</label><span th:utext="${randQ.num3}">밥</span></div>
                 <div class="d:flex gap:2 mb:6"><label class="check-answer "><input type="radio" name="answer" data-value="4">④</label><span th:utext="${randQ.num4}">햄버거</span></div>
-                <div class="wait-msg"><button class="btn-base n-btn:filled-4">제출</button></div>
+                <div class="wait-msg"><button class="btn-base n-btn:filled-4">제출</button></div>-->
                 <!-- //XXX 버튼 비활성화로 시간 끝날때까지 있다 넘어감  -->
             </div>
         </div> 

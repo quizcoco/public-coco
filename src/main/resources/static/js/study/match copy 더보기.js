@@ -11,8 +11,8 @@ let bntDetail = skillMenus.querySelector(".bnt-detail");
 let quizBox = document.querySelector("#quiz");
 let quizDivs = quizBox.querySelectorAll("#quiz>div");
 let useBtn = quizBox.querySelector("#quiz>div>button");
-//let submitBtn = document.querySelector("#sm");
-//let answerInputs = quizBox.querySelectorAll("input[type='radio']");
+let submitBtn = quizBox.querySelector("div button");
+let answerInputs = quizBox.querySelectorAll("input[type='radio']");
 
 //=============================================================================================
 
@@ -34,35 +34,16 @@ class Quiz{
    constructor(){
     this.hp=255;
     this.q=[];
-    this.click=false;
+    
+
    }
-
      encounter(){
-        
-         
-         
         quizBox.addEventListener("click",()=>{
-             this.click=true;
-             //2초
-             quizDivs[1].classList.add("d:none");//강해보인다
-             this.repeatQuiz(value());
-             
-            },{ once : true});
-            
-            
-            //  setTimeout(()=>{
-
-            //     //if(!this.click)
-            //     if(quizBox.clickHandler)
-            //     quizBox.removeEventListener("click", clickHandler);
-                
-            //     quizDivs[1].classList.add("d:none");//강해보인다
-            //     this.repeatQuiz(value());
-
-
-            // },2000);   
+          //2초
+                quizDivs[1].classList.add("d:none");//강해보인다
+                this.repeatQuiz(value());//이거를 반복
+        });
     }
-
     newQuiz(randQ){
     // for (let div of quizDivs) {
     //     div.innerHTML="";
@@ -77,22 +58,16 @@ else
     quizHTML=`<div class="d:inline jc:start"><span class="fs:6 ml:4 mr:3 va:middle">Q</span><span>${randQ.question}</span></div> `;
     
     quizHTML += `
-            <div id="input" class="d:flex fl-direction:column ml:5 mt:3">
+            <div class="d:flex fl-direction:column ml:5 mt:3">
                 <div class="d:flex gap:2"><label class="check-answer"><input type="radio" name="answer" data-value="1">①</label><span>${randQ.num1}</span></div>
                 <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="2">②</label><span>${randQ.num2}</span></div>
                 <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="3">③</label><span>${randQ.num3}</span></div>
                 <div class="d:flex gap:2 mb:6"><label class="check-answer "><input type="radio" name="answer" data-value="4">④</label><span>${randQ.num4}</span></div>
-                <div class="wait-msg"><button id="submit" class="btn-base n-btn:filled-4">제출</button></div>
+                <div class="wait-msg"><button class="btn-base n-btn:filled-4">제출</button></div>
             </div>
             `;
             
             quizDivs[0].insertAdjacentHTML("beforeend",quizHTML);
-
-            let submitBtn = document.querySelector("#submit");
-            let answerInputs = document.querySelectorAll("input[type='radio']");
-
-
-            this.submitAnswer(submitBtn,answerInputs);
 
         }
 
@@ -104,11 +79,10 @@ else
         let randQ =await value();
        this.newQuiz(randQ); //문제출력
         setTimeout(()=>{
-            skillMenus.classList.add("vis:hidden"); //스킬 창 보이기
-            this.afterQuiz();//답은 뭐다..타격을 입었다 
-
             
-        },8000);//30000
+            resolve();//답은 뭐다..타격을 입었다 
+            
+        },5000);//30000
 
         //if(나가기버튼 누르면 나가기)closed();
 
@@ -198,7 +172,7 @@ else
     //================================================================================
 
 
-    afterQuiz(){
+    resolve(){
         for (let div of quizDivs) {
             div.classList.add("d:none")
         }
@@ -223,63 +197,11 @@ else
     })
     }
 
-    submitAnswer(submitBtn,answerInputs){
-    for (let v of answerInputs) {
-        v.addEventListener("click",function(){
-            submitBtn.classList.replace("n-btn:filled-4","btn-on");
-    
-        })
-    }
-        submitBtn.addEventListener("click",function(){
-            for (let v of answerInputs) {
-                
-                if(v.checked){
-                    console.log("얘좀봐라");
-                    submitBtn.disabled = true;
-                    let waitMsg = document.querySelector(".wait-msg");
-                    waitMsg.classList.add("wait-notice");
-    
-                    for (let v of answerInputs) {
-                        v.disabled = true;
-                    }
-                    return;
-                }
-            }
-    
-        })
-
-
-        //정답처리
-for (let v of answerInputs) {
-    
-    // if(v.target.tagName != "BUTTON")
-    //      return;
-    let quiz ={};
-    quiz.id = quizBox.dataset.id;
-    quiz.answer = quizBox.dataset.answer;
-    
-    console.log(quiz.id);
-    console.log(quiz.answer);
-    
-    v.addEventListener("click",function(e){
-        
-        if(e.target.dataset.value==quiz.answer)
-        alert("정답");
-        if(e.target.dataset.value!=quiz.answer)
-        quiz.wrong = e.target.dataset.value;//오답
-    })
-}
-    }
 
 
 }//class
 let quiz = new Quiz();
 quiz.encounter();
-// for(let hp=quiz.hp;0<hp;){
-// hp = quiz.encounter(); //받아야해~~
-// hp = quiz.repeatQuiz(hp);
-// }
-
 
 
     //자동으로 넘어가게...
@@ -325,5 +247,49 @@ quiz.encounter();
         
     //     skillSubBtn[0].classList.remove("vis:hidden");
     // })
+for (let v of answerInputs) {
+    v.addEventListener("click",function(){
+        submitBtn.classList.replace("n-btn:filled-4","btn-on");
+
+    })
+}
+    submitBtn.addEventListener("click",function(){
+        
+        for (let v of answerInputs) {
+
+            if(v.checked){
+                submitBtn.disabled = true;
+                let waitMsg = document.querySelector(".wait-msg");
+                waitMsg.classList.add("wait-notice");
+
+                for (let v of answerInputs) {
+                    v.disabled = true;
+                }
+                return;
+            }
+        }
+
+    })
 
 
+
+//정답처리
+for (let v of answerInputs) {
+    
+    // if(v.target.tagName != "BUTTON")
+    //      return;
+    let quiz ={};
+    quiz.id = quizBox.dataset.id;
+    quiz.answer = quizBox.dataset.answer;
+    
+    console.log(quiz.id);
+    console.log(quiz.answer);
+    
+    v.addEventListener("click",function(e){
+        
+        if(e.target.dataset.value==quiz.answer)
+        alert("정답");
+        if(e.target.dataset.value!=quiz.answer)
+        quiz.wrong = e.target.dataset.value;//오답
+    })
+}
