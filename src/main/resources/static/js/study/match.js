@@ -2,10 +2,11 @@ let skillMenus =  document.querySelector("#skill-menus");
 let skillUpperBtn = skillMenus.querySelectorAll(".skill-grid button"); //스킬 상위
 let skillSubBtn = skillMenus.querySelectorAll("nav"); //스킬 하위
 //let atkItems = skillMenus.querySelectorAll(".atk-item>li");
-
+let atkItems;
 //예본
 //let menuList = skillMenus.querySelector(".menu-list");
 let bntDetail = skillMenus.querySelector(".bnt-detail");
+let bntDetailHeight= bntDetail.querySelector("ul");
 
 
 let quizBox = document.querySelector("#quiz");
@@ -23,51 +24,29 @@ class Repository{
     }
 }
 
-async function value(){
+class Quiz{
+   constructor(){
+    this.hp=255;
+    this.time=8000;
+    this.id=[];
+    this.wrong=[];
+    //this.click=false;
+   }
+
+   async getQuiz(){
     let repository = new Repository();
     let response= await repository.getRandom();
     let randQ = await response.json(); 
     return randQ;
 }
 
-class Quiz{
-   constructor(){
-    this.hp=255;
-    this.q=[];
-    this.click=false;
-   }
-
-     encounter(){
-        
-         
-         
-        quizBox.addEventListener("click",()=>{
-             this.click=true;
-             //2초
-             quizDivs[1].classList.add("d:none");//강해보인다
-             this.repeatQuiz(value());
-             
-            },{ once : true});
-            
-            
-            //  setTimeout(()=>{
-
-            //     //if(!this.click)
-            //     if(quizBox.clickHandler)
-            //     quizBox.removeEventListener("click", clickHandler);
-                
-            //     quizDivs[1].classList.add("d:none");//강해보인다
-            //     this.repeatQuiz(value());
-
-
-            // },2000);   
-    }
-
     newQuiz(randQ){
+
+    quizDivs[0].innerHTML="";
+        
     // for (let div of quizDivs) {
     //     div.innerHTML="";
     // }
-
 let quizHTML=``;
 if (randQ.context != null) {
     quizHTML=`<div class="d:inline jc:start"><span class="fs:6 ml:4 mr:3 va:middle">Q</span><span>${randQ.question}</span></div> 
@@ -82,36 +61,74 @@ else
                 <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="2">②</label><span>${randQ.num2}</span></div>
                 <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="3">③</label><span>${randQ.num3}</span></div>
                 <div class="d:flex gap:2 mb:6"><label class="check-answer "><input type="radio" name="answer" data-value="4">④</label><span>${randQ.num4}</span></div>
-                <div class="wait-msg"><button id="submit" class="btn-base n-btn:filled-4">제출</button></div>
+                <div class="wait-msg"><button id="submit" class="btn-base n-btn:filled-4" disabled>제출</button></div>
             </div>
             `;
             
             quizDivs[0].insertAdjacentHTML("beforeend",quizHTML);
 
             let submitBtn = document.querySelector("#submit");
-            let answerInputs = document.querySelectorAll("input[type='radio']");
+            let answerInputs = document.querySelectorAll("#input input[name='answer']");
 
 
-            this.submitAnswer(submitBtn,answerInputs);
+
+             return this.submitAnswer(submitBtn,answerInputs,randQ);
+          
+            
 
         }
 
-        async repeatQuiz(){
+        repeatQuiz(randQ){
         //무엇을 할까? 문제푸는것까지(30초)
-        quizDivs[2].classList.remove("d:none");
-        skillMenus.classList.remove("vis:hidden"); //스킬 창 보이기
+
+        quizBox.addEventListener("click",()=> {
+            quizDivs[7].classList.add("d:none");//다음문제를 풀자
+
+            quizDivs[1].classList.add("d:none");//강해보인다
+
+            quizDivs[2].classList.remove("d:none");//무엇을 할까?
+            skillMenus.classList.remove("vis:hidden"); //스킬 창 보이기
+         },{ once : true});
+
+        
+
         this.clickSkillBtn(); //버튼누르기
-        let randQ =await value();
-       this.newQuiz(randQ); //문제출력
-        setTimeout(()=>{
-            skillMenus.classList.add("vis:hidden"); //스킬 창 보이기
-            this.afterQuiz();//답은 뭐다..타격을 입었다 
+
+        this.newQuiz(randQ); //문제출력
+
+
+
+        //return this;
+      
+
+        // setTimeout(()=>{
 
             
-        },8000);//30000
+        // },8000);//30000
 
         //if(나가기버튼 누르면 나가기)closed();
+        
+    }
 
+    async next(){
+       // quizBox.addEventListener("click",async()=>{
+
+
+            if(0<this.hp){
+                    
+                let randQ =await this.getQuiz();
+                this.repeatQuiz(randQ);
+                     
+                console.log("후id"+randQ.id);
+                console.log("후hp"+this.hp);
+
+               
+            }
+            console.log("hp가 0이 되어..");
+
+       // },{ once : true})
+
+           
     }
     closed(){
         console.log("종료");
@@ -121,37 +138,38 @@ else
 
     //======예본 존=====
     clickSkillBtn(){
+
     skillMenus.addEventListener("click",function(e){
             
-        if(e.target.tagName!='BUTTON')
+        if(e.target.tagName!='INPUT')
         return;
     
         let state = e.target.dataset.btn;
-    
             switch (state) {
                 case 'base' :
                     break;
                 case 'attack' :
-                    skillUpperBtn[1].classList.replace("n-btn:filled-4","btn-on");
                     bntDetail.innerHTML ="";
     
                     let attackHtml=
                                 `<ul class="atk-item d:flex gap:4 mt:1 jc:start">
-                                    <li><button class="btn-base n-btn:filled-4 ac:center txt-al:center">발차기</button></li>
-                                    <li><button class="btn-base n-btn:filled-4 ac:center txt-al:center">파이어볼</button></li>
-                                    <li><button class="btn-base n-btn:filled-4 ac:center txt-al:center w:2">공격 디버프</button></li>
+                                    <li><label class="btn-base ac:center txt-al:center"><input type="radio" name="sub">발차기</label></li>
+                                    <li><label class="btn-base ac:center txt-al:center"><input type="radio" name="sub">파이어볼</label></li>
+                                    <li><label class="btn-base ac:center txt-al:center w:2"><input type="radio" name="sub">공격 디버프</label></li>
                                 </ul>`;
                     
                     bntDetail.insertAdjacentHTML("beforeend",attackHtml);
     
-                    let atkItems = document.querySelectorAll(".atk-item button");
+                    atkItems = document.querySelectorAll(".atk-item input");
+                        
                     
                     //하부 버튼 선택  
-                    atkItems[0].addEventListener("click",function(e){
+                    for(let btn of atkItems)
+                    btn.addEventListener("click",function(e){
                         // e.stopPropagation();
-                    
-                    
-                        atkItems[0].classList.replace("n-btn:filled-4","btn-on");
+                        
+                        
+                       // btn.classList.replace("btn-off","btn-on");
     
                         quizDivs[2].classList.add("d:none"); //어떻게 할까요?
                         quizDivs[3].classList.remove("d:none"); //사용버튼
@@ -168,6 +186,7 @@ else
                         btn.disabled = true;
                         for(let btn of atkItems) 
                         btn.disabled = true;
+                    
                     
                     
                     // e.stopPropagation();
@@ -202,85 +221,164 @@ else
         for (let div of quizDivs) {
             div.classList.add("d:none")
         }
-        //if(정답)나는 발차기를 했다
-        quizDivs[4].classList.remove("d:none"); 
-    
+       
+     
         let count =4;
-        quizBox.addEventListener("click",function(){//타격을 입었다 까지..
+        quizBox.addEventListener("click",()=>{//타격을 입었다 까지..
             if (count < quizDivs.length-2) {
                 quizDivs[count].classList.add("d:none");
                 quizDivs[count+1].classList.remove("d:none");
     
                 count++;
             }
-            if(!quizDivs[quizDivs.length-2].classList.contains("d:none"))
-            console.log("끝났냐??");
-        setTimeout(()=>{
+            if(!(quizDivs[quizDivs.length-2].classList.contains("d:none")))
+                return this.next();
             
-            //페이지 이동
-        },2000);
+        })
+
         
-    })
+        // setTimeout(()=>{
+            
+            //     //페이지 이동
+            // },2000);
+            
+        console.log("여기는 afterquiz");
+    
     }
 
-    submitAnswer(submitBtn,answerInputs){
-    for (let v of answerInputs) {
-        v.addEventListener("click",function(){
-            submitBtn.classList.replace("n-btn:filled-4","btn-on");
-    
-        })
-    }
-        submitBtn.addEventListener("click",function(){
-            for (let v of answerInputs) {
-                
-                if(v.checked){
-                    console.log("얘좀봐라");
-                    submitBtn.disabled = true;
-                    let waitMsg = document.querySelector(".wait-msg");
-                    waitMsg.classList.add("wait-notice");
-    
+     submitAnswer(submitBtn,answerInputs,randQ){
+        for (let v of answerInputs) {
+            v.addEventListener("click",function(){
+                submitBtn.classList.replace("n-btn:filled-4","btn-on");
+                submitBtn.disabled = false;
+
+            })
+           // return await new Promise((resolve) => {
+               
+        }  
+               submitBtn.addEventListener("click",()=>{//arrow function부분 보기!!
+                //for (let v of answerInputs) {
+                    
+                    //정답처리
+                    let answerChecked = false;
                     for (let v of answerInputs) {
-                        v.disabled = true;
+                        if(v.checked && v.dataset.value !=randQ.answer){//틀림
+                            this.id.push(randQ.id);
+                            this.hp -=100;
+      
+                            answerChecked = true;
+                            break; 
+                        }
+                        else if(v.checked && v.dataset.value ==randQ.answer){//맞음
+                            answerChecked = true;
+                            break;
+                        }
                     }
-                    return;
-                }
+                    if(!answerChecked){
+                       
+                        //그냥 버튼 disabled함..
+                    }
+                    
+                    this.afterQuiz();
+                    skillMenus.classList.add("vis:hidden"); //스킬 창 닫기
+                    
+                    //if(정답)나는 발차기를 했다 /오답: //TODO 정답은 ~다.
+                    //console.log(quizDivs[4]);
+                   
+
+                    //if(randQ.answer==)
+                    let quizHTML=`
+                    
+                    <div class="d:none">답은 <span class="color:accent-4">②</span>
+                    <span class="color:accent-4">${randQ.a}</span>입니다.</div> 
+
+                    `;
+                    //quizHTML.replace(,)
+
+                    //return this;
+                    // if(v.checked){
+                    //     console.log("얘좀봐라");
+                    //     submitBtn.disabled = true;
+                    //     let waitMsg = document.querySelector(".wait-msg");
+                    //     waitMsg.classList.add("wait-notice");
+        
+                    //     for (let v of answerInputs) {
+                    //         v.disabled = true;
+                    //     }
+                    //     return;
+                    // }
+               // }
+               console.log("여기는 submitAnswer안");
+
+               
+            },{ once : true});
+            // return this;//답은 뭐다..타격을 입었다 
+            // })//프로미스
+            
+            //비활성 했던 것 리셋
+           //bntDetail.insertAdjacentHTML("beforeend");
+
+            for(let btn of skillUpperBtn){
+                btn.classList.replace("btn-on","n-btn:filled-4");
+                btn.disabled = false;
             }
-    
-        })
+            for(let btn of atkItems) {
+                btn.classList.replace("btn-on","n-btn:filled-4");
+                btn.disabled = false;
+            }
+            console.log("여기는 submitAnswer밖");
+            
+            return this;
+        //resolve(this.afterQuiz());
 
-
+           
+}
         //정답처리
-for (let v of answerInputs) {
+//for (let v of answerInputs) {
     
     // if(v.target.tagName != "BUTTON")
     //      return;
-    let quiz ={};
-    quiz.id = quizBox.dataset.id;
-    quiz.answer = quizBox.dataset.answer;
+    // let quiz ={};
+    // quiz.id = quizBox.dataset.id;
+    // quiz.answer = quizBox.dataset.answer;
     
-    console.log(quiz.id);
-    console.log(quiz.answer);
+    // console.log(quiz.id);
+    // console.log(quiz.answer);
     
-    v.addEventListener("click",function(e){
+    // v.addEventListener("click",function(e){
         
-        if(e.target.dataset.value==quiz.answer)
-        alert("정답");
-        if(e.target.dataset.value!=quiz.answer)
-        quiz.wrong = e.target.dataset.value;//오답
-    })
-}
-    }
+    //     if(e.target.dataset.value==quiz.answer)
+        
+    //     if(e.target.dataset.value!=quiz.answer)
+    //     quiz.wrong = e.target.dataset.value;//오답
+    // })
+//}
+    
 
 
 }//class
-let quiz = new Quiz();
-quiz.encounter();
-// for(let hp=quiz.hp;0<hp;){
-// hp = quiz.encounter(); //받아야해~~
-// hp = quiz.repeatQuiz(hp);
-// }
+
+async function runQuiz(){
+    let quiz = new Quiz();
+    let hp =quiz.hp;
+    let randQ =await quiz.getQuiz();
+    //quiz.encounter().then(response=>response.json()).then(quiz=>quiz.hp);
 
 
+    quiz.repeatQuiz(randQ);
+    
+    
+    //hp = quiz.repeatQuiz().then(response=>response.json()).then(quiz=>quiz.hp);
+    console.log("전id"+randQ.id);
+    console.log("전hp"+quiz.hp);
+    
+
+        
+}
+
+//useEffect(() => {
+runQuiz();
+//}, []);
 
     //자동으로 넘어가게...
     // quizBox.addEventListener("click",function(){

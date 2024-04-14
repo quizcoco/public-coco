@@ -242,6 +242,9 @@ utill.css 목록
  .n-btn\:filled-4:active {
      background-color: var(--color-base-4) !important;
  }
+ .n-btn\:filled-4:checked {
+    background-color: var(--color-base-4) !important;
+}
 
 
 /* =======================3.폰트========================== */
