@@ -12,8 +12,12 @@ let bntDetailHeight= bntDetail.querySelector("ul");
 let quizBox = document.querySelector("#quiz");
 let quizDivs = quizBox.querySelectorAll("#quiz>div");
 let useBtn = quizBox.querySelector("#quiz>div>button");
+let beBeaten = quizBox.querySelector(".bebeaten");
 //let submitBtn = document.querySelector("#sm");
 //let answerInputs = quizBox.querySelectorAll("input[type='radio']");
+
+let hpProgressbar = document.querySelector("#hp-progressbar");
+let barStyle = hpProgressbar.querySelector("div>div");
 
 //=============================================================================================
 
@@ -235,7 +239,13 @@ else
                 return this.next();
             
         })
-
+        for(let div of quizDivs){
+            if((!div.classList.contains("d:none")) && div.classList.contains("beBeaten")){
+                barStyle.style.width=(255-this.hp)/255*100 +"%";//(총-상대방공격)/총 * 100
+            console.log(barStyle.style.width);
+            console.log(this.hp);
+            }
+        }
         
         // setTimeout(()=>{
             
