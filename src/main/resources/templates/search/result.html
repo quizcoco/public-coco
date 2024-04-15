@@ -10,6 +10,7 @@
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/match.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
@@ -17,9 +18,9 @@
 <body>
  
     <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
-        <h1 class="root-header-title d:none md:d:flex"><span class="header-font">QUIZCOCO</span><span class="white-space:nowrap ln-h:2">- MY HOME</span></h1>
+        <h1 class="root-header-title d:none md:d:flex"><span class="header-font">QUIZCOCO</span><span class="white-space:nowrap ln-h:2">- 검색 결과</span></h1>
         <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
-            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">MY HOME</span></h1>
+            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">검색 결과</span></h1>
             <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
         </div>
 
@@ -50,41 +51,65 @@
         </nav>
     </header>
 
-    <main class="of:auto">
-<!--=========================== 메인에 입력 ===============================-->
-<section>
-    <h1>검색란</h1>
-    <div></div>
-    <div>아이콘</div>
-    <div>검색어 저장</div>
-  </section>
-  <section>
-    <h1>추천 키워드</h1>
-    <div>
-        <ul>
-            <li><a href="">OX문제</a></li>
-            <li><a href="">단답 문제</a></li>
-            <li><a href="">띄어쓰기</a></li>
-            <li><a href="">순우리말</a></li>
-            <li><a href="">사자성어</a></li>
-            <li><a href="">문법</a></li>
-        </ul>
-    </div>
-    <section>
-        <h1>추천 문제</h1>
-        <div>자식이 커서 부모를 봉양하다. 는 무엇일까요?</div>
-    </section>
-    <section>
-        <h1>검색 기록</h1>
-        <div>자식이 커서 부모를 봉양하다. 는 무엇일까요?</div>
-        <div>더보기</div>
-    </section>
-  </section>
+    <main class="of:auto ac:center">
+    <!--=========================== 메인 입력 ===============================-->
+        <section class="d:flex fl-direction:column jc:center gap:4">
+            <!-- 검색어 폼 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
+            <section class="d:flex jc:center">
+                <div class="deco icon:magnifying_glass"></div>
+                <div class="d:flex jc:center">
+                    <label class="d:flex ac:center w:8">
+                        <input type="text" autocomplete="on" autofocus class="search-form  bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="menu-list"  name="q" placeholder="검색어를 입력하세요">
+                        <datalist id="menu-list">
+                            <option>OX문제</option>
+                            <option>단답문제</option>
+                            <option>띄어쓰기</option>
+                            <option>순우리말</option>
+                            <option>사자성어</option>
+                            <option>어문규정</option>
+                        </datalist>
+                    </label>
+                </div>
+            </section>
 
+            <!-- 버튼 카테고리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            <section class="d:flex jc:center">
+                <h1 class="d:none">버튼 카테고리</h1>
+                <div class="d:flex fl-direction:column gap:2 mt:4">
+                    <div class="d:flex gap:2">
+                        <div><button class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center mr:1">전체</button></div>
+                        <div><button class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center">그룹</button></div>
+                        <div><button class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center mr:1">퀴즈</button></div>
+                        <div><button class="btn-base2 n-btn:filled-4 btn-off ac:center txt-al:center">내 그룹 내</button></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 그룹 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            <section class="d:flex fl-direction:column jc:center ai:center">
+                <div class="fs:4">그룹</div>
+                <div class="d:flex fl-direction:column mt:2">
+                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center"><span>220105 띄어쓰기</span><span>20문항</span></div>
+                </div>
+                <div class="d:flex flex:end justify-content:flex-end fs:1 w:4"><button>더보기</button></div>
+            </section>
+
+            <!-- 퀴즈 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            <section class="d:flex fl-direction:column jc:center ai:center">
+                <div class="fs:4">퀴즈</div>
+                <div class="d:flex fl-direction:column mt:2">
+                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center">최근에 본 문제</div>
+                </div>
+                <div class="d:flex flex:end justify-content:flex-end fs:1 w:4"><button>더보기</button></div>
+            </section>
+
+            <!-- 페이저 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
            
-   </main>
 
-   <aside class="d:none md:d:flex jc:center right:1 zi:1">
+    <!--=========================== 메인 끝 =================================-->
+    </main>
+
+<aside class="d:none md:d:flex jc:center right:1 zi:1">
     <div class="pos:fixed h:100p bg-color:main-2">
         <nav class="d:flex jc:center">
             <h1 class="d:none">pc 메뉴바</h1>

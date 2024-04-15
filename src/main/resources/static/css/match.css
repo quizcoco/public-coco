@@ -71,6 +71,14 @@
     border-radius: 25px;
 } 
 
+.btn-base2{
+
+    background-color:var(--color-main-3);
+    height: 30px;
+    width: 90px;
+    border-radius: 25px;
+}
+
 
 
 /* =====================정답 체크======================== */
@@ -206,4 +214,14 @@ place-items: center ;
         flex-direction: column;
         justify-content: center;
     }
+}
+
+/* searchㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+
+.searchQuiz{
+    width: 246px;
+    height: 72px;
+    background-color: #E2CACA;
+    border-radius:12px;
+    align-content: center;
 }
