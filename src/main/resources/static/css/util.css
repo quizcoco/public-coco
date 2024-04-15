@@ -263,6 +263,28 @@ utill.css 목록
     width: 55px !important;
  }
 
+/* -----------sign in 버튼------------------- */
+
+.n-btn\:sign {
+    background-color: var(--color-main-3) !important;
+    border-radius: 30px !important;
+    width:310px !important;
+    height: 68px !important;
+ }
+
+ /* ------------google login 버튼-------------- */
+
+ .n-btn\:google {
+    background-color: var(--color-base-2) !important;
+    border-radius: 15px !important;
+    width:310px !important;
+    height: 68px !important;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 40px !important;
+ }
 
 /* =======================3.폰트========================== */
 
