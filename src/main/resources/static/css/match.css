@@ -42,30 +42,34 @@
 
 
 /* ====================버튼======================= */
-.btn-on{
-
-    background-color:var(--color-accent-2);
-    height: 30px;
-    width: 80px;
-    border-radius: 25px;
-}
-
-.btn-off{
+.btn-base{
 
     background-color:var(--color-base-4);
     height: 30px;
     width: 80px;
     border-radius: 25px;
-    
+    display: block;
+    position: relative;
 }
 
-.btn-base{
+.btn-base:hover{
 
-    background-color:var(--color-main-3);
+    background-color:#FACDCD;
+}
+
+.btn-base>input{
+    appearance: none;
+    display: none;
+}
+
+.btn-base:has(:checked){
+    
+    background-color:#FACDCD;
+    display: block;
     height: 30px;
     width: 80px;
     border-radius: 25px;
-}
+} 
 
 .btn-base2{
 
@@ -77,12 +81,12 @@
 
 
 
+/* =====================정답 체크======================== */
 .check-answer>input{
     appearance: none;
 
 }
 
-/* =====================정답 체크======================== */
 
 .check-answer{
     position: relative;

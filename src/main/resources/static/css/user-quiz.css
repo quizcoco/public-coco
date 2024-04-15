@@ -1,7 +1,7 @@
 /* ==========유저 퀴즈 항목================ */
 
 
-/* 사용자 페이지 카드 섹션 */
+/* 디테일 페이지 카드 섹션 */
 
 .card-container {
     display: flex;
@@ -20,6 +20,67 @@
     
 }
 
+/* 디테이 페이지 양옆 카드 */
+
+.small-card-r {
+    background-color: var(--color-main-1);
+    border-radius: 12px;
+    width: 200px;
+    height: 250px;
+    border: thick double var(--color-base-1);
+    flex:0 0 auto;
+    margin-left: 160px;
+    left:1;
+}
+
+.small-card-l {
+    background-color: var(--color-main-1);
+    border-radius: 12px;
+    width: 200px;
+    height: 250px;
+    border: thick double var(--color-base-1);
+    flex:0 0 auto;
+    margin-right: 160px;
+    right:1;
+}
+
+/* 디테일 페이지 이미지 회전 */
+
+.rotating-img {    
+    animation: rotate 5s linear infinite;  /* 회전 시간 + 횟수 */
+    transform-origin: center center;   /* 회전 중심 */
+}
+
+@keyframes rotate {
+    0% {
+      transform: rotate(360deg);  /* 회전 시작 각도*/
+    }
+    100% {
+      transform: rotate(0deg); /* 회전 종료 각도*/
+    }
+  }
+
+
+/* 퀴즈 등록 전체 블럭 */
+
+.quiz-block {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* 문제,그룹 선택 블럭 */
+
+.select-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
 /* 카테고리 선택 창 */
 
 .quiz-cate {
@@ -30,8 +91,87 @@
     padding-bottom: 5px;
     padding-right: 5px;
     padding-left: 5px;
+    text-align: center;
 }
 
 select.none {
     appearance: none;
   }
+
+  /* 퀴즈 입력 블럭 */
+
+.input-quiz-block {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-main-1);
+    border-radius: 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    width: 350px;
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+/* 단답 퀴즈, ox 퀴즈 텍스트박스 */
+
+.input-text\:short {
+    display: block;
+    background-color: var(--color-main-1);
+    padding-top: 10px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+
+    padding: 10px;
+    font-size: 13px;
+
+    width: 310px;
+    height: 80px;
+
+    /* 스크롤 */
+    overflow-y: auto;   
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: none;
+}
+
+/* 사지선다 퀴즈 텍스트박스 */
+
+.input-text\:multi {
+    display: block;
+    background-color: var(--color-main-1);
+    padding-top: 10px;
+    padding-bottom: 20px;
+    border-radius: 8px;
+
+    padding: 10px;
+    font-size: 10px;
+
+    width: 310px;
+    height: 35px;
+
+    /* 스크롤 */
+    overflow-y: auto;   
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: none;
+}
+
+
+/* 등록&취소 버튼 */
+
+.reg-btn {
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}

@@ -101,9 +101,9 @@ public class ExamQuizServiceImp implements ExamQuizService{
     }
 
     @Override
-    public List<ExamQuiz> getRand() {
+    public ExamQuiz getRand() {
 
-        List<ExamQuiz> randQ = repository.rand();
+        ExamQuiz randQ = repository.rand();
         return randQ;
     }
 //===============================================================================

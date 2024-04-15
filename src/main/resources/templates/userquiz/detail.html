@@ -17,9 +17,9 @@
 </head>
 <body>
 <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
-    <h1 class="root-header-title d:none md:d:flex"><span class="header-font">QUIZCOCO</span><span class="white-space:nowrap ln-h:2">- MY HOME</span></h1>
+    <h1 class="root-header-title d:none md:d:flex"><span class="header-font">QUIZCOCO</span><span class="white-space:nowrap ln-h:2">- 내 퀴즈 보기</span></h1>
     <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
-        <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">MY HOME</span></h1>
+        <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">내 퀴즈 보기</span></h1>
         <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
     </div>
 
@@ -52,9 +52,15 @@
 
 <main class="of:auto">
 <!--=========================== 메인에 입력 ===============================-->
-
-    <section class="main-container-center">
-        <h1 class="d:none">내가 만든 문제</h1>
+  <section class="main-container-center">
+    <h1 class="d:none">내가 만든 문제</h1>
+    <div class="small-card-l d:none md:d:flex jc:center">
+        <div class="d:flex ai:center jc:center">
+            <img src="/image/logo.png" class="h:2 w:2 rotating-img">
+        </div>
+    </div>
+    <section class="d:flex fl-dir:column">
+        <h1 class="d:none">문제 섹션</h1>
      <article class="card-container">
         <h1 class="d:none">하위그룹</h1>
             <section>
@@ -70,13 +76,13 @@
                         <div>외부로 공유</div>
                         <div>슬라이드 시간 설정</div>
                     </section>
-                <div class="d:flex fl-dir:row jc:space-between pb:4">
+                <div class="d:flex fl-dir:row jc:space-between">
                     <div class="d:flex jc:flex-start">
                         <span style="margin-right:6px;">12</span> 
                         <span style="margin-right:6px;">/</span> 
                         <span>52</span>
                     </div>
-                    <div class="d:flex jc:flex-end">
+                    <div class="d:flex jc:flex-end pb:3">
                         <span style="margin-right:6px;">2024-02-13</span> 
                         <span>17:21:04</span>
                     </div>
@@ -106,6 +112,12 @@
             </section>
         </article>
     </section>
+    <div class="small-card-r d:none md:d:flex jc:center">
+        <div class="d:flex ai:center jc:center">
+            <img src="/image/logo.png" class="h:2 w:2 rotating-img">
+        </div>
+    </div>
+</section>
     </main>
     <aside class="d:none md:d:flex jc:center right:1 zi:1">
         <div class="pos:fixed h:100p bg-color:main-2">
