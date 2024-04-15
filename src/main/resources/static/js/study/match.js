@@ -20,7 +20,7 @@ let hpProgressbar = document.querySelector("#hp-progressbar");
 let barStyle = hpProgressbar.querySelector("div>div");
 
 //=============================================================================================
-
+//퀴즈객체 - 퀴즈매니저 - 유저객체
 
 class Repository{
     getRandom(){
@@ -65,7 +65,7 @@ else
                 <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="2">②</label><span>${randQ.num2}</span></div>
                 <div class="d:flex gap:2"><label class="check-answer "><input type="radio" name="answer" data-value="3">③</label><span>${randQ.num3}</span></div>
                 <div class="d:flex gap:2 mb:6"><label class="check-answer "><input type="radio" name="answer" data-value="4">④</label><span>${randQ.num4}</span></div>
-                <div class="wait-msg"><button id="submit" class="btn-base n-btn:filled-4" disabled>제출</button></div>
+                <div class="wait-msg mb:3"><button id="submit" class="btn-base n-btn:filled-4" disabled>제출</button></div>
             </div>
             `;
             
@@ -222,9 +222,7 @@ else
 
 
     afterQuiz(){
-        for (let div of quizDivs) {
-            div.classList.add("d:none")
-        }
+     
        
      
         let count =4;
@@ -234,11 +232,16 @@ else
                 quizDivs[count+1].classList.remove("d:none");
     
                 count++;
+                if(count==7)this.next();
             }
             if(!(quizDivs[quizDivs.length-2].classList.contains("d:none")))
-                return this.next();
+                return;
             
-        })
+            
+        });
+        
+   
+
         for(let div of quizDivs){
             if((!div.classList.contains("d:none")) && div.classList.contains("beBeaten")){
                 barStyle.style.width=(255-this.hp)/255*100 +"%";//(총-상대방공격)/총 * 100
@@ -288,6 +291,10 @@ else
                        
                         //그냥 버튼 disabled함..
                     }
+
+                       //for (let div of quizDivs) 
+                       quizDivs[0].classList.add("d:none");
+                            
                     
                     this.afterQuiz();
                     skillMenus.classList.add("vis:hidden"); //스킬 창 닫기
