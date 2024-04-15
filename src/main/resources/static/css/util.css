@@ -247,6 +247,23 @@ utill.css 목록
 }
 
 
+/* ox용 버튼 추가---------------------------------------------------------- */
+
+.n-btn\:filled-o {
+    background-color: var(--color-base-1) !important;
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+    width: 55px !important;
+ }
+
+ .n-btn\:filled-x {
+    background-color: var(--color-main-2) !important;
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+    width: 55px !important;
+ }
+
+
 /* =======================3.폰트========================== */
 
 .font\:1{
