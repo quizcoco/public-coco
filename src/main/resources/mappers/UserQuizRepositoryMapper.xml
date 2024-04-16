@@ -16,4 +16,5 @@
         select * from user_multiple_choice_quiz where id=#{id}
     </select>
 
+
 </mapper>

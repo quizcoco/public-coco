@@ -14,36 +14,33 @@ public class ExamQuizServiceImp implements ExamQuizService{
 
     @Autowired
     private ExamQuizRepository repository;
-
-    
     
     //====================================getList===================================
     @Override
-    public List<ExamQuiz> getList(Integer page) {
-       return getList(page, null, null, null, null, null);
+    public List<ExamQuiz> getList(Integer page, Integer size) {
+       return getList(page, null, null, null, null, null, size);
     }
     
     @Override
-    public List<ExamQuiz> getList(Integer page, String query){
+    public List<ExamQuiz> getList(Integer page, String query, Integer size){
 
-       return getList(page, query, null, null, null, null);
+       return getList(page, query, null, null, null, null, size);
     }
 
     @Override
-    public List<ExamQuiz> getList(Integer page, Integer secret) {
-        return getList(page, null, null, null, null, secret);
+    public List<ExamQuiz> getList(Integer page, Integer secret, Integer size) {
+        return getList(page, null, null, null, null, secret, size);
     }
 
     @Override
-    public List<ExamQuiz> getList(Integer page, Integer typeId, Integer year, Integer examOfficialRankId) {
-        return getList(page, null, typeId, year,examOfficialRankId, null);
+    public List<ExamQuiz> getList(Integer page, Integer typeId, Integer year, Integer examOfficialRankId, Integer size) {
+        return getList(page, null, typeId, year,examOfficialRankId, null, size);
     }
     
-    public List<ExamQuiz> getList(Integer page, String query, Integer typeId, Integer year, Integer examOfficialRankId,
-            Integer secret) {
+    public List<ExamQuiz> getList(Integer page,String query, Integer typeId, Integer year, Integer examOfficialRankId,
+            Integer secret, Integer size) {
        
-
-                int size=10; //~개씩
+                // int size=10; //~개씩
                 int offset=(page-1)*size; //부터
         
                 //1-0 :10
@@ -80,8 +77,6 @@ public class ExamQuizServiceImp implements ExamQuizService{
     public ExamQuiz getById(long id) {
         return repository.findById(id);
     }
-
-
 
     @Override
     public void edit(ExamQuiz examQuiz) {

@@ -13,5 +13,10 @@ public interface UserQuizService {
     UserOXQuiz getByOXQuizId(long id);
     UserShortQuiz getByShortQuizId(long id);
     UserMultipleQuiz getByMultipleQuizId(long id);
+
+    void reg();
+    void regOX(UserOXQuiz userOXQuiz);
+    void regMulti(UserMultipleQuiz userMultipleQuiz);
+    void regShort(UserShortQuiz userShortQuiz);
     
 }

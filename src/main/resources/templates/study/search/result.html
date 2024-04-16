@@ -11,6 +11,7 @@
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
     <link href="/css/match.css" rel="stylesheet" type="text/css">
+    <link href="/css/report.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
@@ -95,16 +96,13 @@
             </section>
 
             <!-- 퀴즈 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="d:flex fl-direction:column jc:center ai:center">
+            <section th:each="list:${list}" class="d:flex fl-direction:column jc:center ai:center">
                 <div class="fs:4">퀴즈</div>
                 <div class="d:flex fl-direction:column mt:2">
-                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center">최근에 본 문제</div>
+                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center p:4" th:text="${list.question}">문제문제</div>
                 </div>
                 <div class="d:flex flex:end justify-content:flex-end fs:1 w:4"><button>더보기</button></div>
             </section>
-
-            <!-- 페이저 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-           
 
     <!--=========================== 메인 끝 =================================-->
     </main>

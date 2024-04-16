@@ -30,33 +30,30 @@ public class QuizController {
                        ,@RequestParam(name = "type-id",required = false, defaultValue = "0") Integer typeId
                        ,@RequestParam(required = false,defaultValue = "0") Integer year
                        ,@RequestParam(required = false) Integer secret
+                       ,@RequestParam(required = false, defaultValue = "10") Integer size
+
                     ){
 
         List<ExamQuiz> list = new ArrayList<>();
         int count = 0;
 
         if(query != null){
-            list =service.getList(page,query);
+            list =service.getList(page,query,size);
             count = service.getCount(query);
         }
         else if(secret != null){
-            list =service.getList(page,secret);
+            list =service.getList(page,secret,size);
         }
         else if(year != null && typeId != null && examOfficialRankId != null){
-            list =service.getList(page,typeId,year,examOfficialRankId);
+            list =service.getList(page,typeId,year,examOfficialRankId,size);
         }
         else {
-            list =service.getList(page);
+            list =service.getList(page,size);
             count = service.getCount();
         }
-        
-        
-
 
         model.addAttribute("list", list);
         model.addAttribute("count", count);
-        
-
 
         return "admin/examquiz/list";
 
@@ -87,15 +84,8 @@ public class QuizController {
 
         service.reg(examQuiz);
 
-
         return "redirect:reg";
     }
-
-
-
-
-
-
 
     //=========================================테스트===================================================
     //수정페이지
@@ -125,8 +115,6 @@ public class QuizController {
          examQuiz.setExamOfficialRankId(updated.getExamOfficialRankId());//exam_official_rank_id
          examQuiz.setSecret(updated.getSecret());
 
-
-
          service.edit(examQuiz);
 
         return "redirect:list";
@@ -139,7 +127,6 @@ public class QuizController {
         service.delById(id);
 
         return "redirect:list";
-
 
     }
 
