@@ -16,4 +16,26 @@
         select * from user_multiple_choice_quiz where id=#{id}
     </select>
 
+ <!-- 유저 퀴즈를 user_quizzes 테이블과 타입별 테이블에 등록하기  -->
+
+    <insert id="saveShort" parameterType="UserShortQuiz" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_short_answer_quiz (id,question,answer,commentary,reg_date,user_id)
+        VALUES (#{id},#{question},#{answer},#{commentary},#{reg_date},#{user_id})
+    </insert>
+
+    <insert id="saveMulti" parameterType="UserMultipleQuiz" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_multiple_choice_quiz (id,question,num1,num2,num3,num4,answer,commentary,reg_date,user_id)
+        VALUES (#{id},#{question},#{num1},#{num2},#{num3},#{num4},#{answer},#{commentary},#{reg_date},#{user_id})
+    </insert>
+
+    <insert id="saveOX" parameterType="UserOXQuiz" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_ox (id,question,answer,commentary,reg_date,user_id)
+        VALUES (#{id},#{question},#{answer},#{commentary},#{reg_date},#{user_id})
+    </insert>
+
+    <insert id="saveUserQuiz" parameterType="UserQuiz">
+        INSERT INTO user_quizzes (id,user_short_answer_quiz_id,user_multiple_choice_quiz_id,user_ox_id)
+        VALUES (#{id}, #{userShortAnswerQuizId}, #{userMultipleChoiceQuizId}, #{userOxId})
+    </insert>
+
 </mapper>
