@@ -27,38 +27,35 @@ public class QuizController {
                        ,@RequestParam(name = "type-id",required = false, defaultValue = "0") Integer typeId
                        ,@RequestParam(required = false,defaultValue = "0") Integer year
                        ,@RequestParam(required = false) Integer secret
+                       ,@RequestParam(required = false, defaultValue = "10") Integer size
     ){
 
        List<ExamQuiz> examQuizs = new ArrayList<>();
 
        
        if(query != null){
-           examQuizs =service.getList(page,query);
+           examQuizs =service.getList(page,query,size);
         }
         else if(secret != null){
-            examQuizs =service.getList(page,secret);
+            examQuizs =service.getList(page,secret,size);
         }
         else if(year != null && typeId != null && examOfficialRankId != null){
-            examQuizs =service.getList(page,typeId,year,examOfficialRankId);
+            examQuizs =service.getList(page,typeId,year,examOfficialRankId,size);
         }
         else {
-            examQuizs =service.getList(page);
+            examQuizs =service.getList(page,size);
         }
         
         return examQuizs;
     }
 
-
-
     @GetMapping("rand")
     public ExamQuiz random(){
 
         ExamQuiz random = service.getRand();
-
        
         return random;
 
     }
-
     
 }

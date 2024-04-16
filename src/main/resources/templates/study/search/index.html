@@ -11,6 +11,7 @@
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
     <link href="/css/match.css" rel="stylesheet" type="text/css">
+    <link href="/css/report.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
@@ -56,20 +57,24 @@
         <section class="d:flex fl-direction:column gap:3">
             <!-- 검색어 폼 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
             <section class="d:flex jc:center">
-                <div class="deco icon:magnifying_glass"></div>
-                <div class="d:flex jc:center">
-                    <label class="d:flex ac:center w:6">
-                        <input type="text" autocomplete="on" autofocus class="search-form bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="quiz-list"  name="q" placeholder="검색어를 입력하세요">
-                        <datalist id="quiz-list">
-                            <option>OX문제</option>
-                            <option>단답문제</option>
-                            <option>띄어쓰기</option>
-                            <option>순우리말</option>
-                            <option>사자성어</option>
-                            <option>어문규정</option>
-                        </datalist>
-                    </label>
-                </div>
+                <form method="get" action="search/result" class="d:flex">
+                    <div class="deco icon:magnifying_glass"></div>
+                    <div class="d:flex jc:center">
+                        <label class="d:flex ac:center w:6">
+                            <!-- 검색기록 지우는거 pc는 가능인데 모바일에서는 안나옴 -->
+                            <input type="text" autocomplete="on" autofocus class="search-form bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="quiz-list"  name="q" placeholder="검색어를 입력하세요" enterkey>
+                            <input type="hidden" value="3" name="s">
+                            <datalist id="quiz-list">
+                                <option>OX문제</option>
+                                <option>단답문제</option>
+                                <option>띄어쓰기</option>
+                                <option>순우리말</option>
+                                <option>사자성어</option>
+                                <option>어문규정</option>
+                            </datalist>
+                        </label>
+                    </div>
+                </form>
             </section>
 
             <!-- 버튼 카테고리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
@@ -110,9 +115,6 @@
                 </div>
                 <div class="d:flex flex:end justify-content:flex-end fs:1 w:4"><button>더보기</button></div>
             </section>
-
-            <!-- 모달 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-
 
     <!--=========================== 메인 끝 =================================-->
     </main>

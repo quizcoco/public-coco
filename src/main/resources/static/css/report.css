@@ -1,0 +1,42 @@
+/* ========결과 디테일=========== */
+
+/* 디테일 박스 - 반응형 전 */
+.section-s{
+    display: flex;
+    min-width: 440px;
+    max-width: 500px;
+    flex-direction: column;
+}
+
+/* 박스문제 */
+.reportBox{
+    display: flex;
+    gap: 8px;
+    background-color: #ffffff ;
+}
+
+.matchReport{
+    width: 210px;
+    height: 132px;
+    position: fixed;
+    align-content: center;
+    background-color: #F8EBEB; 
+    border-radius:12px;
+    padding: 10px;
+
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+/* searchㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+
+.searchQuiz{
+    width: 246px;
+    height: 72px;
+    background-color: #E2CACA;
+    border-radius:12px;
+    align-content: center;
+}
