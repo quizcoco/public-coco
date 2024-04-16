@@ -1,50 +1,150 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="reg.js"></script>
+    <title>QUIZCOCO</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
+    <link href="/css/components/header.css" rel="stylesheet" type="text/css">
+    <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
+    <link href="/css/root.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/user-quiz.css" rel="stylesheet" type="text/css">
+    
+    <link rel="icon" type="image/png" href="/image/logo.png">
+    <script defer src="/js/header.js"></script>
+    <script defer src="/js/userquiz/reg.js"></script>
 </head>
 <body>
-    <section>
-        <h1>문제형식</h1>
-        <div>
-            <label>문제형식
-            <select>
-                <option>단답형</option>
-                <option>사지선다형</option>
-                <option>OX형</option>
-            </select>
-            </label>
-            <div>그룹2 > 하위그룹4</div>
-            <section>
-                <h1>폴더 지정</h1>
-                <nav>
-                    <h1>단답</h1>
-                    <div>하위그룹 1</div>
-                    <div>하위그룹 2</div>
-                    <div>하위그룹 3</div>
-                    <div>하위그룹 4</div>
-                    <div><input type="text" value="새 폴더"></div>
-                </nav>
-                <div><button>선택</button><button>닫기</button></div>
-            </section>
-        </div>
-    </section>
-    <section>
-        <h1>문제형식</h1>
-        <div></div>
-        <div>*는 필수사항 입니다.</div>
-    </section>
-    <section>
-        <h1>등록 및 추가</h1>
-        <div>
-            <button>추가버튼</button>
-            <button>등록 후 이어서 작성</button>
-        </div>
-    </section>
+<header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
+    <h1 class="root-header-title d:none md:d:flex"><span class="header-font">QUIZCOCO</span><span class="white-space:nowrap ln-h:2">- 내 퀴즈 등록</span></h1>
+    <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
+        <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">내 퀴즈 등록</span></h1>
+        <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
+    </div>
 
-    <footer>광고</footer>
+    <section class="d:none md:d:flex root-header-menu">
+        <h1 class="d:none">접속중인 친구</h1>
+        <div class="d:flex gap:4"><span class="online-user"></span><span class="online-user"></span><span class="online-user"></span><span class="online-num">6</span></div>
+    </section>
+    <nav class="root-header-menu">
+        <h1 class="d:none">유저 메뉴</h1>
+        <ul class="md:d:none">
+            <li><a href="/admin" class="icon icon:admin">관리자-유저 전환</a></li>
+            <li><a href="/" class="icon-home">홈으로</a></li>
+            <li><a href="" id="m" class="icon icon:list">메뉴</a></li>
+        </ul>
+    </nav>
+    <nav class="menu d:none md:d:none">
+        <h1 class="d:none">모바일 메뉴바</h1>
+        <ul>
+            <li class="profile-place"><a href="" class="profile">내정보</a><a href="" class="icon icon:myinfo arrow">>></a></li>
+            <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+            <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+            <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="of:auto">
+<!--=========================== 메인에 입력 ===============================-->
+
+    <section class="quiz-block">
+        <h1 class="d:none">유저 문제 등록폼</h1>
+        <form method="post" action="reg">
+            <fieldset>
+                <div class="select-block">
+                    <label class="fw:bold fs:6 pr:6">문제 형식</label>
+                    <select id="quizType" class="quiz-cate none">
+                        <option value="short" class="bg-color:base-1">단답형</option>
+                        <option value="multiple" class="bg-color:base-1">사지선다형</option>
+                        <option value="ox" class="bg-color:base-1">OX형</option>
+                    </select>
+                </div>
+                <div class="select-block">    
+                    <label class="fw:bold fs:6 pr:4"> 그룹 선택</label>
+                    <div class="quiz-cate">
+                        <select class="none bg-color:main-2">
+                            <option class="bg-color:base-1">그룹1</option>
+                            <option class="bg-color:base-1">그룹2</option>
+                        </select>
+                        <span class="icon icon:caret_right icon-size:1">*</span>
+                        <select class="none bg-color:main-2">
+                            <option class="bg-color:base-1">하위 그룹1</option>
+                            <option class="bg-color:base-1">하위 그룹2</option>
+                        </select>
+                    </div>    
+                </div>   
+                <section class="input-quiz-block">
+                    <h1 class="d:none">문제 등록창</h1>
+                        <div id="shortQuiz">
+                            <label class="pb:3 fw:bold fs:5">문제<span class="color:accent-1">*</span></label>
+                                <textarea type="text" autocomplete="off" class="input-text:short" required></textarea>
+                            <label class="pb:3 fw:bold fs:5">단답형 답<span class="color:accent-1">*</span></label>
+                                <textarea type="text" autocomplete="off" class="input-text:short" required></textarea>
+                            <label class="pb:3 fw:bold fs:5">해설(선택)</label>
+                                <textarea type="text" autocomplete="off" class="input-text:short"></textarea>
+                        </div>
+
+                        <div id="multipleQuiz" hidden>
+                            <label class="pb:3 fw:bold fs:5">문제<span class="color:accent-1">*</span></label>
+                                <textarea type="text" autocomplete="off" class="input-text:multi" required></textarea>
+                                <textarea type="text" placeholder="①" autocomplete="off" class="input-text:multi" required></textarea>
+                                <textarea type="text" placeholder="②" autocomplete="off" class="input-text:multi" required></textarea>
+                                <textarea type="text" placeholder="③" autocomplete="off" class="input-text:multi" required></textarea>
+                                <textarea type="text" placeholder="④" autocomplete="off" class="input-text:multi" required></textarea>
+                            <label class="pb:3 fw:bold fs:5">답<span class="color:accent-1">*</span></label>
+                                <textarea type="number" autocomplete="off" class="input-text:multi" required></textarea>
+                            <label class="pb:3 fw:bold fs:5">해설(선택)</label>    
+                                <textarea type="text" autocomplete="off" class="input-text:multi"></textarea>
+                        </div>
+
+                        <div id="oxQuiz" class="bd-radius:2 bg-color:" hidden>
+                            <label class="pb:3 fw:bold fs:5">문제<span class="color:accent-1">*</span></label>
+                                <textarea type="text" class="input-text:short" autocomplete="off" required></textarea>
+                            <label class="pb:3 fw:bold fs:5">OX답<span class="color:accent-1">*</span></label>    
+                              <div class="d:flex fl-dir:row gap:3 ai:center jc:flex-end pb:2"><button class="n-btn n-btn:filled-o">O</button><button class="n-btn n-btn:filled-x">X</button></div>
+                            <label class="pb:3 fw:bold fs:5">해설(선택)</label>    
+                                <textarea type="text" class="input-text:short" autocomplete="off"></textarea>
+                        </div>
+                </section>
+                
+                <span class="color:base-6">*는 필수사항 입니다.</span>
+    </fieldset>
+    <div class="reg-btn">
+        <button type="button" class="n-btn n-btn:filled-2">등록 후 이어서 작성</button>
+        <a href="list" class="n-btn n-btn:filled-2">나가기</a>
+    </div>
+    </section>
+    </form>
+    </section>
+</main>
+<aside class="d:none md:d:flex jc:center right:1 zi:1">
+    <div class="pos:fixed h:100p bg-color:main-2">
+        <nav class="d:flex jc:center">
+            <h1 class="d:none">pc 메뉴바</h1>
+            <ul class="d:grid gap:4 mt:7 w:min-content">
+                <li class="profile-place"><a href="" class="profile"></a><a href="" class="icon icon:myinfo arrow">>p></a></li>
+                <li class="fs:1 bd-bottom"><span>김철수</span><span>Lv.5</span><br><span>인벤토리 북마크</span><li>
+                <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+                <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                <li><a href="/admin" class="deco deco-margin-right:8 icon:admin">관리자</a></li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+<footer class="ad md:d:none d:flex jc:center ai:center">
+    <div>광고</div>
+</footer>
 </body>
 </html>
