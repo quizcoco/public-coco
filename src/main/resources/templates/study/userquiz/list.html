@@ -45,7 +45,7 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
             </ul>
         </nav>
     </header>
@@ -95,31 +95,12 @@
         </section>
     </section>
 
-    <section class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
+    <section th:each="ox:${useroxq}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
         <h1 class="d:none">퀴즈 리스트</h1>
         <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-        <div class="pl:5"><span>자식이 커서 부모를 봉양하다.</span><br><span class="color:accent-4">안갚음</span></div>
+        <div class="pl:5"><span th:text="${ox.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${ox.answer}" class="color:accent-4">안갚음</span></div>
     </section>
-    <section class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
-        <h1 class="d:none">퀴즈 리스트</h1>
-        <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-        <div class="pl:5"><span>자식이 커서 부모를 봉양하다.</span><br><span class="color:accent-4">안갚음</span></div>
-    </section>
-    <section class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
-        <h1 class="d:none">퀴즈 리스트</h1>
-        <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-        <div class="pl:5"><span>자식이 커서 부모를 봉양하다.</span><br><span class="color:accent-4">안갚음</span></div>
-    </section>
-    <section class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
-        <h1 class="d:none">퀴즈 리스트</h1>
-        <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-        <div class="pl:5"><span>자식이 커서 부모를 봉양하다.</span><br><span class="color:accent-4">안갚음</span></div>
-    </section>
-    <section class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:2">
-        <h1 class="d:none">퀴즈 리스트</h1>
-        <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-        <div class="pl:5"><span>자식이 커서 부모를 봉양하다.</span><br><span class="color:accent-4">안갚음</span></div>
-    </section>
+
     <section class="md:d:flex jc:space-around mb:3">
         <h1 class="d:none">페이저</h1>
         <div>
@@ -207,7 +188,7 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
                 <li><a href="/admin" class="deco deco-margin-right:8 icon:admin">관리자</a></li>
             </ul>
         </nav>

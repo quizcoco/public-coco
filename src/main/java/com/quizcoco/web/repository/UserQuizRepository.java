@@ -11,7 +11,7 @@ import com.quizcoco.web.entity.UserShortQuiz;
 @Mapper
 public interface UserQuizRepository {
     
-    List<UserOXQuiz> findAll();
+    List<UserOXQuiz> findAll(long userId);
 
     UserOXQuiz findByOXId(long id);
     UserShortQuiz findByShortId(long id);

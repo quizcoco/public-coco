@@ -47,7 +47,7 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
             </ul>
         </nav>
     </header>
@@ -59,7 +59,7 @@
             <section class="d:flex jc:center">
                 <div class="deco icon:magnifying_glass"></div>
                 <div class="d:flex jc:center">
-                    <label class="d:flex ac:center w:8">
+                    <label class="d:flex ac:center w:6">
                         <input type="text" autocomplete="on" autofocus class="search-form  bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="menu-list"  name="q" placeholder="검색어를 입력하세요">
                         <datalist id="menu-list">
                             <option>OX문제</option>
@@ -74,7 +74,7 @@
             </section>
 
             <!-- 버튼 카테고리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="d:flex jc:center">
+            <section class="d:none d:flex jc:center"> <!-- 그룹 보류 -->
                 <h1 class="d:none">버튼 카테고리</h1>
                 <div class="d:flex fl-direction:column gap:2 mt:4">
                     <div class="d:flex gap:2">
@@ -87,7 +87,7 @@
             </section>
 
             <!-- 그룹 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="d:flex fl-direction:column jc:center ai:center">
+            <section class="d:none d:flex fl-direction:column jc:center ai:center">
                 <div class="fs:4">그룹</div>
                 <div class="d:flex fl-direction:column mt:2">
                     <div class="searchQuiz d:flex fl-direction:column jc:center ai:center"><span>220105 띄어쓰기</span><span>20문항</span></div>
@@ -95,15 +95,20 @@
                 <div class="d:flex flex:end justify-content:flex-end fs:1 w:4"><button>더보기</button></div>
             </section>
 
-            <!-- 퀴즈 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            <!-- 퀴즈 -->
+            <div class="txt-al:center fs:4">퀴즈</div>
+            <!-- 퀴즈반복 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
             <section th:each="list:${list}" class="d:flex fl-direction:column jc:center ai:center">
-                <div class="fs:4">퀴즈</div>
                 <div class="d:flex fl-direction:column mt:2">
                     <div class="searchQuiz d:flex fl-direction:column jc:center ai:center p:4" th:text="${list.question}">문제문제</div>
                 </div>
-                <div class="d:flex flex:end justify-content:flex-end fs:1 w:4"><button>더보기</button></div>
             </section>
-
+            <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            
+            <!-- 더보기 -->
+            <section class="d:flex jc:center">
+                <div class="d:flex jc:center fs:1 w:4"><button>더보기</button></div>
+            </section>
     <!--=========================== 메인 끝 =================================-->
     </main>
 
@@ -120,7 +125,7 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
                 <li><a href="/admin" class="deco deco-margin-right:8 icon:admin">관리자</a></li>
             </ul>
         </nav>

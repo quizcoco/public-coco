@@ -1,0 +1,55 @@
+.login-container {
+    box-sizing: border-box;
+    padding : 0px 50px 0px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+
+}
+
+/* 텍스트 입력 박스 */
+
+.n-textbox-login {
+    /* textbox-color */
+    background-color: var(--color-base-2) !important;
+  
+      /* textbox-size */
+    width: 310px;
+    height: 68px;
+    padding: 0px 12px;
+    font-size: 13px;
+  
+    /* 정렬 */
+    line-height: 60px;
+  
+    /* textbox-border-radius */
+    border-radius: 15px;    
+
+    display: flex;
+    align-items: center;
+  }
+  
+  .n-textbox-login:focus {
+    border:solid;
+    border-width: 0.6px;
+    border-color: var(--color-base-6) !important;
+  }
+
+
+  .hr {
+    width:120px;
+    height: 0.5px;
+    background-color: var(--color-base-5);
+  }
+
+.eye {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.hidden {
+  display: none;
+}
