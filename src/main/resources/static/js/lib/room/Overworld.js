@@ -20,7 +20,11 @@ startGameLoop(){//초당60 everysingleframe run
 
         //draw game objects
         Object.values(this.map.gameObjects).forEach(object=>{
-           // object.x +=0.02;
+            //object.x +=1;
+
+            object.update({
+                arrow:this.directionInput.direction
+            });
             object.sprite.draw(this.ctx);
         })
         //draw upper layer
@@ -39,6 +43,10 @@ startGameLoop(){//초당60 everysingleframe run
 
 init(){
     this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
+
+    this.directionInput = new DirectionInput();
+    this.directionInput.init();
+    //this.directionInput.direction;
     this.startGameLoop();
 
 

@@ -25,13 +25,14 @@ window.OverworldMaps={ //각종맵객체
         lowerSrc:"/image/room/room2.png",
         upperSrc:"/image/room/room2.png",
         gameObjects:{
-            man1:new GameObject({
-                x:5,
-                y:2,
+            man1:new Person({
+                isPlayerControlled:true,
+                x:utils.withGrid(5),
+                y:utils.withGrid(6),
             }),
-                npc1: new GameObject({
-                x:7,
-                y:10,
+                npc1: new Person({
+                x:utils.withGrid(7),
+                y:utils.withGrid(9),
                 //src:"/image/"
                })
         }
