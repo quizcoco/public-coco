@@ -47,7 +47,7 @@ public class WebSecurityConfig {
 
 	public UserDetailsService jdbcUserDetailsService() {
 		
-		String userSql = "";
+		String userSql = "select name, pw password from user where name=?";
 		String authSql = """
 
 						""";
