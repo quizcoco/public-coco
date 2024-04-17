@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -76,4 +77,51 @@ public class QuizController {
         return "study/userquiz/detail";
     }
 
+    // 유저 문제 등록 페이지
+    @GetMapping("reg")
+    public String reg() {
+        return "userquiz/reg";
+    }
+
+    @GetMapping("reg/ox")
+    public String regOX() {
+
+        return "userquiz/reg/ox";
+    }
+
+    @PostMapping("reg/ox")
+    public String regOX(UserOXQuiz userOXQuiz) {
+
+        service.regOX(userOXQuiz);
+        
+        return "redirect:reg/ox";
+    } 
+
+    @GetMapping("reg/multi")
+    public String regMulti() {
+
+        return "userquiz/reg/multi";
+    }
+
+    @PostMapping("reg/multi")
+    public String regMulti(UserMultipleQuiz userMultipleQuiz) {
+
+        service.regMulti(userMultipleQuiz);
+        
+        return "redirect:reg/multi";
+    } 
+
+    @GetMapping("reg/short")
+    public String regShort() {
+
+        return "userquiz/reg/short";
+    }
+
+    @PostMapping("reg/short")
+    public String regShort(UserShortQuiz userShortQuiz) {
+
+        service.regShort(userShortQuiz);
+        
+        return "redirect:reg/short";
+    } 
 }

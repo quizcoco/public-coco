@@ -14,8 +14,12 @@ public interface UserQuizRepository {
     List<UserOXQuiz> findAll(long userId);
 
     UserOXQuiz findByOXId(long id);
-
     UserShortQuiz findByShortId(long id);
-
     UserMultipleQuiz findByMultiId(long id);
+
+    void save();
+
+    void saveOX(UserOXQuiz userOXQuiz);
+    void saveMulti(UserMultipleQuiz userMultipleQuiz);
+    void saveShort(UserShortQuiz userShortQuiz);
 }

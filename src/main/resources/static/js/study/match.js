@@ -18,6 +18,7 @@ let beBeaten = quizBox.querySelector(".bebeaten");
 
 let hpProgressbar = document.querySelector("#hp-progressbar");
 let barStyle = hpProgressbar.querySelector("div>div");
+let hpNow =  hpProgressbar.querySelector(".hp-now");
 
 //=============================================================================================
 //퀴즈객체 - 퀴즈매니저 - 유저객체
@@ -27,6 +28,14 @@ class Repository{
         return fetch("/api/examQuizs/rand");
     }
 }
+
+class User{
+
+    constructor(){
+
+    }
+}
+
 
 class Quiz{
    constructor(){
@@ -126,17 +135,19 @@ else
                 console.log("후id"+randQ.id);
                 console.log("후hp"+this.hp);
 
-               
+               return;
             }
             console.log("hp가 0이 되어..");
+            
 
        // },{ once : true})
 
            
     }
-    closed(){
+    closed(){//TODO 종료:코코는 기분이 좋아보인다 
         console.log("종료");
-        //코코는 기분이 좋아보인다
+        quizDivs[quizDivs.length-2].classList.add("d:none");
+        quizDivs[quizDivs.length-1].classList.remove("d:none");//코코는 기분이 좋아보인다
     }
 
 
@@ -226,29 +237,41 @@ else
        
      
         let count =4;
+        let nowSayGoodBye=false;
+        //hp피통 이미지 표시
+        let progress = ((this.hp)/255)*100 ;
+        if(progress<0){progress=0;this.hp=0;}
+
         quizBox.addEventListener("click",()=>{//타격을 입었다 까지..
             if (count < quizDivs.length-2) {
                 quizDivs[count].classList.add("d:none");
                 quizDivs[count+1].classList.remove("d:none");
     
                 count++;
+                if(count==6){
+                    barStyle.style.width=progress +"%";//(총-상대방공격)/총 * 100
+                    hpNow.textContent=this.hp;
+                    console.log(this.hp);
+                }
                 if(count==7)this.next();
             }
-            if(!(quizDivs[quizDivs.length-2].classList.contains("d:none")))
-                return;
-            
-            
-        });
+            else if(count < quizDivs.length-1 && this.hp==0)
+                this.closed();
+            //if(!(quizDivs[quizDivs.length-1].classList.contains("d:none")))
+            //return ;
+        
+        
+    });
         
    
 
-        for(let div of quizDivs){
-            if((!div.classList.contains("d:none")) && div.classList.contains("beBeaten")){
-                barStyle.style.width=(255-this.hp)/255*100 +"%";//(총-상대방공격)/총 * 100
-            console.log(barStyle.style.width);
-            console.log(this.hp);
-            }
-        }
+        // for(let div of quizDivs){
+        //     if((!div.classList.contains("d:none")) && div.classList.contains("beBeaten")){
+        //         barStyle.style.width=(255-this.hp)/255*100 +"%";//(총-상대방공격)/총 * 100
+        //     console.log(barStyle.style.width);
+        //     console.log(this.hp);
+        //     }
+        // }
         
         // setTimeout(()=>{
             

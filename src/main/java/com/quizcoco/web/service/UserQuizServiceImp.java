@@ -16,6 +16,7 @@ public class UserQuizServiceImp implements UserQuizService{
     @Autowired
     private UserQuizRepository repository;
 
+//====================================getList===================================    
     @Override
     public List<UserOXQuiz> getList(long userId) {
 
@@ -24,6 +25,7 @@ public class UserQuizServiceImp implements UserQuizService{
         return list;
     }
 
+//====================================getById===================================        
     @Override
     public UserOXQuiz getByOXQuizId(long id) {
         
@@ -43,6 +45,27 @@ public class UserQuizServiceImp implements UserQuizService{
 
         return repository.findByMultiId(id);
 
+    }
+
+//====================================reg===================================    
+    @Override
+    public void reg() {
+        repository.save();
+    }
+
+    @Override
+    public void regOX(UserOXQuiz userOXQuiz) {
+        repository.saveOX(userOXQuiz);
+    }
+
+    @Override
+    public void regMulti(UserMultipleQuiz userMultipleQuiz) {
+        repository.saveMulti(userMultipleQuiz);
+    }
+
+    @Override
+    public void regShort(UserShortQuiz userShortQuiz) {
+        repository.saveShort(userShortQuiz);
     }
     
 }
