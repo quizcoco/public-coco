@@ -14,6 +14,7 @@
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
+    <script defer src="/js/study/userquiz/detail.js"></script>
 </head>
 <body>
 <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
@@ -45,7 +46,7 @@
             <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
             <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
             <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-            <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+            <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
         </ul>
     </nav>
 </header>
@@ -88,11 +89,11 @@
                     </div>
                 </div>
             </section>
-            <section class="bg-color:base-1">
+            <section id="quiz-card" class="bg-color:base-1">
                 <h1 class="d:none">카드 내용</h1>
                 <div class="p:2">
                     <span class="d:inline-block pb:1">[사지선다 문제]</span><br>
-                    <span class="d:inline-block pb:3 fw:bold pb:7">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
+                    <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${useroxq.question}">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
                     <span class="d:inline-block pb:2 fw:bold">①교언영색</span><br>
                     <span class="d:inline-block pb:2 fw:bold color:accent-4">②곡학아세</span><br>
                     <span class="d:inline-block pb:2 fw:bold">③다문박식</span><br>
@@ -132,7 +133,7 @@
                     <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
                     <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                     <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                    <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                    <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
                     <li><a href="/admin" class="deco deco-margin-right:8 icon:admin">관리자</a></li>
                 </ul>
             </nav>

@@ -17,9 +17,9 @@ public class UserQuizServiceImp implements UserQuizService{
     private UserQuizRepository repository;
 
     @Override
-    public List<UserOXQuiz> getList() {
+    public List<UserOXQuiz> getList(long userId) {
 
-        List<UserOXQuiz> list = repository.findAll();
+        List<UserOXQuiz> list = repository.findAll(userId);
 
         return list;
     }

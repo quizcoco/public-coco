@@ -8,7 +8,7 @@ import com.quizcoco.web.entity.UserShortQuiz;
 
 public interface UserQuizService {
 
-    List<UserOXQuiz> getList();
+    List<UserOXQuiz> getList(long userId);
     
     UserOXQuiz getByOXQuizId(long id);
     UserShortQuiz getByShortQuizId(long id);

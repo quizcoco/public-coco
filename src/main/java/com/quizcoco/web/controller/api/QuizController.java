@@ -17,7 +17,7 @@ import com.quizcoco.web.service.ExamQuizService;
 public class QuizController {
 
     @Autowired
-    private ExamQuizService service;
+    private ExamQuizService eqService;
 
     @GetMapping
     public List<ExamQuiz> list(
@@ -34,16 +34,16 @@ public class QuizController {
 
        
        if(query != null){
-           examQuizs =service.getList(page,query,size);
+           examQuizs =eqService.getList(page,query,size);
         }
         else if(secret != null){
-            examQuizs =service.getList(page,secret,size);
+            examQuizs =eqService.getList(page,secret,size);
         }
         else if(year != null && typeId != null && examOfficialRankId != null){
-            examQuizs =service.getList(page,typeId,year,examOfficialRankId,size);
+            examQuizs =eqService.getList(page,typeId,year,examOfficialRankId,size);
         }
         else {
-            examQuizs =service.getList(page,size);
+            examQuizs =eqService.getList(page,size);
         }
         
         return examQuizs;
@@ -52,7 +52,7 @@ public class QuizController {
     @GetMapping("rand")
     public ExamQuiz random(){
 
-        ExamQuiz random = service.getRand();
+        ExamQuiz random = eqService.getRand();
        
         return random;
 
