@@ -54,10 +54,10 @@
 
     <main class="of:auto">
 <!--=========================== 메인에 입력 ===============================-->
-    <section class="login-container">
+    <section id="login-section" class="login-container">
         <hl class="fw:3 font-s:4 pb:5 pt:8">로그인</hl>
         <form method="post">
-            <fieldset name="login-filed">
+            <fieldset>
                 <div class="n-textbox-login mb:3">
                   <label class="d:none">id</label>
                   <input type="text" class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*id">  
@@ -74,9 +74,9 @@
                         <label class="order:2 fs:1 fw:2 color:base-5">자동 로그인하기</label>
                         <input type="checkbox" class="order:1 n-toggle n-toggle-type:check-box n-toggle-size:1" />
                     </div>
-                    <div class="d:flex fs:1 fw:2 color:base-5 gap:5">
-                          <span calss="order:3">아이디 찾기</span>
-                          <span class="order:4">비밀번호 찾기</span>
+                    <div id="find-block" class="d:flex fs:1 fw:2 color:base-5 gap:5">
+                          <span name="find-id" calss="order:3">아이디 찾기</span>
+                          <span name="find-pw" class="order:4">비밀번호 찾기</span>
                     </div>
                 </div>
                 <div class="pt:5">
@@ -98,10 +98,10 @@
         </form>
     </section>
            
-    <section hidden>
+    <section id="id-section" hidden>
         <h1>아이디 찾기</h1>
         <form method="post">
-        <fieldset name="id-filed">
+        <fieldset>
             <div>
                 <div>
                     <label></label>
@@ -119,10 +119,10 @@
         </form>    
     </section>
 
-    <section hidden>
+    <section id="pw-section" hidden>
         <h1>비밀번호 찾기</h1>
         <form method="post">
-        <fieldset name="pw-filed">
+        <fieldset>
             <div>
                 <div>
                     <label></label>

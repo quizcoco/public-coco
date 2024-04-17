@@ -34,6 +34,33 @@
 
 
 
-    // /* 로그인, 아이디 찾기, 비번 찾기 페이지 전환*/ 
- 
-    
+/* 로그인, 아이디 찾기, 비번 찾기 페이지 전환*/ 
+
+        // 전환될 화면
+        const loginSection = document.querySelector("#login-section");
+        const idSection = document.querySelector("#id-section");
+        const pwSection = document.querySelector("#pw-section");
+        
+        // 화면 전환 버튼
+        const findBlock = document.querySelector("#find-block");
+        const findId = findBlock.querySelector('[name="find-id"]');
+        const findPW = findBlock.querySelector('[name="find-pw"]');
+
+       
+        // 아이디 찾기 화면으로
+        findId.addEventListener("click", function(){
+
+            loginSection.style.display = "none";
+            idSection.style.display = "block";
+            pwSection.style.display = "none";
+
+    });
+        
+        // 비밀번호 찾기 화면으로
+        findPW.addEventListener ("click", function(){
+            
+            loginSection.style.display = "none";
+            idSection.style.display = "none";
+            pwSection.style.display = "block";
+
+    });
