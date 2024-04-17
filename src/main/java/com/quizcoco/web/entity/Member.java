@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class User {
+public class Member {
     
     private Long id;
     private String pw;

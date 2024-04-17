@@ -3,17 +3,17 @@ package com.quizcoco.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.quizcoco.web.entity.User;
-import com.quizcoco.web.repository.UserRepository;
+import com.quizcoco.web.entity.Member;
+import com.quizcoco.web.repository.MemberRepository;
 
 @Service
-public class UserServiceImp implements UserService {
+public class MemberServiceImp implements MemberService {
     
     @Autowired
-    private UserRepository repository;
+    private MemberRepository repository;
 
     @Override
-    public User getByUserName(String name) {
+    public Member getByUserName(String name) {
        
         return repository.findByUserName(name);
     }

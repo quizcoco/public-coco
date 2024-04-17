@@ -5,14 +5,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.quizcoco.web.service.UserService;
+import com.quizcoco.web.service.MemberService;
 
 @Controller
 @RequestMapping("user")
 public class UserController {
     
     @Autowired
-    private UserService service;
+    private MemberService service;
     
     @GetMapping("login")
     public String login() {
