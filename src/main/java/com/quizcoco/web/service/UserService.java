@@ -4,6 +4,6 @@ import com.quizcoco.web.entity.User;
 
 public interface UserService {
     
-    User getByUserId(Long id);
+    User getByUserName(String name);
 }
 

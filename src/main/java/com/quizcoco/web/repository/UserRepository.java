@@ -7,6 +7,6 @@ import com.quizcoco.web.entity.User;
 @Mapper
 public interface UserRepository {
 
-    User findByUserId(Long id);
+    User findByUserName(String name);
  
 }

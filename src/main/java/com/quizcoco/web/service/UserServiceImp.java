@@ -13,9 +13,9 @@ public class UserServiceImp implements UserService {
     private UserRepository repository;
 
     @Override
-    public User getByUserId(Long id) {
+    public User getByUserName(String name) {
        
-        return repository.findByUserId(id);
+        return repository.findByUserName(name);
     }
 
 
