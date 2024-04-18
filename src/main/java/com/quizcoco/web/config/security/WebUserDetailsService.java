@@ -1,8 +1,11 @@
 package com.quizcoco.web.config.security;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +30,10 @@ public class WebUserDetailsService implements UserDetailsService {
         Member member = repository.findByUserName(name);
         List<MemberRole> roles = memberRoleRepository.findAllByMemberId(member.getId());
         
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
+        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
         WebUserDetails userDetails = new WebUserDetails();
         userDetails.setId(member.getId());
         userDetails.setLevel(member.getLevel());
@@ -35,7 +42,7 @@ public class WebUserDetailsService implements UserDetailsService {
         userDetails.setMail(member.getMail());
         userDetails.setUsername(member.getName());
         userDetails.setPassword(member.getPw());
-        userDetails.setAuthorities(null);
+        userDetails.setAuthorities(authorities);
 
         return userDetails;
     }
