@@ -15,14 +15,16 @@ public class UserQuizController {
     @Autowired
     private UserQuizService service;
 
-    @GetMapping("detail")
-    public UserOXQuiz detail(Long id) {
+    // @GetMapping("detail")
+    // public UserOXQuiz detail(Long id) {
     
-        UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
+    //     UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
     
-        // UserShortQuiz userShortQuiz = uqService.getByShortQuizId(id);
-        // UserMultipleQuiz userMultipleQuiz = uqService.getByMultipleQuizId(id);
+    //     // UserShortQuiz userShortQuiz = uqService.getByShortQuizId(id);
+    //     // UserMultipleQuiz userMultipleQuiz = uqService.getByMultipleQuizId(id);
     
-        return userOXQuiz;
-    }
+    //     return userOXQuiz;
+    // }
+
+
 }

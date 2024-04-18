@@ -11,8 +11,12 @@ import com.quizcoco.web.entity.UserShortQuiz;
 @Mapper
 public interface UserQuizRepository {
     
-    List<UserOXQuiz> findAll(long userId);
+    List<UserOXQuiz> findAll(String query, long userId,Integer offset,Integer size );
 
+
+    int count(String query);
+
+    
     UserOXQuiz findByOXId(long id);
     UserShortQuiz findByShortId(long id);
     UserMultipleQuiz findByMultiId(long id);

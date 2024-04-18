@@ -18,30 +18,37 @@ import com.quizcoco.web.service.UserQuizService;
 
 @Controller
 @RequestMapping("study/userquiz")
-public class QuizController {
+public class UserQuizController {
    
     @Autowired
     private UserQuizService service;
 
-
-
-
-
-
     @GetMapping("list")
-    public String list(@RequestParam(defaultValue = "0"/* ☆임시*/) Long userId, Model model) {
+    public String list(Model model
+                        ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                        ,@RequestParam(name="q", required = false) String query
+                        ,@RequestParam(name="p", defaultValue = "1") Integer page
+                        ,@RequestParam(name="num", required = false, defaultValue = "5") Integer size) {
 
-        System.out.println("----------------------------"+userId);
+        System.out.println("----------------------------"+userId+size);
 
         if(userId==null) {
             return "";
         }
+        int count = 0;;
 
         List<UserOXQuiz> userOXQuiz = new ArrayList<>();
-        if(userId != null)
-        userOXQuiz = service. getList(userId);
-        
+        if(query != null){
+            userOXQuiz = service. getList(query,userId,page, size);
+            count = service.getCount(query);
+        }
+        else{
+            userOXQuiz = service. getList(userId,page, size);
+            count = service.getCount();
+        }
+
         model.addAttribute("useroxq", userOXQuiz);
+        model.addAttribute("count", count);
 
         System.out.println("============================="+userOXQuiz);
 
@@ -50,15 +57,14 @@ public class QuizController {
 
     // @GetMapping("detail")
     // public String detail () {
-
     //     return "study/userquiz/detail";
-
     // }
 
-
-    // 유저가 만든 문제 디테일 페이지
-    @GetMapping("detail")
-    public String detail(Long id, Model model) {
+    // 3개로 나눠서 detail로 보냄
+    /* 유저가 만든 문제 디테일 페이지 // js말고 컨트롤러에서 직접 분류나눠서 뿌려주기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+    /* OXㅡㅡㅡuser_oxㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+    @GetMapping("detail/ox")
+    public String detailOx(Long id, Model model) {
 
         if(id==null) {
             return "study/userquiz/list";
@@ -67,15 +73,38 @@ public class QuizController {
         UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
         model.addAttribute("useroxq", userOXQuiz);
 
-        UserShortQuiz userShortQuiz = service.getByShortQuizId(id);
-        model.addAttribute("usershortq", userShortQuiz);
+        return "study/userquiz/detail";
+    }
+
+    /* 사지선다ㅡㅡㅡuser_multiple_choice_quizㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+    @GetMapping("detail/multi")
+    public String detailMulti(Long id, Model model) {
+
+        if(id==null) {
+            return "study/userquiz/list";
+        }
 
         UserMultipleQuiz userMultipleQuiz = service.getByMultipleQuizId(id);
         model.addAttribute("usermultiq", userMultipleQuiz);
 
+        return "study/userquiz/detail";
+    }
+
+    /* 단답ㅡㅡㅡshort_answer_quizㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+    @GetMapping("detail/short")
+    public String detailShort(Long id, Model model) {
+
+        if(id==null) {
+            return "study/userquiz/list";
+        }
+
+        UserShortQuiz userShortQuiz = service.getByShortQuizId(id);
+        model.addAttribute("usershortq", userShortQuiz);
 
         return "study/userquiz/detail";
     }
+    
+    /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 
     // 유저 문제 등록 페이지
     @GetMapping("reg")

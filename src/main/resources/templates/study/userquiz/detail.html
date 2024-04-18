@@ -14,7 +14,7 @@
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
-    <script defer src="/js/study/userquiz/detail.js"></script>
+    <!-- <script defer src="/js/study/userquiz/detail.js"></script> -->
 </head>
 <body>
 <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
@@ -70,36 +70,68 @@
                     <div class="icon-star">즐겨찾기 아이콘</div>
                     <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
                 </div>
-                    <section class="d:none">
-                        <h1 class="d:none">기타 메뉴</h1>
-                        <div><a href="">수정</a></div>
-                        <div><a href="">삭제</a></div>
-                        <div>외부로 공유</div>
-                        <div>슬라이드 시간 설정</div>
-                    </section>
+                <!-- 모달 -->
+                <section class="d:none">
+                    <h1 class="d:none">기타 메뉴</h1>
+                    <div><a href="">수정</a></div>
+                    <div><a href="">삭제</a></div>
+                    <div>외부로 공유</div>
+                    <div>슬라이드 시간 설정</div>
+                </section>
+                
                 <div class="d:flex fl-dir:row jc:space-between">
+                    <!-- 카드갯수 -->
                     <div class="d:flex jc:flex-start">
                         <span style="margin-right:6px;">12</span> 
                         <span style="margin-right:6px;">/</span> 
                         <span>52</span>
                     </div>
+                
+                    <!-- reg_date -->
                     <div class="d:flex jc:flex-end pb:3">
                         <span style="margin-right:6px;">2024-02-13</span> 
                         <span>17:21:04</span>
                     </div>
                 </div>
             </section>
-            <section id="quiz-card" class="bg-color:base-1">
+
+            <!-- 문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            <section id="quiz-card" class="bg-color:base-1 h:4">
                 <h1 class="d:none">카드 내용</h1>
-                <div class="p:2">
-                    <span class="d:inline-block pb:1">[사지선다 문제]</span><br>
-                    <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${useroxq.question}">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
-                    <span class="d:inline-block pb:2 fw:bold">①교언영색</span><br>
-                    <span class="d:inline-block pb:2 fw:bold color:accent-4">②곡학아세</span><br>
-                    <span class="d:inline-block pb:2 fw:bold">③다문박식</span><br>
-                    <span class="d:inline-block pb:2 fw:bold">④감언지지</span><br>
+                <!-- ox ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+                <section th:if="${useroxq !=null && useroxq !='' }">
+                    <div class="p:2">
+                        <span class="d:inline-block pb:1">[OX 문제]</span><br>
+                        <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${useroxq.question}">문제</span><br>
+                        <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${useroxq.answer}">답</span>
+                    </div>
+                </section>
+
+                <!-- 사지선다 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+                <section th:if="${usermultiq !=null && usermultiq !=''}">
+                    <div class="p:2">
+                        <span class="d:inline-block pb:1">[사지선다 문제]</span><br>
+                        <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${usermultiq.question}">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
+                        <span class="d:inline-block pb:2 fw:bold" th:text="${usermultiq.num1}">①교언영색</span><br>
+                        <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${usermultiq.num2}">②곡학아세</span><br>
+                        <span class="d:inline-block pb:2 fw:bold" th:text="${usermultiq.num3}">③다문박식</span><br>
+                        <span class="d:inline-block pb:2 fw:bold" th:text="${usermultiq.num4}">④감언지지</span><br>
+                        <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${usermultiq.answer}">답</span>
+                    </div>
+                </section>
+            </section>
+
+            <!-- 단답 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            <section th:if="${usershortq !=null && usershortq !=''}">
+                <div class="p:2 d:none">
+                    <span class="d:inline-block pb:1" data-type="multi">[사지선다 문제]</span><br>
+                    <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${usershortq.question}">질문</span><br>
+                    <span class="d:inline-block pb:2 fw:bold" th:text="${usershortq.answer}">답</span>
+                    <span class="d:inline-block pb:2 fw:bold" th:text="${usershortq.commentary}">commentary</span>
                 </div>
             </section>
+
+            <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
             <section class="d:flex fl-dir:column ai:center">
                 <h1 class="d:none">카드 하단</h1>
                 <div class="n-progress n-progress-card" role="progressbar">

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.quizcoco.web.entity.ExamQuiz;
 import com.quizcoco.web.repository.ExamQuizRepository;
 
-
 @Service
 public class ExamQuizServiceImp implements ExamQuizService{
 
@@ -62,7 +61,6 @@ public class ExamQuizServiceImp implements ExamQuizService{
         return  getCount(null);
     }
     
-    
     public int getCount(String query) {
         
         int count = repository.count(query);
@@ -86,18 +84,15 @@ public class ExamQuizServiceImp implements ExamQuizService{
     @Override
     public void delById(Long id) {
         repository.delete(id);
-
     }
 
     @Override
     public void reg(ExamQuiz examQuiz) {
-
         repository.save(examQuiz);
     }
 
     @Override
     public ExamQuiz getRand() {
-
         ExamQuiz randQ = repository.rand();
         return randQ;
     }

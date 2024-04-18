@@ -35,10 +35,63 @@
         where user_id = #{userId}
     </select> -->
 
+    <!-- 수정중 -->
     <select id="findAll" resultType="UserOXQuiz">
-       select * from user_ox 
-        where user_id=#{userId}
+       select * from user_ox
+        <where>
+            <if test="query != null">
+            question LIKE '%${query}%'
+            </if>
+
+            <if test="userId != null">
+                and user_id=#{userId}
+            </if>
+         </where>
+                <!-- limit 0,5 -->
+                limit #{offset}, #{size}
+    </select>
+
+    <select id="findAll" resultType="userMultipleQuiz">
+       select * from user_multiple_choice_quiz
+        <where>
+            <if test="query != null">
+            question LIKE '%${query}%'
+            </if>
+
+            <if test="userId != null">
+                and user_id=#{userId}
+            </if>
+         </where>
+                <!-- limit 0,5 -->
+                limit #{offset}, #{size}
+    </select>
+
+    <select id="findAll" resultType="UserOXQuiz">
+    select * from user_ox
+    <where>
+        <if test="query != null">
+        question LIKE '%${query}%'
+        </if>
+
+        <if test="userId != null">
+            and user_id=#{userId}
+        </if>
+        </where>
+            <!-- limit 0,5 -->
+            limit #{offset}, #{size}
     </select>
 
 
+    <!-- //TODO 변경? -->
+    <select id="count" resultType="Integer">
+    select 
+    count(multi.id, ox.id)
+    from user_ox ox, 
+        <where>
+            <if test="query != null">
+                ox.question LIKE '%${query}%'
+                ox.question LIKE '%${query}%'
+            </if>
+        </where>
+    </select>
 </mapper>
