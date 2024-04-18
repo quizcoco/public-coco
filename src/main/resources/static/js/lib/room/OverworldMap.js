@@ -22,8 +22,8 @@ class OverworldMap{
 }
 window.OverworldMaps={ //각종맵객체
     DemoRoom:{
-        lowerSrc:"/image/room/room2.png",
-        upperSrc:"/image/room/room2.png",
+        lowerSrc:"/image/room/room.png",
+        upperSrc:"/image/room/room.png",
         gameObjects:{
             man1:new Person({
                 isPlayerControlled:true,
@@ -33,7 +33,7 @@ window.OverworldMaps={ //각종맵객체
                 npc1: new Person({
                 x:utils.withGrid(7),
                 y:utils.withGrid(9),
-                //src:"/image/"
+               // src:"/image/room/cat-idle.png"
                })
         }
     },

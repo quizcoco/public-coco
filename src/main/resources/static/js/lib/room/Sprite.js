@@ -9,27 +9,27 @@ class Sprite{
         }
 
         //그림자
-        // this.shadow = new Image();
-        // this.useShadow=true;//config.useShadow ||false
-        // if(this.useShadow){
-        //     this.shadow.src = "/image/";
+        this.shadow = new Image();
+        this.useShadow=true;//config.useShadow ||false
+        if(this.useShadow){
+            this.shadow.src = "/image/room/shadow.png";
             
-        // }
-        // this.shadow.onload=()=>{
-        //     this.isShadowLoaded=true;
-        // }
+        }
+        this.shadow.onload=()=>{
+            this.isShadowLoaded=true;
+        }
 
 
         //Configure Animation&초기상태
         this.animations=config.animation||{
-            "idle-down":[[0,0]],
-            "idle-right":[[0,1]],
-            "idle-up":[[0,2]],
-            "idle-left":[[0,3]],
-            "walk-down":[[1,0],[0,0],[3,0],[0,0]],
-            "walk-right":[[1,1],[0,1],[3,1],[0,1]],
-            "walk-up":[[1,2],[0,2],[3,2],[0,2]],
-            "walk-left":[[1,3],[0,3],[3,3],[0,3]],
+            "idle-down":[[0,1]],
+            "idle-right":[[3,1]],
+            "idle-up":[[2,1]],
+            "idle-left":[[1,1]],
+            "walk-down":[[0,0],[0,1],[0,2],[0,1]],
+            "walk-right":[[3,0],[3,1],[3,2],[3,1]],
+            "walk-up":[[2,0],[2,1],[2,2],[2,1]],
+            "walk-left":[[1,0],[1,1],[1,2],[1,1]],
 
         }
         this.currentAnimation = config.currentAnimation||"idle-down";
@@ -76,7 +76,7 @@ class Sprite{
         const x=this.gameObject.x-8;
         const y=this.gameObject.y-18;
 
-        //this.isShadowLoaded && ctx.drawImage(this.shadow,x,y);
+        this.isShadowLoaded && ctx.drawImage(this.shadow,x,y);
         const[frameX, frameY] = this.frame;
 
         this.isLoaded && ctx.drawImage(this.image,

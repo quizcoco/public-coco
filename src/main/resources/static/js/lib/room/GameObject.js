@@ -6,7 +6,7 @@ class GameObject{
         this.sprite=new Sprite({
             gameObject:this,
             src:
-            config.src ||"/image/room/avata.gif",
+            config.src ||"/image/room/man1.png",
 
 
         });
