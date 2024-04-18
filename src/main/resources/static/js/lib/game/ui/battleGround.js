@@ -19,7 +19,7 @@ export default class BattleGround{
         this.#ctx =this.#canvas.getContext("2d");
 
         this.#img = new Image();
-        this.#img.src = "/image/room.png";
+        this.#img.src = "/image/battle.png";
         
 
         //this.#coco = new Coco();
