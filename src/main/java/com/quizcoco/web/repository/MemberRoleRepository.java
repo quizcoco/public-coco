@@ -1,4 +1,4 @@
-package com.quizcoco.web.config.security;
+package com.quizcoco.web.repository;
 
 import java.util.List;
 

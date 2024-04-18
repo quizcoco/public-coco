@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.quizcoco.web.entity.Member;
 import com.quizcoco.web.entity.MemberRole;
 import com.quizcoco.web.repository.MemberRepository;
+import com.quizcoco.web.repository.MemberRoleRepository;
 
 @Service
 public class WebUserDetailsService implements UserDetailsService {
