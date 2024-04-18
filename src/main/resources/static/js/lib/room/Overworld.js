@@ -14,21 +14,28 @@ startGameLoop(){//초당60 everysingleframe run
         //clear off the canvas
         this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
 
+        //establish the camera person
+        const cameraPerson = this.map.gameObjects.man1;
+
+        //update all objects
+        Object.values(this.map.gameObjects).forEach(object=>{
+
+            object.update({
+                arrow:this.directionInput.direction
+            })
+        })
+
 
         ///draw lower layer
-        this.map.drawLowerImage(this.ctx);
+        this.map.drawLowerImage(this.ctx,cameraPerson);
 
         //draw game objects
         Object.values(this.map.gameObjects).forEach(object=>{
             //object.x +=1;
-
-            object.update({
-                arrow:this.directionInput.direction
-            });
-            object.sprite.draw(this.ctx);
+            object.sprite.draw(this.ctx,cameraPerson);
         })
         //draw upper layer
-        //this.map.drawUpperImage(this.ctx);//있으면하고 없으면x 덮어버리므로 캐릭터가 안나옴
+        //this.map.drawUpperImage(this.ctx,cameraPerson);//있으면하고 없으면x 덮어버리므로 캐릭터가 안나옴
 
 
 

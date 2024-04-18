@@ -19,7 +19,7 @@ overflow: hidden;
     margin: 0 auto;
     outline: 1px solid #fff;
 
-    transform: scale(4) translateY(50%);
+    transform: scale(4) translateY(25%);
 
 
     canvas{
