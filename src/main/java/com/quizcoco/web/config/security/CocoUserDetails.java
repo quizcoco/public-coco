@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class WebUserDetails implements UserDetails {
+public class CocoUserDetails implements UserDetails {
 
     private Long id;
     private int level;

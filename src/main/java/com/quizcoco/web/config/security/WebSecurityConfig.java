@@ -49,7 +49,14 @@ public class WebSecurityConfig {
 		
 		String userSql = "select name, pw password from user where name=?";
 		String authSql = """
-
+							select
+								u.name,
+								mr.role_name authority
+							from
+								user u	
+								right join member_role mr
+								on u.id = mr.member_id
+							where u.name =?	
 						""";
 
 		JdbcUserDetailsManager manager = new JdbcUserDetailsManager(dataSource);

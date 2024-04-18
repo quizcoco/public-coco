@@ -17,7 +17,7 @@ import com.quizcoco.web.repository.MemberRepository;
 import com.quizcoco.web.repository.MemberRoleRepository;
 
 @Service
-public class WebUserDetailsService implements UserDetailsService {
+public class CocoUserDetailsService implements UserDetailsService {
     
     @Autowired
     private MemberRepository repository;
@@ -29,13 +29,15 @@ public class WebUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         
         Member member = repository.findByUserName(name);
+
         List<MemberRole> roles = memberRoleRepository.findAllByMemberId(member.getId());
         
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_MEMBER"));
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
-        WebUserDetails userDetails = new WebUserDetails();
+        for(MemberRole role : roles)
+            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+
+        CocoUserDetails userDetails = new CocoUserDetails();
         userDetails.setId(member.getId());
         userDetails.setLevel(member.getLevel());
         userDetails.setPoint(member.getPoint());
@@ -43,7 +45,7 @@ public class WebUserDetailsService implements UserDetailsService {
         userDetails.setMail(member.getMail());
         userDetails.setUsername(member.getName());
         userDetails.setPassword(member.getPw());
-        userDetails.setAuthorities(authorities);
+        userDetails.setAuthorities(null);
 
         return userDetails;
     }
