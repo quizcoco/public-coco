@@ -51,149 +51,162 @@
     </header>
 
     <main class="of:auto list-width:2">
-<!--=========================== 메인에 입력 ===============================-->
-       
+    <!--=========================== 메인 시작 ===============================-->
 
-    <section class="place-grid">
-        <header class="d:flex jc:space-between">
-            <h1 class="d:none">폴더 관련 메뉴</h1>
-            <div class="user-q-group">
-                <a href="">그룹</a>
-                <span class="icon icon:caret_right icon-size:2">></span>
-                <a href="">하위그룹 1</a>
-                <span class="icon icon:lock_simple icon-size:2">잠금 아이콘<span>
-            </div>
-            <div class="menu-other icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
-            <section class="d:none">
-                <h1>기타 메뉴</h1>
-                <div>기본 메인으로 설정</div>
-                <div>공개로 전환</div>
-                <div>외부로 공유</div>
-                <div>정답 바로 표시</div>
-                <div>그룹 정보</div>
-            </section>
-            <section class="d:none">
-                <h1>그룹정보 디테일</h1>
-                <div><span>그룹이름:</span><span>띄어쓰기1</span></div>
-                <div><span>유형:</span><span>단답형</span></div>
-                <div><span>문제수:</span><span>15</span><span>개</span></div>
-                <div><span>스크랩 된 회수:</span><span>34</span><span>회</span></div>
-                <div><span>만든 날짜:</span><span>2024-02-26</span></div>
-                <div><span>특성:</span><span>비공개</span></div>
-            </section>
-        </header>
+        <section class="place-grid">
+            <header class="d:flex jc:space-between">
+                <h1 class="d:none">폴더 관련 메뉴</h1>
+                <div class="user-q-group">
+                    <a href="">그룹</a>
+                    <span class="icon icon:caret_right icon-size:2">></span>
+                    <a href="">하위그룹 1</a>
+                    <span class="icon icon:lock_simple icon-size:2">잠금 아이콘<span>
+                </div>
+                <div class="menu-other icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
+                <section class="d:none">
+                    <h1>기타 메뉴</h1>
+                    <div>기본 메인으로 설정</div>
+                    <div>공개로 전환</div>
+                    <div>외부로 공유</div>
+                    <div>정답 바로 표시</div>
+                    <div>그룹 정보</div>
+                </section>
+                <section class="d:none">
+                    <h1>그룹정보 디테일</h1>
+                    <div><span>그룹이름:</span><span>띄어쓰기1</span></div>
+                    <div><span>유형:</span><span>단답형</span></div>
+                    <div><span>문제수:</span><span>15</span><span>개</span></div>
+                    <div><span>스크랩 된 회수:</span><span>34</span><span>회</span></div>
+                    <div><span>만든 날짜:</span><span>2024-02-26</span></div>
+                    <div><span>특성:</span><span>비공개</span></div>
+                </section>
+            </header>
 
-        <section class="page-view d:flex jc:space-between	">
-            <h1 class="d:none">페이지 보기 설정</h1>
-            <div class="see-num as:center"><select name = "num">
-                <option value="5">5개</option>
-                <option value="10">10개</option>
-                <option value="15">15개</option>
-                <option value="20">20개</option>
-            </select></div>
-            <div class="old-new as:center"><button class="n-btn n-btn:filled">오래된순</button></div>
+            <section class="page-view d:flex jc:space-between	">
+                <h1 class="d:none">페이지 보기 설정</h1>
+                <div class="see-num as:center"><select name = "num">
+                    <option value="5">5개</option>
+                    <option value="10">10개</option>
+                    <option value="15">15개</option>
+                    <option value="20">20개</option>
+                </select></div>
+                <div class="old-new as:center"><button class="n-btn n-btn:filled">오래된순</button></div>
+            </section>
         </section>
-    </section>
 
-    <section th:each="ox:${useroxq}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
-        <h1 class="d:none">퀴즈 리스트</h1>
-        <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-        <a th:href="@{detail(id=${ox.id})}"><div class="pl:5"><span th:text="${ox.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${ox.answer}" class="color:accent-4">안갚음</span></div></a>
-    </section>
+        <!-- 퀴즈리스트 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+        <!-- //if문으로 있나 검사하고 돌려서 디테일 -->
+        <section th:each="uq:${userQuiz}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
+            <h1 class="d:none">퀴즈 리스트</h1>
+            <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
+            <a th:href="@{detail(id=${uq.id}, category=${uq.category})}"><div class="pl:5"><span th:text="${uq.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${uq.answer}" class="color:accent-4">안갚음</span></div></a>
+        </section>
 
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-    <section class="mt:1 d:flex jc:center ai:center">
-        <h1 class="d:none">페이저</h1>
-        <div>
-            <ul class="n-pager jc:center"
-                th:with="page=${param.p} eq null ? 1 : ${{param.p}},
-                        floatnum=(${page}-1)/10,
-                        intnum=${T(java.lang.Math).floor(floatnum)},
-                        startnum=${intnum}*10+1
-                        ,lastnum=${count} mod 11 >0 ? ${count/11} +1 :${count/11}">
+        <!-- <section th:each="ox:${userMultipleQuiz}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
+            <h1 class="d:none">퀴즈 리스트</h1>
+            <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
+            <a th:href="@{detail(id=${ox.id})}"><div class="pl:5"><span th:text="${ox.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${ox.answer}" class="color:accent-4">안갚음</span></div></a>
+        </section>
 
-                <!-- ========='<<'============== -->
-                <li><span th:if="${page} lt 2" class="icon icon:page_start icon-size:2"></span>
-                    <a th:if="${page} ge 2" href="list?p=1" class="icon icon:page_start icon-size:2"></a></li>
+        <section th:each="ox:${useroxq}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
+            <h1 class="d:none">퀴즈 리스트</h1>
+            <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
+            <a th:href="@{detail(id=${ox.id})}"><div class="pl:5"><span th:text="${ox.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${ox.answer}" class="color:accent-4">안갚음</span></div></a>
+        </section> -->
 
-                <!-- ========='<'============== -->
-                <li><span th:if="${page} lt 11" class="icon icon:caret_left icon-size:2"></span>
-                    <a th:if="${page} ge 11" th:href="@{list(p=${startnum}-1)}" href="" class="icon icon:caret_left icon-size:2"></a></li>
+        <!-- TODO 페이지4까지밖에 안나옴 / 문제39개 페이지8 -->
+        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+        <section class="mt:1 d:flex jc:center ai:center">
+            <h1 class="d:none">페이저</h1>
+            <div>
+                <ul class="n-pager jc:center"
+                    th:with="page=${param.p} eq null ? 1 : ${{param.p}},
+                            floatnum=(${page}-1)/10,
+                            intnum=${T(java.lang.Math).floor(floatnum)},
+                            startnum=${intnum}*10+1
+                            ,lastnum=${uqcount} mod 11 >0 ? ${uqcount/11} +1 :${uqcount/11}">
+
+                    <!-- ========='<<'============== -->
+                    <li><span th:if="${page} lt 2" class="icon icon:page_start icon-size:2"></span>
+                        <a th:if="${page} ge 2" href="list?p=1" class="icon icon:page_start icon-size:2"></a></li>
+
+                    <!-- ========='<'============== -->
+                    <li><span th:if="${page} lt 11" class="icon icon:caret_left icon-size:2"></span>
+                        <a th:if="${page} ge 11" th:href="@{list(p=${startnum}-1)}" href="" class="icon icon:caret_left icon-size:2"></a></li>
 
 
-                <!-- ========='1'============== -->
-                <li th:each="n : ${#numbers.sequence(startnum,startnum+9)}"  
-                th:class="${{page}}== ${n}?'active'">
-                
-                <span th:if="${n} gt ${lastnum}" th:text="${n}"></span>
-                    <a href="list?p=1" th:href="@{list(p=${n})}" th:text="${n}"
-                    th:if="${n} le ${lastnum}">1</a></li>
+                    <!-- ========='1'============== -->
+                    <li th:each="n : ${#numbers.sequence(startnum,startnum+9)}"  
+                    th:class="${{page}}== ${n}?'active'">
+                    
+                    <span th:if="${n} gt ${lastnum}" th:text="${n}"></span>
+                        <a href="list?p=1" th:href="@{list(p=${n})}" th:text="${n}"
+                        th:if="${n} le ${lastnum}">1</a></li>
 
-                <!-- ========='>'============== -->
-                <li><span th:if="${lastnum} lt ${startnum+10}" class="icon icon:caret_right icon-size:2"></span>
-                    <a th:if="${lastnum} ge ${startnum+10}" th:href="@{list(p=${startnum}+10)}" href="" class="icon icon:caret_right icon-size:2"></a></li>
+                    <!-- ========='>'============== -->
+                    <li><span th:if="${lastnum} lt ${startnum+10}" class="icon icon:caret_right icon-size:2"></span>
+                        <a th:if="${lastnum} ge ${startnum+10}" th:href="@{list(p=${startnum}+10)}" href="" class="icon icon:caret_right icon-size:2"></a></li>
 
-                <!-- ========='>>'============== -->
-                <li class="mr:8"><span th:if="${lastnum} eq ${page}" class="icon icon:page_end icon-size:2"></span>
-                    <a th:if="${lastnum} gt ${page}" th:href="@{list(p=${lastnum})}" href="" class="icon icon:page_end icon-size:2"></a></li>
+                    <!-- ========='>>'============== -->
+                    <li class="mr:8"><span th:if="${lastnum} eq ${page}" class="icon icon:page_end icon-size:2"></span>
+                        <a th:if="${lastnum} gt ${page}" th:href="@{list(p=${lastnum})}" href="" class="icon icon:page_end icon-size:2"></a></li>
+                </ul>
+            </div>
+            <div class="d:flex jc:center ai:center mt:1">
+                <input class="n-textbox n-textbox-type:outline w:1" th:placeholder="${param.p}==null? 1 : ${param.p}">
+                <span class="mr:2 ml:2">/</span>
+                <span th:text="${uqcount} mod 11 >0 ? ${uqcount/11} +1 :${uqcount/11}">38</span>
+                <a href="" class="n-btn n-btn-type:outline deco-ml:1 deco-size:2 deco-pos:right icon:caret_right deco ml:2">Go</a>
+            </div>
+        </section>
+
+        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+        <nav class="d:flex jc:space-between ai:center">
+            <h1 class="d:none">삭제, 이동 조작메뉴</h1>
+            <ul class="d:flex w:3 jc:space-between">
+                <li><input type="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:2" /></li>
+                <li><button class="icon icon:play_fill">슬라이드쇼 아이콘</button></li>
+                <li><button class="icon icon:trash">휴지통 아이콘</button></li>
+                <li><button class="icon icon:share_fat">이동 아이콘</button></li>
             </ul>
-        </div>
-        <div class="d:flex jc:center ai:center mt:1">
-            <input class="n-textbox n-textbox-type:outline w:1" th:placeholder="${param.p}==null? 1 : ${param.p}">
-            <span class="mr:2 ml:2">/</span>
-            <span th:text="${count} mod 11 >0 ? ${count/11} +1 :${count/11}">38</span>
-            <a href="" class="n-btn n-btn-type:outline deco-ml:1 deco-size:2 deco-pos:right icon:caret_right deco ml:2">Go</a>
-        </div>
-    </section>
-
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-    <nav class="d:flex jc:space-between ai:center">
-        <h1 class="d:none">삭제, 이동 조작메뉴</h1>
-        <ul class="d:flex w:3 jc:space-between">
-            <li><input type="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:2" /></li>
-            <li><button class="icon icon:play_fill">슬라이드쇼 아이콘</button></li>
-            <li><button class="icon icon:trash">휴지통 아이콘</button></li>
-            <li><button class="icon icon:share_fat">이동 아이콘</button></li>
-        </ul>
-        <ul class="d:flex w:4 jc:space-between">
-            <li><a href="" class="n-btn n-btn:filled">퀴즈등록</a></li>
-            <li><button class="n-btn n-btn:filled">카드로 보기</button></li>
-        </ul>
-    </nav>
-
-
-<!-- 모달 -->
-
-    <section class="d:none">
-        <h1>폴더 지정</h1>
-        <nav>
-            <h1>단답</h1>
-            <div>하위그룹 1</div>
-            <div>하위그룹 2</div>
-            <div>하위그룹 3</div>
-            <div>하위그룹 4</div>
-            <div><input type="text" value="새 폴더"></div>
+            <ul class="d:flex w:4 jc:space-between">
+                <li><a href="" class="n-btn n-btn:filled">퀴즈등록</a></li>
+                <!-- 선택지 없이 버튼 눌렀을때 전체문제 가능 -->
+                <li><button class="n-btn n-btn:filled">카드로 보기</button></li>
+            </ul>
         </nav>
-        <div>이동</div>
-    </section>
 
-    <section class="d:none">
-        <h1>퀴즈삭제 컨펌</h1>
-        <div>선택하신 퀴즈를 정말로 삭제 하시겠습니까?</div>
-        <ul>
-            <li><button>취소</button></li>
-            <li><button>확인</button></li>
-        </ul>
-    </section>
+        <!-- 모달 -->
+        <section class="d:none">
+            <h1>폴더 지정</h1>
+            <nav>
+                <h1>단답</h1>
+                <div>하위그룹 1</div>
+                <div>하위그룹 2</div>
+                <div>하위그룹 3</div>
+                <div>하위그룹 4</div>
+                <div><input type="text" value="새 폴더"></div>
+            </nav>
+            <div>이동</div>
+        </section>
 
-    <section class="d:none">
-        <h1>선택해주세요 창</h1>
-        <div>문제를 선택해 주세요.</div>
-        <ul>
-            <li><button>취소</button></li>
-            <li><button>확인</button></li>
-        </ul>
-    </section>
+        <section class="d:none">
+            <h1>퀴즈삭제 컨펌</h1>
+            <div>선택하신 퀴즈를 정말로 삭제 하시겠습니까?</div>
+            <ul>
+                <li><button>취소</button></li>
+                <li><button>확인</button></li>
+            </ul>
+        </section>
+
+        <section class="d:none">
+            <h1>선택해주세요 창</h1>
+            <div>문제를 선택해 주세요.</div>
+            <ul>
+                <li><button>취소</button></li>
+                <li><button>확인</button></li>
+            </ul>
+        </section>
 
         <section class="ad mt:4 d:none md:d:flex jc:center">
             <h1 class="d:none">광고</h1>
@@ -203,28 +216,28 @@
    </main>
 
    <aside class="d:none md:d:flex jc:center right:1 zi:1">
-    <div class="pos:fixed h:100p bg-color:main-2">
-        <nav class="d:flex jc:center">
-            <h1 class="d:none">pc 메뉴바</h1>
-            <ul class="d:grid gap:4 mt:7 w:min-content">
-                <li class="profile-place"><a href="" class="profile"></a><a href="" class="icon icon:myinfo arrow">>p></a></li>
-                <li class="fs:1 bd-bottom"><span>김철수</span><span>Lv.5</span><br><span>인벤토리 북마크</span><li>
-                <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
-                <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
-                <li><a href="/admin" class="deco deco-margin-right:8 icon:admin">관리자</a></li>
-            </ul>
-        </nav>
-    </div>
-</aside>
+        <div class="pos:fixed h:100p bg-color:main-2">
+            <nav class="d:flex jc:center">
+                <h1 class="d:none">pc 메뉴바</h1>
+                <ul class="d:grid gap:4 mt:7 w:min-content">
+                    <li class="profile-place"><a href="" class="profile"></a><a href="" class="icon icon:myinfo arrow">>p></a></li>
+                    <li class="fs:1 bd-bottom"><span>김철수</span><span>Lv.5</span><br><span>인벤토리 북마크</span><li>
+                    <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+                    <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+                    <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                    <li><a href="/admin" class="deco deco-margin-right:8 icon:admin">관리자</a></li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
 
-<footer class="ad md:d:none d:flex jc:center ai:center">
-    <div>광고</div>
-</footer>
+    <footer class="ad md:d:none d:flex jc:center ai:center">
+        <div>광고</div>
+    </footer>
 
 </body>
 </html>

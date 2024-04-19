@@ -6,16 +6,17 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
+import com.quizcoco.web.entity.UserQuizView;
 import com.quizcoco.web.entity.UserShortQuiz;
 
 @Mapper
 public interface UserQuizRepository {
     
-    List<UserOXQuiz> findAll(String query, long userId,Integer offset,Integer size );
-
+    // List<UserOXQuiz> findAllox(String query, long userId,Integer offset,Integer size );
+    List<UserQuizView> findAll(String query, long userId,Integer offset,Integer size );
+    UserQuizView findAllById(Long id,String cate);
 
     int count(String query);
-
     
     UserOXQuiz findByOXId(long id);
     UserShortQuiz findByShortId(long id);

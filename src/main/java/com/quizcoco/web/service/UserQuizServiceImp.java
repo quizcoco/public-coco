@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
+import com.quizcoco.web.entity.UserQuizView;
 import com.quizcoco.web.entity.UserShortQuiz;
 import com.quizcoco.web.repository.UserQuizRepository;
 
@@ -16,27 +17,34 @@ public class UserQuizServiceImp implements UserQuizService{
     @Autowired
     private UserQuizRepository repository;
     
-    //====================================getList===================================    
+    //===============================getList====================================    
+
+    @Override
+    public UserQuizView getListById(long id,String cate) {
+        return repository.findAllById(id,cate);
+
+    }
     
     @Override
-    public List<UserOXQuiz> getList(long userId, Integer page, Integer size) {
+    public List<UserQuizView> getList(long userId, Integer page, Integer size) {
         System.out.println("=========================여기는 서비스"+size);
        return getList(null,userId, page, size);
     }
 
     @Override
-    public List<UserOXQuiz> getList(String query, long userId,Integer page,Integer size) {
+    public List<UserQuizView> getList(String query, long userId,Integer page,Integer size) {
         
         // int size=10; //~개씩
         int offset=(page-1)*size; //부터
         //1-0 :10 / 2-10 / 3-20 / 4-30 / 5-40  
         
-        List<UserOXQuiz> list = repository.findAll(query, userId, offset, size);
+        List<UserQuizView> list = repository.findAll(query, userId, offset, size);
 
         return list;
     }
 
-//====================================getById===================================        
+//====================================getById===================================
+
     @Override
     public UserOXQuiz getByOXQuizId(long id) {
         
@@ -58,7 +66,8 @@ public class UserQuizServiceImp implements UserQuizService{
 
     }
 
-//====================================reg===================================    
+//====================================reg========================================
+
     @Override
     public void reg() {
         repository.save();
@@ -88,5 +97,5 @@ public class UserQuizServiceImp implements UserQuizService{
     public int getCount(String query) {
        return repository.count(query);
     }
-    
+
 }

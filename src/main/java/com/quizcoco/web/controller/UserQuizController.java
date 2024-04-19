@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
+import com.quizcoco.web.entity.UserQuizView;
 import com.quizcoco.web.entity.UserShortQuiz;
 import com.quizcoco.web.service.UserQuizService;
 
@@ -30,27 +31,49 @@ public class UserQuizController {
                         ,@RequestParam(name="p", defaultValue = "1") Integer page
                         ,@RequestParam(name="num", required = false, defaultValue = "5") Integer size) {
 
-        System.out.println("----------------------------"+userId+size);
+        
+        
+        int UQcount = 0;;
 
-        if(userId==null) {
-            return "";
-        }
-        int count = 0;;
-
-        List<UserOXQuiz> userOXQuiz = new ArrayList<>();
+        List<UserQuizView> userQuizView = new ArrayList<>();
         if(query != null){
-            userOXQuiz = service. getList(query,userId,page, size);
-            count = service.getCount(query);
+            userQuizView = service. getList(query,userId,page, size);
+            UQcount = service.getCount(query);
         }
         else{
-            userOXQuiz = service. getList(userId,page, size);
-            count = service.getCount();
+            userQuizView = service. getList(userId,page, size);
+            UQcount = service.getCount();
         }
 
-        model.addAttribute("useroxq", userOXQuiz);
-        model.addAttribute("count", count);
+        System.out.println(UQcount); //39잘나옴
+        
+        model.addAttribute("userQuiz", userQuizView);
+        model.addAttribute("uqcount", UQcount);
+        
+        
+        //=============================ox============================================
+        
+        //                     System.out.println("----------------------------"+userId+size);
 
-        System.out.println("============================="+userOXQuiz);
+        // if(userId==null) {
+        //     return "";
+        // }
+        // int count = 0;;
+
+        // List<UserOXQuiz> userOXQuiz = new ArrayList<>();
+        // if(query != null){
+        //     userOXQuiz = service. getOXList(query,userId,page, size);
+        //     count = service.getCount(query);
+        // }
+        // else{
+        //     userOXQuiz = service. getOXList(userId,page, size);
+        //     count = service.getCount();
+        // }
+
+        // model.addAttribute("useroxq", userOXQuiz);
+        // model.addAttribute("count", count);
+
+        // System.out.println("============================="+userOXQuiz);
 
         return "study/userquiz/list";
     }   
@@ -63,15 +86,29 @@ public class UserQuizController {
     // 3개로 나눠서 detail로 보냄
     /* 유저가 만든 문제 디테일 페이지 // js말고 컨트롤러에서 직접 분류나눠서 뿌려주기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
     /* OXㅡㅡㅡuser_oxㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
-    @GetMapping("detail/ox")
-    public String detailOx(Long id, Model model) {
+    @GetMapping("detail")
+    public String detailOx(Long id,@RequestParam(name = "category") String cate,Model model) {
+
+
+        UserQuizView userQuizView = service.getListById(id,cate);
+       // model.addAttribute("uq", userQuizView);
 
         if(id==null) {
             return "study/userquiz/list";
         }
 
         UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
+        UserMultipleQuiz userMultipleQuiz = service.getByMultipleQuizId(id);
+        UserShortQuiz userShortQuiz = service.getByShortQuizId(id);
+        
+        if(userOXQuiz!=null&& userQuizView.getId()==userOXQuiz.getId() && userQuizView.getCategory().equals("ox"))
         model.addAttribute("useroxq", userOXQuiz);
+        
+        if(userMultipleQuiz !=null&& userQuizView.getId()==userMultipleQuiz.getId() && userQuizView.getCategory().equals("multi"))
+        model.addAttribute("usermultiq", userMultipleQuiz);
+        
+        if(userShortQuiz != null && userQuizView.getId()==userShortQuiz.getId() && userQuizView.getCategory().equals("short"))
+            model.addAttribute("usershortq", userShortQuiz);
 
         return "study/userquiz/detail";
     }
