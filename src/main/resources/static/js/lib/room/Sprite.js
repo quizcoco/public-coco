@@ -32,7 +32,7 @@ class Sprite{
             "walk-left":[[1,0],[1,1],[1,2],[1,1]],
 
         }
-        this.currentAnimation = config.currentAnimation||"idle-down";
+        this.currentAnimation = config.currentAnimation||"idle-down";//디폴트
         this.currentAnimationFrame=0;
 
         this.animationFrameLimit = config.animationFrameLimit ||8;

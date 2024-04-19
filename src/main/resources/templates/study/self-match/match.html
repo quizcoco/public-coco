@@ -10,32 +10,13 @@
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
-    <!-- <link href="/css/room.css" rel="stylesheet" type="text/css"> -->
     <link href="/css/match.css" rel="stylesheet" type="text/css">
 
-    <style>
-        .game-container{
-
-position: relative;
-width: 352px;
-height: 198px;
-margin: 0 auto;
-outline: 1px solid #fff;
-
-transform: scale(4) translateY(50%);
-
-
-canvas{
-
-    image-rendering: pixelated;
-}
-}
-    </style>
-    
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
     <script defer src="/js/study/match.js"></script>
-    <script defer src="/js/lib/game/app.js" type="module"></script>
+    <script defer src="/js/study/userquiz/match/MatchCanvas.js" type="module"></script>
+    <!-- <script defer src="/js/lib/game/app.js" type="module"></script> -->
 
 
 </head>
@@ -83,7 +64,7 @@ canvas{
 <section class="match-view">
     <h1 class="d:none">게임 화면</h1>
     <div class="game-container">
-        <canvas class="battle-ground"  width="352" height="198"></canvas>
+        <canvas class="battle-ground" width="202" height="198"></canvas>
         <img id="bg" src="" class="d:none">
     </div>
 </section>
