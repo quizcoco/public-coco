@@ -11,19 +11,20 @@ class OverworldMap{
 
     }
 
-    drawLowerImage(ctx){
+    drawLowerImage(ctx,cameraPerson){
 
-        ctx.drawImage(this.lowerImage,0,0);
+        ctx.drawImage(this.lowerImage,
+            utils.withGrid(10.5) - cameraPerson.x , utils.withGrid(6)-cameraPerson.y);
     }
-    drawUpperImage(ctx){
+    drawUpperImage(ctx,cameraPerson){
 
-        ctx.drawImage(this.upperImage,0,0);
+        ctx.drawImage(this.upperImage, utils.withGrid(10.5) - cameraPerson.x , utils.withGrid(6)-cameraPerson.y);
     }
 }
 window.OverworldMaps={ //각종맵객체
     DemoRoom:{
-        lowerSrc:"/image/room/room2.png",
-        upperSrc:"/image/room/room2.png",
+        lowerSrc:"/image/room/room.png",
+        upperSrc:"/image/room/room.png",
         gameObjects:{
             man1:new Person({
                 isPlayerControlled:true,
@@ -33,7 +34,7 @@ window.OverworldMaps={ //각종맵객체
                 npc1: new Person({
                 x:utils.withGrid(7),
                 y:utils.withGrid(9),
-                //src:"/image/"
+               // src:"/image/room/cat-idle.png"
                })
         }
     },

@@ -10,7 +10,27 @@
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <!-- <link href="/css/room.css" rel="stylesheet" type="text/css"> -->
     <link href="/css/match.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .game-container{
+
+position: relative;
+width: 352px;
+height: 198px;
+margin: 0 auto;
+outline: 1px solid #fff;
+
+transform: scale(4) translateY(50%);
+
+
+canvas{
+
+    image-rendering: pixelated;
+}
+}
+    </style>
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
@@ -55,14 +75,14 @@
         </nav>
     </header>
 
-    <main class="of:auto p:0">
+    <main class="p:0">
        
 <section class="d:flex fl-dir:column w:100p h:100p">
     <h1 class="d:none">1인 연습대결</h1>
 
 <section class="match-view">
     <h1 class="d:none">게임 화면</h1>
-    <div>
+    <div class="game-container">
         <canvas class="battle-ground"  width="352" height="198"></canvas>
         <img id="bg" src="" class="d:none">
     </div>
