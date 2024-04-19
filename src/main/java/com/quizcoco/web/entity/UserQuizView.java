@@ -1,6 +1,6 @@
 package com.quizcoco.web.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +21,7 @@ public class UserQuizView {
     private String num4;
     private String answer;
     private String commentary;
-    private Date regDate;
+    private LocalDateTime regDate;
     private String category;
     
     //외래키

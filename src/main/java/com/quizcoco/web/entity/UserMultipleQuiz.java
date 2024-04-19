@@ -1,6 +1,6 @@
 package com.quizcoco.web.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ public class UserMultipleQuiz {
     private String num4;
     private int answer;
     private String commentary;
-    private Date regDate;
+    private LocalDateTime regDate;
     
     //외래키
     private Long userId;

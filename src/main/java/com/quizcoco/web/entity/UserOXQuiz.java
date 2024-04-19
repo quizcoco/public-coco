@@ -1,6 +1,6 @@
 package com.quizcoco.web.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +17,7 @@ public class UserOXQuiz {
     private String question;
     private String answer;
     private String commentary;
-    private Date regDate;
+    private LocalDateTime regDate;
     
     //외래키
     private Long userId;

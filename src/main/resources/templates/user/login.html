@@ -40,7 +40,9 @@
         <nav class="menu d:none md:d:none">
             <h1 class="d:none">모바일 메뉴바</h1>
             <ul>
-                <li class="profile-place"><a href="" class="profile">내정보</a><a href="" class="icon icon:myinfo arrow">>></a></li>
+                <li class="profile-place" sec:authorize="isAnonymous()"><a href="" class="profile">내정보</a><a href="" class="icon icon:myinfo arrow">>></a></li>
+                <li sec:authorize="isAuthenticated()">    
+                    <span th:text="${#authentication.name}"></span></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
@@ -56,7 +58,8 @@
 <!--=========================== 메인에 입력 ===============================-->
     <section id="login-section" class="login-container">
         <hl class="fw:3 font-s:4 pb:5 pt:8">로그인</hl>
-        <form method="post">
+        <div class="color:main-4" th:if="${param.error != null}">아이디 또는 비밀번호가 유효하지 않습니다.</div>
+        <form action="login" method="post">
             <fieldset>
                 <div class="n-textbox-login mb:3">
                   <label class="d:none">id</label>
@@ -80,7 +83,7 @@
                     </div>
                 </div>
                 <div class="pt:5">
-                    <button type="button" class="n-btn n-btn:sign fw:3">sign in</button>
+                    <button type="submit" class="n-btn n-btn:sign fw:3">sign in</button>
                 </div>
                 <div class="pt:6 d:flex fl-dir:row ai:center jc:center gap:2 pb:3">
                     <span class="hr"></span>
@@ -98,32 +101,32 @@
         </form>
     </section>
            
-    <section id="id-section" hidden>
-        <h1>아이디 찾기</h1>
-        <form method="post">
+    <section id="id-section" class="login-container hidden">
+        <h1 class="fw:3 font-s:4">아이디 찾기</h1>
+        <form action="login" method="post">
         <fieldset>
             <div>
-                <div>
-                    <label></label>
-                    <input>
+                <div class="n-textbox-login mb:3">
+                    <label class="d:none">email</label>
+                    <input type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Email">
                 </div>
-                <div>
-                    <label></label>
-                    <input>
+                <div class="n-textbox-login mb:3">
+                    <label class="d:none">인증번호</label>
+                    <input type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*인증번호">
                 </div>
             </div>
-            <div>
-                <button type="button"></button>
+            <div class="icon icon-mail-fill">
+                <button>확인</button>
             </div>
         </fieldset>
         </form>    
     </section>
 
-    <section id="pw-section" hidden>
-        <h1>비밀번호 찾기</h1>
-        <form method="post">
+    <section id="pw-section" class="find-block hidden">
+        <h1 class="fw:3 font-s:4">비밀번호 찾기</h1>
+        <form action="login" method="post">
         <fieldset>
-            <div>
+            <div class="n-textbox-login mb:3">
                 <div>
                     <label></label>
                     <input>
@@ -134,7 +137,7 @@
                 </div>
             </div>
             <div>
-                <button type="button"></button>
+                <button></button>
             </div>
         </fieldset>
         </form>    
