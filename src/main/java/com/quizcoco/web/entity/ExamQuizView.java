@@ -1,6 +1,6 @@
 package com.quizcoco.web.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ private String num2;
 private String num3;
 private String num4;
 private int answer;
-private Date regDate;
+private LocalDateTime regDate;
 
 // 외래키
 private String type;

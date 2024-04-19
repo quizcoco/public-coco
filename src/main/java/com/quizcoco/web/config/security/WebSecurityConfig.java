@@ -33,18 +33,21 @@ public class WebSecurityConfig {
 		http
 			.csrf(csrf->csrf.disable())	
 			.authorizeHttpRequests((requests) -> requests
-			.requestMatchers("/", "/home").permitAll()
+			.requestMatchers("/", "/home").hasAnyRole("MEMBER","ADMIN")
 			.anyRequest().permitAll()
-			);
-			// .formLogin((form) -> form
-			// 	.loginPage("/login")
-			// 	.permitAll()
-			// )
-			//.logout((logout) -> logout.permitAll());
+			)
+			.formLogin((form) -> form
+			.loginPage("/user/login")
+			.permitAll()
+			)
+			.logout((logout) -> logout
+			.logoutUrl("/user/logout")
+			.logoutSuccessUrl("/index")
+			.permitAll());
 
 		return http.build();
 	}
-
+	//@Bean
 	public UserDetailsService jdbcUserDetailsService() {
 		
 		String userSql = "select name, pw password from user where name=?";
@@ -67,7 +70,7 @@ public class WebSecurityConfig {
 	}
 
 
-	@Bean
+	//@Bean
 	public UserDetailsService userDetailsService() {
 		UserDetails user =
 			 User.builder()
@@ -80,3 +83,4 @@ public class WebSecurityConfig {
 	}
     
 }
+

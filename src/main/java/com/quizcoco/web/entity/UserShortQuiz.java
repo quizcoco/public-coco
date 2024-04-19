@@ -1,6 +1,6 @@
 package com.quizcoco.web.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
@@ -17,7 +17,7 @@ public class UserShortQuiz {
     private String question;
     private String answer;
     private String commentary;
-    private Date regDate;
+    private LocalDateTime regDate;
     
     //외래키
     private Long userId;

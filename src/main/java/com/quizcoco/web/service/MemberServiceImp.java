@@ -18,5 +18,19 @@ public class MemberServiceImp implements MemberService {
         return repository.findByUserName(name);
     }
 
+    @Override
+    public boolean validate(String name, String password) {
+      
+        Member member = repository.findByUserName(name);
+
+        if(member == null)
+            return false;
+        
+        if(!member.getPw().equals(password))
+            return false;
+            
+            return true;
+    }
+
 
 }

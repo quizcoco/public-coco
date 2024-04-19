@@ -1,6 +1,6 @@
 package com.quizcoco.web.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
@@ -19,7 +19,7 @@ public class Member {
     private int level;
     private int point;
     private int exp;
-    private Date joinDate;
+    private LocalDateTime joinDate;
     private String mail;
 
     //외래키

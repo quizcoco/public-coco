@@ -5,5 +5,6 @@ import com.quizcoco.web.entity.Member;
 public interface MemberService {
     
     Member getByUserName(String name);
-}
 
+    boolean validate(String name, String password);
+}
