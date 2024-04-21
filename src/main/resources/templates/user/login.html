@@ -63,14 +63,14 @@
             <fieldset>
                 <div class="n-textbox-login mb:3">
                   <label class="d:none">id</label>
-                  <input type="text" class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*id">  
+                  <input name="username" type="text" class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*id">  
                 </div>
                 <div id="input-pw" class="n-textbox-login">
-                    <div name="hide-icon" class="order:2 icon icon:eye_slash icon-size:5 icon-color:base-5 eye"></div>
-                    <div name="show-icon" class="order:2 icon icon:eye icon-size:5 icon-color:base-5 eye hidden"></div>
+                    <!-- <div name="show-icon" class="order:2 icon icon:eye icon-size:5 icon-color:base-5 eye hidden"></div> -->
                     <label class="d:none">Password</label>
-                    <input name="hide-pw" type="password" class="order:1 bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*Password">
-                    <input name="show-pw" type="text" class="order:1 bg-color:base-2 w:5 hidden" maxlength="27" autocomplete="off" required placeholder="*Password">
+                    <input name="password" type="password" class="order:1 bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*Password">
+                    <div name="eye-icon" class="order:2 icon icon:eye_slash icon:eye icon-size:5 icon-color:base-5 eye"></div>
+                    <!-- <input name="show-pw" type="text" class="order:1 bg-color:base-2 w:5 hidden" maxlength="27" autocomplete="off" required placeholder="*Password"> -->
                 </div>
                 <div class="d:flex fl-dir:row ai:center jc:center gap:5 pt:3">
                     <div class="d:flex">
@@ -101,43 +101,46 @@
         </form>
     </section>
            
-    <section id="id-section" class="login-container hidden">
-        <h1 class="fw:3 font-s:4">아이디 찾기</h1>
+    <section id="id-section" class="find-container hidden">
+        <h1 class="fw:3 font-s:4 d:flex ai:center jc:center">아이디 찾기</h1>
         <form action="login" method="post">
-        <fieldset>
-            <div>
-                <div class="n-textbox-login mb:3">
+        <fieldset class="d:flex fl-dir:column jc:center ai:center">
+            <div class="d:flex fl-dir:column ai:center jc:center mt:7">
+                <div class="n-textbox-login mb:3 d:flex">
                     <label class="d:none">email</label>
-                    <input type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Email">
+                    <input name="mail" type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Email">
+                    <span class="d:flex ai:center jc:flex-end icon-mail-fill"></span>
                 </div>
                 <div class="n-textbox-login mb:3">
                     <label class="d:none">인증번호</label>
                     <input type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*인증번호">
                 </div>
             </div>
-            <div class="icon icon-mail-fill">
-                <button>확인</button>
+            <div class="d:flex ai:center pt:10 w:3">
+                <button type="submit" class="n-btn n-btn:sign fw:3">확인</button>
             </div>
         </fieldset>
         </form>    
     </section>
 
-    <section id="pw-section" class="find-block hidden">
-        <h1 class="fw:3 font-s:4">비밀번호 찾기</h1>
+    <section id="pw-section" class="find-container hidden">
+        <h1 class="fw:3 font-s:4 d:flex ai:center jc:center">비밀번호 찾기</h1>
         <form action="login" method="post">
-        <fieldset>
-            <div class="n-textbox-login mb:3">
-                <div>
-                    <label></label>
-                    <input>
+        <fieldset class="d:flex fl-dir:column jc:center ai:center">
+            <div class="d:flex fl-dir:column ai:center jc:center mt:7">
+                <div class="n-textbox-login mb:3 d:flex">
+                    <label class="d:none">비밀번호</label>
+                    <input name="password" type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Password">
+                    <span class="d:flex ai:center jc:flex-end icon icon:eye_slash icon:eye icon-color:base-5"></span>
                 </div>
-                <div>
-                    <label></label>
-                    <input>
+                <div class="n-textbox-login mb:3">
+                    <label class="d:none">인증번호</label>
+                    <input name="password" type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Password(확인)">
+                    <span class="d:flex ai:center jc:flex-end icon icon:eye_slash icon:eye icon-color:base-5"></span>
                 </div>
-            </div>
-            <div>
-                <button></button>
+            </div>6
+            <div class="d:flex ai:center pt:10 w:3">
+                <button type="submit" class="n-btn n-btn:sign fw:3">비밀번호 변경</button>
             </div>
         </fieldset>
         </form>    
@@ -150,7 +153,10 @@
             <h1 class="d:none">pc 메뉴바</h1>
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile"></a><a href="" class="icon icon:myinfo arrow">>p></a></li>
-                <li class="fs:1 bd-bottom"><span>김철수</span><span>Lv.5</span><br><span>인벤토리 북마크</span><li>
+                <li class="fs:1 bd-bottom" sec:authorize="isAnonymous()">
+                    <span sec:authorize="isAuthenticated()"><span th:text="${#authentication.name}">김철수</span></span>
+                        <span>Lv</span><span>5</span>
+                        <br><span>인벤토리 북마크</span><li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
