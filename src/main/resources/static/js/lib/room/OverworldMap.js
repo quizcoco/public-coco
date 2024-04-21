@@ -14,7 +14,7 @@ class OverworldMap{
     drawLowerImage(ctx,cameraPerson){
 
         ctx.drawImage(this.lowerImage,
-            utils.withGrid(10.5) - cameraPerson.x , utils.withGrid(6)-cameraPerson.y);
+            utils.withGrid(7) - cameraPerson.x , utils.withGrid(4)-cameraPerson.y);
     }
     drawUpperImage(ctx,cameraPerson){
 
@@ -28,12 +28,12 @@ window.OverworldMaps={ //각종맵객체
         gameObjects:{
             man1:new Person({
                 isPlayerControlled:true,
-                x:utils.withGrid(5),
-                y:utils.withGrid(6),
-            }),
-                npc1: new Person({
                 x:utils.withGrid(7),
                 y:utils.withGrid(9),
+            }),
+                npc1: new Person({
+                x:utils.withGrid(10),
+                y:utils.withGrid(10),
                // src:"/image/room/cat-idle.png"
                })
         }
