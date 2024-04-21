@@ -7,5 +7,5 @@ setTimeout(()=>{
 
     battleGround.draw();
 
-},1000)
+},200)
 
