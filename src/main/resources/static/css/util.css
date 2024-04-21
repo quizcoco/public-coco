@@ -286,6 +286,15 @@ utill.css 목록
     gap: 40px !important;
  }
 
+/* ----------------입력 창 안 버튼-------------------- */
+
+.n-btn\:input {
+    background-color: var(--color-main-3) !important;
+    border-radius: 30px !important;
+    width:70px !important;
+    height: 28px !important;
+ }
+
 /* =======================3.폰트========================== */
 
 .font\:1{
