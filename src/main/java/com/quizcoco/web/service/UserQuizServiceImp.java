@@ -20,8 +20,8 @@ public class UserQuizServiceImp implements UserQuizService{
     //===============================getList====================================    
 
     @Override
-    public UserQuizView getListById(long id,String cate) {
-        return repository.findAllById(id,cate);
+    public UserQuizView getListById(long id, long userId, String cate) {
+        return repository.findAllById(id, userId, cate);
 
     }
     

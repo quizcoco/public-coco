@@ -14,7 +14,7 @@ public interface UserQuizService {
 
     List<UserQuizView> getList(String query, long userId,Integer page,Integer size);
     List<UserQuizView> getList(long userId,Integer page,Integer size);
-    UserQuizView getListById(long id,String cate);
+    UserQuizView getListById(long id, long userId, String cate);
 
     int getCount();
     int getCount(String query);

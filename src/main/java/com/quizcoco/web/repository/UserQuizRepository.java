@@ -14,7 +14,7 @@ public interface UserQuizRepository {
     
     // List<UserOXQuiz> findAllox(String query, long userId,Integer offset,Integer size );
     List<UserQuizView> findAll(String query, long userId,Integer offset,Integer size );
-    UserQuizView findAllById(Long id,String cate);
+    UserQuizView findAllById(Long id, long userId, String cate);
 
     int count(String query);
     

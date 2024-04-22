@@ -88,29 +88,40 @@ public class UserQuizController {
     /* 유저가 만든 문제 디테일 페이지 // js말고 컨트롤러에서 직접 분류나눠서 뿌려주기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
     /* OXㅡㅡㅡuser_oxㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
     @GetMapping("detail")
-    public String detailOx(Long id,@RequestParam(name = "category") String cate,Model model) {
+    public String detailOx(Long id
+    ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+    ,@RequestParam(name = "category") String cate
+    ,Model model) {
 
-
-        UserQuizView userQuizView = service.getListById(id,cate);
+        UserQuizView userQuizView = service.getListById(id, userId, cate);
        // model.addAttribute("uq", userQuizView);
 
         if(id==null) {
             return "study/userquiz/list";
         }
 
-        UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
-        UserMultipleQuiz userMultipleQuiz = service.getByMultipleQuizId(id);
-        UserShortQuiz userShortQuiz = service.getByShortQuizId(id);
-        
-        if(userOXQuiz!=null&& userQuizView.getId()==userOXQuiz.getId() && userQuizView.getCategory().equals("ox"))
-        model.addAttribute("useroxq", userOXQuiz);
-        
-        if(userMultipleQuiz !=null&& userQuizView.getId()==userMultipleQuiz.getId() && userQuizView.getCategory().equals("multi"))
-        model.addAttribute("usermultiq", userMultipleQuiz);
-        
-        if(userShortQuiz != null && userQuizView.getId()==userShortQuiz.getId() && userQuizView.getCategory().equals("short"))
-            model.addAttribute("usershortq", userShortQuiz);
+            model.addAttribute("userQuiz", userQuizView);
 
+
+        // UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
+        // UserMultipleQuiz userMultipleQuiz = service.getByMultipleQuizId(id);
+        // UserShortQuiz userShortQuiz = service.getByShortQuizId(id);
+        
+        // if(userOXQuiz!=null&& userQuizView.getId()==userOXQuiz.getId() && userQuizView.getCategory().equals("ox"))
+        // model.addAttribute("useroxq", userOXQuiz);
+        
+        // if(userMultipleQuiz !=null&& userQuizView.getId()==userMultipleQuiz.getId() && userQuizView.getCategory().equals("multi"))
+        // model.addAttribute("usermultiq", userMultipleQuiz);
+        
+        // if(userShortQuiz != null && userQuizView.getId()==userShortQuiz.getId() && userQuizView.getCategory().equals("short"))
+        //     model.addAttribute("usershortq", userShortQuiz);
+
+
+        // System.out.println("============================"+userOXQuiz);
+        // System.out.println(userMultipleQuiz);
+        // System.out.println(userShortQuiz);
+        
+        ;    
         return "study/userquiz/detail";
     }
 
