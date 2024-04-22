@@ -56,6 +56,8 @@ init(){
     //this.directionInput.direction;
     this.startGameLoop();
 
+    
+
 
 }
 

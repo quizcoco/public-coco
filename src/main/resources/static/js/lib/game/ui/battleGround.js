@@ -91,16 +91,26 @@ export default class BattleGround{
         this.timerId= setInterval(()=>{
 
             this.draw();
+            this.init();
             // this.update();
 
         },1000/60);
 
     }
 
+    init(){
+
+        this.map.startCutscene([
+            {type:"battle"}
+        ])
+    }
+
     stop(){
 
         clearInterval(this.timerId);
     }
+
+
 
 
 
