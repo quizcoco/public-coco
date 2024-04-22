@@ -1,6 +1,6 @@
 package com.quizcoco.web.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +16,7 @@ public class Board {
     private String title;
     private String img;
     private String content;
-    private Date regDate;
+    private LocalDateTime regDate;
     private int viewCount;
 
 }

@@ -11,14 +11,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.quizcoco.web.entity.Member;
 import com.quizcoco.web.entity.MemberRole;
+import com.quizcoco.web.entity.Member;
 import com.quizcoco.web.repository.MemberRepository;
 import com.quizcoco.web.repository.MemberRoleRepository;
 
 @Service
 public class CocoUserDetailsService implements UserDetailsService {
-    
+
     @Autowired
     private MemberRepository repository;
 
@@ -45,7 +45,7 @@ public class CocoUserDetailsService implements UserDetailsService {
         userDetails.setMail(member.getMail());
         userDetails.setUsername(member.getName());
         userDetails.setPassword(member.getPw());
-        userDetails.setAuthorities(null);
+        userDetails.setAuthorities(authorities);
 
         return userDetails;
     }

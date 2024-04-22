@@ -10,7 +10,8 @@
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
-    
+    <link href="/css/login.css" rel="stylesheet" type="text/css">
+
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
 </head>
@@ -38,7 +39,9 @@
         <nav class="menu d:none md:d:none">
             <h1 class="d:none">모바일 메뉴바</h1>
             <ul>
-                <li class="profile-place"><a href="" class="profile">내정보</a><a href="" class="icon icon:myinfo arrow">>></a></li>
+                <li class="profile-place" sec:authorize="isAnonymous()"><a href="" class="profile">내정보</a><a href="" class="icon icon:myinfo arrow">>></a></li>
+                <li sec:authorize="isAuthenticated()">    
+                    <span th:text="${#authentication.name}"></span></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
@@ -52,9 +55,44 @@
 
     <main class="of:auto">
 <!--=========================== 메인에 입력 ===============================-->
-    
+   <section class="login-container">
+    <h1 class="fw:3 font-s:4 d:flex ai:center jc:center pb:7">회원가입</h1>
+    <form action method="post">
+        <fieldset class="d:flex fl-dir:column jc:center ai:center">
+            <div class="n-textbox-login mb:3">
+                <label></label>
+                <input name type class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*id">
+                <button class="n-btn n-btn:input fw:3">중복확인</button>
+            </div>      
+            <div class="n-textbox-login mb:3">
+                <label></label>
+                <input name type class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*Password">
+                <span class="d:flex ai:center jc:flex-end icon icon:eye_slash icon:eye icon-color:base-5"></span>
+            </div>      
+            <div class="n-textbox-login mb:3">
+                <label></label>
+                <input name type class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*Password(확인)">
+               <span class="d:flex ai:center jc:flex-end icon icon:eye_slash icon:eye icon-color:base-5"></span>
+            </div>
+            <div class="n-textbox-login mb:3">
+                <label></label>
+                <input name type class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*Nickname">
+                <button class="n-btn n-btn:input fw:3">중복확인</button>
+            </div>
+            <div class="n-textbox-login mb:3">
+                <label></label>
+                <input name type class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*Email">
+                <button class="n-btn n-btn:input fw:3">인증</button>
+            </div>
+            <div class="d:flex ai:center jc:center pt:10 w:3">
+                <button type="submit" class="n-btn n-btn:sign fw:3">가입하기</button>
+            </div>
+        </fieldset>
+    </form>
+   </section> 
            
    </main>
+   
 
    <aside class="d:none md:d:flex jc:center right:1 zi:1">
     <div class="pos:fixed h:100p bg-color:main-2">
@@ -62,7 +100,10 @@
             <h1 class="d:none">pc 메뉴바</h1>
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile"></a><a href="" class="icon icon:myinfo arrow">>p></a></li>
-                <li class="fs:1 bd-bottom"><span>김철수</span><span>Lv.5</span><br><span>인벤토리 북마크</span><li>
+                <li class="fs:1 bd-bottom" sec:authorize="isAnonymous()">
+                    <span sec:authorize="isAuthenticated()"><span th:text="${#authentication.name}">김철수</span></span>
+                        <span>Lv</span><span>5</span>
+                        <br><span>인벤토리 북마크</span><li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>

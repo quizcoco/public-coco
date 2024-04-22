@@ -114,5 +114,6 @@ public class CocoUserDetails implements UserDetails {
         
         return true;
     }
+
     
 }

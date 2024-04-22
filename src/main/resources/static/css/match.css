@@ -181,3 +181,21 @@ place-items: center ;
     grid-area: item1;   
 } */
 /* fixed absolute*/
+/* ==========================캔버스============================ */
+
+.game-container{
+
+    position: relative;
+    width: 202px;
+    height: 198px;
+    margin: 0 auto;
+    /* outline: 1px solid #fff; */
+    
+    /* transform: scale(4.6) translateY(24%) translateX(18%); */
+    
+    
+    canvas{
+        
+        image-rendering: pixelated;
+    }
+    }
