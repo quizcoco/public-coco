@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quizcoco.web.repository.UserQuizzesFavoriteRepository">
+
+	<insert id="save" parameterType="UserQuizzesFavorite">
+		INSERT INTO user_quizzes_favorite
+		(
+			user_id,
+            user_multiple_choice_quiz_id,
+            user_short_answer_quiz_id,
+            user_ox_id
+		)
+		VALUES
+		(
+			#{userId},
+            #{userMultipleChoiceQuizId},
+            #{userShortAnswerQuizId},
+            #{userOxId}
+		);
+	</insert>
+
+	<delete id="delete" parameterType="UserQuizzesFavorite">
+		delete from user_quizzes_favorite
+		<where>
+            user_id=#{userId}
+
+            <if test="userOxId !=null">
+                and user_ox_id=#{userOxId}
+            </if>
+            <if test="userShortAnswerQuizId !=null">
+                and user_short_answer_quiz_id=#{userShortAnswerQuizId}
+            </if>
+            <if test="userMultipleChoiceQuizId !=null">
+                and user_multiple_choice_quiz_id=#{userMultipleChoiceQuizId}
+            </if>
+		</where>
+	</delete>
+
+</mapper>

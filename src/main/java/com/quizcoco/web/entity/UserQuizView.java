@@ -23,6 +23,8 @@ public class UserQuizView {
     private String commentary;
     private Date regDate;
     private String category;
+    private int likeCount;
+    private boolean like;
     
     //외래키
     private Long userId;

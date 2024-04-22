@@ -66,10 +66,44 @@
                     <h1 class="d:none">하위그룹</h1>
                     <section>
                         <h1 class="d:none">카드 상단</h1> 
-                        <div class="d:flex fl-dir:row jc:space-between pb:4">
+                        <!-- TODO 즐겨찾기(좋아요) -->
+                        <!-- TODO 리스트뷰 만들어야한것같은데.... -->
+                        <!-- <div class="d:flex fl-dir:row jc:space-between pb:4">
                             <div class="icon-star">즐겨찾기 아이콘</div>
                             <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
+                        </div> -->
+
+                        <div class="d:flex fl-dir:row jc:space-between pb:4">
+                            <div class="d:flex justify-content:flex-end">
+                                <a class="icon icon-star icon-color:base-4"
+                                th:classappend="${m.like}?'icon-star-fill'"
+                                href="">즐겨찾기</a>
+                            </div>
+
+                            <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
                         </div>
+
+                        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+
+                        <!-- <div class="d:flex fl-dir:row jc:space-between pb:4">
+                            <div class="d:flex justify-content:flex-end">
+                                <a class="icon icon-star icon-color:base-4"
+                                th:classappend="${}?'icon-star-fill'"
+                                href="">즐겨찾기</a>
+                            </div>
+
+                            <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
+                        </div> -->
+
+                        <!-- rland 좋아요 -->
+                        <!-- </div>
+                        <div class="like-block d:flex justify-content:flex-end">
+                            <a class="icon icon-heart icon-color:base-4"
+                            th:classappend="${m.like}?'icon-heart-fill'"
+                            href="">좋아요</a>
+                            <span class="font-weight:bold ml:1" th:text="${m.likeCount}">2</span>                                
+                        </div> -->
+
                         <!-- 모달 -->
                         <section class="d:none">
                             <h1 class="d:none">기타 메뉴</h1>

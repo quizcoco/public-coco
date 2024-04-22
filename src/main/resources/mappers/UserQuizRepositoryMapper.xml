@@ -120,9 +120,11 @@
                 and qv.user_id=${userId}
             </if>
         </where>
+        <!-- TODO 최신순? -->
+        <!-- order by qv.reg_date desc -->
+        
         <!-- limit 0,5 -->
         limit #{offset}, #{size}
-        <!-- order by qv.reg_date desc -->
     </select>
 
     <!-- //TODO 변경? -->

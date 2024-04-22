@@ -10,9 +10,12 @@
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/admin/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/modal.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
+    <script defer src="/js/study/userquiz/list.js"></script>
 </head>
 <body>
  
@@ -90,31 +93,19 @@
                     <option value="15">15개</option>
                     <option value="20">20개</option>
                 </select></div>
+
+                <!-- TODO userquiz 전체리스트 최신순 오래된순 -->
                 <div class="old-new as:center"><button class="n-btn n-btn:filled">오래된순</button></div>
             </section>
         </section>
 
         <!-- 퀴즈리스트 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <!-- //if문으로 있나 검사하고 돌려서 디테일 -->
         <section th:each="uq:${userQuiz}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
             <h1 class="d:none">퀴즈 리스트</h1>
             <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
             <a th:href="@{detail(id=${uq.id}, category=${uq.category})}"><div class="pl:5"><span th:text="${uq.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${uq.answer}" class="color:accent-4">안갚음</span></div></a>
         </section>
 
-        <!-- <section th:each="ox:${userMultipleQuiz}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
-            <h1 class="d:none">퀴즈 리스트</h1>
-            <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-            <a th:href="@{detail(id=${ox.id})}"><div class="pl:5"><span th:text="${ox.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${ox.answer}" class="color:accent-4">안갚음</span></div></a>
-        </section>
-
-        <section th:each="ox:${useroxq}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
-            <h1 class="d:none">퀴즈 리스트</h1>
-            <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-            <a th:href="@{detail(id=${ox.id})}"><div class="pl:5"><span th:text="${ox.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${ox.answer}" class="color:accent-4">안갚음</span></div></a>
-        </section> -->
-
-        <!-- TODO 페이지4까지밖에 안나옴 / 문제39개 페이지8 -->
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
         <section class="mt:1 d:flex jc:center ai:center">
             <h1 class="d:none">페이저</h1>
@@ -124,7 +115,8 @@
                             floatnum=(${page}-1)/10,
                             intnum=${T(java.lang.Math).floor(floatnum)},
                             startnum=${intnum}*10+1
-                            ,lastnum=${uqcount} mod 11 >0 ? ${uqcount/11} +1 :${uqcount/11}">
+                            ,lastnum=${uqcount} mod 5 >0 ? ${uqcount div 5} +1 :${uqcount div 5}">
+                            <!-- 여기서 5는 화면에 표시되는 리스트갯수 -->
 
                     <!-- ========='<<'============== -->
                     <li><span th:if="${page} lt 2" class="icon icon:page_start icon-size:2"></span>
@@ -134,14 +126,13 @@
                     <li><span th:if="${page} lt 11" class="icon icon:caret_left icon-size:2"></span>
                         <a th:if="${page} ge 11" th:href="@{list(p=${startnum}-1)}" href="" class="icon icon:caret_left icon-size:2"></a></li>
 
-
                     <!-- ========='1'============== -->
                     <li th:each="n : ${#numbers.sequence(startnum,startnum+9)}"  
-                    th:class="${{page}}== ${n}?'active'">
-                    
+                    th:class="${{param.p}}== ${n}?'active'">
                     <span th:if="${n} gt ${lastnum}" th:text="${n}"></span>
-                        <a href="list?p=1" th:href="@{list(p=${n})}" th:text="${n}"
-                        th:if="${n} le ${lastnum}">1</a></li>
+                    
+                    <a href="list?p=1" th:href="@{list(p=${n})}" th:text="${n}"
+                    th:if="${n} le ${lastnum}">1</a></li>
 
                     <!-- ========='>'============== -->
                     <li><span th:if="${lastnum} lt ${startnum+10}" class="icon icon:caret_right icon-size:2"></span>
@@ -155,28 +146,77 @@
             <div class="d:flex jc:center ai:center mt:1">
                 <input class="n-textbox n-textbox-type:outline w:1" th:placeholder="${param.p}==null? 1 : ${param.p}">
                 <span class="mr:2 ml:2">/</span>
-                <span th:text="${uqcount} mod 11 >0 ? ${uqcount/11} +1 :${uqcount/11}">38</span>
+                <span th:text="${uqcount} mod 5 >0 ? ${uqcount div 5} +1 :${uqcount div 5}">38</span>
                 <a href="" class="n-btn n-btn-type:outline deco-ml:1 deco-size:2 deco-pos:right icon:caret_right deco ml:2">Go</a>
             </div>
         </section>
 
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <nav class="d:flex jc:space-between ai:center">
+        <nav id="ctrl-menu" class="d:flex jc:space-between ai:center">
             <h1 class="d:none">삭제, 이동 조작메뉴</h1>
-            <ul class="d:flex w:3 jc:space-between">
+            <ul class="ctrl-btn d:flex w:11 jc:space-between">
                 <li><input type="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:2" /></li>
-                <li><button class="icon icon:play_fill">슬라이드쇼 아이콘</button></li>
+                <li class="d:none"><button class="icon icon:play_fill">슬라이드쇼 아이콘</button></li>
                 <li><button class="icon icon:trash">휴지통 아이콘</button></li>
-                <li><button class="icon icon:share_fat">이동 아이콘</button></li>
+                <li class="d:none"><button class="icon icon:share_fat">이동 아이콘</button></li>
             </ul>
             <ul class="d:flex w:4 jc:space-between">
-                <li><a href="" class="n-btn n-btn:filled">퀴즈등록</a></li>
+                <li><a href="reg" class="n-btn n-btn:filled">퀴즈등록</a></li>
                 <!-- 선택지 없이 버튼 눌렀을때 전체문제 가능 -->
                 <li><button class="n-btn n-btn:filled">카드로 보기</button></li>
             </ul>
         </nav>
 
         <!-- 모달 -->
+        <!-- TODO css -->
+        <section id="delete-modal" class="d:none n-modal w:6 h:3 ac:center">
+            <h1 class="d:none">퀴즈삭제 컨펌</h1>
+            <div class="d:flex fl-direction:flex jc:center">
+                <div class="d:flex deco icon:warning_circle"></div>
+                <div>
+                    <div>선택하신 퀴즈를</div>
+                    <div>정말로 삭제 하시겠습니까?</div>
+                </div>
+            </div>
+            <div>
+                <div class="d:flex jc:center gap:3 mt:4">
+                    <div><button id="cancel-btn" class="n-btn n-btn-size:1">취소</button></div>
+                    <div><button id="confirm-btn" class="n-btn n-btn-size:1">확인</button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 모달 - 문제를 선택해 주세요 -->
+        <section id="warning-modal" class="d:none n-modal w:5 h:3 ac:center">
+            <h1 class="txt-al:center d:flex deco icon:warning_circle jc:center"> 문제를 선택해 주세요</h1>
+            <div>
+                <div class="d:flex jc:center gap:3 mt:4">
+                    <button class="n-btn n-btn-size:1" id="close-btn">확인</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+
+        <!-- css로만 한 버전 일부로 d:none안하고 주석처리해놓음-->
+
+        <!-- <section id="" class="userquiz-modal d:flex fl-direction:column ai:center jc:center">
+            <h1 class="d:none">퀴즈삭제 컨펌</h1>
+            <div class="d:flex fl-direction:flex">
+                <div class="d:flex deco icon:warning_circle"></div>
+                <div>
+                    <div>선택하신 퀴즈를</div>
+                    <div>정말로 삭제 하시겠습니까?</div>
+                </div>
+            </div>
+
+            <ul class="d:flex w:4 jc:center gap:4 mt:4">
+                <li><button class="n-btn n-btn-size:1" id="">취소</button></li>
+                <li><button class="n-btn n-btn-size:1" id="">확인</button></li>
+            </ul>
+        </section> -->
+        
+        <!-- 폴더 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
         <section class="d:none">
             <h1>폴더 지정</h1>
             <nav>
@@ -190,24 +230,7 @@
             <div>이동</div>
         </section>
 
-        <section class="d:none">
-            <h1>퀴즈삭제 컨펌</h1>
-            <div>선택하신 퀴즈를 정말로 삭제 하시겠습니까?</div>
-            <ul>
-                <li><button>취소</button></li>
-                <li><button>확인</button></li>
-            </ul>
-        </section>
-
-        <section class="d:none">
-            <h1>선택해주세요 창</h1>
-            <div>문제를 선택해 주세요.</div>
-            <ul>
-                <li><button>취소</button></li>
-                <li><button>확인</button></li>
-            </ul>
-        </section>
-
+        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
         <section class="ad mt:4 d:none md:d:flex jc:center">
             <h1 class="d:none">광고</h1>
             <div class="">광고어디니</div>

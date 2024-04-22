@@ -24,6 +24,7 @@ private String num3;
 private String num4;
 private int answer;
 private Date regDate;
+private boolean like;
 
 // 외래키
 private String type;

@@ -118,6 +118,14 @@
   width: var(--width-0) !important; /* 188px */
 }
 
+.width\:11{
+  width: var(--width-11) !important; /* 70px */
+}
+
+.w\:11{
+  width: var(--width-11) !important; /* 70px */
+}
+
 /* height 0 추가 */
 
 .height\:0{

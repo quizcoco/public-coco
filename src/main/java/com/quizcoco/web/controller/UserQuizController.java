@@ -45,7 +45,8 @@ public class UserQuizController {
             UQcount = service.getCount();
         }
 
-        System.out.println(UQcount); //39잘나옴
+        System.out.println("===========UserQuizController.java==============");
+        System.out.println("========================UQcount = "+UQcount); //39잘나옴
         
         model.addAttribute("userQuiz", userQuizView);
         model.addAttribute("uqcount", UQcount);
@@ -146,7 +147,7 @@ public class UserQuizController {
     // 유저 문제 등록 페이지
     @GetMapping("reg")
     public String reg() {
-        return "userquiz/reg";
+        return "study/userquiz/reg";
     }
 
     @GetMapping("reg/ox")
