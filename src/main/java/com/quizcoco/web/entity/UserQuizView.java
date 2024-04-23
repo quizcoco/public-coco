@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class UserQuizView {
 
     private Long id;
+    private Long rowNum;
     private String question;
     private String num1;
     private String num2;

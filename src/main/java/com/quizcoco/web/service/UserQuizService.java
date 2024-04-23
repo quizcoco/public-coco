@@ -11,9 +11,8 @@ public interface UserQuizService {
 
     // List<UserOXQuiz> getOXList(String query, long userId,Integer page,Integer size);
     // List<UserOXQuiz> getOXList(long userId,Integer page,Integer size);
-
-    List<UserQuizView> getList(String query, long userId,Integer page,Integer size);
-    List<UserQuizView> getList(long userId,Integer page,Integer size);
+    List<UserQuizView> getList(String query, long userId,Integer newOld, Integer page,Integer size);
+    List<UserQuizView> getList(long userId,Integer newOld, Integer page,Integer size);
     UserQuizView getListById(long id, long userId, String cate);
 
     int getCount();
@@ -27,5 +26,7 @@ public interface UserQuizService {
     void regOX(UserOXQuiz userOXQuiz);
     void regMulti(UserMultipleQuiz userMultipleQuiz);
     void regShort(UserShortQuiz userShortQuiz);
+
+    void delById(Long id, String cate);
     
 }

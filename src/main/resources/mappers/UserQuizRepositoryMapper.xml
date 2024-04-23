@@ -21,9 +21,62 @@
     </select>
 
     <select id="findAllById" resultType="UserQuizView">
+
+
+
+
+
+SELECT * FROM
+(
+SELECT ROW_NUMBER() OVER (order by reg_date desc) rownum , rn.*
+FROM (select *from
+(
+
+select ox.id,ox.question, null num1, null num2, null num3, null num4, ox.answer,"ox" category,ox.reg_date,ox.user_id, nvl(f.user_id=1,0) `like` 
+from user_ox ox left join user_quizzes_favorite f on ox.id=f.user_ox_id
+UNION all
+
+select multi.id,multi.question, num1,num2,num3,num4, multi.answer,"multi" category,multi.reg_date,multi.user_id , nvl(f.user_id=1,0) `like` 
+from user_multiple_choice_quiz multi left join user_quizzes_favorite f on multi.id=f.user_multiple_choice_quiz_id
+
+UNION all
+
+select short.id,short.question, null num1, null num2, null num3, null num4, short.answer,"short" category,short.reg_date,short.user_id, nvl(f.user_id=1,0) `like`  
+from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=f.user_short_answer_quiz_id
+
+
+) qv
+
+  <!-- <where>
+            <if test="userId != null">
+                qv.user_id=#{userId}
+            </if>
+       </where> -->
+
+where qv.user_id=1
+
+) rn
+) aa
+
+
+
+<where>
+    <if test="id != null">
+               and aa.id=#{id}
+            </if>
+
+            <if test="cate != null">
+                and aa.category =#{cate}
+            </if>
+        </where>
+
+
+
+
+
         
       
-select*from
+<!-- select*from
 (
 
 select ox.id,ox.question, null num1, null num2, null num3, null num4, ox.answer,"ox" category,ox.reg_date,ox.user_id, nvl(f.user_id=1,0) `like` 
@@ -38,8 +91,8 @@ UNION all
 select short.id,short.question, null num1, null num2, null num3, null num4, short.answer,"short" category,short.reg_date,short.user_id, nvl(f.user_id=1,0) `like`  
 from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=f.user_short_answer_quiz_id
 			
-) qv
-        <where>
+) qv -->
+        <!-- <where>
             <if test="userId != null">
                 qv.user_id=#{userId}
             </if>
@@ -51,7 +104,8 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
             <if test="cate != null">
                 and qv.category =#{cate}
             </if>
-        </where>
+        </where> -->
+
      </select>
 
     <!-- 리스트 -->     <!-- 수정중 -->
@@ -118,7 +172,9 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
         where user_id = #{userId}
     </select> -->
 
+<!-- TODO  -->
     <select id="findAll" resultType="UserQuizView">
+
         select *from
         (select id,question, null num1, null num2, null num3, null num4, answer,"ox" category,reg_date,user_id from user_ox 
         UNION all
@@ -135,11 +191,41 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
             </if>
         </where>
         <!-- TODO 최신순? -->
-        <!-- order by qv.reg_date desc -->
+        <!-- ORDER BY CASE WHEN newOld = 1 THEN qv.reg_date DESC ELSE qv.reg_date ASC END -->
+
+        <!-- <order>
+            <if test="newOld == 1">
+                qv.reg_date DESC
+            </if>
+            <if test="newOld == 0">
+                qv.reg_date ASC
+            </if>
+        </order> -->
+
+
+
+
+        <!-- <order test="newOld == 1">
+            qv.reg_date desc
+        </order> -->
+        <!-- <order if="newOld == 0">
+            qv.reg_date asc
+        </order> -->
+
+        <if test="newOld == 0">
+        order by qv.reg_date desc 
+        </if>
+         <if test="newOld == 1">
+        order by qv.reg_date asc 
+        </if>
         
         <!-- limit 0,5 -->
         limit #{offset}, #{size}
     </select>
+
+
+
+    
 
     <!-- //TODO 변경? -->
     <select id="count" resultType="Integer">
@@ -165,5 +251,23 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
             </if>
         </where>
     </select>
+
+
+    <delete id="deleteById" parameterType="Long">
+        <if test="category=='ox'">
+            DELETE FROM user_ox
+            WHERE id = #{id}
+        </if>
+        
+        <if test="category=='multi'">
+            DELETE FROM user_multiple_choice_quiz
+            WHERE id = #{id}
+        </if>
+
+        <if test="category=='short'">
+            DELETE FROM user_short_answer_quiz
+            WHERE id = #{id}
+        </if>
+    </delete>
     
 </mapper>
