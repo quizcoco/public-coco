@@ -108,7 +108,7 @@
   padding-right: var(--gap-13) !important; /* 50px */
 }
 
-/* width 0 추가 */
+/* width 0,11,12,13추가 */
 
 .width\:0{
   width: var(--width-0) !important; /* 188px */
@@ -119,11 +119,27 @@
 }
 
 .width\:11{
-  width: var(--width-11) !important; /* 70px */
+  width: var(--width-11) !important; /* 60px */
 }
 
 .w\:11{
-  width: var(--width-11) !important; /* 70px */
+  width: var(--width-11) !important; /* 60px */
+}
+
+.width\:12{
+  width: var(--width-12) !important; /* 20px */
+}
+
+.w\:12{
+  width: var(--width-12) !important; /* 20px */
+}
+
+.width\:13{
+  width: var(--width-13) !important; /* 270px */
+}
+
+.w\:13{
+  width: var(--width-13) !important; /* 270px */
 }
 
 /* height 0 추가 */

@@ -57,7 +57,8 @@
             <h1 class="d:none">내가 만든 문제</h1>
             <div class="small-card-l d:none md:d:flex jc:center">
                 <div class="d:flex ai:center jc:center">
-                    <img src="/image/logo.png" class="h:2 w:2 rotating-img">
+                    <!-- <img src="/image/logo.png" class="h:2 w:2 rotating-img"> -->
+                    <img src="/image/logo.png" class="h:2 w:2">
                 </div>
             </div>
             <section class="d:flex fl-dir:column">
@@ -66,8 +67,7 @@
                     <h1 class="d:none">하위그룹</h1>
                     <section>
                         <h1 class="d:none">카드 상단</h1> 
-                        <!-- TODO 즐겨찾기(좋아요) -->
-                        <!-- TODO 리스트뷰 만들어야한것같은데.... -->
+                        <!-- TODO 즐겨찾기(좋아요) star,star-fill icon은 넣어둠// rland도 안되어있음 -->
                         <!-- <div class="d:flex fl-dir:row jc:space-between pb:4">
                             <div class="icon-star">즐겨찾기 아이콘</div>
                             <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
@@ -116,15 +116,17 @@
                         <div class="d:flex fl-dir:row jc:space-between">
                             <!-- 카드갯수 -->
                             <div class="d:flex jc:flex-start">
-                                <span style="margin-right:6px;">12</span> 
+                                <!-- TODO 앞 카드번호-->
+                                <span th:text="${userQuiz.rowNum}" style="margin-right:6px;">12</span> 
                                 <span style="margin-right:6px;">/</span> 
-                                <span>52</span>
+                                <span th:text="${count}">52</span>
                             </div>
                         
                             <!-- reg_date -->
                             <div class="d:flex jc:flex-end pb:3">
-                                <span style="margin-right:6px;">2024-02-13</span> 
-                                <span>17:21:04</span>
+                                <!-- <span style="margin-right:6px;" th:text="${userQuiz.regDate}">2024-02-13</span>  -->
+                                <span style="margin-right:6px;" th:text="${#temporals.format(userQuiz.regDate, 'yyyy-MM-dd HH:mm:ss')}">2024-02-13</span> 
+                                <!-- <span>17:21:04</span> -->
                             </div>
                         </div>
                     </section>
@@ -148,7 +150,7 @@
                                 <span class="d:inline-block pb:1" th:text="${userQuiz.category == 'ox' ? '[OX 문제]' : userQuiz.category == 'multi' ? '[사지선다 문제]' : '[단답 문제]'}">[사지선다 문제]</span><br>
                                 <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
                                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num1}">①교언영색</span><br>
-                                <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${userQuiz.num2}">②곡학아세</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num2}">②곡학아세</span><br>
                                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num3}">③다문박식</span><br>
                                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num4}">④감언지지</span><br>
                                 <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${userQuiz.answer}">답</span>
@@ -184,7 +186,8 @@
             </section>
             <div class="small-card-r d:none md:d:flex jc:center">
                 <div class="d:flex ai:center jc:center">
-                    <img src="/image/logo.png" class="h:2 w:2 rotating-img">
+                    <!-- <img src="/image/logo.png" class="h:2 w:2 rotating-img"> -->
+                    <img src="/image/logo.png" class="h:2 w:2">
                 </div>
             </div>
         </section>

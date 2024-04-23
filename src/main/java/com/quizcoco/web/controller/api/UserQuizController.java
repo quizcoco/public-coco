@@ -1,11 +1,10 @@
 package com.quizcoco.web.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.quizcoco.web.entity.UserOXQuiz;
 import com.quizcoco.web.service.UserQuizService;
 
 @RequestMapping("api/userQuizs")
@@ -25,6 +24,12 @@ public class UserQuizController {
     
     //     return userOXQuiz;
     // }
+
+
+    @DeleteMapping
+    public String delete(Long id){
+        return null;
+    }
 
 
 }
