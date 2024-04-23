@@ -62,15 +62,19 @@
     <!--=========================== 메인 시작 ===============================-->
 
         <section class="place-grid">
-            <header class="d:flex jc:space-between">
+            <!-- <header class="d:flex jc:space-between"> -->
+            <header class="d:flex jc:end">
                 <h1 class="d:none">폴더 관련 메뉴</h1>
-                <div class="user-q-group">
+                <div class="d:none user-q-group">
                     <a href="">그룹</a>
                     <span class="icon icon:caret_right icon-size:2">></span>
                     <a href="">하위그룹 1</a>
                     <span class="icon icon:lock_simple icon-size:2">잠금 아이콘<span>
                 </div>
+
+                <!-- 폴더는 아직이라서 d:none해놔서 전체를 끝으로 보내버림-->
                 <div class="menu-other icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
+
                 <section class="d:none">
                     <h1>기타 메뉴</h1>
                     <div>기본 메인으로 설정</div>
@@ -90,29 +94,32 @@
                 </section>
             </header>
 
-            <section class="page-view d:flex jc:space-between	">
+            <section class="page-view d:flex jc:space-between">
                 <h1 class="d:none">페이지 보기 설정</h1>
-                <div class="see-num as:center"><select name = "num">
+                <div class="see-num as:center"><select name="num">
                     <option value="5">5개</option>
                     <option value="10">10개</option>
                     <option value="15">15개</option>
                     <option value="20">20개</option>
                 </select></div>
 
-                <!-- TODO userquiz 전체리스트 최신순 오래된순 -->
-                <div class="old-new as:center"><button class="n-btn n-btn:filled">오래된순</button></div>
+                <!-- TODO userquiz 처음들어갔을때 페이지 위치가 1로 표시되게 해야함 -->
+                <div class="old-new as:center mb:3 mt:3"><form method="get" action="list"><button th:value="${{param.newold}} == 1 ? 0 : 1" value="1" name="newold" th:text="${{param.newold}}==0 or ${{param.newold}} == null ? '오래된 순' : '최신 순'"
+
+                    class="n-btn n-btn:filled">오래된 순</button></form></div>
             </section>
         </section>
 
         <!-- 퀴즈리스트 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+        <!-- TODO 자바스크립트 뒤에 in(id값) 쿼리문3개 테이블 from //우선 1개 삭제 가능한뒤에 한개씩 늘리기 -->
         <section th:each="uq:${userQuiz}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
             <h1 class="d:none">퀴즈 리스트</h1>
-            <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-            <a th:href="@{detail(id=${uq.id}, category=${uq.category})}"><div class="pl:5"><span th:text="${uq.question}">자식이 커서 부모를 봉양하다.</span><br><span th:text="${uq.answer}" class="color:accent-4">안갚음</span></div></a>
+            <input th:value="${uq.id}" th:data-cate="${uq.category}" type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
+            <a th:href="@{detail(id=${uq.id}, category=${uq.category})}"><div class="pl:5"><span th:text="${uq.question}">문제</span><br><span th:text="${uq.answer}" class="color:accent-4">답</span></div></a>
         </section>
 
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <section class="mt:1 d:flex jc:center ai:center">
+        <section class="mt:1 d:flex jc:center ai:center mb:3 mt:3">
             <h1 class="d:none">페이저</h1>
             <div>
                 <ul class="n-pager jc:center"
@@ -136,7 +143,7 @@
                     th:class="${{param.p}}== ${n}?'active'">
                     <span th:if="${n} gt ${lastnum}" th:text="${n}"></span>
                     
-                    <a href="list?p=1" th:href="@{list(p=${n})}" th:text="${n}"
+                    <a href="list?p=1" th:href="@{list(p=${n}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}"
                     th:if="${n} le ${lastnum}">1</a></li>
 
                     <!-- ========='>'============== -->
@@ -162,7 +169,7 @@
             <ul class="ctrl-btn d:flex w:11 jc:space-between">
                 <li><input type="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:2" /></li>
                 <li class="d:none"><button class="icon icon:play_fill">슬라이드쇼 아이콘</button></li>
-                <li><button class="icon icon:trash">휴지통 아이콘</button></li>
+                <li><form method="post" action="del"><button class="icon icon:trash">휴지통 아이콘</button></form></li>
                 <li class="d:none"><button class="icon icon:share_fat">이동 아이콘</button></li>
             </ul>
             <ul class="d:flex w:4 jc:space-between">

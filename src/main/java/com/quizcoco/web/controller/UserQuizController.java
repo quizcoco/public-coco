@@ -29,19 +29,18 @@ public class UserQuizController {
                         ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@RequestParam(name="q", required = false) String query
                         ,@RequestParam(name="p", defaultValue = "1") Integer page
-                        ,@RequestParam(name="num", required = false, defaultValue = "5") Integer size) {
+                        ,@RequestParam(name="num", required = false, defaultValue = "5") Integer size
+                        ,@RequestParam(name = "newold", defaultValue = "0")Integer newOld) {
 
-        
-        
-        int UQcount = 0;;
+        int UQcount = 0;
 
         List<UserQuizView> userQuizView = new ArrayList<>();
         if(query != null){
-            userQuizView = service. getList(query,userId,page, size);
+            userQuizView = service. getList(query,userId,newOld,page, size);
             UQcount = service.getCount(query);
         }
         else{
-            userQuizView = service. getList(userId,page, size);
+            userQuizView = service. getList(userId,newOld,page, size);
             UQcount = service.getCount();
         }
 
@@ -88,20 +87,23 @@ public class UserQuizController {
     /* 유저가 만든 문제 디테일 페이지 // js말고 컨트롤러에서 직접 분류나눠서 뿌려주기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
     /* OXㅡㅡㅡuser_oxㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
     @GetMapping("detail")
-    public String detailOx(Long id
+    public String detail(Long id
     ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
     ,@RequestParam(name = "category") String cate
     ,Model model) {
 
+
         UserQuizView userQuizView = service.getListById(id, userId, cate);
-       // model.addAttribute("uq", userQuizView);
+        int count = 0;
 
         if(id==null) {
             return "study/userquiz/list";
         }
 
-            model.addAttribute("userQuiz", userQuizView);
-
+        model.addAttribute("userQuiz", userQuizView);
+                                    
+        count = service.getCount();
+        model.addAttribute("count", count);
 
         // UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
         // UserMultipleQuiz userMultipleQuiz = service.getByMultipleQuizId(id);
@@ -121,7 +123,7 @@ public class UserQuizController {
         // System.out.println(userMultipleQuiz);
         // System.out.println(userShortQuiz);
         
-        ;    
+           
         return "study/userquiz/detail";
     }
 
@@ -202,4 +204,15 @@ public class UserQuizController {
         
         return "redirect:reg/short";
     } 
+
+    //삭제
+    @PostMapping("del")
+    public String del(@RequestParam("id") Long id, @RequestParam("category") String cate){
+
+        service.delById(id, cate);
+
+        return "redirect:list";
+
+    }
+
 }

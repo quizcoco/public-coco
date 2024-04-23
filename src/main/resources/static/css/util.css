@@ -313,3 +313,46 @@ utill.css 목록
 .font-s\:4{
     font-size: 40px;
 }
+
+
+/* gap 추가 11~20*/
+
+.gap\:11{
+    gap: var(--gap-11) !important; /* 44px */
+  }
+  
+  .gap\:12{
+    gap: var(--gap-12) !important; /* 48px */
+  }
+
+  .gap\:13{
+    gap: var(--gap-13) !important; /* 50px */
+  }
+
+  .gap\:14{
+    gap: var(--gap-14) !important; /* 56px */
+  }
+
+  .gap\:15{
+    gap: var(--gap-15) !important; /* 60px */
+  }
+
+  .gap\:16{
+    gap: var(--gap-16) !important; /* 64px */
+  }
+
+  .gap\:17{
+    gap: var(--gap-17) !important; /* 68px */
+  }
+
+  .gap\:18{
+    gap: var(--gap-18) !important; /* 72px */
+  }
+
+  .gap\:19{
+    gap: var(--gap-19) !important; /* 76px */
+  }
+
+  .gap\:20{
+    gap: var(--gap-20) !important; /* 80px */
+  }

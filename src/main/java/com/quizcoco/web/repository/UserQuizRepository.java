@@ -13,7 +13,7 @@ import com.quizcoco.web.entity.UserShortQuiz;
 public interface UserQuizRepository {
     
     // List<UserOXQuiz> findAllox(String query, long userId,Integer offset,Integer size );
-    List<UserQuizView> findAll(String query, long userId,Integer offset,Integer size );
+    List<UserQuizView> findAll(String query, long userId,Integer newOld, Integer offset,Integer size );
     UserQuizView findAllById(Long id, long userId, String cate);
 
     int count(String query);
@@ -27,4 +27,7 @@ public interface UserQuizRepository {
     void saveOX(UserOXQuiz userOXQuiz);
     void saveMulti(UserMultipleQuiz userMultipleQuiz);
     void saveShort(UserShortQuiz userShortQuiz);
+
+    void delete(Long id, String cate);
+
 }
