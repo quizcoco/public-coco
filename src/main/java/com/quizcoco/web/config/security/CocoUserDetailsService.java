@@ -12,25 +12,25 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.quizcoco.web.entity.MemberRole;
-import com.quizcoco.web.entity.Member;
-import com.quizcoco.web.repository.MemberRepository;
+import com.quizcoco.web.entity.User;
+import com.quizcoco.web.repository.UserRepository;
 import com.quizcoco.web.repository.MemberRoleRepository;
 
 @Service
 public class CocoUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private MemberRepository repository;
+    private UserRepository repository;
 
     @Autowired
     private MemberRoleRepository memberRoleRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
-        Member member = repository.findByUserName(name);
+        User user = repository.findByUserName(username);
 
-        List<MemberRole> roles = memberRoleRepository.findAllByMemberId(member.getId());
+        List<MemberRole> roles = memberRoleRepository.findAllByUserId(user.getId());
         
         List<GrantedAuthority> authorities = new ArrayList<>();
 
@@ -38,16 +38,19 @@ public class CocoUserDetailsService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
 
         CocoUserDetails userDetails = new CocoUserDetails();
-        userDetails.setId(member.getId());
-        userDetails.setLevel(member.getLevel());
-        userDetails.setPoint(member.getPoint());
-        userDetails.setExp(member.getExp());
-        userDetails.setMail(member.getMail());
-        userDetails.setUsername(member.getName());
-        userDetails.setPassword(member.getPw());
+        userDetails.setId(user.getId());
+        userDetails.setLevel(user.getLevel());
+        userDetails.setPoint(user.getPoint());
+        userDetails.setExp(user.getExp());
+        userDetails.setMail(user.getMail());
+        userDetails.setNickname(user.getNickName());
+        userDetails.setUsername(user.getUserName());
+        userDetails.setPassword(user.getPw());
         userDetails.setAuthorities(authorities);
+        System.out.println("authorities==========:"+authorities);
 
         return userDetails;
+
     }
 
 }

@@ -18,9 +18,12 @@ public class HomeController {
     @GetMapping("index")
     public String index(@CookieValue(required = false) Long uid,
                         Principal principal,
-                        Authentication Authentication,
+                        Authentication authentication,
                         @AuthenticationPrincipal CocoUserDetails userDetails){
 
+        CocoUserDetails userDetail = (CocoUserDetails)authentication.getPrincipal();
+
+                             
         return "admin/index";
 
     }

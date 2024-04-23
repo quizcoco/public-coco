@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.ExamQuiz;
 import com.quizcoco.web.service.ExamQuizService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Controller("adminQuizController")
 @RequestMapping("admin/examquiz")
@@ -31,8 +35,13 @@ public class QuizController {
                        ,@RequestParam(required = false,defaultValue = "0") Integer year
                        ,@RequestParam(required = false) Integer secret
                        ,@RequestParam(required = false, defaultValue = "10") Integer size
-
+                       ,HttpServletResponse response
+                       ,@AuthenticationPrincipal CocoUserDetails userDetails
                     ){
+        
+        Long userId = null;
+        if(userDetails != null)
+                userId = userDetails.getId();                   
 
         List<ExamQuiz> list = new ArrayList<>();
         int count = 0;

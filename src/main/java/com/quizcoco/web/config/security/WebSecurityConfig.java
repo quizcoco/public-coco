@@ -27,26 +27,33 @@ public class WebSecurityConfig {
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 			return encoder;
 	}
-
+ 
     @Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
 			.csrf(csrf->csrf.disable())	
 			.authorizeHttpRequests((requests) -> requests
+			.requestMatchers("/admin/**").hasRole("ADMIN")
 			.requestMatchers("/", "/home").hasAnyRole("MEMBER","ADMIN")
 			.anyRequest().permitAll()
 			)
 			.formLogin((form) -> form
 			.loginPage("/user/login")
+			.defaultSuccessUrl("/")
+			.usernameParameter("username")
 			.permitAll()
 			)
-			.logout((logout) -> logout
-			.logoutUrl("/user/logout")
+			.logout((logout) -> logout	
+			.logoutUrl("/logout")
 			.logoutSuccessUrl("/index")
+			.invalidateHttpSession(true) //로그아웃시 사용자 섹션 삭제
 			.permitAll());
+
 
 		return http.build();
 	}
+
+	
 	//@Bean
 	public UserDetailsService jdbcUserDetailsService() {
 		

@@ -9,6 +9,8 @@ import com.quizcoco.web.entity.MemberRole;
 @Mapper
 public interface MemberRoleRepository {
 
-    List<MemberRole> findAllByMemberId(Long memberId);
-    
+    List<MemberRole> findAllByUserId(Long id);
+
+   
+
 }
