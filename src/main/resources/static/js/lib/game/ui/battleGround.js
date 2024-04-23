@@ -1,5 +1,7 @@
 import Coco from "/js/lib/game/item/coco.js";
 import Bug from "/js/lib/game/item/bug.js";
+import Firework from "/js/lib/game/item/Firework.js";
+// import Battle from "/js/lib/game/battle/Battle.js";
 
 
 export default class BattleGround{
@@ -13,6 +15,7 @@ export default class BattleGround{
     constructor(){
 
         this.matchView = document.querySelector(".match-view");
+        // this.container = this.matchView.querySelector(".game-div");
         this.#canvas = this.matchView.querySelector(".battle-canvas");
         //this.header = document.querySelector("#header"); 
         // document.body.appendChild(this.#canvas);//일부 브라우저에서는 캔버스 요소가 추가된 직후에 바로 렌더링되지 않을 수 있기 때문입니다. 이를 방지하기 위해 요소를 추가한 후에 캔버스를 초기화하고,
@@ -43,13 +46,18 @@ export default class BattleGround{
         this.#img = new Image();
         this.#img.src = "/image/battle.png";
         
+        // setTimeout(()=>{
+            this.#coco = new Coco();
+            this.bug = new Bug();
 
-        this.#coco = new Coco();
-        this.bug = new Bug();
+        // },1000)
 
         window.addEventListener("resize",this.resize.bind(this));
 
         this.resize();
+
+        // this.bt = new Battle();
+        // this.bt.init(this.container);
 
 
 

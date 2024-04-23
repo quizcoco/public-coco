@@ -23,7 +23,19 @@ constructor(){
 
 draw(ctx){
 
-    ctx.drawImage(this.img,50,30)
+    let mi = this.moveIndex;
+    let di = this.dirIndex;
+
+    let w=this.w;
+    let h=this.h;
+    let sx=w*mi;
+    let sy=h*di;
+    let dx=this.x-w/2;
+    let dy=this.y-h+20;
+    ctx.drawImage(this.img,
+        
+        sx,sy,16,16,
+        90,45,12,12)
 }
 
 }
