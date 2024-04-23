@@ -2,13 +2,13 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.quizcoco.web.repository.MemberRepository">
+<mapper namespace="com.quizcoco.web.repository.UserRepository">
 
-<select id="findByUserName" resultType="Member">
+<select id="findByUserName" resultType="User">
     select 
-        * 
-    from user 
-    where name=#{name}
+      *
+    from user
+    where username=#{username}
 </select>
 
 </mapper>

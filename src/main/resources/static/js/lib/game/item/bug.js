@@ -1,13 +1,13 @@
 
 
-export default class Coco{
+export default class Bug{
 
 constructor(){
 
 
     this.img =new Image();
-    this.img.src="/image/room/cat-idle.png";
-    this.w=this.img.width/2;
+    this.img.src="/image/bug.gif";
+    this.w=this.img.width;
     this.h=this.img.height;
     this.x=100;
     this.y=100;

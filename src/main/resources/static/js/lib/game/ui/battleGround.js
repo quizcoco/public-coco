@@ -1,4 +1,5 @@
 import Coco from "/js/lib/game/item/coco.js";
+import Bug from "/js/lib/game/item/bug.js";
 
 
 export default class BattleGround{
@@ -44,6 +45,7 @@ export default class BattleGround{
         
 
         this.#coco = new Coco();
+        this.bug = new Bug();
 
         window.addEventListener("resize",this.resize.bind(this));
 
@@ -64,6 +66,7 @@ export default class BattleGround{
 
         this.#ctx.drawImage(this.#img,0,0,this.#img.width,this.#img.height);
         this.#coco.draw(this.#ctx);
+        this.bug.draw(this.#ctx);
     }
 
 
@@ -91,16 +94,26 @@ export default class BattleGround{
         this.timerId= setInterval(()=>{
 
             this.draw();
+            this.init();
             // this.update();
 
         },1000/60);
 
     }
 
+    init(){
+
+        this.map.startCutscene([
+            {type:"battle"}
+        ])
+    }
+
     stop(){
 
         clearInterval(this.timerId);
     }
+
+
 
 
 

@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class MemberRole {
     
     private Long id;
-    private Long memberId;
+    private Long userId;
     private String roleName;
 
 }

@@ -40,9 +40,9 @@
         <nav class="menu d:none md:d:none">
             <h1 class="d:none">모바일 메뉴바</h1>
             <ul>
-                <li class="profile-place" sec:authorize="isAnonymous()"><a href="" class="profile">내정보</a><a href="" class="icon icon:myinfo arrow">>></a></li>
-                <li sec:authorize="isAuthenticated()">    
-                    <span th:text="${#authentication.name}"></span></li>
+                <li class="profile-place"><a href="" class="profile">내정보</a><a href="" class="icon icon:myinfo arrow">>></a></li>
+                <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                    <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
@@ -51,6 +51,9 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
             </ul>
+            <div class="d:flex jc:flex-end pt:6">
+                <a class="fs:1 bd-bottom" sec:authorize="isAuthenticated()" th:href="@{logout}">logout</a>
+            </div>
         </nav>
     </header>
 
@@ -153,10 +156,11 @@
             <h1 class="d:none">pc 메뉴바</h1>
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile"></a><a href="" class="icon icon:myinfo arrow">>p></a></li>
-                <li class="fs:1 bd-bottom" sec:authorize="isAnonymous()">
-                    <span sec:authorize="isAuthenticated()"><span th:text="${#authentication.name}">김철수</span></span>
-                        <span>Lv</span><span>5</span>
-                        <br><span>인벤토리 북마크</span><li>
+                <li class="fs:1 bd-bottom">
+                    <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                    <a href="" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
+                        <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
+                        <br><span>인벤토리 북마크</span></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
@@ -164,9 +168,12 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
-                <li><a href="/admin" class="deco deco-margin-right:8 icon:admin">관리자</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="isAuthenticated()" th:href="@{/admin/index}">관리자</a></li>
             </ul>
         </nav>
+        <div class="d:flex jc:flex-end pr:3 pt:10">
+            <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
+        </div>
     </div>
 </aside>
 

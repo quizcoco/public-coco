@@ -10,6 +10,7 @@ public class CocoUserDetails implements UserDetails {
 
     private Long id;
     private int level;
+    private String nickname;
     private int point;
     private int exp;
     private String mail;
@@ -39,6 +40,12 @@ public class CocoUserDetails implements UserDetails {
         return mail;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+
+
 /* --------------- setter ---------- */
 
     public void setId(Long id) {
@@ -59,6 +66,10 @@ public class CocoUserDetails implements UserDetails {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     @Override
