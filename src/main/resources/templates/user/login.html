@@ -59,95 +59,93 @@
 
     <main class="of:auto">
 <!--=========================== 메인에 입력 ===============================-->
-    <section id="login-section" class="login-container">
-        <hl class="fw:3 font-s:4 pb:5 pt:8">로그인</hl>
-        <div class="color:main-4" th:if="${param.error != null}">아이디 또는 비밀번호가 유효하지 않습니다.</div>
-        <form action="login" method="post">
-            <fieldset>
-                <div class="n-textbox-login mb:3">
-                  <label class="d:none">id</label>
-                  <input name="username" type="text" class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*id">  
+<section id="login-section" class="login-container">
+    <hl class="fw:3 font-s:4 pb:5 pt:8">로그인</hl>
+    <div class="color:main-4" th:if="${param.error != null}">아이디 또는 비밀번호가 유효하지 않습니다.</div>
+    <form action="login" method="post">
+        <fieldset>
+            <div class="n-textbox-login mb:3">
+              <label class="d:none">id</label>
+              <input name="username" type="text" class="bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*id">  
+            </div>
+            <div id="input-pw" class="n-textbox-login">
+                <label class="d:none">Password</label>
+                <input name="password" type="password" class="hide-pw order:1 bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*Password">
+                <div class="eye-icon order:2 icon icon:eye_slash icon:eye icon-size:5 icon-color:base-5 eye"></div>
+            </div>
+            <div class="d:flex fl-dir:row ai:center jc:center gap:5 pt:3">
+                <div class="d:flex">
+                    <label class="order:2 fs:1 fw:2 color:base-5">자동 로그인하기</label>
+                    <input type="checkbox" class="order:1 n-toggle n-toggle-type:check-box n-toggle-size:1" />
                 </div>
-                <div id="input-pw" class="n-textbox-login">
-                    <!-- <div name="show-icon" class="order:2 icon icon:eye icon-size:5 icon-color:base-5 eye hidden"></div> -->
-                    <label class="d:none">Password</label>
-                    <input name="password" type="password" class="order:1 bg-color:base-2 w:5" maxlength="27" autocomplete="off" required placeholder="*Password">
-                    <div name="eye-icon" class="order:2 icon icon:eye_slash icon:eye icon-size:5 icon-color:base-5 eye"></div>
-                    <!-- <input name="show-pw" type="text" class="order:1 bg-color:base-2 w:5 hidden" maxlength="27" autocomplete="off" required placeholder="*Password"> -->
-                </div>
-                <div class="d:flex fl-dir:row ai:center jc:center gap:5 pt:3">
-                    <div class="d:flex">
-                        <label class="order:2 fs:1 fw:2 color:base-5">자동 로그인하기</label>
-                        <input type="checkbox" class="order:1 n-toggle n-toggle-type:check-box n-toggle-size:1" />
-                    </div>
-                    <div id="find-block" class="d:flex fs:1 fw:2 color:base-5 gap:5">
-                          <span name="find-id" calss="order:3">아이디 찾기</span>
-                          <span name="find-pw" class="order:4">비밀번호 찾기</span>
-                    </div>
-                </div>
-                <div class="pt:5">
-                    <button type="submit" class="n-btn n-btn:sign fw:3">sign in</button>
-                </div>
-                <div class="pt:6 d:flex fl-dir:row ai:center jc:center gap:2 pb:3">
-                    <span class="hr"></span>
-                    <span class="color:base-5">or</span>
-                    <span class="hr"></span>
-                </div>    
-                <div class="pb:10">
-                    <button type="button" class="n-btn n-btn:google fw:3"><span class="icon icon-google"></span>Login with Google</button>
-                </div>
-                <div class="pt:6 d:flex ai:center jc:center">
-                    <span class="color:base-5 pr:2">Don't have an acount?</span>
-                    <a href="sign" class="color:base-5 fw:3">Sign Up</a>
-                </div>
-            </fieldset>
-        </form>
-    </section>
-           
-    <section id="id-section" class="find-container hidden">
-        <h1 class="fw:3 font-s:4 d:flex ai:center jc:center">아이디 찾기</h1>
-        <form action="login" method="post">
-        <fieldset class="d:flex fl-dir:column jc:center ai:center">
-            <div class="d:flex fl-dir:column ai:center jc:center mt:7">
-                <div class="n-textbox-login mb:3 d:flex">
-                    <label class="d:none">email</label>
-                    <input name="mail" type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Email">
-                    <span class="d:flex ai:center jc:flex-end icon-mail-fill"></span>
-                </div>
-                <div class="n-textbox-login mb:3">
-                    <label class="d:none">인증번호</label>
-                    <input type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*인증번호">
+                <div id="find-block" class="d:flex fs:1 fw:2 color:base-5 gap:5">
+                      <span name="find-id" class="order:3 csr:pointer">아이디 찾기</span>
+                      <span name="find-pw" class="order:4 csr:pointer">비밀번호 찾기</span>
                 </div>
             </div>
-            <div class="d:flex ai:center pt:10 w:3">
-                <button type="submit" class="n-btn n-btn:sign fw:3">확인</button>
+            <div class="pt:5">
+                <button type="submit" class="n-btn n-btn:sign fw:3">sign in</button>
+            </div>
+            <div class="pt:6 d:flex fl-dir:row ai:center jc:center gap:2 pb:3">
+                <span class="hr"></span>
+                <span class="color:base-5">or</span>
+                <span class="hr"></span>
+            </div>    
+            <div class="pb:10">
+                <button type="button" class="n-btn n-btn:google fw:3"><span class="icon icon-google"></span>Login with Google</button>
+            </div>
+            <div class="pt:6 d:flex ai:center jc:center">
+                <span class="color:base-5 pr:2">Don't have an acount?</span>
+                <a href="sign" class="color:base-5 fw:3">Sign Up</a>
             </div>
         </fieldset>
-        </form>    
-    </section>
+    </form>
+</section>
+       
+<section id="id-section" class="find-container hidden">
+    <h1 class="fw:3 font-s:4 d:flex ai:center jc:center">아이디 찾기</h1>
+    <form action="login" method="post">
+    <fieldset class="d:flex fl-dir:column jc:center ai:center">
+        <div class="d:flex fl-dir:column ai:center jc:center mt:7">
+            <div class="n-textbox-login mb:3 d:flex">
+                <label class="d:none">email</label>
+                <input name="mail" type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Email">
+                <span class="d:flex ai:center jc:flex-end icon-mail-fill"></span>
+            </div>
+            <div class="n-textbox-login mb:3">
+                <label class="d:none">인증번호</label>
+                <input type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*인증번호">
+            </div>
+        </div>
+        <div class="d:flex ai:center pt:10 w:3">
+            <button type="submit" class="n-btn n-btn:sign fw:3">확인</button>
+        </div>
+    </fieldset>
+    </form>    
+</section>
 
-    <section id="pw-section" class="find-container hidden">
-        <h1 class="fw:3 font-s:4 d:flex ai:center jc:center">비밀번호 찾기</h1>
-        <form action="login" method="post">
-        <fieldset class="d:flex fl-dir:column jc:center ai:center">
-            <div class="d:flex fl-dir:column ai:center jc:center mt:7">
-                <div class="n-textbox-login mb:3 d:flex">
-                    <label class="d:none">비밀번호</label>
-                    <input name="password" type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Password">
-                    <span class="d:flex ai:center jc:flex-end icon icon:eye_slash icon:eye icon-color:base-5"></span>
-                </div>
-                <div class="n-textbox-login mb:3">
-                    <label class="d:none">인증번호</label>
-                    <input name="password" type="text" class="bg-color:base-2 w:5" autocomplete="off" required placeholder="*Password(확인)">
-                    <span class="d:flex ai:center jc:flex-end icon icon:eye_slash icon:eye icon-color:base-5"></span>
-                </div>
-            </div>6
-            <div class="d:flex ai:center pt:10 w:3">
-                <button type="submit" class="n-btn n-btn:sign fw:3">비밀번호 변경</button>
+<section id="pw-section" class="find-container hidden">
+    <h1 class="fw:3 font-s:4 d:flex ai:center jc:center">비밀번호 찾기</h1>
+    <form action="login" method="post">
+    <fieldset id="change-pw" class="d:flex fl-dir:column jc:center ai:center">
+        <div class="d:flex fl-dir:column ai:center jc:center mt:7">
+            <div class="n-textbox-login mb:3 d:flex">
+                <label class="d:none">비밀번호</label>
+                <input name="password" type="password" class="hide-pwinput bg-color:base-2 w:5" autocomplete="off" required placeholder="*Password">
+                <span class="eye-pwicon d:flex ai:center jc:flex-end icon icon:eye_slash icon:eye icon-color:base-5"></span>
             </div>
-        </fieldset>
-        </form>    
-    </section>
+            <div class="n-textbox-login mb:3">
+                <label class="d:none">인증번호</label>
+                <input name="password" type="password" class="hide-pw-reinput bg-color:base-2 w:5" autocomplete="off" required placeholder="*Password(확인)">
+                <span class="eye-pw-reicon d:flex ai:center jc:flex-end icon icon:eye_slash icon:eye icon-color:base-5"></span>
+            </div>
+        </div>
+        <div class="d:flex ai:center pt:10 w:3">
+            <button type="submit" class="submit-btn n-btn n-btn:sign fw:3">비밀번호 변경</button>
+        </div>
+    </fieldset>
+    </form>    
+</section>
 
    </main>
    <aside class="d:none md:d:flex jc:center right:1 zi:1">
