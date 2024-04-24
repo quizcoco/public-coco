@@ -17,9 +17,9 @@ export default class Firework{
     constructor(){
 
         this.#img =new Image();
-        this.#img.src="./res/boy.png";
-        this.#w=this.#img.width/3;
-        this.#h=this.#img.height/4;
+        this.#img.src="/image/room/fireball1.png";
+        this.#w=this.#img.width/7; //384
+        this.#h=this.#img.height; //13
         this.#x=100;
         this.#y=100;
         this.#vx=0;
@@ -48,10 +48,12 @@ draw(ctx){
 
 
     ctx.drawImage(this.#img,
+        sx,sy,16,16,
+        10,40,16,16,
         //s 이미지에서 그림에 사용할 영역
-        sx,sy,w,h,
+        //sx,sy,w,h,
         //d 위에서 선택한 영역을 출력할 영역
-        dx,dy,w,h
+        //dx,dy,w,h
     
     );
 

@@ -49,6 +49,7 @@ export default class BattleGround{
         // setTimeout(()=>{
             this.#coco = new Coco();
             this.bug = new Bug();
+            this.fire = new Firework();
 
         // },1000)
 
@@ -75,6 +76,7 @@ export default class BattleGround{
         this.#ctx.drawImage(this.#img,0,0,this.#img.width,this.#img.height);
         this.#coco.draw(this.#ctx);
         this.bug.draw(this.#ctx);
+        this.fire.draw(this.#ctx);
     }
 
 
