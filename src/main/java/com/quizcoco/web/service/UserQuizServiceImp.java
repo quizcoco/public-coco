@@ -100,7 +100,7 @@ public class UserQuizServiceImp implements UserQuizService{
 
     @Override
     public void delById(Long id, String cate) {
-       repository.delete(id, cate);
+       repository.deleteById(id, cate);
     }
 
 }

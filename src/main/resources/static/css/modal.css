@@ -10,3 +10,17 @@
     width: 300px;
     height: 120px;
 }
+
+/* detail */
+
+.speed-modal{
+    justify-content: center;
+    background-color: var(--color-main-1);
+    border-radius: 8px;
+
+    padding: 10px;
+    font-size: 13px;
+
+    width: 284px;
+    height: 100px;
+}

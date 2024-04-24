@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- 폴더는 아직이라서 d:none해놔서 전체를 끝으로 보내버림-->
-                <div class="menu-other icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
+                <div class="d:none menu-other icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
 
                 <section class="d:none">
                     <h1>기타 메뉴</h1>
@@ -164,12 +164,13 @@
         </section>
 
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+        <!-- TODO 문제 삭제하는 중 -->
         <nav id="ctrl-menu" class="d:flex jc:space-between ai:center">
             <h1 class="d:none">삭제, 이동 조작메뉴</h1>
             <ul class="ctrl-btn d:flex w:11 jc:space-between">
                 <li><input type="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:2" /></li>
                 <li class="d:none"><button class="icon icon:play_fill">슬라이드쇼 아이콘</button></li>
-                <li><form method="post" action="del"><button class="icon icon:trash">휴지통 아이콘</button></form></li>
+                <li><button class="icon icon:trash">휴지통 아이콘</button></li>
                 <li class="d:none"><button class="icon icon:share_fat">이동 아이콘</button></li>
             </ul>
             <ul class="d:flex w:4 jc:space-between">
@@ -192,7 +193,11 @@
             <div>
                 <div class="d:flex jc:center gap:3 mt:4">
                     <div><button id="cancel-btn" class="n-btn n-btn-size:1">취소</button></div>
-                    <div><button id="confirm-btn" class="n-btn n-btn-size:1">확인</button></div>
+                    <div><form method="post" action="del">
+                        <!-- <input type="hidden" name="id" value="">
+                        <input type="hidden" name="cate" value=""> -->
+                        <input type="hidden" name="items" value="">
+                        <button id="confirm-btn" class="n-btn n-btn-size:1">확인</button></form></div>
                 </div>
             </div>
         </section>

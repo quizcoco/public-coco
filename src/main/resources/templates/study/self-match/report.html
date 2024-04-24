@@ -81,7 +81,7 @@
             <section class="section-s">
                 <!-- 1. 맞힌문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
                 <div class="n-expander d:fl-direction:row ac:center">
-                    <div class="n-expander-title">                  <!-- ↓ 해놓으면 페이지로드할때 펼쳐져 있는 상태로 있음 -->
+                    <div class="n-expander-title">
                     <input type="checkbox" class="n-expander-trigger" checked/>
                     <span>맞힌 문제 수</span><span class="ml:2">: 5 문제</span>
                     </div>
@@ -134,7 +134,6 @@
                         <div class="img-block mt:2 ml:2 mt:2">
                             <a href=""><img src="/image/icon/strawberry.png"></a>
                         </div>
-                        <!-- <div><img src="/src/main/resources/static/image/strawberry.png"></div> -->
                         <div class="d:flex gap:2 mt:2"><span></span>딸기 하나를 획득하였습니다.</span></div>
                         <div class="d:flex jc:center gap:2 mt:2"><span>총 획득 포인트</span><span>5</span></div>
                     </div>
@@ -156,7 +155,6 @@
             </div>
         </section>
 
-
         <!-- <section class="n-modal matchReport" tabindex="-1">
             <h1 class="d:none">문제 메뉴</h1>
             <div>
@@ -165,11 +163,9 @@
             </div>
         </section> -->
 
-        <section class="n-modal matchReport" tabindex="-1">
-        <!-- <section th:if="${userQuiz !=null && userQuiz !=''}"> -->
+        <section class=" matchReport" tabindex="-1">
             <h1 class="d:none">문제 디테일</h1>
             <div class="p:2">
-                <!-- <span class="d:inline-block pb:1" th:text="${userQuiz.category == 'ox' ? '[OX 문제]' : userQuiz.category == 'multi' ? '[사지선다 문제]' : '[단답 문제]'}">[사지선다 문제]</span><br> -->
                 <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num1}">①교언영색</span><br>
                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num2}">②곡학아세</span><br>
