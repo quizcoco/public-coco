@@ -254,19 +254,31 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
 
 
     <delete id="deleteById" parameterType="Long">
-        <if test="category=='ox'">
+        <if test="cate=='ox'">
             DELETE FROM user_ox
             WHERE id = #{id}
+        <!-- where id in
+
+        <foreach collection="items" item="id" separator="," open="(" close=")">
+            #{jsonObject.id}
+        </foreach> -->
+
         </if>
         
-        <if test="category=='multi'">
+        <if test="cate=='multi'">
             DELETE FROM user_multiple_choice_quiz
-            WHERE id = #{id}
+            WHERE id= #{id}
+        <!-- <foreach collection="items" item="id" separator="," open="(" close=")">
+                #{jsonObject.id}
+            </foreach> -->
         </if>
 
-        <if test="category=='short'">
+        <if test="cate=='short'">
             DELETE FROM user_short_answer_quiz
-            WHERE id = #{id}
+            WHERE id =#{id}
+        <!-- <foreach collection="items" item="id" separator="," open="(" close=")">
+                #{jsonObject.id}
+            </foreach> -->
         </if>
     </delete>
     

@@ -28,6 +28,6 @@ public interface UserQuizRepository {
     void saveMulti(UserMultipleQuiz userMultipleQuiz);
     void saveShort(UserShortQuiz userShortQuiz);
 
-    void delete(Long id, String cate);
+    void deleteById(Long id, String cate);
 
 }

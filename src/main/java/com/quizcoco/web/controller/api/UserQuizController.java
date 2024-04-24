@@ -27,7 +27,12 @@ public class UserQuizController {
 
 
     @DeleteMapping
-    public String delete(Long id){
+    public String delete(String id,String cate){
+
+
+
+        System.out.println("*######################################################################3"+id+cate);
+
         return null;
     }
 

@@ -3,6 +3,9 @@ package com.quizcoco.web.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -207,9 +210,54 @@ public class UserQuizController {
 
     //삭제
     @PostMapping("del")
-    public String del(@RequestParam("id") Long id, @RequestParam("category") String cate){
+    public String del(/*@RequestParam("id") Long id, @RequestParam("cate") String cate*/ String items){
 
-        service.delById(id, cate);
+        // items.split(',');
+        
+        // Gson gson = new Gson();
+        
+        // JSON 배열을 List로 변환
+        // Type listType = new TypeToken<List<String>>() {}.getType();
+        // List<String> list = gson.fromJson(items,listType);
+
+        // Type type = new TypeToken<Map<String, String>>(){}.getType();
+        // Map<String, String> map = gson.fromJson(items, type);
+
+        // List<String> list = new Gson().fromJson(items, new List<String>().getClass());
+
+
+
+
+              // JSON 문자열을 JSON 배열로 파싱
+              JSONArray jsonArray = new JSONArray(items);
+
+              // 리스트 생성
+              List<JSONObject> jsonObjectList = new ArrayList<>();
+      
+              // JSON 배열을 리스트에 담기
+              for (int i = 0; i < jsonArray.length(); i++) {
+                  try {
+                      JSONObject jsonObject = jsonArray.getJSONObject(i);
+                      jsonObjectList.add(jsonObject);
+                  } catch (JSONException e) {
+                      e.printStackTrace();
+                  }
+              }
+      
+              // 리스트 출력
+              for (JSONObject jsonObject : jsonObjectList) {
+
+                String cate = jsonObject.getString("cate");
+                long id = jsonObject.getInt("id");
+
+                service.delById(id, cate);
+                }
+                
+
+        // System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+items);
+        
+//UserQuizView
+
 
         return "redirect:list";
 

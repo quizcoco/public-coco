@@ -10,6 +10,7 @@
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/modal.css" rel="stylesheet" type="text/css">
     <link href="/css/user-quiz.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
@@ -84,7 +85,7 @@
                                 th:classappend="${userQuiz.like}==1 ? 'icon-star-fill':'icon:star'"
                                 href="">즐겨찾기</a>
                             </div>
-
+                            <!-- 모달 추가하기  -->
                             <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
                         </div>
 
@@ -121,7 +122,7 @@
                         <div class="d:flex fl-dir:row jc:space-between">
                             <!-- 카드갯수 -->
                             <div class="d:flex jc:flex-start">
-                                <!-- TODO 앞 카드번호-->
+                                <!-- TODO 앞 카드번호 오래된순일때 리스트의 1번째 문제는 무조건 1번으로 나오게 35->1번이어야함-->
                                 <span th:text="${userQuiz.rowNum}" style="margin-right:6px;">12</span> 
                                 <span style="margin-right:6px;">/</span> 
                                 <span th:text="${count}">52</span>

@@ -4,11 +4,16 @@ let ctrlBtn = ctrlMenu.querySelectorAll(".ctrl-btn button");
 
 let checkAll = ctrlMenu.querySelector("ul input[type=checkbox]");
 let checkboxes = document.getElementsByName('checkbox');
+let form = document.querySelector("form[action='del']");
+let delID = form.querySelector("input[name='id']");
+let delCate = form.querySelector("input[name='cate']");
+let delItems = form.querySelector("input[name='items']");
 
 /* 체크박스 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 checkAll.addEventListener("click", () => {
   // Update individual checkboxes based on the "checkAll" state
   checkboxes.forEach((checkbox) => {
+    console.log(checkbox.value)
     checkbox.checked = checkAll.checked;
   });
 });
@@ -81,7 +86,34 @@ cancelBtn.addEventListener('click', function () {
 });
 
 confirmBtn.addEventListener('click', function () {
-  deleteModal.classList.add('d:none');
 
-  // 실제 퀴즈 삭제 로직 구현 부분 (서버와 통신 등)
+  deleteModal.classList.add('d:none');
 });
+
+    let items = [];
+    
+    confirmBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      
+      checkboxes.forEach((checkbox) => {
+
+          if(checkbox.checked){
+
+              let item = {
+                  id: checkbox.value,
+                  cate: checkbox.dataset.cate
+              };
+
+              items.push(item);
+              delItems.value = JSON.stringify(items);
+
+            // delID.value=checkbox.value;
+            // delCate.value=checkbox.dataset.cate;
+
+            console.log(checkbox.dataset.cate);
+                        
+          
+            form.submit();
+          }
+      })
+    })
