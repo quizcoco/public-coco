@@ -2,13 +2,15 @@
 
 export default class Coco{
 
+    
 constructor(){
 
 
     this.img =new Image();
     this.img.src="/image/room/cat-idle.png";
-    this.w=this.img.width/2;
-    this.h=this.img.height;
+    console.log(this.img.width);
+    this.w = this.img.width;
+    this.h = this.img.height;
     this.x=100;
     this.y=100;
     this.vx=0;
@@ -17,13 +19,31 @@ constructor(){
     this.dy=this.y;
     this.moveIndex=1;
     this.movedelayCount=10;
-    this.dirIndex=2;
+    this.dirIndex=1;
+
+    this.ph=100;
 
 }
 
 draw(ctx){
 
-    ctx.drawImage(this.img,50,30)
+  
+    let mi = this.moveIndex;
+    let di = this.dirIndex;
+
+    let w=this.w;
+    let h=this.h;
+    let sx=w*mi;
+    let sy=h*di;
+    let dx=this.x-w/2;
+    let dy=this.y-h+20;
+
+    ctx.drawImage(this.img,
+        sx,sy,16,16,
+        10,40,16,16,
+        
+
+    )
 }
 
 }

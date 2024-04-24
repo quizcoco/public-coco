@@ -1,4 +1,4 @@
-class Battle{
+export default class Battle{
     constructor(){
 
     }

@@ -3,8 +3,8 @@ position: absolute;
 left: 0;
 right: 0;
 top: 0;
-bottom: 0;
-background-image: url(/image);
+bottom: 500px;
+background-image: url(/image/room/shadow.png);
 background-size: cover;
 image-rendering: pixelated;
 

@@ -16,7 +16,7 @@
         <h1 class="order:2 fs:7">기출문제 디테일 페이지</h1>
         <div class="order:1"><a href="#" onclick="history.back()" class="icon icon:caret_left_bold icon-color:base-1 mr:3">뒤로가기</a></div>
         <div class="order:3 hd-right-item"><a href="/" class="icon icon:admin icon-color:base-1">관리자-유저</a></div>
-        <div class="order:4 p:2"><a href="/admin" class="icon icon:house icon-color:base-1 js:end">홈</a></div>
+        <div class="order:4 p:2"><a href="/admin/index" class="icon icon:house icon-color:base-1 js:end">홈</a></div>
     </header>
     <main>
         <section class="d:flex fl-dir:column jc:center flex:1 ai:center as:stretch pos:relative px:11 mx:7 my:7">
@@ -56,14 +56,16 @@
                     th:text="${examq.typeId == 1 ? '문법' : examq.typeId == 2 ? '한자' : examq.typeId == 3 ? '어휘' : '기타'}"></textarea>
                     </div>
                 </fieldset>
+            </form>
+            <div class="d:flex fl-dir:row gap:2">
                 <div class="d:flex fl-dir:row ai:center as:stretch pos:relative gap:10px jc:center gap:10 mt:10">
                     <a href="edit" th:href="@{edit(id=${examq.id})}" class="admin-textarea:4 n-btn n-btn:filled-2 ai:center">수정</a>
                 </div>
-            </form>
-            <div>
-                <form method="post" th:action="@{del(id=${examq.id})}">
-                    <button class="admin-textarea:4 n-btn n-btn:filled-2 ai:center">삭제</button>
-                </form>
+                <div class="mt:10">
+                    <form method="post" th:action="@{del(id=${examq.id})}">
+                        <button class="admin-textarea:4 n-btn n-btn:filled-2 ai:center">삭제</button>
+                    </form>
+                </div>
             </div>
         </section>
     </main>
