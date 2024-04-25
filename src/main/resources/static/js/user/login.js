@@ -87,7 +87,7 @@ window.addEventListener("load", ()=>{
                 }
             });
 
-        // 비밀번호 입력 값이 다를 때 오류 발생
+        // 비밀번호 입력 값이 서로 다를 때 오류 발생
         const submitBtn = changePW.querySelector(".submit-btn");  
         
             submitBtn.addEventListener("click", (e)=>{
@@ -99,7 +99,7 @@ window.addEventListener("load", ()=>{
                     hideinputPW.focus();
                 }
             });
-            
+
     });
 });
 
