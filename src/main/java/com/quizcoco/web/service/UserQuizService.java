@@ -22,7 +22,9 @@ public interface UserQuizService {
     UserShortQuiz getByShortQuizId(long id);
     UserMultipleQuiz getByMultipleQuizId(long id);
 
-    void reg();
+    void reg(long userId,String cate, String question, String answer, String commentary);
+    void reg(long userId, String cate, String question, String num1, String num2, String num3, String num4, Integer answer, String commentary);
+
     void regOX(UserOXQuiz userOXQuiz);
     void regMulti(UserMultipleQuiz userMultipleQuiz);
     void regShort(UserShortQuiz userShortQuiz);
