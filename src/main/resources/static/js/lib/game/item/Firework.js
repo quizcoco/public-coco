@@ -24,7 +24,7 @@ export default class Firework{
         this.#y=100;
         this.#vx=0;
         this.#vy=0;
-        this.#dx=this.#x;
+        this.#dx=50;
         this.#dy=this.#y;
         this.#moveIndex=1;
         this.#movedelayCount=10;
@@ -46,18 +46,18 @@ draw(ctx){
     let dx=this.#x-w/2;
     let dy=this.#y-h+20;
 
-
+for(let i=0;i<7;i++){
     ctx.drawImage(this.#img,
-        sx,sy,16,16,
-        10,40,16,16,
+        sx+(55*i),sy,55,13,
+        50,40,55,13,
         //s 이미지에서 그림에 사용할 영역
         //sx,sy,w,h,
         //d 위에서 선택한 영역을 출력할 영역
         //dx,dy,w,h
     
     );
-
-
+}
+   // this.currentFrame = (this.currentFrame + 1) % 55;
 
 }
 

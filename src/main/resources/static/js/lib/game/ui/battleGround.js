@@ -22,6 +22,9 @@ export default class BattleGround{
 
             /** @type {CanvasRenderingContext2D} */
 
+            this.#canvas.onclick = this.skillHandler.bind(this);//this가 달라져 묶어
+
+
         this.#ctx =this.#canvas.getContext("2d");
         this.quizView = document.querySelector(".quiz-view");
 
@@ -51,16 +54,22 @@ export default class BattleGround{
             this.bug = new Bug();
             this.fire = new Firework();
 
-        // },1000)
-
-        window.addEventListener("resize",this.resize.bind(this));
-
-        this.resize();
-
-        // this.bt = new Battle();
-        // this.bt.init(this.container);
-
-
+            
+            // },1000)
+            
+            this.fire.onload = function() {
+                this.currentFrame = 0;
+            }
+            
+            window.addEventListener("resize",this.resize.bind(this));
+            
+            this.resize();
+            
+            // this.bt = new Battle();
+            // this.bt.init(this.container);
+            
+            this.frameRate = 100;
+            this.run();
 
     }
 
@@ -68,6 +77,14 @@ export default class BattleGround{
         return this.#canvas;
 
     }
+
+    skillHandler(e){
+        //클라이언트xy
+        this.fire.move(e.x,e.y);
+        
+        
+        }
+        
 
 
 
@@ -79,6 +96,10 @@ export default class BattleGround{
         this.fire.draw(this.#ctx);
     }
 
+    update(){
+        this.fire.update();
+        
+    }
 
 
 
@@ -105,7 +126,7 @@ export default class BattleGround{
 
             this.draw();
             this.init();
-            // this.update();
+            this.update();
 
         },1000/60);
 
@@ -121,6 +142,14 @@ export default class BattleGround{
     stop(){
 
         clearInterval(this.timerId);
+    }
+    fire(){
+        this.fire.draw(this.#ctx);
+
+        setTimeout(() => {
+            this.currentFrame = (this.currentFrame + 1) % 55; // 가로 길이를 기준으로 프레임 변경
+            fire();
+        }, this.frameRate);
     }
 
 
