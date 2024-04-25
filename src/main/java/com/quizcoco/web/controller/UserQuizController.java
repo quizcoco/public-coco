@@ -163,8 +163,34 @@ public class UserQuizController {
     // 유저 문제 등록 페이지
     @GetMapping("reg")
     public String reg() {
+
         return "study/userquiz/reg";
     }
+
+    @PostMapping("reg")
+    public String reg(@RequestParam(name = "cate" ,defaultValue = "multi") String cate,
+                        @RequestParam(defaultValue = "1") long userId,
+                        @RequestParam(name = "multiAnswer", required = false) Integer multiAnswer,
+    /* UserOXQuiz userOXQuiz, UserMultipleQuiz userMultipleQuiz, UserShortQuiz userShortQuiz */
+    String question, String num1, String num2, String num3, String num4, String answer, String commentary
+    
+    ){
+
+        System.out.println("===================이거찾는중!!!!!===================="+cate);
+
+        if(!cate.equals("multi")){
+            service.reg(userId, cate, question, answer, commentary);
+            return "redirect:reg";
+        }
+        if(cate.equals("multi")&& multiAnswer != null){
+
+            System.out.println("==========================이것도 찾는중!!"+multiAnswer);
+            service.reg(userId, cate, question, num1, num2, num3, num4, multiAnswer, commentary);
+        }
+        return "redirect:reg";
+    }
+
+    // ================================================================================
 
     @GetMapping("reg/ox")
     public String regOX() {
@@ -208,7 +234,8 @@ public class UserQuizController {
         return "redirect:reg/short";
     } 
 
-    //삭제
+    //삭제======================================================================================
+
     @PostMapping("del")
     public String del(/*@RequestParam("id") Long id, @RequestParam("cate") String cate*/ String items){
 
