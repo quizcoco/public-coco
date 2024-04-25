@@ -281,5 +281,30 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
             </foreach> -->
         </if>
     </delete>
+
+
+    <!-- reg ================================================== -->
+
+    <insert id="saveMulti" parameterType="UserMultipleQuiz">
+        <if test="cate == 'multi'">
+            INSERT INTO user_multiple_choice_quiz(question,num1,num2,num3,num4,answer,commentary,user_id)
+            VALUES (#{question},#{num1},#{num2},#{num3},#{num4},#{answer},#{commentary},1);
+        </if>
+    </insert>
+
+    <insert id="saveOX" parameterType="UserOXQuiz">
+        <if test="cate == 'ox'">
+            INSERT INTO user_ox(question,answer,commentary,user_id)
+            VALUES (#{question},#{answer},#{commentary},1);
+        </if>
+        <if test="cate == 'short'">
+            INSERT INTO user_short_answer_quiz(question,answer,commentary,user_id)
+            VALUES (#{question},#{answer},#{commentary},1);
+        </if>
+    </insert>
+
+
+
+
     
 </mapper>

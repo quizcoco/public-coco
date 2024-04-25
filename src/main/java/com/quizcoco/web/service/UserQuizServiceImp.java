@@ -68,10 +68,10 @@ public class UserQuizServiceImp implements UserQuizService{
 
 //====================================reg========================================
 
-    @Override
-    public void reg() {
-        repository.save();
-    }
+    // @Override
+    // public void reg() {
+    //     repository.save();
+    // }
 
     @Override
     public void regOX(UserOXQuiz userOXQuiz) {
@@ -102,5 +102,18 @@ public class UserQuizServiceImp implements UserQuizService{
     public void delById(Long id, String cate) {
        repository.deleteById(id, cate);
     }
+
+    @Override
+    public void reg(long userId, String cate, String question, String answer, String commentary) {
+        System.out.println("====================3번째 찾는중@!!!!============");
+        repository.saveOX(userId, cate, question, answer, commentary);
+    }
+
+    @Override
+    public void reg(long userId, String cate, String question, String num1, String num2, String num3, String num4, Integer answer,String commentary) {
+         repository.saveMulti(userId, cate, question, num1, num2, num3, num4, answer, commentary);
+    }
+
+
 
 }

@@ -111,7 +111,6 @@
         </section>
 
         <!-- 퀴즈리스트 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <!-- TODO 자바스크립트 뒤에 in(id값) 쿼리문3개 테이블 from //우선 1개 삭제 가능한뒤에 한개씩 늘리기 -->
         <section th:each="uq:${userQuiz}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
             <h1 class="d:none">퀴즈 리스트</h1>
             <input th:value="${uq.id}" th:data-cate="${uq.category}" type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
@@ -164,7 +163,6 @@
         </section>
 
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <!-- TODO 문제 삭제하는 중 -->
         <nav id="ctrl-menu" class="d:flex jc:space-between ai:center">
             <h1 class="d:none">삭제, 이동 조작메뉴</h1>
             <ul class="ctrl-btn d:flex w:11 jc:space-between">

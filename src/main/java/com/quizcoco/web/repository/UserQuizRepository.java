@@ -22,7 +22,8 @@ public interface UserQuizRepository {
     UserShortQuiz findByShortId(long id);
     UserMultipleQuiz findByMultiId(long id);
 
-    void save();
+    void saveOX(long userId,String cate, String question, String answer, String commentary);
+    void saveMulti(long userId, String cate, String question, String num1, String num2, String num3, String num4, Integer answer, String commentary);
 
     void saveOX(UserOXQuiz userOXQuiz);
     void saveMulti(UserMultipleQuiz userMultipleQuiz);
