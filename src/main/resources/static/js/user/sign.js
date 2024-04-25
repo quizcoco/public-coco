@@ -1,5 +1,6 @@
 window.addEventListener("load", ()=>{ 
- /* 패스워드 아이콘 눌렀을 때 패스워드 보이기/숨기기 */ 
+
+ /* ========패스워드 아이콘 눌렀을 때 패스워드 보이기/숨기기========= */ 
 
     const signUp = document.querySelector("#signup");
     const eyeIcon = signUp.querySelector(".eye-icon");
@@ -37,7 +38,7 @@ window.addEventListener("load", ()=>{
         }
     });
 
-        /* 회원 가입 시 유효성 검사 */ 
+/*======================= 회원 가입 시 유효성 검사 ========================== */ 
         const inputId = signUp.querySelector(".input-id");
         const inputName = signUp.querySelector(".input-name");
         const inputMail = signUp.querySelector(".input-mail");
