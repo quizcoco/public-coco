@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.quizcoco.web.entity.ExamQuiz;
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
 import com.quizcoco.web.entity.UserQuizView;
@@ -47,9 +48,6 @@ public class UserQuizController {
             UQcount = service.getCount();
         }
 
-        System.out.println("===========UserQuizController.java==============");
-        System.out.println("========================UQcount = "+UQcount); //39잘나옴
-        
         model.addAttribute("userQuiz", userQuizView);
         model.addAttribute("uqcount", UQcount);
         
@@ -176,15 +174,12 @@ public class UserQuizController {
     
     ){
 
-        System.out.println("===================이거찾는중!!!!!===================="+cate);
-
         if(!cate.equals("multi")){
             service.reg(userId, cate, question, answer, commentary);
             return "redirect:reg";
         }
         if(cate.equals("multi")&& multiAnswer != null){
 
-            System.out.println("==========================이것도 찾는중!!"+multiAnswer);
             service.reg(userId, cate, question, num1, num2, num3, num4, multiAnswer, commentary);
         }
         return "redirect:reg";
@@ -192,47 +187,89 @@ public class UserQuizController {
 
     // ================================================================================
 
-    @GetMapping("reg/ox")
-    public String regOX() {
+//수정페이지
+    @GetMapping("edit")
+    public String edit(@RequestParam("id") Long id
+                        ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                        ,@RequestParam(name = "category") String cate
+                        ,Model model){
 
-        return "userquiz/reg/ox";
+        // UserOXQuiz userOXQuiz;
+        // UserMultipleQuiz userMultiQuiz;
+        // UserShortQuiz userShortQuiz;
+
+
+        // System.out.println("================================================"+id+cate);
+        // if(cate.equals("ox")){
+
+        //  userOXQuiz = service.getByOXQuizId(id);
+        //  model.addAttribute("examq", userOXQuiz);}
+
+        //  if(cate.equals("multi")){
+
+        //  userMultiQuiz = service.getByMultipleQuizId(id);
+        //  model.addAttribute("examq", userMultiQuiz);}
+
+        //  if(cate.equals("short")){
+
+        //  userShortQuiz = service.getByShortQuizId(id);
+        //  model.addAttribute("examq", userShortQuiz);}
+
+        return "study/userquiz/edit";
     }
 
-    @PostMapping("reg/ox")
-    public String regOX(UserOXQuiz userOXQuiz) {
-
-        service.regOX(userOXQuiz);
+    //수정
+    @PostMapping("edit")
+    public String edit(@RequestParam("id") Long id
+                        ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                        ,@RequestParam(name = "cate") String cate
+                        /* ,UserOXQuiz newOXQuiz*/
+                        ,@RequestParam("question") String question, String num1, String num2, String num3, String num4, String answer, Integer multiAnswer, String commentary
+                        ){ 
         
-        return "redirect:reg/ox";
-    } 
+        // UserQuizView userQuizView = service.getListById(id, userId, cate);
 
-    @GetMapping("reg/multi")
-    public String regMulti() {
+        UserOXQuiz oxQuiz = service.getByOXQuizId(id);
+        UserShortQuiz shortQuiz = service.getByShortQuizId(id);
+        UserMultipleQuiz multipleQuiz = service.getByMultipleQuizId(id);
 
-        return "userquiz/reg/multi";
+
+        if(!cate.equals("multi")){
+
+            oxQuiz.setQuestion(question);        
+            oxQuiz.setAnswer(answer);
+            oxQuiz.setCommentary(commentary);
+            service.edit(oxQuiz,userId, id,  cate);
+
+            
+        };
+//String question, String num1, String num2, String num3, String num4, Integer answer, String commentary,
+        // System.out.println("값을찾아라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+newQuiz.getAnswer());
+        
+        if(cate.equals("multi")){
+            
+            multipleQuiz.setQuestion(question);
+            multipleQuiz.setNum1(num1);
+            multipleQuiz.setNum2(num2);
+            multipleQuiz.setNum3(num3);
+            multipleQuiz.setNum4(num4);
+            multipleQuiz.setAnswer(multiAnswer);
+            multipleQuiz.setCommentary(commentary);
+            service.edit(multipleQuiz,userId,id, cate);
+
+        };
+
+        // if(cate.equals("short")){
+            
+        //     shortQuiz.setQuestion(newQuiz.getQuestion());
+        //     shortQuiz.setAnswer(newQuiz.getAnswer());
+        //     shortQuiz.setCommentary(newQuiz.getCommentary());
+        //     service.edit(shortQuiz,cate);
+        // };
+            
+
+        return "redirect:list";
     }
-
-    @PostMapping("reg/multi")
-    public String regMulti(UserMultipleQuiz userMultipleQuiz) {
-
-        service.regMulti(userMultipleQuiz);
-        
-        return "redirect:reg/multi";
-    } 
-
-    @GetMapping("reg/short")
-    public String regShort() {
-
-        return "userquiz/reg/short";
-    }
-
-    @PostMapping("reg/short")
-    public String regShort(UserShortQuiz userShortQuiz) {
-
-        service.regShort(userShortQuiz);
-        
-        return "redirect:reg/short";
-    } 
 
     //삭제======================================================================================
 

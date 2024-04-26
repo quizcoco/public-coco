@@ -105,7 +105,6 @@ public class UserQuizServiceImp implements UserQuizService{
 
     @Override
     public void reg(long userId, String cate, String question, String answer, String commentary) {
-        System.out.println("====================3번째 찾는중@!!!!============");
         repository.saveOX(userId, cate, question, answer, commentary);
     }
 
@@ -114,6 +113,14 @@ public class UserQuizServiceImp implements UserQuizService{
          repository.saveMulti(userId, cate, question, num1, num2, num3, num4, answer, commentary);
     }
 
+    @Override
+    public void edit(UserOXQuiz userOXQuiz,long userId, Long id,  String cate) {
+        repository.updateOX(userOXQuiz,userId, id,  cate);
+    }
 
+    @Override
+    public void edit(UserMultipleQuiz userMultipleQuiz,long userId, Long id,  String cate) {
+        repository.updateMulti( userMultipleQuiz,userId, id, cate);
+    }
 
 }

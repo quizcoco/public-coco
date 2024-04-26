@@ -110,7 +110,7 @@
                             <span class="font-weight:bold ml:1" th:text="${m.likeCount}">2</span>                                
                         </div> -->
 
-                        <!-- 모달 -->
+                        <!-- TODO 모달 -->
                         <section class="d:none">
                             <h1 class="d:none">기타 메뉴</h1>
                             <div><a href="">수정</a></div>
@@ -130,9 +130,7 @@
                         
                             <!-- reg_date -->
                             <div class="d:flex jc:flex-end pb:3">
-                                <!-- <span style="margin-right:6px;" th:text="${userQuiz.regDate}">2024-02-13</span>  -->
                                 <span style="margin-right:6px;" th:text="${#temporals.format(userQuiz.regDate, 'yyyy-MM-dd HH:mm:ss')}">2024-02-13</span> 
-                                <!-- <span>17:21:04</span> -->
                             </div>
                         </div>
                     </section>
@@ -140,39 +138,17 @@
                     <!-- 문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
                     <section id="quiz-card" class="bg-color:base-1 h:5">
                         <h1 class="d:none">카드 내용</h1>
-                        <!-- ox ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-                        <!-- <section th:if="${useroxq !=null && useroxq !='' }"> -->
-                        <!-- <section th:if="${userQuiz !=null && userQuiz !='' }">
-                            <div class="p:2">
-                                <span class="d:inline-block pb:1">[OX 문제]</span><br>
-                                <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">문제</span><br>
-                                <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${userQuiz.answer}">답</span>
-                            </div>
-                        </section> -->
-
-                        <!-- 사지선다 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
                         <section th:if="${userQuiz !=null && userQuiz !=''}">
                             <div class="p:2">
                                 <span class="d:inline-block pb:1" th:text="${userQuiz.category == 'ox' ? '[OX 문제]' : userQuiz.category == 'multi' ? '[사지선다 문제]' : '[단답 문제]'}">[사지선다 문제]</span><br>
-                                <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num1}">①교언영색</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num2}">②곡학아세</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num3}">③다문박식</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num4}">④감언지지</span><br>
+                                <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">문제</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num1}">①</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num2}">②</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num3}">③</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num4}">④</span><br>
                                 <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${userQuiz.answer}">답</span>
                             </div>
                         </section>
-
-                        <!-- 단답 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-                        <!-- <section th:if="${userQuiz !=null && userQuiz !=''}">
-                            <div class="p:2">
-                                <span class="d:inline-block pb:1" data-type="multi">[사지선다 문제]</span><br>
-                                <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">질문</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.answer}">답</span>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.commentary}">commentary</span>
-                            </div>
-                        </section> -->
-
                     </section>
 
                     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->

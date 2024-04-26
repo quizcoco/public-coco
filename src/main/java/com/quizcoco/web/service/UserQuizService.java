@@ -2,6 +2,7 @@ package com.quizcoco.web.service;
 
 import java.util.List;
 
+import com.quizcoco.web.entity.ExamQuiz;
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
 import com.quizcoco.web.entity.UserQuizView;
@@ -31,4 +32,8 @@ public interface UserQuizService {
 
     void delById(Long id, String cate);
     
+    void edit(UserOXQuiz userOXQuiz,long userId, Long id, String cate);
+    void edit(UserMultipleQuiz userMultipleQuiz,long userId, Long id,  String cate);
+
+
 }

@@ -1,10 +1,17 @@
 package com.quizcoco.web.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quizcoco.web.entity.UserMultipleQuiz;
+import com.quizcoco.web.entity.UserOXQuiz;
+import com.quizcoco.web.entity.UserQuizView;
+import com.quizcoco.web.entity.UserShortQuiz;
 import com.quizcoco.web.service.UserQuizService;
 
 @RequestMapping("api/userQuizs")
@@ -35,6 +42,54 @@ public class UserQuizController {
 
         return null;
     }
+
+
+    // @GetMapping("/1")
+    // public UserQuizView get(Long id){
+    //     return null;
+    // }
+
+
+
+
+    
+
+//수정페이지
+    @GetMapping("edit")
+    public UserQuizView edit(@RequestParam("id") Long id
+                        ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                        ,@RequestParam(name = "category") String cate
+                        ,Model model){
+
+        // UserOXQuiz userOXQuiz;
+        // UserMultipleQuiz userMultiQuiz;
+        // UserShortQuiz userShortQuiz;
+
+        // UserQuizView userQuiz;
+
+
+        System.out.println("================================================"+id+cate);
+        // if(cate.equals("ox")){
+
+            UserQuizView userQuiz = service.getListById(id, userId, cate);
+
+        // model.addAttribute("examq", userQuiz);}
+
+        //  if(cate.equals("multi")){
+        //  userMultiQuiz = service.getByMultipleQuizId(id);
+        //  model.addAttribute("examq", userMultiQuiz);}
+
+        //  if(cate.equals("short")){
+        //  userShortQuiz = service.getByShortQuizId(id);
+        //  model.addAttribute("examq", userShortQuiz);}
+
+        return userQuiz;
+    }
+
+
+
+
+
 
 
 }

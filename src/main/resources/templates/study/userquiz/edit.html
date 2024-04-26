@@ -14,7 +14,7 @@
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
-    <script defer src="/js/study/userquiz/reg.js"></script>
+    <script defer src="/js/study/userquiz/edit.js"></script>
 </head>
 <body>
 <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
@@ -61,7 +61,7 @@
 
     <section class="quiz-block">
         <h1 class="d:none">유저 문제 등록폼</h1>
-        <form method="post" action="reg">
+        <form method="post" action="edit">
             <fieldset>
                 <div class="select-block">
                     <label class="fw:bold fs:6 pr:6">문제 형식</label>
@@ -71,6 +71,7 @@
                         <option value="ox" class="bg-color:base-1">OX형</option>
                     </select>
                 </div>
+
                 <div class="d:none select-block">    
                     <label class="fw:bold fs:6 pr:4"> 그룹 선택</label>
                     <div class="quiz-cate">
@@ -85,49 +86,19 @@
                         </select>
                     </div>    
                 </div>   
+
                 <section class="input-quiz-block">
                     <h1 class="d:none">문제 등록창</h1>
                     <!-- 문제 등록 js -->
-                        <!-- <div id="shortQuiz">
-                            <label class="pb:3 fw:bold fs:5">문제<span class="color:accent-1">*</span>
-                                <textarea name="shortQuestion" autocomplete="off" class="input-text:short" required></textarea></label>
-                            <label class="pb:3 fw:bold fs:5">단답형 답<span class="color:accent-1">*</span>
-                                <textarea name="shortAnswer" autocomplete="off" class="input-text:short" required></textarea></label>
-                            <label class="pb:3 fw:bold fs:5">해설(선택)<textarea name="shortCommentary" autocomplete="off" class="input-text:short"></textarea></label>
-                                
-                        </div> -->
-
-                        <!-- <div id="multipleQuiz" hidden>
-                            <label class="pb:3 fw:bold fs:5">문제<span class="color:accent-1">*</span></label>
-                                <textarea name="multiQuestion" autocomplete="off" class="input-text:multi" required></textarea>
-                                <textarea name="num1" placeholder="①" autocomplete="off" class="input-text:multi" required></textarea>
-                                <textarea name="num2" placeholder="②" autocomplete="off" class="input-text:multi" required></textarea>
-                                <textarea name="num3" placeholder="③" autocomplete="off" class="input-text:multi" required></textarea>
-                                <textarea name="num4" placeholder="④" autocomplete="off" class="input-text:multi" required></textarea>
-                            <label class="pb:3 fw:bold fs:5">답<span class="color:accent-1">*</span></label>
-                                <textarea name="multiAnswer" type="number" autocomplete="off" class="input-text:multi" required></textarea>
-                            <label class="pb:3 fw:bold fs:5">해설(선택)</label>    
-                                <textarea name="multiCommentary" autocomplete="off" class="input-text:multi"></textarea>
-                        </div> -->
-
-                        <!-- <div id="oxQuiz" class="bd-radius:2 bg-color:" hidden>
-                            <label class="pb:3 fw:bold fs:5">문제<span class="color:accent-1">*</span>
-                                <textarea name=" " class="input-text:short" autocomplete="off" required></textarea></label>
-                                
-                            <label class="pb:3 fw:bold fs:5">OX답<span class="color:accent-1">*</span></label>    
-                              <div class="d:flex fl-dir:row gap:3 ai:center jc:flex-end pb:2">
-                                <label><input type="radio" name="answer" class="n-btn n-btn:filled-o" value="o">O</label>
-                                <label><input type="radio" name="answer" class="n-btn n-btn:filled-x" value="">X</label>
-                            </div>
-                            <label class="pb:3 fw:bold fs:5">해설(선택)</label>    
-                                <textarea name="commentary" class="input-text:short" autocomplete="off"></textarea>
-                        </div> -->
                 </section>
                 
                 <span class="color:base-6">*는 필수사항 입니다.</span>
             </fieldset>
+
             <div class="reg-btn">
-                <input type="submit" class="n-btn n-btn:filled-2" value="등록 후 이어서 작성">
+                <input type="hidden" name="cate">
+                <input type="hidden" name="id">
+                <input type="submit" class="n-btn n-btn:filled-2" value="수정">
                 <a href="list" class="n-btn n-btn:filled-2">나가기</a>
             </div>
             </section>

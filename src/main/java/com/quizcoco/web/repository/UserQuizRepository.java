@@ -3,7 +3,9 @@ package com.quizcoco.web.repository;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.quizcoco.web.entity.ExamQuiz;
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
 import com.quizcoco.web.entity.UserQuizView;
@@ -31,4 +33,6 @@ public interface UserQuizRepository {
 
     void deleteById(Long id, String cate);
 
+    void updateOX(@Param("question") UserOXQuiz userOXQuiz,long userId, Long id, String cate);
+    void updateMulti(@Param("question") UserMultipleQuiz userMultipleQuiz,long userId, Long id, String cate);
 }
