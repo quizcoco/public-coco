@@ -98,7 +98,7 @@ async function getUserQuiz(){
                             <textarea name="num3" placeholder="③" autocomplete="off" class="input-text:multi" required>${userQ.num3}</textarea>
                             <textarea name="num4" placeholder="④" autocomplete="off" class="input-text:multi" required>${userQ.num4}</textarea>
                         <label class="pb:3 fw:bold fs:5">답<span class="color:accent-1">*</span></label>
-                            <textarea name="answer" type="number" autocomplete="off" class="input-text:multi" required>${userQ.answer}</textarea>
+                            <textarea name="multiAnswer" type="number" autocomplete="off" class="input-text:multi" required>${userQ.answer}</textarea>
                         <label class="pb:3 fw:bold fs:5">해설(선택)</label>    
                             <textarea name="commentary" autocomplete="off" class="input-text:multi">${userQ.commentary}</textarea>
                     </div>`;

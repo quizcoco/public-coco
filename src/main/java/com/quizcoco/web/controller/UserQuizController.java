@@ -224,7 +224,7 @@ public class UserQuizController {
                         ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@RequestParam(name = "cate") String cate
                         /* ,UserOXQuiz newOXQuiz*/
-                        ,@RequestParam("question") String question, String num1, String num2, String num3, String num4, String answer, Integer multiAnswer, String commentary
+                        ,String question, String num1, String num2, String num3, String num4, String answer, Integer multiAnswer, String commentary
                         ){ 
         
         // UserQuizView userQuizView = service.getListById(id, userId, cate);

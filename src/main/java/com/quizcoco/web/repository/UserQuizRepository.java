@@ -33,6 +33,6 @@ public interface UserQuizRepository {
 
     void deleteById(Long id, String cate);
 
-    void updateOX(@Param("question") UserOXQuiz userOXQuiz,long userId, Long id, String cate);
-    void updateMulti(@Param("question") UserMultipleQuiz userMultipleQuiz,long userId, Long id, String cate);
+    void updateOX(@Param("userquiz") UserOXQuiz userOXQuiz,long userId, Long id, String cate);
+    void updateMulti(@Param("usermultiquiz") UserMultipleQuiz userMultipleQuiz,long userId, Long id, String cate);
 }

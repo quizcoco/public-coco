@@ -312,17 +312,17 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
     <if test="cate == 'short'">
         UPDATE user_short_answer_quiz
         SET
-            question = #{question},
-            answer = #{answer},
-            commentary = #{commentary}
+            question = #{userquiz.question},
+            answer = #{userquiz.answer},
+            commentary = #{userquiz.commentary}
     </if>
 
     <if test="cate == 'ox'">
         UPDATE user_ox
         SET
-            question = #{question},
-            answer = #{answer},
-            commentary = #{commentary}
+            question = #{userquiz.question},
+            answer = #{userquiz.answer},
+            commentary = #{userquiz.commentary}
     </if>
 
     <where> 
@@ -339,14 +339,14 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
     <if test="cate == 'multi'">
         UPDATE user_multiple_choice_quiz
         SET
-            question = #{question},
-            num1 = #{num1},
-            num2 = #{num2},
-            num3 = #{num3},
-            num4 = #{num4},
-            answer = #{answer},
-            commentary = #{commentary},
-            user_id = #{userId}
+            question = #{usermultiquiz.question},
+            num1 = #{usermultiquiz.num1},
+            num2 = #{usermultiquiz.num2},
+            num3 = #{usermultiquiz.num3},
+            num4 = #{usermultiquiz.num4},
+            answer = #{usermultiquiz.answer},
+            commentary = #{usermultiquiz.commentary},
+            user_id = #{usermultiquiz.userId}
     </if>
     
     <where> 
