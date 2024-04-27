@@ -16,6 +16,10 @@ public interface UserQuizService {
     List<UserQuizView> getList(long userId,Integer newOld, Integer page,Integer size);
     UserQuizView getListById(long id, long userId, String cate);
 
+    List<UserQuizView> getOne(long userId,Integer newOld, Integer page,Integer size);
+
+
+
     int getCount();
     int getCount(String query);
 

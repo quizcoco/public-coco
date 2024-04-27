@@ -243,8 +243,6 @@ public class UserQuizController {
 
             
         };
-//String question, String num1, String num2, String num3, String num4, Integer answer, String commentary,
-        // System.out.println("값을찾아라!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+newQuiz.getAnswer());
         
         if(cate.equals("multi")){
             

@@ -43,6 +43,22 @@ public class UserQuizServiceImp implements UserQuizService{
         return list;
     }
 
+//============================하나만========================================
+
+
+    @Override
+    public List<UserQuizView> getOne(long userId, Integer newOld, Integer page, Integer size) {
+         // int size=10; //~개씩
+         int offset=(page-1)*1; //부터
+         //1-0 :10 / 2-10 / 3-20 / 4-30 / 5-40  
+         
+         List<UserQuizView> list = repository.findAll(null, userId, newOld, offset,1);
+ 
+         return list;
+    }
+
+
+
 //====================================getById===================================
 
     @Override
@@ -122,5 +138,7 @@ public class UserQuizServiceImp implements UserQuizService{
     public void edit(UserMultipleQuiz userMultipleQuiz,long userId, Long id,  String cate) {
         repository.updateMulti( userMultipleQuiz,userId, id, cate);
     }
+
+   
 
 }

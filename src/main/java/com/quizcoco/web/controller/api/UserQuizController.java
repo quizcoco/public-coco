@@ -1,5 +1,8 @@
 package com.quizcoco.web.controller.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quizcoco.web.entity.ExamQuiz;
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
 import com.quizcoco.web.entity.UserQuizView;
@@ -88,7 +92,16 @@ public class UserQuizController {
 
 
 
+    @GetMapping("detail")
+    public List<UserQuizView> detail(@RequestParam(name="no", defaultValue = "1") Integer page
+                                    ,@RequestParam(name = "newold", defaultValue = "0")Integer newOld){
 
+         List<UserQuizView> userQuizs = new ArrayList<>();
+         userQuizs = service. getOne(1, newOld, page, 1);
+
+
+        return userQuizs;
+    }
 
 
 

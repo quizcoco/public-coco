@@ -18,8 +18,20 @@
     padding-left: 17px;
     padding-right: 17px;
 
-
+   
     
+    
+}
+
+#card-section{
+ position: relative;
+    left: 0;
+
+}
+.slide{
+    position: absolute;
+    left: -100px;
+    transition: left 1s;
 }
 
 .dragging {
