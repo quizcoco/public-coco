@@ -41,9 +41,6 @@ public class UserQuizController {
     public String delete(String id,String cate){
 
 
-
-        System.out.println("*######################################################################3"+id+cate);
-
         return null;
     }
 
@@ -97,12 +94,19 @@ public class UserQuizController {
                                     ,@RequestParam(name = "newold", defaultValue = "0")Integer newOld){
 
          List<UserQuizView> userQuizs = new ArrayList<>();
-         userQuizs = service. getOne(1, newOld, page, 1);
+         userQuizs = service. getOne(1, newOld, page);
 
 
         return userQuizs;
     }
 
+    @GetMapping("count")
+    public int count(){
+
+        int count = service.getCount();
+
+        return count;
+    }
 
 
 }

@@ -47,9 +47,9 @@ public class UserQuizServiceImp implements UserQuizService{
 
 
     @Override
-    public List<UserQuizView> getOne(long userId, Integer newOld, Integer page, Integer size) {
+    public List<UserQuizView> getOne(long userId, Integer newOld, Integer page) {
          // int size=10; //~개씩
-         int offset=(page-1)*1; //부터
+         int offset=(page-1); //부터
          //1-0 :10 / 2-10 / 3-20 / 4-30 / 5-40  
          
          List<UserQuizView> list = repository.findAll(null, userId, newOld, offset,1);

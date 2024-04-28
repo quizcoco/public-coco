@@ -16,11 +16,11 @@ public interface UserQuizService {
     List<UserQuizView> getList(long userId,Integer newOld, Integer page,Integer size);
     UserQuizView getListById(long id, long userId, String cate);
 
-    List<UserQuizView> getOne(long userId,Integer newOld, Integer page,Integer size);
+    List<UserQuizView> getOne(long userId,Integer newOld, Integer page);
 
 
 
-    int getCount();
+    int getCount(); //TODO 유저아이디 추가
     int getCount(String query);
 
     UserOXQuiz getByOXQuizId(long id);

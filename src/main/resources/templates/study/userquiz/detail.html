@@ -16,7 +16,6 @@
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
     <script defer src="/js/study/userquiz/detail.js"></script>
-    <!-- <script defer src="/js/study/userquiz/detail.js"></script> -->
 </head>
 <body>
     <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
@@ -62,14 +61,14 @@
         <!--=========================== 메인 입력 ===============================-->
         <section id="card-section" class="main-container-center">
             <h1 class="d:none">내가 만든 문제</h1>
-            <div class="small-card-l d:none jc:center">
+            <div class="small-card-l md:d:flex jc:center">
                 <div class="left-card d:flex ai:center jc:center">
                     <!-- <img src="/image/logo.png" class="h:2 w:2 rotating-img"> -->
-                    <img src="/image/logo.png" class="h:2 w:2">
+                    <img src="/image/logo.png" class="h:2 w:2" alt="왼쪽">
                 </div>
             </div>
-            <section class="d:flex fl-dir:column">
-                <h1 class="d:none">문제 섹션</h1>
+            <section class="d:flex fl-dir:column" >
+                <h1 class="d:none">메인 카드 섹션</h1>
                 <article class="card-container" draggable="true">
                     <h1 class="d:none">하위그룹</h1>
                     <section>
@@ -87,7 +86,16 @@
                                 href="">즐겨찾기</a>
                             </div>
                             <!-- 모달 추가하기  -->
-                            <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
+                            <div class="n-dropdown">
+                                <button id="dropdown-btn" class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</button>
+                                <ul id="dropdown-list" class="left:-2">
+                                    <h1 class="d:none">기타 메뉴</h1>
+                                    <li><a href="" th:href="@{edit(id=${param.id},category=${param.category})}">수정</a></li>
+                                    <li><a href="">삭제</a></li>
+                                    <!-- <li><a href="">외부로 공유</a></li> -->
+                                    <!-- <li><a href="">슬라이드 시간 설정</a></li> -->
+                                </ul>
+                            </div>
                         </div>
 
                         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
@@ -111,22 +119,22 @@
                             <span class="font-weight:bold ml:1" th:text="${m.likeCount}">2</span>                                
                         </div> -->
 
-                        <!-- TODO 모달 -->
+                        <!-- TODO 모달
                         <section class="d:none">
                             <h1 class="d:none">기타 메뉴</h1>
                             <div><a href="">수정</a></div>
                             <div><a href="">삭제</a></div>
                             <div>외부로 공유</div>
                             <div>슬라이드 시간 설정</div>
-                        </section>
+                        </section> -->
                         
                         <div class="d:flex fl-dir:row jc:space-between">
                             <!-- 카드갯수 -->
-                            <div class="d:flex jc:flex-start">
+                            <div class="card-count d:flex jc:flex-start">
                                 <!-- TODO 앞 카드번호 오래된순일때 리스트의 1번째 문제는 무조건 1번으로 나오게 35->1번이어야함-->
-                                <span th:text="${userQuiz.rowNum}" style="margin-right:6px;">12</span> 
+                                <span th:data-no="${userQuiz.rowNum}" th:text="${userQuiz.rowNum}" style="margin-right:6px;">12</span> 
                                 <span style="margin-right:6px;">/</span> 
-                                <span th:text="${count}">52</span>
+                                <span th:data-count="${count}" th:text="${count}">52</span>
                             </div>
                         
                             <!-- reg_date -->
@@ -170,7 +178,7 @@
             <div class="small-card-r d:none jc:center">
                 <div class="d:flex ai:center jc:center">
                     <!-- <img src="/image/logo.png" class="h:2 w:2 rotating-img"> -->
-                    <img src="/image/logo.png" class="h:2 w:2">
+                    <img src="/image/logo.png" class="h:2 w:2" alt="오른쪽">
                 </div>
             </div>
         </section>
