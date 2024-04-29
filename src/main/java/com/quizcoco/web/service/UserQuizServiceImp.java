@@ -105,13 +105,13 @@ public class UserQuizServiceImp implements UserQuizService{
     }
 
     @Override
-    public int getCount() {
-      return getCount(null);
+    public int getCount(long userId) {
+      return getCount(null,userId);
     }
 
     @Override
-    public int getCount(String query) {
-       return repository.count(query);
+    public int getCount(String query,long userId) {
+       return repository.count(query,userId);
     }
 
     @Override

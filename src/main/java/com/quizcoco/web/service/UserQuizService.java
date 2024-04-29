@@ -20,8 +20,8 @@ public interface UserQuizService {
 
 
 
-    int getCount(); //TODO 유저아이디 추가
-    int getCount(String query);
+    int getCount(long userId);
+    int getCount(String query,long userId);
 
     UserOXQuiz getByOXQuizId(long id);
     UserShortQuiz getByShortQuizId(long id);

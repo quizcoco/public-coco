@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.ExamQuiz;
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
@@ -58,7 +60,8 @@ public class UserQuizController {
 //수정페이지
     @GetMapping("edit")
     public UserQuizView edit(@RequestParam("id") Long id
-                        ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                           ,@AuthenticationPrincipal CocoUserDetails userDetails
+                        // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@RequestParam(name = "category") String cate
                         ,Model model){
 
@@ -67,6 +70,10 @@ public class UserQuizController {
         // UserShortQuiz userShortQuiz;
 
         // UserQuizView userQuiz;
+
+        Long userId = null;
+        if(userDetails != null)
+                userId = userDetails.getId();   
 
 
         System.out.println("================================================"+id+cate);
@@ -91,19 +98,30 @@ public class UserQuizController {
 
     @GetMapping("detail")
     public List<UserQuizView> detail(@RequestParam(name="no", defaultValue = "1") Integer page
+                                    ,@AuthenticationPrincipal CocoUserDetails userDetails
                                     ,@RequestParam(name = "newold", defaultValue = "0")Integer newOld){
 
+        Long userId=null;
+        if(userDetails != null)
+            userId=userDetails.getId();
+                                
+
          List<UserQuizView> userQuizs = new ArrayList<>();
-         userQuizs = service. getOne(1, newOld, page);
+         userQuizs = service. getOne(userId, newOld, page);
 
 
         return userQuizs;
     }
 
     @GetMapping("count")
-    public int count(){
+    public int count(@AuthenticationPrincipal CocoUserDetails userDetails
+    ){
 
-        int count = service.getCount();
+        Long userId=null;
+        if(userDetails != null)
+            userId=userDetails.getId();
+
+        int count = service.getCount(userId);
 
         return count;
     }
