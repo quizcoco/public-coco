@@ -1,28 +1,30 @@
 let cardSection = document.querySelector("#card-section");
 let mainCard = cardSection.querySelector("section");
-// let quizCard = document.querySelector(".card-container");
 let leftBtn = document.querySelector(".left");
 let rightBtn = document.querySelector(".right");
-let cardCount = document.querySelector(".card-count");
 
+let cardCount = document.querySelector(".card-count");
 let currentCard = cardCount.querySelector("span:first-child");
 let totalCount = cardCount.querySelector("span:last-child");
+
 let progressbar = document.querySelector("div[role='progressbar']>div");
 
 let quizCard = document.querySelector("#quiz-card");
 let quizQuestion = document.querySelector(".quiz-question");
 let sectionSpan = quizCard.querySelector("span:last-child");
-// let sectionSpan = quizQuestion.querySelector("span:last-child");
 
 const cancelBtn = document.getElementById('cancel-btn');
 const confirmBtn = document.getElementById('confirm-btn');
 const deleteModal = document.getElementById('delete-modal');
+
 let form = document.querySelector("form[action='del']");
 let delID = form.querySelector("input[name='id']");
 let delCate = form.querySelector("input[name='category']");
 
 const dropdownButton = document.getElementById("dropdown-btn");
 const dropdownList = document.getElementById("dropdown-list");
+
+//detail 기본 기타메뉴 ================================================
 
 dropdownButton.addEventListener("click", function () {
   dropdownList.classList.toggle("active");
@@ -139,7 +141,6 @@ async function nextCard(count,userQ){
                     </div>
                 </section>
             </section>
-        
             
             <section class="d:flex fl-dir:column ai:center">
                 <h1 class="d:none">카드 하단</h1>
@@ -156,37 +157,18 @@ async function nextCard(count,userQ){
         mainCard.insertAdjacentHTML("beforeend",quizHtml);
     }
 
-    //기타메뉴
+    //기타메뉴 ================================================
     const dropdownButton = document.getElementById("dropdown-btn");
     const dropdownList = document.getElementById("dropdown-list");
 
+    //프로그레스 바 움직였을때 기타메뉴 ===========================
     dropdownButton.addEventListener("click", function () {
         dropdownList.classList.toggle("active");
     });
 
-    //다음카드
-    getUserQuiz(count,(userQ)=>{
-        
-        document.querySelector(".right").addEventListener("click", async (e) => {
-            e.preventDefault();
-            count++;
-
-            nextCard(count,userQ);
-        });
-
-        document.querySelector(".left").addEventListener("click", async (e) => {
-            e.preventDefault();
-            count--;
-
-            nextCard(count,userQ);
-        });
-    });
-
-    //프로그레스바
+    //프로그레스바 ================================================
     let progressbar = document.querySelector("div[role='progressbar']>div");
-    progressbar.style.width=(count/allCount)*100+"%";//TODO 44부분 변경할것
-
-
+    progressbar.style.width=(count/allCount)*100+"%";//TODO 한번클릭해야 변경된다
 
     let quizCard = document.querySelector("#quiz-card");
     let quizQuestion = document.querySelector(".quiz-question");
@@ -197,10 +179,28 @@ async function nextCard(count,userQ){
     })
 
     delModal();
+ 
+    // left button ================================================
+    document.querySelector(".left").addEventListener("click", async (e) => {
+        e.preventDefault();
+        if (count > 1) {
+            count--;
+            nextCard(count, userQ);
+        }
+    });
+ 
+     // right button ================================================
+     document.querySelector(".right").addEventListener("click", async (e) => {
+        e.preventDefault();
+        if (count < allCount) {
+            count++;
+            nextCard(count, userQ);
+        }
+    });
 }
 
- /* ============================================ */
- 
+/* ============================================ */
+
 async function getUserQuiz(count,callback){
     let repository = new Repository(count);
     let response = await repository.getQuiz();
@@ -218,25 +218,25 @@ async function getQuizCount(){
 }
 
 let count = currentCard.dataset.no || 1;
+
 getUserQuiz(count,(userQ)=>{
 
-    rightBtn.addEventListener("click",async(e) => {
+        rightBtn.addEventListener("click",async(e) => {
 
-    e.preventDefault();
-    
-    nextCard(count,userQ);
-});
+        e.preventDefault();
+        
+        nextCard(count,userQ);
+    });
 
-   leftBtn.addEventListener("click", async (e) => {
+    leftBtn.addEventListener("click", async (e) => {
         e.preventDefault();
 
         nextCard(count,userQ);
     });
 });
 
-//TODO leftBtn 쪽에 아주 문제가 심각..............
 
-//삭제 모달
+//삭제 모달 ================================================
 
 function delModal(){
 
@@ -253,29 +253,19 @@ function delModal(){
     confirmBtn.addEventListener('click', function (e) {
         e.preventDefault();
         deleteModal.classList.add('d:none');
-                // let item = {
-                //     id: checkbox.value,
-                //     cate: checkbox.dataset.cate
-                // };
-
-                // delItems.value = JSON.stringify(items);
 
         delID.value = id;
         delCate.value = category;
 
-        //   console.log(checkbox.dataset.cate);
-                    
         form.submit();
     });
 }
-
-
-
 
 quizQuestion.addEventListener("click", function(){
     sectionSpan.classList.remove('d:none');
 })
 
-progressbar.style.width=(count/ totalCount.dataset.count)*100+"%";//프로그레스바
+//detail 기본 프로그레스바 ================================================
+progressbar.style.width=(count/ totalCount.dataset.count)*100+"%";
 
 delModal();
