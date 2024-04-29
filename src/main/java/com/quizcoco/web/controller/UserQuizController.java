@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.quizcoco.web.entity.ExamQuiz;
+import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
 import com.quizcoco.web.entity.UserQuizView;
@@ -30,22 +31,28 @@ public class UserQuizController {
 
     @GetMapping("list")
     public String list(Model model
-                        ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                        // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                        ,@AuthenticationPrincipal CocoUserDetails userDetails
                         ,@RequestParam(name="q", required = false) String query
                         ,@RequestParam(name="p", defaultValue = "1") Integer page
                         ,@RequestParam(name="num", required = false, defaultValue = "5") Integer size
                         ,@RequestParam(name = "newold", defaultValue = "0")Integer newOld) {
+
+
+        Long userId=null; //기본값.. 인증한 유저아이디를 받아와요
+        if(userDetails != null)
+        userId=userDetails.getId();
 
         int UQcount = 0;
 
         List<UserQuizView> userQuizView = new ArrayList<>();
         if(query != null){
             userQuizView = service. getList(query,userId,newOld,page, size);
-            UQcount = service.getCount(query);
+            UQcount = service.getCount(query,userId);
         }
         else{
             userQuizView = service. getList(userId,newOld,page, size);
-            UQcount = service.getCount();
+            UQcount = service.getCount(userId);
         }
 
         model.addAttribute("userQuiz", userQuizView);
@@ -89,10 +96,14 @@ public class UserQuizController {
     /* OXㅡㅡㅡuser_oxㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
     @GetMapping("detail")
     public String detail(Long id
-    ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+    ,@AuthenticationPrincipal CocoUserDetails userDetails
+    // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
     ,@RequestParam(name = "category") String cate
     ,Model model) {
 
+        Long userId=null; //기본값.. 인증한 유저아이디를 받아와요
+        if(userDetails != null)
+        userId=userDetails.getId();
 
         UserQuizView userQuizView = service.getListById(id, userId, cate);
         int count = 0;
@@ -103,7 +114,7 @@ public class UserQuizController {
 
         model.addAttribute("userQuiz", userQuizView);
                                     
-        count = service.getCount();
+        count = service.getCount(userId);
         model.addAttribute("count", count);
 
         // UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
@@ -164,13 +175,18 @@ public class UserQuizController {
     }
 
     @PostMapping("reg")
-    public String reg(@RequestParam(name = "cate" ,defaultValue = "multi") String cate,
-                        @RequestParam(defaultValue = "1") long userId,
-                        @RequestParam(name = "multiAnswer", required = false) Integer multiAnswer,
+    public String reg(@RequestParam(name = "cate" ,defaultValue = "multi") String cate
+    ,@AuthenticationPrincipal CocoUserDetails userDetails
+                        // @RequestParam(defaultValue = "1") long userId,
+                        ,@RequestParam(name = "multiAnswer", required = false) Integer multiAnswer
     /* UserOXQuiz userOXQuiz, UserMultipleQuiz userMultipleQuiz, UserShortQuiz userShortQuiz */
-    String question, String num1, String num2, String num3, String num4, String answer, String commentary
+    ,String question, String num1, String num2, String num3, String num4, String answer, String commentary
     
     ){
+
+        Long userId=null;
+        if(userDetails != null)
+        userId=userDetails.getId();
 
         if(!cate.equals("multi")){
             service.reg(userId, cate, question, answer, commentary);
@@ -188,7 +204,8 @@ public class UserQuizController {
     //수정페이지
     @GetMapping("edit")
     public String edit(@RequestParam("id") Long id
-                        ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                        ,@AuthenticationPrincipal CocoUserDetails userDetails
+                        // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@RequestParam(name = "category") String cate
                         ,Model model){
 
@@ -219,12 +236,17 @@ public class UserQuizController {
     //수정
     @PostMapping("edit")
     public String edit(@RequestParam("id") Long id
-                        ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
+                        ,@AuthenticationPrincipal CocoUserDetails userDetails
+                        // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@RequestParam(name = "cate") String cate
                         /* ,UserOXQuiz newOXQuiz*/
                         ,String question, String num1, String num2, String num3, String num4, String answer, Integer multiAnswer, String commentary
                         ){ 
         
+            Long userId=null;
+            if(userDetails != null)
+            userId=userDetails.getId();
+
         // UserQuizView userQuizView = service.getListById(id, userId, cate);
 
         UserOXQuiz oxQuiz = service.getByOXQuizId(id);

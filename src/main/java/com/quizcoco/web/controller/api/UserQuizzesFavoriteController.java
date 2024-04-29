@@ -17,16 +17,17 @@ public class UserQuizzesFavoriteController {
     @Autowired
     private UserQuizzesFavoriteService service;
 
-    @PostMapping
+    @PostMapping("add")
     public UserQuizzesFavorite add(
         @RequestBody UserQuizzesFavorite favorite){
+
         System.out.println(favorite);
         UserQuizzesFavorite newOne = service.add(favorite);
 
         return newOne;
     }
 
-    @DeleteMapping
+    @DeleteMapping("del")
     public String delete(Long id){
         return null;
     }
