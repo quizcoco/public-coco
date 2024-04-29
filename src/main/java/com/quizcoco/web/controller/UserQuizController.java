@@ -119,11 +119,9 @@ public class UserQuizController {
         // if(userShortQuiz != null && userQuizView.getId()==userShortQuiz.getId() && userQuizView.getCategory().equals("short"))
         //     model.addAttribute("usershortq", userShortQuiz);
 
-
         // System.out.println("============================"+userOXQuiz);
         // System.out.println(userMultipleQuiz);
         // System.out.println(userShortQuiz);
-        
            
         return "study/userquiz/detail";
     }
@@ -187,7 +185,7 @@ public class UserQuizController {
 
     // ================================================================================
 
-//수정페이지
+    //수정페이지
     @GetMapping("edit")
     public String edit(@RequestParam("id") Long id
                         ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
@@ -240,8 +238,6 @@ public class UserQuizController {
             oxQuiz.setAnswer(answer);
             oxQuiz.setCommentary(commentary);
             service.edit(oxQuiz,userId, id,  cate);
-
-            
         };
         
         if(cate.equals("multi")){
@@ -254,7 +250,6 @@ public class UserQuizController {
             multipleQuiz.setAnswer(multiAnswer);
             multipleQuiz.setCommentary(commentary);
             service.edit(multipleQuiz,userId,id, cate);
-
         };
 
         // if(cate.equals("short")){
@@ -264,7 +259,6 @@ public class UserQuizController {
         //     shortQuiz.setCommentary(newQuiz.getCommentary());
         //     service.edit(shortQuiz,cate);
         // };
-            
 
         return "redirect:list";
     }
@@ -272,23 +266,10 @@ public class UserQuizController {
     //삭제======================================================================================
 
     @PostMapping("del")
-    public String del(/*@RequestParam("id") Long id, @RequestParam("cate") String cate*/ String items){
+    public String del(@RequestParam(name="id",required = false) Long qID, @RequestParam(name="category",required = false) String category, String items){
 
-        // items.split(',');
-        
-        // Gson gson = new Gson();
-        
-        // JSON 배열을 List로 변환
-        // Type listType = new TypeToken<List<String>>() {}.getType();
-        // List<String> list = gson.fromJson(items,listType);
-
-        // Type type = new TypeToken<Map<String, String>>(){}.getType();
-        // Map<String, String> map = gson.fromJson(items, type);
-
-        // List<String> list = new Gson().fromJson(items, new List<String>().getClass());
-
-
-
+        //list의 삭제부분
+        if(items!=null){ 
 
               // JSON 문자열을 JSON 배열로 파싱
               JSONArray jsonArray = new JSONArray(items);
@@ -309,20 +290,26 @@ public class UserQuizController {
               // 리스트 출력
               for (JSONObject jsonObject : jsonObjectList) {
 
-                String cate = jsonObject.getString("cate");
-                long id = jsonObject.getInt("id");
+                 String cate = jsonObject.getString("cate");
+                 long id = jsonObject.getInt("id");
 
                 service.delById(id, cate);
                 }
-                
-
-        // System.out.println("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"+items);
-        
-//UserQuizView
-
+                return "redirect:list";
+         }
+        //detail의 삭제 부분
+        service.delById(qID, category); 
 
         return "redirect:list";
 
     }
+
+/* TODO 슬라이드!! */
+// public String slide(){
+
+// }
+
+
+
 
 }
