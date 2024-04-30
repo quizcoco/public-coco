@@ -4,11 +4,38 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.quizcoco.web.repository.UserRepository">
 
+<!-- 로그인 -->
 <select id="findByUserName" resultType="User">
     select 
       *
     from user
     where username=#{username}
+</select>
+
+<!-- 회원가입 -->
+<insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+    insert into user
+    (
+      username,
+      pw,
+      nick_name,
+      mail
+    )
+    values
+    (
+      #{userName},
+      #{pw},
+      #{nickName},
+      #{mail}
+    )
+</insert>
+
+<!-- 회원가입 시 중복체크 -->
+<select id="nameCheck" resultType="int">
+  select count (*) from user
+  where username = #{username}
+        or mail = #{mail}
+        or nick_name = #{nickname}
 </select>
 
 </mapper>

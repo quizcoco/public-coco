@@ -11,6 +11,7 @@ public interface MemberRoleRepository {
 
     List<MemberRole> findAllByUserId(Long id);
 
-   
+    void saveMemberRole(MemberRole memberRole);
+
 
 }

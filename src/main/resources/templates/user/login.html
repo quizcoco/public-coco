@@ -62,7 +62,7 @@
 <section id="login-section" class="login-container">
     <hl class="fw:3 font-s:4 pb:5 pt:8">로그인</hl>
     <div class="color:main-4" th:if="${param.error != null}">아이디 또는 비밀번호가 유효하지 않습니다.</div>
-    <form action="login" method="post">
+    <form action="/user/login" method="post">
         <fieldset>
             <div class="n-textbox-login mb:3">
               <label class="d:none">id</label>
@@ -166,7 +166,7 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="isAuthenticated()" th:href="@{/admin/index}">관리자</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
             </ul>
         </nav>
         <div class="d:flex jc:flex-end pr:3 pt:10">

@@ -152,7 +152,7 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="isAuthenticated()" th:href="@{/admin/index}">관리자</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
             </ul>
         </nav>
         <div class="d:flex jc:flex-end pr:3 pt:10">
