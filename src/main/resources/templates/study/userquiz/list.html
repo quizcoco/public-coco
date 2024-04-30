@@ -96,20 +96,28 @@
                 </section>
             </header>
 
+            <!-- TODO 1 .이거먼저 작업중========================================================= -->
+            <!-- 페이지 보기 설정 바꾸면 &newold=1 안나옴 -->
+            <form method="get" action="list">
             <section class="page-view d:flex jc:space-between">
                 <h1 class="d:none">페이지 보기 설정</h1>
-                <div class="see-num as:center"><select name="num">
-                    <option value="5">5개</option>
-                    <option value="10">10개</option>
-                    <option value="15">15개</option>
-                    <option value="20">20개</option>
-                </select></div>
+                <div class="see-num as:center">
+                    <select name="s">
+                        <option value="5" th:selected="${{param.s}}==5">5개</option>
+                        <option value="10" th:selected="${{param.s}}==10">10개</option>
+                        <option value="15" th:selected="${{param.s}}==15">15개</option>
+                        <option value="20" th:selected="${{param.s}}==20">20개</option>
+                    </select>
+                    <!-- <input type="hidden" name="newold"> -->
+                </div>
 
                 <!-- TODO userquiz 처음들어갔을때 페이지 위치가 1로 표시되게 해야함 -->
-                <div class="old-new as:center mb:3 mt:3"><form method="get" action="list"><button th:value="${{param.newold}} == 1 ? 0 : 1" value="1" name="newold" th:text="${{param.newold}}==0 or ${{param.newold}} == null ? '오래된 순' : '최신 순'"
-
-                    class="n-btn n-btn:filled">오래된 순</button></form></div>
+                <div class="old-new as:center mb:3 mt:3">
+                        <button th:value="${{param.newold}} == 1 ? 0 : 1" value="1" name="newold" th:text="${{param.newold}}==0 or ${{param.newold}} == null ? '오래된 순' : '최신 순'"
+                    class="n-btn n-btn:filled">오래된 순</button>
+                </div>
             </section>
+        </form>
         </section>
 
         <!-- 퀴즈리스트 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
@@ -144,7 +152,7 @@
                     th:class="${{param.p}}== ${n}?'active'">
                     <span th:if="${n} gt ${lastnum}" th:text="${n}"></span>
                     
-                    <a href="list?p=1" th:href="@{list(p=${n}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}"
+                    <a href="list?p=1" th:href="@{list(p=${n},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}"
                     th:if="${n} le ${lastnum}">1</a></li>
 
                     <!-- ========='>'============== -->
@@ -184,7 +192,7 @@
             </ul>
 
             </div>
-            <div class="d:flex jc:center ai:center mt:1">
+            <div id="page-move" class="d:flex jc:center ai:center mt:1">
                 <input class="n-textbox n-textbox-type:outline w:1" th:placeholder="${param.p}==null? 1 : ${param.p}">
                 <span class="mr:2 ml:2">/</span>
                 <span th:text="${uqcount} mod 5 >0 ? ${uqcount div 5} +1 :${uqcount div 5}">38</span>
@@ -205,7 +213,7 @@
             <ul class="d:flex w:4 jc:space-between">
                 <li><a href="reg" class="n-btn n-btn:filled">퀴즈등록</a></li>
                 <!-- 선택지 없이 버튼 눌렀을때 전체문제 가능 -->
-                <li><button class="n-btn n-btn:filled">슬라이드 보기</button></li>
+                <li><a href="slide" class="n-btn n-btn:filled">슬라이드 보기</a></li>
             </ul>
         </nav>
 

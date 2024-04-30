@@ -15,7 +15,7 @@
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
-    <script defer src="/js/study/userquiz/detail.js"></script>
+    <script defer src="/js/study/userquiz/slide.js"></script>
 </head>
 <body>
     <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
@@ -82,7 +82,7 @@
                         <div class="d:flex fl-dir:row jc:space-between pb:4">
                             <div class="d:flex justify-content:flex-end">
                                 <a class="icon icon-color:base-4"
-                                th:classappend="${userQuiz.like}==1 ? 'icon-star-fill':'icon:star'"
+                              
                                 href="">즐겨찾기</a>
                             </div>
                             <!-- 모달 추가하기  -->
@@ -132,14 +132,14 @@
                             <!-- 카드갯수 -->
                             <div class="card-count d:flex jc:flex-start">
                                 <!-- TODO 앞 카드번호 오래된순일때 리스트의 1번째 문제는 무조건 1번으로 나오게 35->1번이어야함-->
-                                <span th:data-no="${userQuiz.rowNum}" th:text="${userQuiz.rowNum}" style="margin-right:6px;">12</span> 
+                                <span style="margin-right:6px;">12</span> 
                                 <span style="margin-right:6px;">/</span> 
                                 <span th:data-count="${count}" th:text="${count}">52</span>
                             </div>
                         
                             <!-- reg_date -->
                             <div class="d:flex jc:flex-end pb:3">
-                                <span style="margin-right:6px;" th:text="${#temporals.format(userQuiz.regDate, 'yyyy-MM-dd HH:mm:ss')}">2024-02-13</span> 
+                                <span style="margin-right:6px;">2024-02-13</span> 
                             </div>
                         </div>
                     </section>
@@ -161,18 +161,16 @@
                     </section>
 
                     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-                    <!-- TODO 1. 카드 슬라이드 먼저하기!-->
+                    <!-- TODO 카드 슬라이드 먼저하기!-->
                     <section class="d:flex fl-dir:column ai:center">
                         <h1 class="d:none">카드 하단</h1>
                         <div class="n-progress n-progress-card" role="progressbar">
                             <div style="width: 40%"></div>
                         </div>
                         <div class="d:flex gap:10">
-                            <!-- <div class="icon icon:shuffle_fill pr:10">랜덤 재생 아이콘,왼쪽</div> -->
-                            <a href="" class="left"><div class="icon icon:caret_left_bold pr:10">왼쪽</div></a>
-                            <!-- <div class="icon icon:pause_fill pr:10 pl:5">재생/멈춤 아이콘</div> -->
-                            <!-- <a href="" class="right"><div class="icon icon:arrows_clockwise_fill pr:10 pl:5">반복 재생 아이콘,오른쪽</div></a> -->
-                            <a href="" class="right"><div class="icon icon:caret_right_bold pr:10 pl:5">오른쪽</div></a>
+                            <div class="icon icon:shuffle_fill pr:10">랜덤 재생 아이콘,왼쪽</div>
+                            <div class="icon icon:pause_fill pr:10 pl:5">재생/멈춤 아이콘</div>
+                            <a href="" class="right"><div class="icon icon:arrows_clockwise_fill pr:10 pl:5">반복 재생 아이콘,오른쪽</div></a>
                         </div>
                     </section>
                 </article>

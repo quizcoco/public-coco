@@ -126,5 +126,11 @@ public class UserQuizController {
         return count;
     }
 
+    // @GetMapping("list")
+    // public List<UserQuizView> list(){
+
+
+    //     return list;
+    // }
 
 }

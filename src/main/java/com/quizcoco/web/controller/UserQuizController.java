@@ -31,15 +31,13 @@ public class UserQuizController {
 
     @GetMapping("list")
     public String list(Model model
-                        // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@AuthenticationPrincipal CocoUserDetails userDetails
                         ,@RequestParam(name="q", required = false) String query
                         ,@RequestParam(name="p", defaultValue = "1") Integer page
-                        ,@RequestParam(name="num", required = false, defaultValue = "5") Integer size
+                        ,@RequestParam(name="s", required = false, defaultValue = "5") Integer size
                         ,@RequestParam(name = "newold", defaultValue = "0")Integer newOld) {
 
-
-        Long userId=null; //기본값.. 인증한 유저아이디를 받아와요
+        Long userId = null; 
         if(userDetails != null)
         userId=userDetails.getId();
 
@@ -61,7 +59,7 @@ public class UserQuizController {
         
         //=============================ox============================================
         
-        //                     System.out.println("----------------------------"+userId+size);
+        //System.out.println("----------------------------"+userId+size);
 
         // if(userId==null) {
         //     return "";
@@ -81,7 +79,10 @@ public class UserQuizController {
         // model.addAttribute("useroxq", userOXQuiz);
         // model.addAttribute("count", count);
 
-        // System.out.println("============================="+userOXQuiz);
+
+
+
+        
 
         return "study/userquiz/list";
     }   
@@ -101,7 +102,7 @@ public class UserQuizController {
     ,@RequestParam(name = "category") String cate
     ,Model model) {
 
-        Long userId=null; //기본값.. 인증한 유저아이디를 받아와요
+        Long userId=null;
         if(userDetails != null)
         userId=userDetails.getId();
 
@@ -327,9 +328,24 @@ public class UserQuizController {
     }
 
 /* TODO 슬라이드!! */
-// public String slide(){
+@GetMapping("slide")
+public String slide(Long id
+,@AuthenticationPrincipal CocoUserDetails userDetails
+// ,@RequestParam(name = "category") String cate
+,Model model){
 
-// }
+    Long userId=null; //기본값.. 인증한 유저아이디를 받아와요
+    if(userDetails != null)
+    userId=userDetails.getId();
+
+    // UserQuizView userQuizView = service.getListById(id, userId, cate);
+
+    // model.addAttribute("userQuiz", userQuizView);
+
+
+
+    return "study/userquiz/slide";
+}
 
 
 

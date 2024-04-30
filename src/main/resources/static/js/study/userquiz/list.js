@@ -9,6 +9,17 @@ let delID = form.querySelector("input[name='id']");
 let delCate = form.querySelector("input[name='cate']");
 let delItems = form.querySelector("input[name='items']");
 
+let pageMove = document.querySelector("#page-move");
+let pageWant = pageMove.querySelector("input")  
+let pageGo = pageMove.querySelector ("a")
+
+
+let selectNum = document.querySelector("select[name='s']");
+let numOption = selectNum.querySelectorAll("option");
+let selectNumForm= document.querySelector("form[action='list']");
+let oldInput = selectNumForm.querySelector("input");
+
+
 /* 체크박스 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
 checkAll.addEventListener("click", () => {
   // Update individual checkboxes based on the "checkAll" state
@@ -117,3 +128,37 @@ confirmBtn.addEventListener('click', function () {
           }
       })
     })
+
+
+/* 원하는 페이지 이동 ================================================ */
+
+let url = window.location.href;
+let params = url.split("?")[1];
+let paramsArray = params.split("&");
+let paramsObject = {};
+
+paramsArray.forEach(function(param) {
+    let keyValue = param.split("=");
+    let key = keyValue[0];
+    let value = keyValue[1];
+    paramsObject[key] = value;
+});
+
+let newold = paramsObject["newold"];
+let s = paramsObject["s"];
+
+
+pageGo.addEventListener("click", ()=>{
+
+  pageGo.href=`list?p=${pageWant.value}&newold=${newold}`;
+})
+
+
+//==============몇개씩==================================
+
+selectNum.addEventListener("change",(e)=>{
+  e.preventDefault(); 
+  // oldInput.value=newold;
+  selectNumForm.submit();
+
+})

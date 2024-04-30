@@ -24,30 +24,8 @@ let delCate = form.querySelector("input[name='category']");
 const dropdownButton = document.getElementById("dropdown-btn");
 const dropdownList = document.getElementById("dropdown-list");
 
-//detail 기본 기타메뉴 ================================================
 
-dropdownButton.addEventListener("click", function () {
-  dropdownList.classList.toggle("active");
-});
 
-//=====================================================================
-
-let url = window.location.href;
-let params = url.split("?")[1];
-let paramsArray = params.split("&");
-let paramsObject = {};
-
-paramsArray.forEach(function(param) {
-    let keyValue = param.split("=");
-    let key = keyValue[0];
-    let value = keyValue[1];
-    paramsObject[key] = value;
-});
-
-let id = paramsObject["id"];
-let category = paramsObject["category"];
-
-//========================================================================
 
 class Repository{
     constructor(count){
@@ -77,8 +55,9 @@ function formatDate(date) {
 function padZero(num) {
     return (num < 10 ? '0' : '') + num;
 }
- 
-async function nextCard(count,userQ){
+
+
+async function slideCard(count,userQ){
 
     let allCount = await getQuizCount();
 
@@ -148,9 +127,10 @@ async function nextCard(count,userQ){
                     <div style="width: 40%"></div>
                 </div>
                 <div class="d:flex gap:10">
-                <a href="" class="left"><div class="icon icon:caret_left_bold pr:10">왼쪽</div></a>
-                    <a href="" data-id=${count} class="right"><div class="icon icon:caret_right_bold pr:10 pl:5">오른쪽</div></a>
-                    </div>
+                <div class="icon icon:shuffle_fill pr:10">랜덤 재생 아이콘,왼쪽</div>
+                <div class="icon icon:pause_fill pr:10 pl:5">재생/멈춤 아이콘</div>
+                <a href="" class="right"><div class="icon icon:arrows_clockwise_fill pr:10 pl:5">반복 재생 아이콘,오른쪽</div></a>
+            </div>
             </section>
         </article>`;
 
@@ -179,27 +159,21 @@ async function nextCard(count,userQ){
     })
 
     delModal();
- 
-    // left button ================================================
-    document.querySelector(".left").addEventListener("click", async (e) => {
-        e.preventDefault();
-        if (count > 1) {
-            count--;
-            nextCard(count, userQ);
-        }
-    });
- 
-     // right button ================================================
-     document.querySelector(".right").addEventListener("click", async (e) => {
-        e.preventDefault();
-        if (count < allCount) {
-            count++;
-            nextCard(count, userQ);
-        }
-    });
+
 }
 
-/* ============================================ */
+
+let count = currentCard.dataset.no || 1;
+
+getUserQuiz(count,(userQ)=>{
+
+    slideCard(count,userQ);
+});
+
+
+
+
+
 
 async function getUserQuiz(count,callback){
     let repository = new Repository(count);
@@ -217,23 +191,6 @@ async function getQuizCount(){
     return allCount;
 }
 
-let count = currentCard.dataset.no || 1;
-
-getUserQuiz(count,(userQ)=>{
-
-        rightBtn.addEventListener("click",async(e) => {
-
-        e.preventDefault();
-        
-        nextCard(count,userQ);
-    });
-
-    leftBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-
-        nextCard(count,userQ);
-    });
-});
 
 
 //삭제 모달 ================================================
