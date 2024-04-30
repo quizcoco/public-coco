@@ -96,8 +96,7 @@
                 </section>
             </header>
 
-            <!-- TODO 1 .이거먼저 작업중========================================================= -->
-            <!-- 페이지 보기 설정 바꾸면 &newold=1 안나옴 -->
+        
             <form method="get" action="list">
             <section class="page-view d:flex jc:space-between">
                 <h1 class="d:none">페이지 보기 설정</h1>
@@ -108,7 +107,6 @@
                         <option value="15" th:selected="${{param.s}}==15">15개</option>
                         <option value="20" th:selected="${{param.s}}==20">20개</option>
                     </select>
-                    <!-- <input type="hidden" name="newold"> -->
                 </div>
 
                 <!-- TODO userquiz 처음들어갔을때 페이지 위치가 1로 표시되게 해야함 -->
@@ -133,10 +131,11 @@
             <div class="d:none md:d:block"><!-- 10짜리 -->
                 <ul class="n-pager jc:center"
                     th:with="page=${param.p} eq null ? 1 : ${{param.p}},
+                            s = ${param.s} == null ? 5: ${param.s},
                             floatnum=(${page}-1)/10,
                             intnum=${T(java.lang.Math).floor(floatnum)},
                             startnum=${intnum}*10+1
-                            ,lastnum=${uqcount} mod 5 >0 ? ${uqcount div 5} +1 :${uqcount div 5}">
+                            ,lastnum=${uqcount} mod 5 >0 ? ${uqcount} div 5 +1 :${uqcount} div 5">
                             <!-- 여기서 5는 화면에 표시되는 리스트갯수 -->
 
                     <!-- ========='<<'============== -->

@@ -132,17 +132,31 @@ confirmBtn.addEventListener('click', function () {
 
 /* 원하는 페이지 이동 ================================================ */
 
+// let url = window.location.href;
+// let params = url.split("?")[1];
+// let paramsArray = params.split("&");
+// let paramsObject = {};
 let url = window.location.href;
-let params = url.split("?")[1];
-let paramsArray = params.split("&");
-let paramsObject = {};
+let paramsArray, paramsObject = {};
 
-paramsArray.forEach(function(param) {
-    let keyValue = param.split("=");
-    let key = keyValue[0];
-    let value = keyValue[1];
-    paramsObject[key] = value;
-});
+// URL에 쿼리 문자열이 있는지 확인
+if (url.includes("?")) {
+    let params = url.split("?")[1];
+    paramsArray = params.split("&");
+
+    // 쿼리 문자열을 객체로 변환
+    paramsArray.forEach(param => {
+        let [key, value] = param.split("=");
+        paramsObject[key] = value;
+    });
+    
+    paramsArray.forEach(function(param) {
+      let keyValue = param.split("=");
+      let key = keyValue[0];
+      let value = keyValue[1];
+      paramsObject[key] = value;
+    });
+  }
 
 let newold = paramsObject["newold"];
 let s = paramsObject["s"];
@@ -158,7 +172,16 @@ pageGo.addEventListener("click", ()=>{
 
 selectNum.addEventListener("change",(e)=>{
   e.preventDefault(); 
-  // oldInput.value=newold;
+if(newold==1){
+
+  let hiddenInput= document.createElement("input");
+  hiddenInput.type="hidden";
+  hiddenInput.name="newold";
+  hiddenInput.value=1;
+  selectNumForm.append(hiddenInput);
+
+}
+
   selectNumForm.submit();
 
 })
