@@ -10,7 +10,6 @@
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
-    <link href="/css/user-quiz.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
@@ -18,9 +17,9 @@
 <body>
  
     <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
-        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- 속도 조절</span></h1>
+        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- 내 정보</span></h1>
         <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
-            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">속도 조절</span></h1>
+            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">내 정보</span></h1>
             <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
         </div>
 
@@ -54,42 +53,20 @@
             </ul>
             <div class="d:flex jc:flex-end pt:6">
                 <a class="fs:1 bd-bottom" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
-            </div>    
+            </div>
         </nav>
     </header>
 
-    <main class="of:auto ac:center jc:center">
-        <!--=========================== 메인 입력 ===============================-->
-        <section class="d:flex fl-direction:column jc:center gap:20">
-            <!-- 속도조절 -->
-            <section>
-                <form>
-                    <div class="d:flex jc:center ac:center gap:2 mt:10">
-                        <div><label>-</label></div>
-                        <div>               <!-- ↓ report.css  -->
-                            <div><input class="speed-size" type="range" name="speed" min="0.25" max="2" step="0.25" value="1.0" oninput="document.getElementById('value1').innerHTML=this.value+'x';"></div>
-                                                                    <!-- 젤 작은 수치 0.25x / 최고 수치 2x / 단계수치 +0.25 / 기본 기본 값 1.0x / 단계 수치값에 x붙어서 나오게 'x'추가 1.0x-->
-                            <div class="d:flex jc:center mt:2"><span id="value1">1x</span></div>
-                        </div>                                         <!-- ↑ 1x 씀으로써 기본값을 1x로 주면서 보이게 하는것 -->
-                        <div><label>+</label></div>
-                    </div>
-                </form>
-            </section>
+    <main class="of:auto">
+<!--=========================== 메인에 입력 ===============================-->
+    
+           
+   </main>
 
-            <!-- 버튼 -->
-            <section class="d:flex jc:center ac:center">
-                <div class="flex-direction:row d:flex jc:center ai:center border-radius:3 w:7 h:1">
-                    <button class="admin-textarea:4 bg-color:main-5 n-btn n-btn:filled-3 ai:center">저장</button>
-                </div>   
-            </section>
-        </section>
-
-    </main>
-
-    <aside class="d:none md:d:flex jc:center right:1 zi:1">
-        <div class="pos:fixed h:100p bg-color:main-2">
-            <nav class="d:flex jc:center">
-                <h1 class="d:none">pc 메뉴바</h1>
+   <aside class="d:none md:d:flex jc:center right:1 zi:1">
+    <div class="pos:fixed h:100p bg-color:main-2">
+        <nav class="d:flex jc:center">
+            <h1 class="d:none">pc 메뉴바</h1>
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
@@ -112,12 +89,12 @@
         <div class="d:flex jc:flex-end pr:3 pt:10">
             <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
         </div>
-        </div>
-    </aside>
+    </div>
+</aside>
 
-    <footer class="ad md:d:none d:flex jc:center ai:center">
-        <div>광고</div>
-    </footer>
+<footer class="ad md:d:none d:flex jc:center ai:center">
+    <div>광고</div>
+</footer>
 
 </body>
 </html>

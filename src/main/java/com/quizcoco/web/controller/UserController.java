@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.User;
 import com.quizcoco.web.service.UserService;
 
@@ -86,5 +88,10 @@ public class UserController {
         return "redirect:/user/login";
     }
 
-
+    @GetMapping("myinfo")
+    public String myInfo(@AuthenticationPrincipal CocoUserDetails userDetails) {
+        
+        return "user/myinfo";
+    }
+    
 }
