@@ -40,10 +40,10 @@
         <h1 class="d:none">모바일 메뉴바</h1>
         <ul>
             <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}">내정보</a>
-                <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/user/myinfo}">내정보</a>
+                <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
                 <a href="" class="icon icon:myinfo arrow">>></a></li>
             <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/user/myinfo}">로그인</a></li>
+                <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
             <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
             <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
             <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
@@ -142,11 +142,11 @@
             <h1 class="d:none">pc 메뉴바</h1>
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
-                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/user/myinfo}"></a>
+                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
                     <a href="" class="icon icon:myinfo arrow">>p></a></li>
                 <li class="fs:1 bd-bottom">
                     <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="/user/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
+                    <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
                         <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
                         <br><span>인벤토리 북마크</span></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
