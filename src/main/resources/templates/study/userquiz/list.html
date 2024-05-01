@@ -130,21 +130,22 @@
             <h1 class="d:none">페이저</h1>
             <div class="d:none md:d:block"><!-- 10짜리 -->
                 <ul class="n-pager jc:center"
-                    th:with="page=${param.p} eq null ? 1 : ${{param.p}},
-                            s = ${param.s} == null ? 5: ${param.s},
-                            floatnum=(${page}-1)/10,
-                            intnum=${T(java.lang.Math).floor(floatnum)},
-                            startnum=${intnum}*10+1
-                            ,lastnum=${uqcount} mod 5 >0 ? ${uqcount} div 5 +1 :${uqcount} div 5">
-                            <!-- 여기서 5는 화면에 표시되는 리스트갯수 -->
-
+                    th:with="page=${param.p} eq null ? 1 : ${{param.p}}
+                            ,s = ((${param.s} == null)?5:${{param.s}} == '' )? 5 : ${param.s}
+                            ,floatnum=(${page}-1)/10
+                            ,intnum=${T(java.lang.Math).floor(floatnum)}
+                            ,startnum=${intnum}*10+1
+                            ,endfloatnum=${uqcount} % ${{s}} >0 ? ${uqcount} / ${{s}} +1 :${uqcount} / ${{s}}
+                            ,endintnum=${T(java.lang.Math).floor(endfloatnum)}
+                            ,lastnum=(${endintnum}*10)/10">
+                            <!--${s}는 화면에 표시되는 리스트갯수 -->
                     <!-- ========='<<'============== -->
                     <li><span th:if="${page} lt 2" class="icon icon:page_start icon-size:2"></span>
-                        <a th:if="${page} ge 2" href="list?p=1" class="icon icon:page_start icon-size:2"></a></li>
+                        <a th:if="${page} ge 2" href="list?p=1" th:href="@{list(p=1,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" class="icon icon:page_start icon-size:2"></a></li>
 
                     <!-- ========='<'============== -->
                     <li><span th:if="${page} lt 11" class="icon icon:caret_left icon-size:2"></span>
-                        <a th:if="${page} ge 11" th:href="@{list(p=${startnum}-1)}" href="" class="icon icon:caret_left icon-size:2"></a></li>
+                        <a th:if="${page} ge 11" th:href="@{list(p=${startnum}-1,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" href="" class="icon icon:caret_left icon-size:2"></a></li>
 
                     <!-- ========='1'============== -->
                     <li th:each="n : ${#numbers.sequence(startnum,startnum+9)}"  
@@ -156,47 +157,53 @@
 
                     <!-- ========='>'============== -->
                     <li><span th:if="${lastnum} lt ${startnum+10}" class="icon icon:caret_right icon-size:2"></span>
-                        <a th:if="${lastnum} ge ${startnum+10}" th:href="@{list(p=${startnum}+10)}" href="" class="icon icon:caret_right icon-size:2"></a></li>
+                        <a th:if="${lastnum} ge ${startnum+10}" th:href="@{list(p=${startnum}+10,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" href="" class="icon icon:caret_right icon-size:2"></a></li>
 
                     <!-- ========='>>'============== -->
                     <li class="mr:8"><span th:if="${lastnum} eq ${page}" class="icon icon:page_end icon-size:2"></span>
-                        <a th:if="${lastnum} gt ${page}" th:href="@{list(p=${lastnum})}" href="" class="icon icon:page_end icon-size:2"></a></li>
+                        <a th:if="${lastnum} gt ${page}" th:href="@{list(p=${lastnum},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" href="" class="icon icon:page_end icon-size:2"></a></li>
                 </ul>
             </div>
             <div class="d:block md:d:none"><!-- 5짜리 -->
                 <ul class="n-pager" style="display: flex; justify-content: center;" 
                 th:with="page=${param.p} eq null ? 1 : ${{param.p}},
+                s = ((${param.s} == null)?5:${{param.s}} == '' )? 5 : ${param.s},
                 floatnum=(${page}-1)/5,
                 intnum=${T(java.lang.Math).floor(floatnum)},
                 startnum=${intnum}*5+1
-                ,lastnum=${uqcount} mod 6 >0 ? ${uqcount/6} +1 :${uqcount/6}"> 
+                ,endfloatnum=${uqcount} % ${{s}} >0 ? ${uqcount} / ${{s}} +1 :${uqcount} / ${{s}}
+                ,endintnum=${T(java.lang.Math).floor(endfloatnum)}
+                ,lastnum=(${endintnum}*10)/10"> 
         
                 <!-- <li th:text="${uqcount div 6}+1">aa</li> -->
 
                 <li><span th:if="${page} lt 6">이전</span>
-                    <a th:if="${page} ge 6" href="list?p=1" th:href="@{list(p=${startnum}-1)}">이전</a>
+                    <a th:if="${page} ge 6" href="list?p=1" th:href="@{list(p=${startnum}-1,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}">이전</a>
                 </li>
                 <li  th:each="n : ${#numbers.sequence(startnum,startnum+4)}"  
                 th:class="${{page}}== ${n}?'active'"><!-- ★★★ -->
 
                 
                     <span th:if="${n} gt ${lastnum}" th:text="${n}">1</span><!-- ★★★ -->
-                    <a href="list?p=1" th:href="@{list(p=${n})}" th:text="${n}"
+                    <a href="list?p=1" th:href="@{list(p=${n},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}"
                         th:if="${n} le ${lastnum}">1</a>
                 </li>
                 
                 <li><span th:if="${lastnum} lt ${startnum+5}">다음</span>
-                    <a href="list?p=${startnum}+5" th:if="${lastnum} ge ${startnum+5}" th:href="@{list(p=${startnum}+5)}">다음</a>
+                    <a href="list?p=${startnum}+5" th:if="${lastnum} ge ${startnum+5}" th:href="@{list(p=${startnum}+5,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}">다음</a>
                 </li>
             </ul>
 
             </div>
-            <div id="page-move" class="d:flex jc:center ai:center mt:1">
+            <div id="page-move" class="d:flex jc:center ai:center mt:1" 
+            th:with="s = ((${param.s} == null)?5:${{param.s}} == '' )? 5 : ${param.s}
+                    ,endfloatnum=${uqcount} % ${{s}} >0 ? ${uqcount} / ${{s}} +1 :${uqcount} / ${{s}}
+                    ,endintnum=${T(java.lang.Math).floor(endfloatnum)}
+                    ,lastnum=(${endintnum}*10)/10">
                 <input class="n-textbox n-textbox-type:outline w:1" th:placeholder="${param.p}==null? 1 : ${param.p}">
                 <span class="mr:2 ml:2">/</span>
-                <span th:text="${uqcount} mod 5 >0 ? ${uqcount div 5} +1 :${uqcount div 5}">38</span>
+                <span th:text="${lastnum}">38</span>
                 <a href="" class="n-btn n-btn-type:outline deco-ml:1 deco-size:2 deco-pos:right icon:caret_right deco ml:2">Go</a>
-                <!-- TODO go! 자바스크립트.....input의value &최신순 오래된순 -->
             </div>
         </section>
 

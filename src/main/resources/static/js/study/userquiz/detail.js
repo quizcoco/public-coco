@@ -181,22 +181,22 @@ async function nextCard(count,userQ){
     delModal();
  
     // left button ================================================
+    // if (count > 1) {
     document.querySelector(".left").addEventListener("click", async (e) => {
         e.preventDefault();
-        if (count > 1) {
             count--;
             nextCard(count, userQ);
-        }
-    });
+        });
+    // }
  
      // right button ================================================
+    //  if (count < allCount) {
      document.querySelector(".right").addEventListener("click", async (e) => {
         e.preventDefault();
-        if (count < allCount) {
             count++;
             nextCard(count, userQ);
-        }
-    });
+        });
+    // }
 }
 
 /* ============================================ */

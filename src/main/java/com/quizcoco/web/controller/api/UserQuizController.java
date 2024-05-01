@@ -63,7 +63,7 @@ public class UserQuizController {
                            ,@AuthenticationPrincipal CocoUserDetails userDetails
                         // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@RequestParam(name = "category") String cate
-                        ,Model model){
+                        ){
 
         // UserOXQuiz userOXQuiz;
         // UserMultipleQuiz userMultiQuiz;
