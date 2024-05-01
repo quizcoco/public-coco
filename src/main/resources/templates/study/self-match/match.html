@@ -33,7 +33,7 @@
 <body>
  
     <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
-        <h1 class="root-header-title d:none md:d:flex"><span class="header-font">QUIZCOCO</span><span class="white-space:nowrap ln-h:2">- MY HOME</span></h1>
+        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- MY HOME</span></h1>
         <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
             <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">MY HOME</span></h1>
             <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
@@ -63,7 +63,7 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
             </ul>
             <div class="d:flex jc:flex-end pt:6">
                 <a class="fs:1 bd-bottom" sec:authorize="isAuthenticated()" th:href="@{logout}">logout</a>
@@ -205,7 +205,7 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:rank">순위</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
             </ul>
         </nav>
