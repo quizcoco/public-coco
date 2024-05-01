@@ -26,12 +26,6 @@ public class StudyController {
         return "study/setting";
     }
 
-    @GetMapping("self-match/report")
-    public String studyReport(){
-
-        return "study/self-match/report";
-    }
-
     @GetMapping("userquiz/detailspeed")
     public String settingSpeed(){
 

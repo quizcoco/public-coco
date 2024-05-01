@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.quizcoco.web.entity.ExamQuiz;
@@ -24,6 +25,18 @@ public class MatchController {
         model.addAttribute("randQ", randQ);
 
         return "study/self-match/match";
+
+    }
+    @GetMapping("report")
+    public String studyReport(){
+        
+        return "study/self-match/report";
+    }
+    
+    @PostMapping("reg")
+    public String regMatchResolt(){
+
+        return "redirect:study/self-match/report";
 
     }
     

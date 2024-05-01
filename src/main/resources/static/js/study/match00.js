@@ -19,7 +19,6 @@ let beBeaten = quizBox.querySelector(".bebeaten");
 let hpProgressbar = document.querySelector("#hp-progressbar");
 let barStyle = hpProgressbar.querySelector("div>div");
 let hpNow =  hpProgressbar.querySelector(".hp-now");
-let hpTotal =  hpProgressbar.querySelector(".hp-total");
 
 //=============================================================================================
 //퀴즈객체 - 퀴즈매니저 - 유저객체
@@ -28,55 +27,24 @@ class Repository{
     getRandom(){
         return fetch("/api/examQuizs/rand");
     }
-    findCoco(){
-        return fetch("/api/coco/detail");
-    }
 }
 
+class User{
 
-
-
-class Coco{
     constructor(){
 
-        this.id = [];
-        this.wrong = [];
-        // this.getCoco().then((coco)=>{
-            
-        //     this.hp=coco.hp;
-        // });
-
     }
-
-    async getCoco(){
-        let repository = new Repository();
-        let response= await repository.findCoco();
-        let coco = await response.json(); 
-        Object.assign(this, coco);
-        // return coco;
-    }
-    
 }
 
-class Quiz{
-    constructor() {
-        this.hp = null;
-        this.level = null;
-        this.skillId = null;
-        this.id = [];
-        this.wrong = [];
-    }
 
-    async init() {
-        let coco = new Coco();
-        await coco.getCoco();
-        this.hp = coco.hp;
-        this.level = coco.level;
-        this.skillId = coco.skillId;
-        this.id = coco.id || [];
-        this.wrong = coco.wrong || [];
-        return this;
-    }
+class Quiz{
+   constructor(){
+    this.hp=255;
+    this.time=8000;
+    this.id=[];
+    this.wrong=[];
+    //this.click=false;
+   }
 
    async getQuiz(){
     let repository = new Repository();
@@ -85,7 +53,7 @@ class Quiz{
     return randQ;
 }
 
-    newQuiz(coco,randQ){
+    newQuiz(randQ){
 
     quizDivs[0].innerHTML="";
         
@@ -117,13 +85,13 @@ else
 
 
 
-             return this.submitAnswer(submitBtn,answerInputs,randQ,coco);
+             return this.submitAnswer(submitBtn,answerInputs,randQ);
           
             
 
         }
 
-        repeatQuiz(coco,randQ){
+        repeatQuiz(randQ){
         //무엇을 할까? 문제푸는것까지(30초)
 
         quizBox.addEventListener("click",()=> {
@@ -137,9 +105,9 @@ else
 
         
 
-        this.clickSkillBtn(coco); //버튼누르기
+        this.clickSkillBtn(); //버튼누르기
 
-        this.newQuiz(coco,randQ); //문제출력
+        this.newQuiz(randQ); //문제출력
 
 
 
@@ -314,7 +282,7 @@ else
     
     }
 
-     submitAnswer(submitBtn,answerInputs,randQ,coco){
+     submitAnswer(submitBtn,answerInputs,randQ){
         for (let v of answerInputs) {
             v.addEventListener("click",function(){
                 submitBtn.classList.replace("n-btn:filled-4","btn-on");
@@ -332,7 +300,7 @@ else
                     for (let v of answerInputs) {
                         if(v.checked && v.dataset.value !=randQ.answer){//틀림
                             this.id.push(randQ.id);
-                            this.hp -=10;
+                            this.hp -=100;
       
                             answerChecked = true;
                             break; 
@@ -431,24 +399,18 @@ else
 }//class
 
 async function runQuiz(){
-    let coco = new Quiz();
-    await coco.init()
-    hpTotal.textContent=coco.hp; //토탈피통
-        
-    
-
- 
-    // let hp =quiz.hp;
-    let randQ =await coco.getQuiz();
+    let quiz = new Quiz();
+    let hp =quiz.hp;
+    let randQ =await quiz.getQuiz();
     //quiz.encounter().then(response=>response.json()).then(quiz=>quiz.hp);
 
 
-    coco.repeatQuiz(coco,randQ);
+    quiz.repeatQuiz(randQ);
     
     
     //hp = quiz.repeatQuiz().then(response=>response.json()).then(quiz=>quiz.hp);
     console.log("전id"+randQ.id);
-    console.log("전hp"+coco.hp);
+    console.log("전hp"+quiz.hp);
     
 
         
@@ -457,7 +419,6 @@ async function runQuiz(){
 //useEffect(() => {
 runQuiz();
 //}, []);
-
 
     //자동으로 넘어가게...
     // quizBox.addEventListener("click",function(){
