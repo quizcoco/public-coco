@@ -87,11 +87,5 @@ public class UserController {
         
         return "redirect:/user/login";
     }
-
-    @GetMapping("myinfo")
-    public String myInfo(@AuthenticationPrincipal CocoUserDetails userDetails) {
-        
-        return "user/myinfo";
-    }
     
 }
