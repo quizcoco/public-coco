@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quizcoco.web.repository.MatchReportRepository">
+
+
+<insert id="save" parameterType="MatchReport">
+		INSERT INTO match_report
+		(
+            id,
+            reg_date,
+            user_id,
+            wrong_id,
+            correct_id,
+            coco_id,
+            enemy_id,
+            avatar_id
+            
+		)
+		VALUES
+		(
+          	#{id},
+            #{regDate},
+            #{userId},
+            #{wrongId},
+            #{correctId},
+            #{cocoId},
+            #{enemyId},
+            #{avatarId}
+		)
+		
+	</insert>
+
+
+
+
+
+
+</mapper>

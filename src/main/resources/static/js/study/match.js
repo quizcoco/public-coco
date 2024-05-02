@@ -180,6 +180,19 @@ else
         console.log("종료. 틀림:"+this.wrong+"맞음:"+this.correct);
         quizDivs[quizDivs.length-2].classList.add("d:none");
         quizDivs[quizDivs.length-1].classList.remove("d:none");//코코는 기분이 좋아보인다
+
+
+        let report = document.createElement("form");
+        report.type="hidden";
+        report.name="wrong"
+        report.value=this.wrong;
+        quizBox.append(report);
+        let report = document.createElement("form");
+        report.type="hidden";
+        report.name="wrong"
+        report.value=this.wrong;
+        quizBox.append(report);
+        
     }
 
 
@@ -289,7 +302,7 @@ else
                 if(count==7)this.next();
             }
             else if(count < quizDivs.length-1 && this.hp==0)
-                this.closed();
+                this.closed();//await후밖으로?
             //if(!(quizDivs[quizDivs.length-1].classList.contains("d:none")))
             //return ;
         
@@ -438,8 +451,6 @@ async function runQuiz(){
     hpTotal.textContent=coco.hp; //토탈피통
     hpNow.textContent=coco.hp; //토탈피통
         
-    console.log(coco.id);
-
  
     // let hp =quiz.hp;
     let randQ =await coco.getQuiz();
