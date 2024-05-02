@@ -104,9 +104,9 @@
                     </div>
                     <div class="n-expander-content px:2 bg-color:main-2 border-radius:3">
                         <div class="mx:2 my:2">
-                            <div class="reportBox"><span class="ml:3 w:12">1.</span><span class="w:13 ln-clamp:1">괄호 친 표현의 발음이 표준 발음법에 어긋난 것은?</span><span class="ml:1">-5p</span></div>
-                            <div class="reportBox mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">긍정적 사고를 담고 있는 고사 성어는?</span><span class="ml:1">-5p</span></div>
-                            <div class="d:flex jc:center gap:2 mt:2"><span>잃은 포인트</span><span>10</span></div>
+                            <div th:each="wq:${wrongQ}" class="reportBox mb:2"><span class="ml:3 w:12">1.</span><span class="w:13 ln-clamp:1" th:text="${wq.question}">괄호 친 표현의 발음이 표준 발음법에 어긋난 것은?</span><span class="ml:1">-10p</span></div>
+                            <!-- <div class="reportBox mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">긍정적 사고를 담고 있는 고사 성어는?</span><span class="ml:1">-5p</span></div> -->
+                            <div class="d:flex jc:center gap:2"><span>잃은 포인트</span><span>10</span></div>
                         </div>
                     </div>
                 </div>

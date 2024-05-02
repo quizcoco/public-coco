@@ -8,6 +8,6 @@ import com.quizcoco.web.entity.MatchReport;
 public interface MatchReportRepository {
 
 
-    MatchReport save();
+    void save(Long userId,Long quizId,boolean wrong);
     
 }

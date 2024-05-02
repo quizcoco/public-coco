@@ -8,11 +8,9 @@
 <insert id="save" parameterType="MatchReport">
 		INSERT INTO match_report
 		(
-            id,
-            reg_date,
             user_id,
-            wrong_id,
-            correct_id,
+            wrong,
+            quiz_id,
             coco_id,
             enemy_id,
             avatar_id
@@ -20,14 +18,13 @@
 		)
 		VALUES
 		(
-          	#{id},
-            #{regDate},
             #{userId},
-            #{wrongId},
-            #{correctId},
-            #{cocoId},
+            #{wrong},
+            #{quizId},
+            1,1,1
+            <!-- #{cocoId},
             #{enemyId},
-            #{avatarId}
+            #{avatarId} -->
 		)
 		
 	</insert>

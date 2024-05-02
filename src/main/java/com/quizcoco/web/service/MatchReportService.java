@@ -5,7 +5,7 @@ import com.quizcoco.web.entity.MatchReport;
 public interface MatchReportService {
 
 
-    MatchReport reg();
+    void reg(Long userId,Long quiz,boolean wrong);
 
     
 }

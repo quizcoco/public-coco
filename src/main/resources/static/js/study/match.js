@@ -41,6 +41,7 @@ class Coco{
 
         this.correct = [];
         this.wrong = [];
+        this.allQuiz=[];
         // this.getCoco().then((coco)=>{
             
         //     this.hp=coco.hp;
@@ -73,6 +74,7 @@ class Quiz{
         this.skillId = null;
         this.correct = [];
         this.wrong = [];
+        this.allQuiz=[];
     }
 
     async init() {
@@ -82,8 +84,9 @@ class Quiz{
         this.hp = coco.hp;
         this.level = coco.level;
         this.skillId = coco.skillId;
-        this.correct = coco.correct || [];
-        this.wrong = coco.wrong || [];
+        this.correct = coco.correct;
+        this.wrong = coco.wrong;
+        this.allQuiz =coco.allQuiz;
         return this;
     }
 
@@ -124,7 +127,7 @@ else
             let submitBtn = document.querySelector("#submit");
             let answerInputs = document.querySelectorAll("#input input[name='answer']");
 
-
+            this.allQuiz.push(randQ.id);
 
              return this.submitAnswer(submitBtn,answerInputs,randQ);
           
@@ -223,11 +226,12 @@ else
         let cocoId = inputValue("cocoId",this.id);
         let wrongId = inputValue("wrongId",this.wrong);
         let correctId = inputValue("correctId",this.correct);
+        let allQuizId = inputValue("allQuizId",this.allQuiz);
         let enemyId = inputValue("enemyId",null);//XXX 임시
         let avatarId = inputValue("avatarId",null);
 
       
-        form.append(cocoId,wrongId,correctId,enemyId,avatarId);
+        form.append(cocoId,wrongId,correctId,allQuizId,enemyId,avatarId);
         document.body.append(form);
         form.submit();
 

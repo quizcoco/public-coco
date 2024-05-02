@@ -4,23 +4,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.ExamQuiz;
-import com.quizcoco.web.entity.MatchReport;
 import com.quizcoco.web.service.ExamQuizService;
+import com.quizcoco.web.service.MatchReportService;
 
 @Controller
 @RequestMapping("study/self-match")
@@ -28,6 +25,9 @@ public class MatchController {
 
     @Autowired
     private ExamQuizService examQService;
+
+    @Autowired
+    private MatchReportService reportService;
 
     @GetMapping("match")
     public String load(Model model){
@@ -40,35 +40,67 @@ public class MatchController {
 
     }
     @GetMapping("report")
-    public String studyReport(){
+    public String studyReport(Model model){
+
+    //    ExamQuiz examQuiz =  examQService.getById(18);
+    //    model.addAttribute("wrongQ", examQuiz);
+
+      //=======================================퀴즈부르기========================================================
+
+      List<ExamQuiz> list = new ArrayList<>();
+    //   for (String v : wrongIdDataValues) {
+    //       list.add(examQService.getById(Long.parseLong(v.trim()))) ;
+    //   }
+    //   System.out.println(list);
+    //   model.addAttribute("wrongQ", list);
+      
         
         return "study/self-match/report";
     }
     
     @PostMapping("reg")
-    public String regMatchResolt(@RequestParam(name ="cocoId",required = false) Long cocoId ,Long[] wrongId,Long[] correctId,Long enemyId,Long avatarId                       
-                                ,@AuthenticationPrincipal CocoUserDetails userDetails
+    public String regMatchResolt(@RequestParam(name ="cocoId",required = false) Long cocoId ,Long[] wrongId,Long[] correctId,Long[] allQuizId,Long enemyId,Long avatarId                       
+                                ,@AuthenticationPrincipal CocoUserDetails userDetails,RedirectAttributes redirectAttributes
     ){
         Long userId = null; 
         if(userDetails != null)
         userId=userDetails.getId();
 
-        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"+cocoId);
-        System.out.println(Arrays.toString(wrongId));
-        System.out.println(Arrays.toString(correctId));
-        
-       
+
+        String allQuizIdData =Arrays.toString(allQuizId);
         String wrongIdData =Arrays.toString(wrongId);
-        String trimmed = wrongIdData.substring(1, wrongIdData.length() - 1);
+        String trimmedAll = allQuizIdData.substring(1, allQuizIdData.length() - 1);
+        String trimmedwrongId = wrongIdData.substring(1, wrongIdData.length() - 1);
 
-        // 쉼표로 문자열을 나누어 키-값 쌍을 얻음
-        String[] wrongIdDataValues = trimmed.split(",");
+        // 쉼표로 문자열을 나눔
+        String[] allQuizIdDataValues = trimmedAll.split(",");
+        String[] wrongIdDataValues = trimmedwrongId.split(",");
 
-        // 각 키-값 쌍을 처리하여 필요한 작업 수행
-        for (String value : wrongIdDataValues) {
+        for (String value : allQuizIdDataValues) {
             
-            System.out.println(value);
+            boolean wrong =false;
+            for(String v: wrongIdDataValues){
+            if(value.equals(v))
+                wrong=true;
+                
+            
+            }
+            Long quiz = Long.parseLong(value.trim());
+                // System.out.println(quiz);
+            reportService.reg(userId,quiz,wrong);
+
         }
+      //=======================================퀴즈부르기========================================================
+
+      List<ExamQuiz> list = new ArrayList<>();
+      for (String v : wrongIdDataValues) {
+          list.add(examQService.getById(Long.parseLong(v.trim()))) ;
+      }
+      System.out.println(list);
+      redirectAttributes.addAttribute("wrongQ", list);
+      
+      
+    
                 
         return "redirect:report";
 
