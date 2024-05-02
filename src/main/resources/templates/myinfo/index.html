@@ -59,8 +59,44 @@
 
     <main class="of:auto">
 <!--=========================== 메인에 입력 ===============================-->
-    
-           
+<section>
+    <h1 hidden>내 정보</h1>
+        <section class="main-container-center fl-dir:column">
+            <h1 hidden>유저 정보 섹션</h1>
+            <section>
+                <h1 hidden>유저 프로필</h1>
+                <div class="d:flex fl-dir:row">
+                    <nav>
+                        <div class="profile-place">
+                            <a href="" class="profile"></a>
+                        </div>
+                        <ul class="d:flex fl-dir:row">
+                            <li><a href="/myinfo/edit" class="icon icon:pencil_simple">유저 정보 수정</a></li>
+                            <li><a href="/myinfo/stemp" class="icon icon:trophy">달성 스탬프</a></li>
+                            <li><a href="/myinfo/bookmark" class="icon icon:bookmark_simple">북마크</a></li>
+                        </ul>
+                    </nav>
+                    <div>
+                        <ul>
+                            <li><span>별명 : </span><span></span></li>
+                            <li><span>레벨 : </span><span></span></li>
+                            <li><span>경험치 : </span><span></span></li>
+                            <li><span>포인트 : </span><span></span></li>
+                            <li><span>순위 : </span><span></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            <section class="d:flex md:fl-dir:row lg:fl-dir:column jc:right">
+                <h1 hidden>보유 내역</h1>
+                    <div>보유아바타</div>
+                    <div><span></span></div>
+                    <div>보유 코코</div>
+                    <div><span></span></div>
+            </section>
+            <div><a href="/myinfo/inventory">나의 인벤토리</a></div>
+        </section>
+   </section>        
    </main>
 
    <aside class="d:none md:d:flex jc:center right:1 zi:1">
@@ -75,7 +111,7 @@
                     <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
                         <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
-                        <br><span>인벤토리 북마크</span></li>
+                        <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>

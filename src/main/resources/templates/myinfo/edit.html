@@ -7,7 +7,6 @@
 <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
     <link href="/css/components/header.css" rel="stylesheet" type="text/css">
     <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
-    <link href="/css/board.css" rel="stylesheet" type="text/css">
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
@@ -18,9 +17,9 @@
 <body>
  
     <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
-        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- 유저 게시판</span></h1>
+        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- 내 정보 수정</span></h1>
         <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
-            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">유저 게시판</span></h1>
+            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">내 정보 수정</span></h1>
             <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
         </div>
 
@@ -60,30 +59,7 @@
 
     <main class="of:auto">
 <!--=========================== 메인에 입력 ===============================-->
-<section id="reg-form" class="d:flex jc:center ai:center p:8">
-    <h1 class="d:none">유저 게시판 등록 폼</h1>         
-    <form method="post" enctype="multipart/form-data" action="reg" class="d:flex fl-dir:column">
-        <div class="d:flex fl-dir:row">
-            <label class="d:flex fl-dir:row w:1">제목</label>
-            <input type="text" name="title" class="n-textbox n-textbox-user mb:2"/>
-        </div>
-        <div class="d:flex fl-dir:row">
-            <label class="d:flex fl-dir:row w:1">본문</label>
-            <textarea type="text" name="content" class="n-textbox h:9 n-textbox-user my:2"></textarea>
-        </div>
-        <div class="img-label d:flex fl-dir:row my:2">
-            <label class="d:flex fl-dir:row ai:center">이미지첨부
-                    <input type="file" name="img-file" class="img-input vis:hidden" multiple/>
-                    <span class="n-btn n-btn:filled-2">열기</span>
-            </label>
-        </div>
-        <div class="preview-panel d:flex ai:center jc:center"></div>
-        <div class="d:flex fl-dir:row gap:3 jc:flex-end">
-            <button class="n-btn n-btn:filled-2">등록</button>
-            <a href="list" class="n-btn n-btn:filled-2">취소</a>
-        </div>
-    </form>     
-</section> 
+    
            
    </main>
 
@@ -122,14 +98,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
