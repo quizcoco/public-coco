@@ -247,21 +247,43 @@ utill.css 목록
 }
 
 
-/* ox용 버튼 추가---------------------------------------------------------- */
 
-.n-btn\:filled-o {
-    background-color: var(--color-base-1) !important;
-    border: 1px solid transparent !important;
-    color: var(--color-base-8) !important;
-    width: 55px !important;
- }
+/* 보유 버튼 추가---------------------------------------------------------- */
 
- .n-btn\:filled-x {
+.n-btn\:filled-on {
     background-color: var(--color-main-2) !important;
+    border-radius: 12px !important; 
     border: 1px solid transparent !important;
     color: var(--color-base-8) !important;
-    width: 55px !important;
+    width: 130px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
  }
+
+ .n-btn\:filled-off {
+    background-color: var(--color-base-3) !important;
+    border-radius: 12px !important; 
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+    width: 130px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+ }
+ 
+ .n-btn\:long-btn {
+    background-color: var(--color-main-2) !important;
+    border-radius: 15px !important; 
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+    width: 300px !important;
+    height: 60px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+ }
+
 
 /* -----------sign in 버튼------------------- */
 

@@ -16,4 +16,28 @@ public class MyInfoController {
         
         return "myinfo/index";
     }
+
+    @GetMapping("edit")
+    public String edit() {
+
+        return "myinfo/edit";
+    }
+
+    @GetMapping("bookmark")
+    public String bookmark() {
+
+        return "myinfo/bookmark";
+    }
+
+    @GetMapping("stemp")
+    public String stemp() {
+        
+        return "myinfo/stemp";
+    }
+
+    @GetMapping("inventory")
+    public String inventory() {
+
+        return "myinfo/inventory";
+    }
 }
