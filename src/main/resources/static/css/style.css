@@ -10,8 +10,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Kavoon&display=swap');
 /* 갈무리 */
 /* @import url('https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css'); */
-@import url("https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css");
-
+/* @import url("https://cdn.jsdelivr.net/npm/galmuri/dist/galmuri.css"); */
+@import url("https://fastly.jsdelivr.net/npm/galmuri/dist/galmuri.css");
 /* 둥근모 */
 @font-face {
     font-family: 'DungGeunMo';
@@ -53,7 +53,7 @@ body{
     flex-direction: column;
     height: 100%;
     width: 100%;
-    font-family: "Galmuri14", sans-serif;
+    font-family: var(--font-5);
 
     /* -----------------반응형------------------- */
     @media screen and (width>768px) {

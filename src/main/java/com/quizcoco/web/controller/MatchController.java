@@ -36,6 +36,9 @@ public class MatchController {
     @PostMapping("reg")
     public String regMatchResolt(){
 
+
+        
+
         return "redirect:study/self-match/report";
 
     }
