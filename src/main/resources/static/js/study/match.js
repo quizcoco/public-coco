@@ -41,6 +41,7 @@ class Coco{
 
         this.correct = [];
         this.wrong = [];
+        this.allQuiz=[];
         // this.getCoco().then((coco)=>{
             
         //     this.hp=coco.hp;
@@ -58,6 +59,14 @@ class Coco{
     
 }
 
+function inputValue(dataName,data){ 
+    let report = document.createElement("input");
+report.type="hidden";
+report.name= dataName;
+report.value=data;
+return report;
+} 
+
 class Quiz{
     constructor() {
         this.hp = null;
@@ -65,16 +74,19 @@ class Quiz{
         this.skillId = null;
         this.correct = [];
         this.wrong = [];
+        this.allQuiz=[];
     }
 
     async init() {
         let coco = new Coco();
         await coco.getCoco();
+        this.id= coco.id;
         this.hp = coco.hp;
         this.level = coco.level;
         this.skillId = coco.skillId;
-        this.correct = coco.correct || [];
-        this.wrong = coco.wrong || [];
+        this.correct = coco.correct;
+        this.wrong = coco.wrong;
+        this.allQuiz =coco.allQuiz;
         return this;
     }
 
@@ -115,7 +127,7 @@ else
             let submitBtn = document.querySelector("#submit");
             let answerInputs = document.querySelectorAll("#input input[name='answer']");
 
-
+            this.allQuiz.push(randQ.id);
 
              return this.submitAnswer(submitBtn,answerInputs,randQ);
           
@@ -182,16 +194,47 @@ else
         quizDivs[quizDivs.length-1].classList.remove("d:none");//코코는 기분이 좋아보인다
 
 
-        let report = document.createElement("form");
-        report.type="hidden";
-        report.name="wrong"
-        report.value=this.wrong;
-        quizBox.append(report);
-        let report = document.createElement("form");
-        report.type="hidden";
-        report.name="wrong"
-        report.value=this.wrong;
-        quizBox.append(report);
+        // (async (event) =>{
+        //     // event.preventDefault();
+        //     const COMMON_URL = 'http://localhost:8080';
+        
+            // const reportData = {
+            //     'cocoId' : this.id,
+            //     'wrongId' : this.wrong,
+            //     'correctId':this.correct,
+            //     'enemyId':null,
+            //     'avatarId':null
+
+            // };
+        
+        //     const option = {
+        //         method : 'POST',
+        //         headers:{
+        //             'Content-Type' : 'application/json'
+        //         },
+        //         body: JSON.stringify(reportData)
+        //     };
+        
+        //     const res = await fetch(`${COMMON_URL}/study/self-match/reg`, {
+        //         ...option
+        //     });
+        // })();
+
+        let form = document.createElement("form");
+        form.method="post";
+        form.action="reg";
+        let cocoId = inputValue("cocoId",this.id);
+        let wrongId = inputValue("wrongId",this.wrong);
+        let correctId = inputValue("correctId",this.correct);
+        let allQuizId = inputValue("allQuizId",this.allQuiz);
+        let enemyId = inputValue("enemyId",null);//XXX 임시
+        let avatarId = inputValue("avatarId",null);
+
+      
+        form.append(cocoId,wrongId,correctId,allQuizId,enemyId,avatarId);
+        document.body.append(form);
+        form.submit();
+
         
     }
 

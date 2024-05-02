@@ -73,7 +73,7 @@
                     <div class="d:flex jc:center">1인 대결입니다.</div>
                     <div class="d:flex jc:center gap:2"><span>총 문제 수</span><span>17문제</span></div>
                     <div class="d:flex jc:center gap:2"><span>푼 문제 수</span><span>1문제</span></div>
-                    <div class="d:flex jc:center">제한시간 40초</div>
+                    <div class="d:none d:flex jc:center">제한시간 40초</div>
                 </div>
             </section>
         </section>
@@ -104,9 +104,9 @@
                     </div>
                     <div class="n-expander-content px:2 bg-color:main-2 border-radius:3">
                         <div class="mx:2 my:2">
-                            <div class="reportBox"><span class="ml:3 w:12">1.</span><span class="w:13 ln-clamp:1">괄호 친 표현의 발음이 표준 발음법에 어긋난 것은?</span><span class="ml:1">-5p</span></div>
-                            <div class="reportBox mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">긍정적 사고를 담고 있는 고사 성어는?</span><span class="ml:1">-5p</span></div>
-                            <div class="d:flex jc:center gap:2 mt:2"><span>잃은 포인트</span><span>10</span></div>
+                            <div th:each="wq:${wrongQ}" class="reportBox mb:2"><span class="ml:3 w:12">1.</span><span class="w:13 ln-clamp:1" th:text="${wq.question}">괄호 친 표현의 발음이 표준 발음법에 어긋난 것은?</span><span class="ml:1">-10p</span></div>
+                            <!-- <div class="reportBox mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">긍정적 사고를 담고 있는 고사 성어는?</span><span class="ml:1">-5p</span></div> -->
+                            <div class="d:flex jc:center gap:2"><span>잃은 포인트</span><span>10</span></div>
                         </div>
                     </div>
                 </div>
@@ -165,7 +165,7 @@
             </div>
         </section> -->
 
-        <section class=" matchReport" tabindex="-1">
+        <!-- <section class=" matchReport" tabindex="-1">
             <h1 class="d:none">문제 디테일</h1>
             <div class="p:2">
                 <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
@@ -175,7 +175,7 @@
                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num4}">④감언지지</span><br>
                 <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${userQuiz.answer}">답</span>
             </div>
-        </section>
+        </section> -->
 
         <!--=========================== 메인 끝 ===============================-->
     </main>

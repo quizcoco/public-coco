@@ -19,8 +19,8 @@ private long id;
 private LocalDateTime regDate;
 private long userId;
 
-private long wrongId;
-private long correctId;
+private long quizId;
+private boolean wrong;
 
 private long cocoId;
 private long enemyId;
