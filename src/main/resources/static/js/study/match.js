@@ -58,6 +58,14 @@ class Coco{
     
 }
 
+function inputValue(dataName,data){ 
+    let report = document.createElement("input");
+report.type="hidden";
+report.name= dataName;
+report.value=data;
+return report;
+} 
+
 class Quiz{
     constructor() {
         this.hp = null;
@@ -70,6 +78,7 @@ class Quiz{
     async init() {
         let coco = new Coco();
         await coco.getCoco();
+        this.id= coco.id;
         this.hp = coco.hp;
         this.level = coco.level;
         this.skillId = coco.skillId;
@@ -182,16 +191,46 @@ else
         quizDivs[quizDivs.length-1].classList.remove("d:none");//코코는 기분이 좋아보인다
 
 
-        let report = document.createElement("form");
-        report.type="hidden";
-        report.name="wrong"
-        report.value=this.wrong;
-        quizBox.append(report);
-        let report = document.createElement("form");
-        report.type="hidden";
-        report.name="wrong"
-        report.value=this.wrong;
-        quizBox.append(report);
+        // (async (event) =>{
+        //     // event.preventDefault();
+        //     const COMMON_URL = 'http://localhost:8080';
+        
+            // const reportData = {
+            //     'cocoId' : this.id,
+            //     'wrongId' : this.wrong,
+            //     'correctId':this.correct,
+            //     'enemyId':null,
+            //     'avatarId':null
+
+            // };
+        
+        //     const option = {
+        //         method : 'POST',
+        //         headers:{
+        //             'Content-Type' : 'application/json'
+        //         },
+        //         body: JSON.stringify(reportData)
+        //     };
+        
+        //     const res = await fetch(`${COMMON_URL}/study/self-match/reg`, {
+        //         ...option
+        //     });
+        // })();
+
+        let form = document.createElement("form");
+        form.method="post";
+        form.action="reg";
+        let cocoId = inputValue("cocoId",this.id);
+        let wrongId = inputValue("wrongId",this.wrong);
+        let correctId = inputValue("correctId",this.correct);
+        let enemyId = inputValue("enemyId",null);//XXX 임시
+        let avatarId = inputValue("avatarId",null);
+
+      
+        form.append(cocoId,wrongId,correctId,enemyId,avatarId);
+        document.body.append(form);
+        form.submit();
+
         
     }
 
