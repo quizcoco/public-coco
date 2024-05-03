@@ -97,7 +97,7 @@ public class MatchController {
           list.add(examQService.getById(Long.parseLong(v.trim()))) ;
       }
       System.out.println(list);
-      redirectAttributes.addAttribute("wrongQ", list);
+      redirectAttributes.addFlashAttribute("wrongQ", list);
       
       
     
