@@ -61,19 +61,19 @@
 <!--=========================== 메인에 입력 ===============================-->
     <section>
         <h1 class="fw:3 fs:5">학습순위</h1>
-        <table>
+        <table class="mt:4">
             <thead>
-                <tr>
-                    <th>순위</th>
-                    <th>프로필사진</th>
-                    <th>닉네임</th>
-                    <th>포인트</th>
+                <tr class="fs:3 fw:2">
+                    <th class="pr:3">순위</th>
+                    <th class="pr:3">프로필사진</th>
+                    <th class="pr:3">닉네임</th>
+                    <th class="pr:3">포인트</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="user, i : ${users}">
                     <td th:text="${i.index + 1}">순위</td>
-                    <td><img src="">프로필사진</td>
+                    <td><img src="/image/logo.png" width="30px" height="30px"></td>
                     <td th:text="${user.nickName}">닉네임</td>
                     <td th:text="${user.point}">포인트</td>
                 </tr>
