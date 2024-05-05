@@ -14,4 +14,14 @@
   from user  
 </select>
 
+<!-- 내 정보 페이지에 순위 표시 -->
+<select id="findRankByUserId" resultType="int" parameterType="String">
+  select rank
+  from (
+    select row_number() over (order by point desc) as rank, username
+    from user
+  ) as ranked_users
+  where username = #{username}
+</select>  
+
 </mapper>

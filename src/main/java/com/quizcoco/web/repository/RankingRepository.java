@@ -10,5 +10,7 @@ import com.quizcoco.web.entity.User;
 public interface RankingRepository {
 
     List<User> findAllByOrderByPoint();
+
+    int findRankByUserId(String userId);
     
 }
