@@ -37,6 +37,7 @@ public interface UserQuizService {
     void delById(Long id, String cate);
     
     void edit(UserOXQuiz userOXQuiz,long userId, Long id, String cate);
+    void edit(UserShortQuiz UserShortQuiz,long userId, Long id, String cate);
     void edit(UserMultipleQuiz userMultipleQuiz,long userId, Long id,  String cate);
 
 

@@ -55,53 +55,17 @@ public class UserQuizController {
 
         model.addAttribute("userQuiz", userQuizView);
         model.addAttribute("uqcount", UQcount);
-        
-        
-        //=============================ox============================================
-        
-        //System.out.println("----------------------------"+userId+size);
-
-        // if(userId==null) {
-        //     return "";
-        // }
-        // int count = 0;;
-
-        // List<UserOXQuiz> userOXQuiz = new ArrayList<>();
-        // if(query != null){
-        //     userOXQuiz = service. getOXList(query,userId,page, size);
-        //     count = service.getCount(query);
-        // }
-        // else{
-        //     userOXQuiz = service. getOXList(userId,page, size);
-        //     count = service.getCount();
-        // }
-
-        // model.addAttribute("useroxq", userOXQuiz);
-        // model.addAttribute("count", count);
-
-
-
-
-        
 
         return "study/userquiz/list";
     }   
 
-    // @GetMapping("detail")
-    // public String detail () {
-    //     return "study/userquiz/detail";
-    // }
-
-    // 3개로 나눠서 detail로 보냄
-    /* 유저가 만든 문제 디테일 페이지 // js말고 컨트롤러에서 직접 분류나눠서 뿌려주기ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
-    /* OXㅡㅡㅡuser_oxㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
     @GetMapping("detail")
     public String detail(Long id
     ,@AuthenticationPrincipal CocoUserDetails userDetails
-    // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
     ,@RequestParam(name = "category") String cate
     ,Model model) {
 
+        /* OXㅡㅡㅡuser_oxㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   */
         Long userId=null;
         if(userDetails != null)
         userId=userDetails.getId();
@@ -118,27 +82,10 @@ public class UserQuizController {
         count = service.getCount(userId);
         model.addAttribute("count", count);
 
-        // UserOXQuiz userOXQuiz = service. getByOXQuizId(id);
-        // UserMultipleQuiz userMultipleQuiz = service.getByMultipleQuizId(id);
-        // UserShortQuiz userShortQuiz = service.getByShortQuizId(id);
-        
-        // if(userOXQuiz!=null&& userQuizView.getId()==userOXQuiz.getId() && userQuizView.getCategory().equals("ox"))
-        // model.addAttribute("useroxq", userOXQuiz);
-        
-        // if(userMultipleQuiz !=null&& userQuizView.getId()==userMultipleQuiz.getId() && userQuizView.getCategory().equals("multi"))
-        // model.addAttribute("usermultiq", userMultipleQuiz);
-        
-        // if(userShortQuiz != null && userQuizView.getId()==userShortQuiz.getId() && userQuizView.getCategory().equals("short"))
-        //     model.addAttribute("usershortq", userShortQuiz);
-
-        // System.out.println("============================"+userOXQuiz);
-        // System.out.println(userMultipleQuiz);
-        // System.out.println(userShortQuiz);
-           
         return "study/userquiz/detail";
     }
 
-    /* 사지선다ㅡㅡㅡuser_multiple_choice_quizㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+    /* 사지선다ㅡㅡㅡuser_multiple_choice_quizㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
     @GetMapping("detail/multi")
     public String detailMulti(Long id, Model model) {
 
@@ -166,7 +113,7 @@ public class UserQuizController {
         return "study/userquiz/detail";
     }
     
-    /* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */
+    /* ============================================================================================================ */
 
     // 유저 문제 등록 페이지
     @GetMapping("reg")
@@ -178,9 +125,7 @@ public class UserQuizController {
     @PostMapping("reg")
     public String reg(@RequestParam(name = "cate" ,defaultValue = "multi") String cate
     ,@AuthenticationPrincipal CocoUserDetails userDetails
-                        // @RequestParam(defaultValue = "1") long userId,
                         ,@RequestParam(name = "multiAnswer", required = false) Integer multiAnswer
-    /* UserOXQuiz userOXQuiz, UserMultipleQuiz userMultipleQuiz, UserShortQuiz userShortQuiz */
     ,String question, String num1, String num2, String num3, String num4, String answer, String commentary
     
     ){
@@ -200,36 +145,14 @@ public class UserQuizController {
         return "redirect:reg";
     }
 
-    // ================================================================================
+    /* ============================================================================================================ */
 
     //수정페이지
     @GetMapping("edit")
     public String edit(@RequestParam("id") Long id
                         ,@AuthenticationPrincipal CocoUserDetails userDetails
-                        // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@RequestParam(name = "category") String cate
                         ,Model model){
-
-        // UserOXQuiz userOXQuiz;
-        // UserMultipleQuiz userMultiQuiz;
-        // UserShortQuiz userShortQuiz;
-
-
-        // System.out.println("================================================"+id+cate);
-        // if(cate.equals("ox")){
-
-        //  userOXQuiz = service.getByOXQuizId(id);
-        //  model.addAttribute("examq", userOXQuiz);}
-
-        //  if(cate.equals("multi")){
-
-        //  userMultiQuiz = service.getByMultipleQuizId(id);
-        //  model.addAttribute("examq", userMultiQuiz);}
-
-        //  if(cate.equals("short")){
-
-        //  userShortQuiz = service.getByShortQuizId(id);
-        //  model.addAttribute("examq", userShortQuiz);}
 
         return "study/userquiz/edit";
     }
@@ -238,29 +161,24 @@ public class UserQuizController {
     @PostMapping("edit")
     public String edit(@RequestParam("id") Long id
                         ,@AuthenticationPrincipal CocoUserDetails userDetails
-                        // ,@RequestParam(defaultValue = "1"/* ☆임시-userid(첫번째)*/) Long userId
                         ,@RequestParam(name = "cate") String cate
-                        /* ,UserOXQuiz newOXQuiz*/
                         ,String question, String num1, String num2, String num3, String num4, String answer, Integer multiAnswer, String commentary
                         ){ 
         
-            Long userId=null;
-            if(userDetails != null)
-            userId=userDetails.getId();
-
-        // UserQuizView userQuizView = service.getListById(id, userId, cate);
+        Long userId=null;
+        if(userDetails != null)
+        userId=userDetails.getId();
 
         UserOXQuiz oxQuiz = service.getByOXQuizId(id);
         UserShortQuiz shortQuiz = service.getByShortQuizId(id);
         UserMultipleQuiz multipleQuiz = service.getByMultipleQuizId(id);
 
+        if(cate.equals("ox")){
 
-        if(!cate.equals("multi")){
-
-            oxQuiz.setQuestion(question);        
+            oxQuiz.setQuestion(question);
             oxQuiz.setAnswer(answer);
             oxQuiz.setCommentary(commentary);
-            service.edit(oxQuiz,userId, id,  cate);
+            service.edit(oxQuiz, userId, id, cate);
         };
         
         if(cate.equals("multi")){
@@ -272,16 +190,16 @@ public class UserQuizController {
             multipleQuiz.setNum4(num4);
             multipleQuiz.setAnswer(multiAnswer);
             multipleQuiz.setCommentary(commentary);
-            service.edit(multipleQuiz,userId,id, cate);
+            service.edit(multipleQuiz, userId, id, cate);
         };
 
-        // if(cate.equals("short")){
+        if(cate.equals("short")){
             
-        //     shortQuiz.setQuestion(newQuiz.getQuestion());
-        //     shortQuiz.setAnswer(newQuiz.getAnswer());
-        //     shortQuiz.setCommentary(newQuiz.getCommentary());
-        //     service.edit(shortQuiz,cate);
-        // };
+            shortQuiz.setQuestion(question);
+            shortQuiz.setAnswer(answer);
+            shortQuiz.setCommentary(commentary);
+            service.edit(shortQuiz, userId, id, cate);
+        };
 
         return "redirect:list";
     }
@@ -324,30 +242,24 @@ public class UserQuizController {
         service.delById(qID, category); 
 
         return "redirect:list";
-
     }
 
-/* TODO 슬라이드!! */
-@GetMapping("slide")
-public String slide(Long id
-,@AuthenticationPrincipal CocoUserDetails userDetails
-// ,@RequestParam(name = "category") String cate
-,Model model){
+    /* TODO 슬라이드!! */
+    @GetMapping("slide")
+    public String slide(Long id
+    ,@AuthenticationPrincipal CocoUserDetails userDetails
+    // ,@RequestParam(name = "category") String cate
+    ,Model model){
 
-    Long userId=null; //기본값.. 인증한 유저아이디를 받아와요
-    if(userDetails != null)
-    userId=userDetails.getId();
+        Long userId=null; //기본값.. 인증한 유저아이디를 받아와요
+        if(userDetails != null)
+        userId=userDetails.getId();
 
-    // UserQuizView userQuizView = service.getListById(id, userId, cate);
+        // UserQuizView userQuizView = service.getListById(id, userId, cate);
 
-    // model.addAttribute("userQuiz", userQuizView);
+        // model.addAttribute("userQuiz", userQuizView);
 
-
-
-    return "study/userquiz/slide";
-}
-
-
-
+        return "study/userquiz/slide";
+    }
 
 }
