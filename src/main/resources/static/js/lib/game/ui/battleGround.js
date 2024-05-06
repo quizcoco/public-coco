@@ -52,7 +52,7 @@ export default class BattleGround{
         // setTimeout(()=>{
             this.#coco = new Coco();
             this.bug = new Bug();
-            this.fire = new Firework();
+            // this.fire = new Firework();
 
             
             // },1000)

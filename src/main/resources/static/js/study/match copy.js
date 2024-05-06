@@ -19,6 +19,7 @@ let beBeaten = quizBox.querySelector(".bebeaten");
 let hpProgressbar = document.querySelector("#hp-progressbar");
 let barStyle = hpProgressbar.querySelector("div>div");
 let hpNow =  hpProgressbar.querySelector(".hp-now");
+let hpTotal =  hpProgressbar.querySelector(".hp-total");
 
 //=============================================================================================
 //퀴즈객체 - 퀴즈매니저 - 유저객체
@@ -27,24 +28,67 @@ class Repository{
     getRandom(){
         return fetch("/api/examQuizs/rand");
     }
-}
-
-class User{
-
-    constructor(){
-
+    findCoco(){
+        return fetch("/api/coco/detail");
     }
 }
 
 
+
+
+class Coco{
+    constructor(){
+
+        this.correct = [];
+        this.wrong = [];
+        this.allQuiz=[];
+        // this.getCoco().then((coco)=>{
+            
+        //     this.hp=coco.hp;
+        // });
+
+    }
+
+    async getCoco(){
+        let repository = new Repository();
+        let response= await repository.findCoco();
+        let coco = await response.json(); 
+        Object.assign(this, coco);
+        // return coco;
+    }
+    
+}
+
+function inputValue(dataName,data){ 
+    let report = document.createElement("input");
+report.type="hidden";
+report.name= dataName;
+report.value=data;
+return report;
+} 
+
 class Quiz{
-   constructor(){
-    this.hp=255;
-    this.time=8000;
-    this.id=[];
-    this.wrong=[];
-    //this.click=false;
-   }
+    constructor() {
+        this.hp = null;
+        this.level = null;
+        this.skillId = null;
+        this.correct = [];
+        this.wrong = [];
+        this.allQuiz=[];
+    }
+
+    async init() {
+        let coco = new Coco();
+        await coco.getCoco();
+        this.id= coco.id;
+        this.hp = coco.hp;
+        this.level = coco.level;
+        this.skillId = coco.skillId;
+        this.correct = coco.correct;
+        this.wrong = coco.wrong;
+        this.allQuiz =coco.allQuiz;
+        return this;
+    }
 
    async getQuiz(){
     let repository = new Repository();
@@ -83,7 +127,7 @@ else
             let submitBtn = document.querySelector("#submit");
             let answerInputs = document.querySelectorAll("#input input[name='answer']");
 
-
+            this.allQuiz.push(randQ.id);
 
              return this.submitAnswer(submitBtn,answerInputs,randQ);
           
@@ -92,7 +136,7 @@ else
         }
 
         repeatQuiz(randQ){
-        //무엇을 할까? 문제푸는것까지(30초)
+        //무엇을 할까? 
 
         quizBox.addEventListener("click",()=> {
             quizDivs[7].classList.add("d:none");//다음문제를 풀자
@@ -145,9 +189,53 @@ else
            
     }
     closed(){//TODO 종료:코코는 기분이 좋아보인다 
-        console.log("종료");
+        console.log("종료. 틀림:"+this.wrong+"맞음:"+this.correct);
         quizDivs[quizDivs.length-2].classList.add("d:none");
         quizDivs[quizDivs.length-1].classList.remove("d:none");//코코는 기분이 좋아보인다
+
+
+        // (async (event) =>{
+        //     // event.preventDefault();
+        //     const COMMON_URL = 'http://localhost:8080';
+        
+            // const reportData = {
+            //     'cocoId' : this.id,
+            //     'wrongId' : this.wrong,
+            //     'correctId':this.correct,
+            //     'enemyId':null,
+            //     'avatarId':null
+
+            // };
+        
+        //     const option = {
+        //         method : 'POST',
+        //         headers:{
+        //             'Content-Type' : 'application/json'
+        //         },
+        //         body: JSON.stringify(reportData)
+        //     };
+        
+        //     const res = await fetch(`${COMMON_URL}/study/self-match/reg`, {
+        //         ...option
+        //     });
+        // })();
+
+        let form = document.createElement("form");
+        form.method="post";
+        form.action="reg";
+        let cocoId = inputValue("cocoId",this.id);
+        let wrongId = inputValue("wrongId",this.wrong);
+        let correctId = inputValue("correctId",this.correct);
+        let allQuizId = inputValue("allQuizId",this.allQuiz);
+        let enemyId = inputValue("enemyId",null);//XXX 임시
+        let avatarId = inputValue("avatarId",null);
+
+      
+        form.append(cocoId,wrongId,correctId,allQuizId,enemyId,avatarId);
+        document.body.append(form);
+        form.submit();
+
+        
     }
 
 
@@ -238,8 +326,9 @@ else
      
         let count =4;
         let nowSayGoodBye=false;
+        let fullHP = hpTotal.textContent;
         //hp피통 이미지 표시
-        let progress = ((this.hp)/255)*100 ;
+        let progress = ((this.hp)/fullHP)*100 ;
         if(progress<0){progress=0;this.hp=0;}
 
         quizBox.addEventListener("click",()=>{//타격을 입었다 까지..
@@ -256,7 +345,7 @@ else
                 if(count==7)this.next();
             }
             else if(count < quizDivs.length-1 && this.hp==0)
-                this.closed();
+                this.closed();//await후밖으로?
             //if(!(quizDivs[quizDivs.length-1].classList.contains("d:none")))
             //return ;
         
@@ -299,14 +388,15 @@ else
                     let answerChecked = false;
                     for (let v of answerInputs) {
                         if(v.checked && v.dataset.value !=randQ.answer){//틀림
-                            this.id.push(randQ.id);
-                            this.hp -=100;
+                            this.wrong.push(randQ.id);
+                            this.hp -=10;
       
                             answerChecked = true;
                             break; 
                         }
                         else if(v.checked && v.dataset.value ==randQ.answer){//맞음
                             answerChecked = true;
+                            this.correct.push(randQ.id);
                             break;
                         }
                     }
@@ -399,18 +489,23 @@ else
 }//class
 
 async function runQuiz(){
-    let quiz = new Quiz();
-    let hp =quiz.hp;
-    let randQ =await quiz.getQuiz();
+    let coco = new Quiz();
+    await coco.init()
+    hpTotal.textContent=coco.hp; //토탈피통
+    hpNow.textContent=coco.hp; //토탈피통
+        
+ 
+    // let hp =quiz.hp;
+    let randQ =await coco.getQuiz();
     //quiz.encounter().then(response=>response.json()).then(quiz=>quiz.hp);
 
 
-    quiz.repeatQuiz(randQ);
+    coco.repeatQuiz(randQ);
     
     
     //hp = quiz.repeatQuiz().then(response=>response.json()).then(quiz=>quiz.hp);
     console.log("전id"+randQ.id);
-    console.log("전hp"+quiz.hp);
+    console.log("전hp"+coco.hp);
     
 
         
@@ -419,6 +514,7 @@ async function runQuiz(){
 //useEffect(() => {
 runQuiz();
 //}, []);
+
 
     //자동으로 넘어가게...
     // quizBox.addEventListener("click",function(){

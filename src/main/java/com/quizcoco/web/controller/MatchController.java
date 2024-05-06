@@ -59,22 +59,28 @@ public class MatchController {
     }
     
     @PostMapping("reg")
-    public String regMatchResolt(@RequestParam(name ="cocoId",required = false) Long cocoId ,Long[] wrongId,Long[] correctId,Long[] allQuizId,Long enemyId,Long avatarId                       
+    public String regMatchResolt(@RequestParam(name ="cocoId",required = false) Long cocoId ,Long[] wrongId,Long[] correctId,Long[] allQuizId,Long enemyId,Long avatarId ,boolean win
                                 ,@AuthenticationPrincipal CocoUserDetails userDetails,RedirectAttributes redirectAttributes
     ){
         Long userId = null; 
         if(userDetails != null)
         userId=userDetails.getId();
-
-
+        System.out.println("총 결과는 무엇입니까:"+allQuizId.length);
+        System.out.println("맞힌 결과는 무엇입니까:"+correctId.length);
+        
+        
         String allQuizIdData =Arrays.toString(allQuizId);
         String wrongIdData =Arrays.toString(wrongId);
+        String correctIdData =Arrays.toString(correctId);
+        // System.out.println("결과는 무엇입니까:"+correctIdData.length());//2
         String trimmedAll = allQuizIdData.substring(1, allQuizIdData.length() - 1);
-        String trimmedwrongId = wrongIdData.substring(1, wrongIdData.length() - 1);
+        String trimmedWrongId = wrongIdData.substring(1, wrongIdData.length() - 1);
+        String trimmedCorrectId = correctIdData.substring(1, correctIdData.length() - 1);
 
         // 쉼표로 문자열을 나눔
         String[] allQuizIdDataValues = trimmedAll.split(",");
-        String[] wrongIdDataValues = trimmedwrongId.split(",");
+        String[] wrongIdDataValues = trimmedWrongId.split(",");
+        String[] correctIdDataValues = trimmedCorrectId.split(",");
 
         for (String value : allQuizIdDataValues) {
             
@@ -90,19 +96,61 @@ public class MatchController {
             reportService.reg(userId,quiz,wrong);
 
         }
-      //=======================================퀴즈부르기========================================================
+      //=======================================퀴즈 보고서========================================================
 
-      List<ExamQuiz> list = new ArrayList<>();
-      for (String v : wrongIdDataValues) {
-          list.add(examQService.getById(Long.parseLong(v.trim()))) ;
-      }
-      System.out.println(list);
-      redirectAttributes.addFlashAttribute("wrongQ", list);
-      
-      
-    
-                
+      System.out.println("이겼나요?"+win);
+      redirectAttributes.addFlashAttribute("win", win);
+
+      if (allQuizId.length==0){
+        redirectAttributes.addFlashAttribute("allQ", null);
         return "redirect:report";
+      }
+        List<ExamQuiz> allList = new ArrayList<>();
+        for (String v : allQuizIdDataValues) {
+            allList.add(examQService.getById(Long.parseLong(v.trim()))) ;
+      }
+        redirectAttributes.addFlashAttribute("allQ", allList);
+
+        
+        
+        if (wrongId.length==0){//다맞음
+            redirectAttributes.addFlashAttribute("wrongQ", null);
+            List<ExamQuiz> correctList = new ArrayList<>();
+            for (String v : correctIdDataValues) {
+                correctList.add(examQService.getById(Long.parseLong(v.trim()))) ;
+            }
+            redirectAttributes.addFlashAttribute("correctQ", correctList);
+            return "redirect:report";
+        }
+        
+        if (correctId.length==0){//다틀림
+            redirectAttributes.addFlashAttribute("correctQ", null);
+            List<ExamQuiz> wrongList = new ArrayList<>();
+            for (String v : wrongIdDataValues) {
+              wrongList.add(examQService.getById(Long.parseLong(v.trim()))) ;
+            }
+            redirectAttributes.addFlashAttribute("wrongQ", wrongList);
+            return "redirect:report";
+        }
+    
+      List<ExamQuiz> wrongList = new ArrayList<>();
+      for (String v : wrongIdDataValues) {
+        wrongList.add(examQService.getById(Long.parseLong(v.trim()))) ;
+      }
+      redirectAttributes.addFlashAttribute("wrongQ", wrongList);
+
+    List<ExamQuiz> correctList = new ArrayList<>();
+        for (String v : correctIdDataValues) {
+            correctList.add(examQService.getById(Long.parseLong(v.trim()))) ;
+        }
+        redirectAttributes.addFlashAttribute("correctQ", correctList);
+    
+      
+  
+   
+
+    return "redirect:report";
+                
 
     }
     

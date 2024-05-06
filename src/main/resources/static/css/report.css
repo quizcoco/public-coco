@@ -9,7 +9,7 @@
 }
 
 /* 박스문제 */
-.reportBox{
+.report-box{
     display: flex;
     gap: 8px;
     background-color: #ffffff ;
