@@ -19,5 +19,10 @@ public class RankingServiceImp implements RankingService {
         
         return repository.findAllByOrderByPoint();
     }
+
+    public int getUserRank(String userId) {
+
+        return repository.findRankByUserId(userId);
+    }
     
 }
