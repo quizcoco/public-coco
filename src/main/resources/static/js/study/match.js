@@ -20,9 +20,18 @@ let hpProgressbar = document.querySelector("#hp-progressbar");
 let barStyle = hpProgressbar.querySelector("div>div");
 let hpNow =  hpProgressbar.querySelector(".hp-now");
 let hpTotal =  hpProgressbar.querySelector(".hp-total");
+let level =  document.querySelector(".level");
 
 //=============================================================================================
 //퀴즈객체 - 퀴즈매니저 - 유저객체
+
+function inputValue(dataName,data){ 
+    let report = document.createElement("input");
+report.type="hidden";
+report.name= dataName;
+report.value=data;
+return report;
+} 
 
 class Repository{
     getRandom(){
@@ -34,60 +43,84 @@ class Repository{
 }
 
 
-
-
 class Coco{
-    constructor(){
-
+     constructor(){
+ 
+    }
+    async init() {
+        let cocoData = await this.getCoco(); // 비동기로 getCoco 메서드 호출
+        this.id = cocoData.id;
+        this.hp = cocoData.hp;
+        this.level = cocoData.level;
+        this.skillId = cocoData.skillId;
         this.correct = [];
         this.wrong = [];
-        this.allQuiz=[];
-        // this.getCoco().then((coco)=>{
-            
-        //     this.hp=coco.hp;
-        // });
-
+        this.allQuiz = [];
+        this.win=false;
     }
 
     async getCoco(){
         let repository = new Repository();
         let response= await repository.findCoco();
         let coco = await response.json(); 
-        Object.assign(this, coco);
-        // return coco;
+        // Object.assign(this, coco);
+        return coco;
+    }
+
+    attack(enemy){
+        enemy.takeDamage();
+
+
+    }
+    takeDamage() {
+        // 예시로 간단히 10의 데미지를 입음
+        this.hp -= 10;
+        console.log("코코가 공격을 받아서 HP가 감소했습니다.");
+        console.log("코코의 현재 HP: " + this.hp);
+    }
+    
+    useItem(){
+        this.hp += 25;
+        console.log("코코가 아이템을 사용하여 HP가 25증가했습니다.");
+        console.log("코코의 현재 HP: " + this.hp);
     }
     
 }
 
-function inputValue(dataName,data){ 
-    let report = document.createElement("input");
-report.type="hidden";
-report.name= dataName;
-report.value=data;
-return report;
-} 
+class Enemy{
+    constructor(){
+        this.hp = 20;
+        this.level = 1;
+        this.skillId = 1;
 
-class Quiz{
-    constructor() {
-        this.hp = null;
-        this.level = null;
-        this.skillId = null;
-        this.correct = [];
-        this.wrong = [];
-        this.allQuiz=[];
+    }
+    attack(coco){
+        coco.takeDamage();
+
+    }
+    takeDamage() {
+        // 예시로 간단히 10의 데미지를 입음
+        this.hp -= 10;
+        console.log("적이 공격을 받아서 HP가 감소했습니다.");
+        console.log("적의 현재 HP: " + this.hp);
     }
 
-    async init() {
-        let coco = new Coco();
-        await coco.getCoco();
-        this.id= coco.id;
-        this.hp = coco.hp;
-        this.level = coco.level;
-        this.skillId = coco.skillId;
-        this.correct = coco.correct;
-        this.wrong = coco.wrong;
-        this.allQuiz =coco.allQuiz;
-        return this;
+}
+
+class Quiz{
+    constructor(coco,enemy) {
+        this.coco = coco;
+        this.enemy = enemy;
+        
+    }
+
+    init() {
+
+        level.textContent = "LV."+this.coco.level;
+        hpTotal.textContent=this.coco.hp; //토탈피통
+        hpNow.textContent=this.coco.hp; //토탈피통
+  
+        // return this;
     }
 
    async getQuiz(){
@@ -127,7 +160,7 @@ else
             let submitBtn = document.querySelector("#submit");
             let answerInputs = document.querySelectorAll("#input input[name='answer']");
 
-            this.allQuiz.push(randQ.id);
+            this.coco.allQuiz.push(randQ.id);
 
              return this.submitAnswer(submitBtn,answerInputs,randQ);
           
@@ -154,15 +187,6 @@ else
         this.newQuiz(randQ); //문제출력
 
 
-
-        //return this;
-      
-
-        // setTimeout(()=>{
-
-            
-        // },8000);//30000
-
         //if(나가기버튼 누르면 나가기)closed();
         
     }
@@ -170,18 +194,24 @@ else
     async next(){
        // quizBox.addEventListener("click",async()=>{
 
-
-            if(0<this.hp){
+           if(this.enemy.hp<=0 && 0<this.coco.hp){
+            this.coco.win=true;
+            alert(this.coco.win);
+               return this.closed();
+           }
+            else if(0<this.coco.hp){
                     
                 let randQ =await this.getQuiz();
                 this.repeatQuiz(randQ);
                      
                 console.log("후id"+randQ.id);
-                console.log("후hp"+this.hp);
+                console.log("후hp"+this.coco.hp);
 
                return;
             }
             console.log("hp가 0이 되어..");
+            this.closed();
+
             
 
        // },{ once : true})
@@ -189,49 +219,25 @@ else
            
     }
     closed(){//TODO 종료:코코는 기분이 좋아보인다 
-        console.log("종료. 틀림:"+this.wrong+"맞음:"+this.correct);
+        console.log("종료. 틀림:"+this.coco.wrong+"맞음:"+this.coco.correct);
         quizDivs[quizDivs.length-2].classList.add("d:none");
         quizDivs[quizDivs.length-1].classList.remove("d:none");//코코는 기분이 좋아보인다
-
-
-        // (async (event) =>{
-        //     // event.preventDefault();
-        //     const COMMON_URL = 'http://localhost:8080';
         
-            // const reportData = {
-            //     'cocoId' : this.id,
-            //     'wrongId' : this.wrong,
-            //     'correctId':this.correct,
-            //     'enemyId':null,
-            //     'avatarId':null
 
-            // };
-        
-        //     const option = {
-        //         method : 'POST',
-        //         headers:{
-        //             'Content-Type' : 'application/json'
-        //         },
-        //         body: JSON.stringify(reportData)
-        //     };
-        
-        //     const res = await fetch(`${COMMON_URL}/study/self-match/reg`, {
-        //         ...option
-        //     });
-        // })();
 
         let form = document.createElement("form");
         form.method="post";
         form.action="reg";
-        let cocoId = inputValue("cocoId",this.id);
-        let wrongId = inputValue("wrongId",this.wrong);
-        let correctId = inputValue("correctId",this.correct);
-        let allQuizId = inputValue("allQuizId",this.allQuiz);
+        let cocoId = inputValue("cocoId",this.coco.id);
+        let wrongId = inputValue("wrongId",this.coco.wrong);
+        let correctId = inputValue("correctId",this.coco.correct);
+        let allQuizId = inputValue("allQuizId",this.coco.allQuiz);
         let enemyId = inputValue("enemyId",null);//XXX 임시
         let avatarId = inputValue("avatarId",null);
+        let win = inputValue("win",this.coco.win);
 
       
-        form.append(cocoId,wrongId,correctId,allQuizId,enemyId,avatarId);
+        form.append(cocoId,wrongId,correctId,allQuizId,enemyId,avatarId,win);
         document.body.append(form);
         form.submit();
 
@@ -242,7 +248,7 @@ else
     //======예본 존=====
     clickSkillBtn(){
 
-    skillMenus.addEventListener("click",function(e){
+    skillMenus.addEventListener("click",(e)=>{
             
         if(e.target.tagName!='INPUT')
         return;
@@ -276,6 +282,7 @@ else
     
                         quizDivs[2].classList.add("d:none"); //어떻게 할까요?
                         quizDivs[3].classList.remove("d:none"); //사용버튼
+                        document.querySelector(".skill-ment").textContent="상대방에 공격을 가한다.";
                         
                     })
     
@@ -302,11 +309,35 @@ else
                     bntDetail.innerHTML ="";
                     let helpHtml=
                     `<ul class="d:flex gap:4 mt:1 jc:start">
-                        <li><button class="btn-base n-btn:filled-4 ac:center txt-al:center">회복</button></li>
-                        <il><button class="btn-base n-btn:filled-4 ac:center txt-al:center">뭐뭐</button></il>
+                        <li><label class="btn-base ac:center txt-al:center w:2 hill"><input type="radio" name="sub">회복 아이템</label></li>
                     </ul>`;
     
                     bntDetail.insertAdjacentHTML("beforeend",helpHtml);
+
+                    
+                    document.querySelector(".hill>input").addEventListener("click",function(e){
+                        // e.stopPropagation();
+                        
+                        quizDivs[0].innerHTML="";//리셋위해 필요
+                       // btn.classList.replace("btn-off","btn-on");
+    
+                        quizDivs[2].classList.add("d:none"); //어떻게 할까요?
+                        quizDivs[3].classList.remove("d:none"); //사용버튼
+                        document.querySelector(".skill-ment").textContent="아이템을 사용하여 HP를 25 증가시킨다.";
+                        
+                    })
+
+                    useBtn.addEventListener("click", ()=>{
+    
+                        quizDivs[3].classList.add("d:none"); //사용버튼
+                        
+                        this.coco.useItem();
+                    
+                    
+                    
+                    // e.stopPropagation();
+                    
+                    });
     
                     break;
                     
@@ -328,8 +359,8 @@ else
         let nowSayGoodBye=false;
         let fullHP = hpTotal.textContent;
         //hp피통 이미지 표시
-        let progress = ((this.hp)/fullHP)*100 ;
-        if(progress<0){progress=0;this.hp=0;}
+        let progress = ((this.coco.hp)/fullHP)*100 ;
+        if(progress<0){progress=0;this.coco.hp=0;}
 
         quizBox.addEventListener("click",()=>{//타격을 입었다 까지..
             if (count < quizDivs.length-2) {
@@ -338,14 +369,16 @@ else
     
                 count++;
                 if(count==6){
-                    barStyle.style.width=progress +"%";//(총-상대방공격)/총 * 100
-                    hpNow.textContent=this.hp;
-                    console.log(this.hp);
+                    this.enemy.attack(this.coco);
+                    hpNow.textContent=this.coco.hp;
+                    barStyle.style.width=(((this.coco.hp)/fullHP)*100) +"%";//(총-상대방공격)/총 * 100
+
+                    console.log(this.coco.hp);
                 }
                 if(count==7)this.next();
             }
-            else if(count < quizDivs.length-1 && this.hp==0)
-                this.closed();//await후밖으로?
+            //else if((count < quizDivs.length-1 && this.coco.hp==0)||this.enemy.hp<=0)
+                //this.closed();//await후밖으로?
             //if(!(quizDivs[quizDivs.length-1].classList.contains("d:none")))
             //return ;
         
@@ -388,15 +421,17 @@ else
                     let answerChecked = false;
                     for (let v of answerInputs) {
                         if(v.checked && v.dataset.value !=randQ.answer){//틀림
-                            this.wrong.push(randQ.id);
-                            this.hp -=10;
+                            this.coco.wrong.push(randQ.id);
+                            // this.coco.hp -=25;
       
                             answerChecked = true;
                             break; 
                         }
                         else if(v.checked && v.dataset.value ==randQ.answer){//맞음
                             answerChecked = true;
-                            this.correct.push(randQ.id);
+                            this.coco.correct.push(randQ.id);
+                            this.coco.attack(this.enemy);
+
                             break;
                         }
                     }
@@ -489,18 +524,22 @@ else
 }//class
 
 async function runQuiz(){
-    let coco = new Quiz();
-    await coco.init()
-    hpTotal.textContent=coco.hp; //토탈피통
-    hpNow.textContent=coco.hp; //토탈피통
+
+    let coco = new Coco();
+    await coco.init();
+    let enemy = new Enemy();
+
+    let quizManager = new Quiz(coco,enemy);
+    quizManager.init();
+  
         
  
     // let hp =quiz.hp;
-    let randQ =await coco.getQuiz();
+    let randQ =await quizManager.getQuiz();
     //quiz.encounter().then(response=>response.json()).then(quiz=>quiz.hp);
 
 
-    coco.repeatQuiz(randQ);
+    quizManager.repeatQuiz(randQ);
     
     
     //hp = quiz.repeatQuiz().then(response=>response.json()).then(quiz=>quiz.hp);

@@ -17,6 +17,7 @@
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
+    <script defer src="/js/study/userquiz/match/report.js"></script>
 </head>
 <body>
  
@@ -68,30 +69,40 @@
             <section class="fs:5 ac:center h:6">
                 <h1 class="d:none">대결 결과</h1>
                 <div class="d:flex fl-direction:column row-gap:3 jc:center">
-                    <div class="d:flex jc:center fs:9">WIN</div>
+                    <div class="d:flex jc:center fs:9" th:text="${win}?'WIN':'LOSE'">WIN</div>
                     <div class="d:flex jc:center">이번 대결은</div>
-                    <div class="d:flex jc:center">1인 대결입니다.</div>
-                    <div class="d:flex jc:center gap:2"><span>총 문제 수</span><span>17문제</span></div>
-                    <div class="d:flex jc:center gap:2"><span>푼 문제 수</span><span>1문제</span></div>
+                    <div class="d:flex jc:center">1인 연습 대결입니다.</div>
+                    <div class="d:flex jc:center gap:2"><span>총 문제 수</span><span th:text="${allQ} ==null ? 0 : ${#lists.size(allQ)}">17</span><span>문제</span></div>
+                    <div class="d:none d:flex jc:center gap:2"><span>푼 문제 수</span><span>1문제</span></div>
                     <div class="d:none d:flex jc:center">제한시간 40초</div>
                 </div>
             </section>
         </section>
         
         <!-- 익스펜더 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <section class="d:flex jc:center mt:9">
+        <section class="d:flex jc:center mt:9" th:with="correct= ${correctQ} ==null ? 0 : ${#lists.size(correctQ)},
+                                                        wrong = ${wrongQ} ==null ? 0 : ${#lists.size(wrongQ)}">
             <section class="section-s">
                 <!-- 1. 맞힌문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
                 <div class="n-expander d:fl-direction:row ac:center">
                     <div class="n-expander-title">
                     <input type="checkbox" class="n-expander-trigger" checked/>
-                    <span>맞힌 문제 수</span><span class="ml:2">: 5 문제</span>
+                    <span>맞힌 문제 수 : </span><span class="ml:2" th:text="${correct}">5</span><span>문제</span>
                     </div>
                     <div class="n-expander-content px:2 bg-color:main-2 border-radius:3">
                         <div class="mx:2 my:2">
-                            <div class="reportBox"><span class="ml:3 w:12">1.</span><span class="w:13 ln-clamp:1">괄호 친 부분의 띄어쓰기가 맞지 않는 것은?</span><span class="ml:1">+5p</span></div>
-                            <div class="reportBox mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">밑줄 친 ㉠과 ㉡의 한자 표기가 모두 옳은 것은?</span><span class="ml:1">+5p</span></div>
-                            <div class="d:flex jc:center gap:2 mt:2 mt:2"><span>얻은 포인트</span><span>25</span></div>
+                            <div th:if="${correctQ}!=null" th:each="cq , index :${correctQ}" class="report-box mb:2">
+                                <span class="ml:3 w:12" th:text="${index.index + 1+'.'}">1.</span><span class="w:13 ln-clamp:1" 
+                                th:data-question="${cq.question}" 
+                                th:data-context="${cq.context}" 
+                                th:data-num1="${cq.num1}"
+                                th:data-num2="${cq.num2}"
+                                th:data-num3="${cq.num3}"
+                                th:data-num4="${cq.num4}"
+                                th:data-answer="${cq.answer}"
+                                th:text="${cq.question}">괄호 친 부분의 띄어쓰기가 맞지 않는 것은?</span><span class="ml:1">+10p</span></div>
+                            <!-- <div class="report-box mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">밑줄 친 ㉠과 ㉡의 한자 표기가 모두 옳은 것은?</span><span class="ml:1">+5p</span></div> -->
+                            <div class="d:flex jc:center gap:2"><span>얻은 포인트</span><span th:text="${correct}*10">25</span><span>포인트</span></div>
                         </div>
                     </div>
                 </div>
@@ -100,27 +111,37 @@
                 <div class="n-expander">
                     <div class="n-expander-title">
                     <input type="checkbox" class="n-expander-trigger" checked/>
-                    <span>틀린 문제 수</span><span class="ml:2" >: 2 문제</span>
+                    <span>틀린 문제 수 : </span><span class="ml:2" th:text="${wrong}">2</span><span>문제</span>
                     </div>
                     <div class="n-expander-content px:2 bg-color:main-2 border-radius:3">
                         <div class="mx:2 my:2">
-                            <div th:each="wq:${wrongQ}" class="reportBox mb:2"><span class="ml:3 w:12">1.</span><span class="w:13 ln-clamp:1" th:text="${wq.question}">괄호 친 표현의 발음이 표준 발음법에 어긋난 것은?</span><span class="ml:1">-10p</span></div>
-                            <!-- <div class="reportBox mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">긍정적 사고를 담고 있는 고사 성어는?</span><span class="ml:1">-5p</span></div> -->
-                            <div class="d:flex jc:center gap:2"><span>잃은 포인트</span><span>10</span></div>
+                            <div th:if="${wrongQ}!=null" th:each="wq , index : ${wrongQ}" class="report-box mb:2">
+                                <span class="ml:3 w:12" th:text="${index.index + 1+'.'}">1</span><span class="w:13 ln-clamp:1" 
+                                th:data-question="${wq.question}" 
+                                th:data-context="${wq.context}" 
+                                th:data-num1="${wq.num1}"
+                                th:data-num2="${wq.num2}"
+                                th:data-num3="${wq.num3}"
+                                th:data-num4="${wq.num4}"
+                                th:data-answer="${wq.answer}"
+                                th:text="${wq.question}">괄호 친 표현의 발음이 표준 발음법에 어긋난 것은?</span><span class="ml:1">-10p</span>
+                            </div>
+                            <!-- <div class="report-box mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">긍정적 사고를 담고 있는 고사 성어는?</span><span class="ml:1">-5p</span></div> -->
+                            <div class="d:flex jc:center gap:2"><span>잃은 포인트</span><span th:text="${wrong}*10">10</span><span>포인트</span></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- 3. 못 푼 문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-                <div class="n-expander">
+                <div class="d:none n-expander">
                     <div class="n-expander-title">
                     <input type="checkbox" class="n-expander-trigger" checked/>
                     <span>못 푼 문제 수</span><span class="ml:2"> : 2 문제</span>
                     </div>
                     <div class="n-expander-content px:2 bg-color:main-2 border-radius:3">
                         <div class="mx:2 my:2">
-                            <div class="reportBox"><span class="ml:3 w:12">1.</span><span class="w:13 ln-clamp:1">밑줄 친 한자어를 바르게 읽은 것은?</span><span class="ml:1">-5p</span></div>
-                            <div class="reportBox mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">다음 용례에서 ‘살천스럽다’의 뜻은?</span><span class="ml:1">-5p</span></div>
+                            <div class="report-box"><span class="ml:3 w:12">1.</span><span class="w:13 ln-clamp:1">밑줄 친 한자어를 바르게 읽은 것은?</span><span class="ml:1">-5p</span></div>
+                            <div class="report-box mt:2"><span class="ml:3 w:12">2.</span><span class="w:13 ln-clamp:1">다음 용례에서 ‘살천스럽다’의 뜻은?</span><span class="ml:1">-5p</span></div>
                             <div class="d:flex jc:center gap:2 mt:2"><span>잃은 포인트</span><span>10</span></div>
                         </div>  
                     </div>
@@ -137,7 +158,7 @@
                             <a href=""><img src="/image/icon/strawberry.png"></a>
                         </div>
                         <div class="d:flex gap:2 mt:2"><span></span>딸기 하나를 획득하였습니다.</span></div>
-                        <div class="d:flex jc:center gap:2 mt:2"><span>총 획득 포인트</span><span>5</span></div>
+                        <div class="d:flex jc:center gap:2 mt:2"><span>총 획득 포인트</span><span th:text="${correct} - ${wrong} < 0 ? 0: (${correct} - ${wrong})*10">5</span></div>
                     </div>
                 </div>  
             </section>
@@ -164,18 +185,19 @@
                 <button type="button" class="n-btn n-btn:void n-btn-size:1 d:flex mt:2">오탈자 신고</button>
             </div>
         </section> -->
-
-        <!-- <section class=" matchReport" tabindex="-1">
-            <h1 class="d:none">문제 디테일</h1>
-            <div class="p:2">
-                <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span><br>
-                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num1}">①교언영색</span><br>
-                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num2}">②곡학아세</span><br>
-                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num3}">③다문박식</span><br>
-                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num4}">④감언지지</span><br>
-                <span class="d:inline-block pb:2 fw:bold color:accent-4" th:text="${userQuiz.answer}">답</span>
-            </div>
-        </section> -->
+         <section id="detail-modal" class="d:none n-modal" th:each="wq: ${wrongQ}" tabindex="-1">
+                                    <h1 class="d:none">문제 디테일 모달</h1>
+                                    <div class="p:2">
+                                        <div><span class="pb:3 fw:bold pb:7 question">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span></div>
+                                        <div th:classappend="${wq.answer}==1 ? 'color:accent-4'"><span>①</span><span class="pb:2 fw:bold num1">교언영색</span></div>
+                                        <div th:classappend="${wq.answer}==2 ? 'color:accent-4'"><span>②</span><span class="pb:2 fw:bold num2">곡학아세</span></div>
+                                        <div th:classappend="${wq.answer}==3 ? 'color:accent-4'"><span>③</span><span class="pb:2 fw:bold num3">다문박식</span></div>
+                                        <div th:classappend="${wq.answer}==4 ? 'color:accent-4'"><span>④</span><span class="pb:2 fw:bold num4">감언지지</span></div>
+                                        <!-- <span class="pb:2 fw:bold color:accent-4 answer">답</span> -->
+                                    </div>
+                                    <div><button id="close-btn" type="button" class="n-btn w:5">닫기</button>
+                                    </div>
+                                </section>
 
         <!--=========================== 메인 끝 ===============================-->
     </main>

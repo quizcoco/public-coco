@@ -40,7 +40,7 @@ draw(ctx){
 
     ctx.drawImage(this.img,
         sx,sy,16,16,
-        10,40,16,16,
+        10,30,16,16,
         
 
     )

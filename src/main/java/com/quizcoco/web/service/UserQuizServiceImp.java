@@ -131,12 +131,17 @@ public class UserQuizServiceImp implements UserQuizService{
 
     @Override
     public void edit(UserOXQuiz userOXQuiz,long userId, Long id,  String cate) {
-        repository.updateOX(userOXQuiz,userId, id,  cate);
+        repository.updateOX(userOXQuiz, userId, id, cate);
     }
 
     @Override
     public void edit(UserMultipleQuiz userMultipleQuiz,long userId, Long id,  String cate) {
         repository.updateMulti( userMultipleQuiz,userId, id, cate);
+    }
+
+    @Override
+    public void edit(UserShortQuiz UserShortQuiz, long userId, Long id, String cate) {
+        repository.updateShort(UserShortQuiz, userId, id, cate);
     }
 
    

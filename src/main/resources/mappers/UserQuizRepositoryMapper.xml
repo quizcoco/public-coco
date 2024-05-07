@@ -4,7 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.quizcoco.web.repository.UserQuizRepository">
 
-    <!-- 디테일 -->
+    <!-- 디테일 =========================================================-->
+
     <select id="findByOXId" resultType="UserOXQuiz">
         select * from user_ox 
         where id=#{id}
@@ -20,49 +21,37 @@
         where id=#{id}
     </select>
 
+    <!-- ============================================================== -->
+
     <select id="findAllById" resultType="UserQuizView">
 
+        SELECT * FROM
+        (
+            SELECT ROW_NUMBER() OVER (order by reg_date desc) rownum , rn.*
+            FROM (select *from
+        (
 
+            select ox.id,ox.question, null num1, null num2, null num3, null num4, ox.answer,"ox" category, commentary,ox.reg_date,ox.user_id, nvl(f.user_id=#{userId},0) `like` 
+            from user_ox ox left join user_quizzes_favorite f on ox.id=f.user_ox_id
+            UNION all
 
+            select multi.id,multi.question, num1,num2,num3,num4, multi.answer,"multi" category,commentary, multi.reg_date,multi.user_id , nvl(f.user_id=#{userId},0) `like` 
+            from user_multiple_choice_quiz multi left join user_quizzes_favorite f on multi.id=f.user_multiple_choice_quiz_id
 
+            UNION all
 
-SELECT * FROM
-(
-SELECT ROW_NUMBER() OVER (order by reg_date desc) rownum , rn.*
-FROM (select *from
-(
+            select short.id,short.question, null num1, null num2, null num3, null num4, short.answer,"short" category,commentary, short.reg_date,short.user_id, nvl(f.user_id=#{userId},0) `like`  
+            from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=f.user_short_answer_quiz_id
+        ) qv
 
-select ox.id,ox.question, null num1, null num2, null num3, null num4, ox.answer,"ox" category, commentary,ox.reg_date,ox.user_id, nvl(f.user_id=#{userId},0) `like` 
-from user_ox ox left join user_quizzes_favorite f on ox.id=f.user_ox_id
-UNION all
+        where qv.user_id=#{userId}
 
-select multi.id,multi.question, num1,num2,num3,num4, multi.answer,"multi" category,commentary, multi.reg_date,multi.user_id , nvl(f.user_id=#{userId},0) `like` 
-from user_multiple_choice_quiz multi left join user_quizzes_favorite f on multi.id=f.user_multiple_choice_quiz_id
+        ) rn
+        ) aa
 
-UNION all
-
-select short.id,short.question, null num1, null num2, null num3, null num4, short.answer,"short" category,commentary, short.reg_date,short.user_id, nvl(f.user_id=#{userId},0) `like`  
-from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=f.user_short_answer_quiz_id
-
-
-) qv
-
-  <!-- <where>
-            <if test="userId != null">
-                qv.user_id=#{userId}
-            </if>
-       </where> -->
-
-where qv.user_id=#{userId}
-
-) rn
-) aa
-
-
-
-<where>
-    <if test="id != null">
-               and aa.id=#{id}
+        <where>
+            <if test="id != null">
+                and aa.id=#{id}
             </if>
 
             <if test="cate != null">
@@ -70,45 +59,9 @@ where qv.user_id=#{userId}
             </if>
         </where>
 
+    </select>
 
-
-
-
-        
-      
-<!-- select*from
-(
-
-select ox.id,ox.question, null num1, null num2, null num3, null num4, ox.answer,"ox" category,ox.reg_date,ox.user_id, nvl(f.user_id=1,0) `like` 
-from user_ox ox left join user_quizzes_favorite f on ox.id=f.user_ox_id
-UNION all
-
-select multi.id,multi.question, num1,num2,num3,num4, multi.answer,"multi" category,multi.reg_date,multi.user_id , nvl(f.user_id=1,0) `like` 
-from user_multiple_choice_quiz multi left join user_quizzes_favorite f on multi.id=f.user_multiple_choice_quiz_id
-
-UNION all
-
-select short.id,short.question, null num1, null num2, null num3, null num4, short.answer,"short" category,short.reg_date,short.user_id, nvl(f.user_id=1,0) `like`  
-from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=f.user_short_answer_quiz_id
-			
-) qv -->
-        <!-- <where>
-            <if test="userId != null">
-                qv.user_id=#{userId}
-            </if>
-
-            <if test="id != null">
-               and qv.id=#{id}
-            </if>
-
-            <if test="cate != null">
-                and qv.category =#{cate}
-            </if>
-        </where> -->
-
-     </select>
-
-    <!-- 리스트 -->     <!-- 수정중 -->
+    <!-- 리스트 =========================================================-->
 
     <!-- ox -->
     <select id="findAllox" resultType="UserOXQuiz">
@@ -121,9 +74,8 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
             <if test="userId != null">
                 and user_id=#{userId}
             </if>
-         </where>
-                <!-- limit 0,5 -->
-                limit #{offset}, #{size}
+        </where>
+        limit #{offset}, #{size}
     </select>
 
     <!-- 사지선다 -->
@@ -137,9 +89,8 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
             <if test="userId != null">
                 and user_id=#{userId}
             </if>
-         </where>
-                <!-- limit 0,5 -->
-                limit #{offset}, #{size}
+        </where>
+        limit #{offset}, #{size}
     </select>
 
     <!-- 단답 -->
@@ -154,33 +105,19 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
             and user_id=#{userId}
         </if>
         </where>
-            <!-- limit 0,5 -->
             limit #{offset}, #{size}
     </select>
 
-    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-    <!-- <select id="findAll">
-        <if test="resultType == 'UserOXQuiz'">
-            select * from user_ox
-        </if>
-        <if test="resultType == 'UserShortQuiz'">
-            select * from user_short_answer_quiz
-        </if>
-        <if test="resultType == 'UserMultipleQuiz'">
-            select * from user_multiple_choice_quiz
-        </if>
-        where user_id = #{userId}
-    </select> -->
+    <!-- ============================================================== -->
 
-<!-- TODO  -->
     <select id="findAll" resultType="UserQuizView">
-
         select *from
         (select id,question, null num1, null num2, null num3, null num4, answer,"ox" category,reg_date,user_id from user_ox 
         UNION all
         select id,question, num1,num2,num3,num4, answer,"multi" category,reg_date,user_id from user_multiple_choice_quiz
         UNION all
         select id,question, null num1, null num2, null num3, null num4, answer,"short" category,reg_date,user_id from user_short_answer_quiz) qv
+       
         <where>
             <if test="query != null">
                 question LIKE '%${query}%'
@@ -190,44 +127,20 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
                 and qv.user_id=${userId}
             </if>
         </where>
-        <!-- TODO 최신순? -->
-        <!-- ORDER BY CASE WHEN newOld = 1 THEN qv.reg_date DESC ELSE qv.reg_date ASC END -->
-
-        <!-- <order>
-            <if test="newOld == 1">
-                qv.reg_date DESC
-            </if>
-            <if test="newOld == 0">
-                qv.reg_date ASC
-            </if>
-        </order> -->
-
-
-
-
-        <!-- <order test="newOld == 1">
-            qv.reg_date desc
-        </order> -->
-        <!-- <order if="newOld == 0">
-            qv.reg_date asc
-        </order> -->
 
         <if test="newOld == 0">
-        order by qv.reg_date desc 
+            order by qv.reg_date desc 
         </if>
-         <if test="newOld == 1">
-        order by qv.reg_date asc 
+
+        <if test="newOld == 1">
+            order by qv.reg_date asc 
         </if>
-        
-        <!-- limit 0,5 -->
+
         limit #{offset}, #{size}
     </select>
 
+    <!-- count ============================================================== -->
 
-
-    
-
-    <!-- //TODO 변경? -->
     <select id="count" resultType="Integer">
         select 
             count(uq.id)
@@ -252,36 +165,24 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
         </where>
     </select>
 
+    <!-- delete ============================================================== -->
 
     <delete id="deleteById" parameterType="Long">
         <if test="cate=='ox'">
             DELETE FROM user_ox
             WHERE id = #{id}
-        <!-- where id in
-
-        <foreach collection="items" item="id" separator="," open="(" close=")">
-            #{jsonObject.id}
-        </foreach> -->
-
         </if>
         
         <if test="cate=='multi'">
             DELETE FROM user_multiple_choice_quiz
             WHERE id= #{id}
-        <!-- <foreach collection="items" item="id" separator="," open="(" close=")">
-                #{jsonObject.id}
-            </foreach> -->
         </if>
 
         <if test="cate=='short'">
             DELETE FROM user_short_answer_quiz
             WHERE id =#{id}
-        <!-- <foreach collection="items" item="id" separator="," open="(" close=")">
-                #{jsonObject.id}
-            </foreach> -->
         </if>
     </delete>
-
 
     <!-- reg ================================================== -->
 
@@ -297,66 +198,71 @@ from user_short_answer_quiz short left join user_quizzes_favorite f on short.id=
             INSERT INTO user_ox(question,answer,commentary,user_id)
             VALUES (#{question},#{answer},#{commentary},#{userId});
         </if>
+
         <if test="cate == 'short'">
             INSERT INTO user_short_answer_quiz(question,answer,commentary,user_id)
             VALUES (#{question},#{answer},#{commentary},#{userId});
         </if>
     </insert>
 
+    <!-- edit==================================================================== -->
 
-
-    <!-- ===================================수정================================= -->
-
-<update id="updateOX" parameterType="com.quizcoco.web.entity.UserOXQuiz">
-
-    <if test="cate == 'short'">
-        UPDATE user_short_answer_quiz
-        SET
-            question = #{userquiz.question},
-            answer = #{userquiz.answer},
-            commentary = #{userquiz.commentary}
-    </if>
-
-    <if test="cate == 'ox'">
-        UPDATE user_ox
-        SET
-            question = #{userquiz.question},
-            answer = #{userquiz.answer},
-            commentary = #{userquiz.commentary}
-    </if>
-
-    <where> 
-        <if test="id != null">
-            id = #{id}
+    <update id="updateOX" parameterType="com.quizcoco.web.entity.UserOXQuiz">
+        <if test="cate == 'ox'">
+            UPDATE user_ox
+            SET
+                question = #{userquiz.question},
+                answer = #{userquiz.answer},
+                commentary = #{userquiz.commentary}
         </if>
+
+        <where> 
+            <if test="id != null">
+                id = #{id}
+            </if>
             and user_id = #{userId}
-    </where>
+        </where>
+    </update>
 
-</update>
+    <update id="updateShort" parameterType="com.quizcoco.web.entity.UserShortQuiz">
 
-<update id="updateMulti" parameterType="com.quizcoco.web.entity.UserMultipleQuiz">
-
-    <if test="cate == 'multi'">
-        UPDATE user_multiple_choice_quiz
-        SET
-            question = #{usermultiquiz.question},
-            num1 = #{usermultiquiz.num1},
-            num2 = #{usermultiquiz.num2},
-            num3 = #{usermultiquiz.num3},
-            num4 = #{usermultiquiz.num4},
-            answer = #{usermultiquiz.answer},
-            commentary = #{usermultiquiz.commentary},
-            user_id = #{usermultiquiz.userId}
-    </if>
-    
-    <where> 
-        <if test="id != null">
-            id = #{id}
+        <if test="cate == 'short'">
+            UPDATE user_short_answer_quiz
+            SET
+                question = #{userquiz.question},
+                answer = #{userquiz.answer},
+                commentary = #{userquiz.commentary}
         </if>
+
+        <where> 
+            <if test="id != null">
+                id = #{id}
+            </if>
             and user_id = #{userId}
-    </where>
+        </where>
+    </update>
 
-</update>
+    <update id="updateMulti" parameterType="com.quizcoco.web.entity.UserMultipleQuiz">
 
+        <if test="cate == 'multi'">
+            UPDATE user_multiple_choice_quiz
+            SET
+                question = #{usermultiquiz.question},
+                num1 = #{usermultiquiz.num1},
+                num2 = #{usermultiquiz.num2},
+                num3 = #{usermultiquiz.num3},
+                num4 = #{usermultiquiz.num4},
+                answer = #{usermultiquiz.answer},
+                commentary = #{usermultiquiz.commentary},
+                user_id = #{usermultiquiz.userId}
+        </if>
+        
+        <where> 
+            <if test="id != null">
+                id = #{id}
+            </if>
+            and user_id = #{userId}
+        </where>
+    </update>
     
 </mapper>

@@ -35,7 +35,7 @@ draw(ctx){
     ctx.drawImage(this.img,
         
         sx,sy,16,16,
-        90,45,12,12)
+        90,35,12,12)
 }
 
 }
