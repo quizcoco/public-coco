@@ -22,6 +22,12 @@ let hpNow =  hpProgressbar.querySelector(".hp-now");
 let hpTotal =  hpProgressbar.querySelector(".hp-total");
 let level =  document.querySelector(".level");
 
+
+//quizBox.innerHTML=""; //리셋 원할때
+    // for (let div of quizDivs) {
+    //     div.innerHTML="";
+    // }
+
 //=============================================================================================
 //퀴즈객체 - 퀴즈매니저 - 유저객체
 
@@ -196,7 +202,7 @@ else
 
            if(this.enemy.hp<=0 && 0<this.coco.hp){
             this.coco.win=true;
-            alert(this.coco.win);
+            // alert(this.coco.win);
                return this.closed();
            }
             else if(0<this.coco.hp){
@@ -315,29 +321,21 @@ else
                     bntDetail.insertAdjacentHTML("beforeend",helpHtml);
 
                     
-                    document.querySelector(".hill>input").addEventListener("click",function(e){
-                        // e.stopPropagation();
+                    document.querySelector(".hill>input").addEventListener("click",()=>{
+                        //TODO 힐링아이템
                         
-                        quizDivs[0].innerHTML="";//리셋위해 필요
-                       // btn.classList.replace("btn-off","btn-on");
-    
-                        quizDivs[2].classList.add("d:none"); //어떻게 할까요?
-                        quizDivs[3].classList.remove("d:none"); //사용버튼
-                        document.querySelector(".skill-ment").textContent="아이템을 사용하여 HP를 25 증가시킨다.";
+                    
+                        quizBox.innerHTML=`<div class="use-item mt:10 d:flex fl-dir:column"><span class="skill-ment">아이템을 사용하여 HP를 25 증가시킨다.</span><button class="btn-base">사용</button></div>   
+                                `;
                         
+                                document.querySelector(".use-item>button").addEventListener("click", ()=>{
+                
+                                    // quizDivs[3].classList.add("d:none"); //사용버튼
+                                    
+                                    this.coco.useItem();
+                                    this.afterQuiz();
+                                });
                     })
-
-                    useBtn.addEventListener("click", ()=>{
-    
-                        quizDivs[3].classList.add("d:none"); //사용버튼
-                        
-                        this.coco.useItem();
-                    
-                    
-                    
-                    // e.stopPropagation();
-                    
-                    });
     
                     break;
                     
@@ -361,6 +359,9 @@ else
         //hp피통 이미지 표시
         let progress = ((this.coco.hp)/fullHP)*100 ;
         if(progress<0){progress=0;this.coco.hp=0;}
+        if(this.coco.hp>=fullHP){this.coco.hp=fullHP;}
+
+        // if(progress>fullHP)
 
         quizBox.addEventListener("click",()=>{//타격을 입었다 까지..
             if (count < quizDivs.length-2) {

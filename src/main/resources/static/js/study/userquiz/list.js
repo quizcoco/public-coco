@@ -158,13 +158,14 @@ if (url.includes("?")) {
     });
   }
 
-let newold = paramsObject["newold"];
-let s = paramsObject["s"];
+let newold = paramsObject["newold"] ||0;
+let s = paramsObject["s"]||5;
+let p = paramsObject["p"]||1;
 
 
 pageGo.addEventListener("click", ()=>{
 
-  pageGo.href=`list?p=${pageWant.value}&newold=${newold}`;
+  pageGo.href=`list?p=${pageWant.value||p}&s=${s}&newold=${newold}`;
 })
 
 

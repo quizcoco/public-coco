@@ -150,7 +150,7 @@
 
                     <!-- ========='1'============== -->
                     <li th:each="n : ${#numbers.sequence(startnum,startnum+9)}"  
-                    th:class="${{param.p}}== ${n}?'active'">
+                    th:class="${{page}}== ${n}?'active'">
                     <span th:if="${n} gt ${lastnum}" th:text="${n}"></span>
                     
                     <a href="list?p=1" th:href="@{list(p=${n},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}"
@@ -220,7 +220,7 @@
             <ul class="d:flex w:4 jc:space-between">
                 <li><a href="reg" class="n-btn n-btn:filled">퀴즈등록</a></li>
                 <!-- 선택지 없이 버튼 눌렀을때 전체문제 가능 -->
-                <li><a href="slide" class="n-btn n-btn:filled">슬라이드 보기</a></li>
+                <li><a href="#" class="n-btn n-btn:filled">슬라이드 보기</a></li>
             </ul>
         </nav>
 
