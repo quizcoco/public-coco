@@ -63,7 +63,7 @@
         <h1 class="fw:3 fs:5">학습순위</h1>
         <table class="mt:4">
             <thead>
-                <tr class="fs:3 fw:2">
+                <tr class="fs:3 fw:2 d:none">
                     <th class="pr:3">순위</th>
                     <th class="pr:3">프로필사진</th>
                     <th class="pr:3">닉네임</th>
@@ -72,8 +72,21 @@
             </thead>
             <tbody>
                 <tr th:each="user, i : ${users}">
-                    <td th:text="${i.index + 1}">순위</td>
-                    <td><img src=""></td>
+                    <td th:text="${i.index + 1}">순위
+                        <td th:if="${i.index == 0}">
+                            <i class="icon icon-gold-medal"></i>
+                        </td>
+                        <td th:if="${i.index == 1}">
+                            <i class="icon icon-silver-medal"></i>
+                        </td>
+                        <td th:if="${i.index == 2}">
+                            <i class="icon icon-bronze-medal"></i>
+                        </td>
+                        <td th:if="${i.index >= 3}">
+                            <i class=""></i>
+                        </td>
+                    </td>
+                    <td></td>
                     <td th:text="${user.nickName}">닉네임</td>
                     <td th:text="${user.point}">포인트</td>
                 </tr>

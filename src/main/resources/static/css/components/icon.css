@@ -142,3 +142,48 @@
 
     background-image: url("../../image/icon/mail_fill.svg");
 }  
+
+.icon-gold-medal {
+    display: inline-block;
+    width:23px;
+    height: 30px;
+
+    overflow: hidden;
+    text-indent: -999px;
+    -webkit-mask-size:cover;
+    mask-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    background-image: url("../../image/icon/gold.svg");
+}
+
+.icon-silver-medal {
+    display: inline-block;
+    width:23px;
+    height: 30px;
+
+    overflow: hidden;
+    text-indent: -999px;
+    -webkit-mask-size:cover;
+    mask-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    background-image: url("../../image/icon/silver.svg");
+}
+
+.icon-bronze-medal {
+    display: inline-block;
+    width:23px;
+    height: 30px;
+
+    overflow: hidden;
+    text-indent: -999px;
+    -webkit-mask-size:cover;
+    mask-size:cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    background-image: url("../../image/icon/bronze.svg");
+}
