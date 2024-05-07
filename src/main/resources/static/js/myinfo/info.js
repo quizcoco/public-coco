@@ -31,20 +31,7 @@ ownCoco.addEventListener("click", () => {
    
 });
 
-   /* 모바일, pc 버전 화면 전환*/ 
 
-if (ownSection.classList.contains("lg")) {
-   
-   // 아바타와 코코 모두 보이게
-   ownCoco.classList.add("n-btn:filled-on");
-   ownCoco.classList.remove("n-btn:filled-off");
-   showAvartar.style.display = "block";
-
-   ownAvartar.classList.add("n-btn:filled-off");
-   ownAvartar.classList.remove("n-btn:filled-on");
-   showCoco.style.display = "block";
-
-};    
 
 
 
