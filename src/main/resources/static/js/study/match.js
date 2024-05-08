@@ -1,18 +1,17 @@
 let skillMenus =  document.querySelector("#skill-menus");
-let skillUpperBtn = skillMenus.querySelectorAll(".skill-grid button"); //스킬 상위
+let skillUpperBtn = skillMenus.querySelectorAll(".skill-grid input"); //스킬 상위
 let skillSubBtn = skillMenus.querySelectorAll("nav"); //스킬 하위
-//let atkItems = skillMenus.querySelectorAll(".atk-item>li");
-let atkItems;
+let atkItems = skillMenus.querySelectorAll(".atk-item>li input");
 //예본
 //let menuList = skillMenus.querySelector(".menu-list");
 let bntDetail = skillMenus.querySelector(".bnt-detail");
 let bntDetailHeight= bntDetail.querySelector("ul");
 
-
 let quizBox = document.querySelector("#quiz");
 let quizDivs = quizBox.querySelectorAll("#quiz>div");
 let useBtn = quizBox.querySelector("#quiz>div>button");
 let beBeaten = quizBox.querySelector(".bebeaten");
+let systemMent = quizBox.querySelector(".system-comment");
 //let submitBtn = document.querySelector("#sm");
 //let answerInputs = quizBox.querySelectorAll("input[type='radio']");
 
@@ -23,10 +22,6 @@ let hpTotal =  hpProgressbar.querySelector(".hp-total");
 let level =  document.querySelector(".level");
 
 
-//quizBox.innerHTML=""; //리셋 원할때
-    // for (let div of quizDivs) {
-    //     div.innerHTML="";
-    // }
 
 //=============================================================================================
 //퀴즈객체 - 퀴즈매니저 - 유저객체
@@ -87,14 +82,28 @@ class Coco{
     
     useItem(){
         this.hp += 25;
+        systemMent.innerHTML=`코코가 아이템을 사용하여 HP가 25증가했습니다.`;
         console.log("코코가 아이템을 사용하여 HP가 25증가했습니다.");
         console.log("코코의 현재 HP: " + this.hp);
+
+        let fullHP = hpTotal.textContent;
+        if(this.hp>=fullHP){this.hp=fullHP;}
+
+        hpNow.textContent=this.hp;
+        barStyle.style.width=(((this.hp)/fullHP)*100) +"%";//(총-상대방공격)/총 * 100
+    }
+    auto(){
+
+        // TODO 자동
+
+        
     }
     
 }
 
 class Enemy{
     constructor(){
+        this.name = "벌레";
         this.hp = 20;
         this.level = 1;
         this.skillId = 1;
@@ -262,10 +271,21 @@ else
         let state = e.target.dataset.btn;
             switch (state) {
                 case 'base' :
+                    bntDetail.innerHTML ="";
+                    systemMent.innerHTML="";
+                    quizDivs[2].classList.add("d:none"); //어떻게 할까요?
+                    quizDivs[3].classList.add("d:none"); //사용버튼
+
+                    systemMent.innerHTML=`<span class="skill-ment">자동으로 대응합니다.</span><button class="btn-base use-item">확인</button>`;
+
+
                     break;
                 case 'attack' :
                     bntDetail.innerHTML ="";
-    
+                    systemMent.innerHTML="";
+                    quizDivs[3].classList.add("d:none"); //사용버튼
+
+
                     let attackHtml=
                                 `<ul class="atk-item d:flex gap:4 mt:1 jc:start">
                                     <li><label class="btn-base ac:center txt-al:center"><input type="radio" name="sub">발차기</label></li>
@@ -275,7 +295,7 @@ else
                     
                     bntDetail.insertAdjacentHTML("beforeend",attackHtml);
     
-                    atkItems = document.querySelectorAll(".atk-item input");
+                    let atkItems = document.querySelectorAll(".atk-item input");
                         
                     
                     //하부 버튼 선택  
@@ -283,12 +303,13 @@ else
                     btn.addEventListener("click",function(e){
                         // e.stopPropagation();
                         
+                        systemMent.innerHTML="";
                         
                        // btn.classList.replace("btn-off","btn-on");
     
                         quizDivs[2].classList.add("d:none"); //어떻게 할까요?
                         quizDivs[3].classList.remove("d:none"); //사용버튼
-                        document.querySelector(".skill-ment").textContent="상대방에 공격을 가한다.";
+                        // document.querySelector(".skill-ment").textContent=`${this.enemy.name}에 공격을 가한다.`;
                         
                     })
     
@@ -299,20 +320,20 @@ else
                         
                         //비활성화
                         for(let btn of skillUpperBtn)
-                        btn.disabled = true;
+                            btn.disabled = true;
                         for(let btn of atkItems) 
-                        btn.disabled = true;
-                    
-                    
-                    
-                    // e.stopPropagation();
-                    
+                            btn.disabled = true;
+     
                     })
     
                 break;
                 
                 case 'help' :
                     bntDetail.innerHTML ="";
+                    systemMent.innerHTML="";
+                    quizDivs[3].classList.add("d:none"); //사용버튼
+
+
                     let helpHtml=
                     `<ul class="d:flex gap:4 mt:1 jc:start">
                         <li><label class="btn-base ac:center txt-al:center w:2 hill"><input type="radio" name="sub">회복 아이템</label></li>
@@ -322,24 +343,45 @@ else
 
                     
                     document.querySelector(".hill>input").addEventListener("click",()=>{
-                        //TODO 힐링아이템
                         
-                    
-                        quizBox.innerHTML=`<div class="use-item mt:10 d:flex fl-dir:column"><span class="skill-ment">아이템을 사용하여 HP를 25 증가시킨다.</span><button class="btn-base">사용</button></div>   
-                                `;
+                        quizDivs[2].classList.add("d:none"); //어떻게 할까요?
+                        // quizDivs[3].classList.add("d:none"); //사용버튼
+
+                        systemMent.innerHTML=`<span class="skill-ment">아이템을 사용하여 HP를 25 증가시킨다.</span><button class="btn-base use-item">사용</button>`;
                         
-                                document.querySelector(".use-item>button").addEventListener("click", ()=>{
+                                document.querySelector(".use-item").addEventListener("click",()=>{
                 
-                                    // quizDivs[3].classList.add("d:none"); //사용버튼
+                                    systemMent.innerHTML="";
+
+                        
                                     
                                     this.coco.useItem();
-                                    this.afterQuiz();
+                                    quizBox.addEventListener("click",()=>{
+                                        this.afterQuiz();
+                                        skillMenus.classList.add("vis:hidden"); //스킬 창 닫기
+
+                                    },{ once : true})
                                 });
-                    })
+                            })
     
                     break;
                     
                 case 'run' :
+                    bntDetail.innerHTML ="";
+                    systemMent.innerHTML="";
+                    quizDivs[2].classList.add("d:none"); //어떻게 할까요?
+                    quizDivs[3].classList.add("d:none"); //사용버튼
+
+                    systemMent.innerHTML=`<span class="skill-ment">연습 대결을 종료합니다.</span><button class="btn-base use-item">확인</button>`;
+
+                    document.querySelector("button.use-item").addEventListener("click",()=>{
+                        let reportURL = `http://localhost:8080/study/self-match/report`;
+                        // 지금까지 푼 문제 서버로
+                        window.location.href = reportURL;
+                    })
+                    
+
+
                     break;
             }
                     
@@ -354,20 +396,19 @@ else
        
      
         let count =4;
-        let nowSayGoodBye=false;
         let fullHP = hpTotal.textContent;
         //hp피통 이미지 표시
         let progress = ((this.coco.hp)/fullHP)*100 ;
         if(progress<0){progress=0;this.coco.hp=0;}
         if(this.coco.hp>=fullHP){this.coco.hp=fullHP;}
 
-        // if(progress>fullHP)
 
-        quizBox.addEventListener("click",()=>{//타격을 입었다 까지..
-            if (count < quizDivs.length-2) {
+         quizBox.addEventListener("click",()=>{//타격을 입었다 까지..
+            if (count < quizDivs.length-3) {
+                systemMent.innerHTML=``;
                 quizDivs[count].classList.add("d:none");
                 quizDivs[count+1].classList.remove("d:none");
-    
+
                 count++;
                 if(count==6){
                     this.enemy.attack(this.coco);
@@ -386,7 +427,18 @@ else
         
     });
         
+              //비활성화 리셋
    
+              for(let btn of skillUpperBtn){
+                // btn.classList.replace("btn-base","n-btn:filled-4");
+                btn.disabled = false;
+                btn.checked = false;
+            }
+            for(let btn of atkItems) {
+                // btn.classList.replace("btn-base","n-btn:filled-4");
+                btn.disabled = false;
+            }
+            bntDetail.innerHTML ="";
 
         // for(let div of quizDivs){
         //     if((!div.classList.contains("d:none")) && div.classList.contains("beBeaten")){
@@ -396,12 +448,6 @@ else
         //     }
         // }
         
-        // setTimeout(()=>{
-            
-            //     //페이지 이동
-            // },2000);
-            
-        console.log("여기는 afterquiz");
     
     }
 
@@ -415,8 +461,9 @@ else
            // return await new Promise((resolve) => {
                
         }  
-               submitBtn.addEventListener("click",()=>{//arrow function부분 보기!!
-                //for (let v of answerInputs) {
+            submitBtn.addEventListener("click",()=>{//arrow function부분 보기!!
+                quizDivs[0].classList.add("d:none");
+                    //for (let v of answerInputs) {
                     
                     //정답처리
                     let answerChecked = false;
@@ -426,12 +473,16 @@ else
                             // this.coco.hp -=25;
       
                             answerChecked = true;
+
+                            systemMent.innerHTML=`답은 ${randQ.answer} 입니다.`;
                             break; 
                         }
                         else if(v.checked && v.dataset.value ==randQ.answer){//맞음
                             answerChecked = true;
                             this.coco.correct.push(randQ.id);
                             this.coco.attack(this.enemy);
+
+                            systemMent.innerHTML=`코코는 앞발로 냥펀치를 날렸다.`;
 
                             break;
                         }
@@ -441,57 +492,22 @@ else
                         //그냥 버튼 disabled함..
                     }
 
-                       //for (let div of quizDivs) 
-                       quizDivs[0].classList.add("d:none");
-                            
                     
+                    quizBox.addEventListener("click",()=>{
+
                     this.afterQuiz();
+                    },{ once : true});
                     skillMenus.classList.add("vis:hidden"); //스킬 창 닫기
                     
-                    //if(정답)나는 발차기를 했다 /오답: //TODO 정답은 ~다.
-                    //console.log(quizDivs[4]);
-                   
-
-                    //if(randQ.answer==)
-                    let quizHTML=`
-                    
-                    <div class="d:none">답은 <span class="color:accent-4">②</span>
-                    <span class="color:accent-4">${randQ.a}</span>입니다.</div> 
-
-                    `;
-                    //quizHTML.replace(,)
-
-                    //return this;
-                    // if(v.checked){
-                    //     console.log("얘좀봐라");
-                    //     submitBtn.disabled = true;
-                    //     let waitMsg = document.querySelector(".wait-msg");
-                    //     waitMsg.classList.add("wait-notice");
-        
-                    //     for (let v of answerInputs) {
-                    //         v.disabled = true;
-                    //     }
-                    //     return;
-                    // }
-               // }
-               console.log("여기는 submitAnswer안");
+              
+           
 
                
             },{ once : true});
             // return this;//답은 뭐다..타격을 입었다 
             // })//프로미스
             
-            //비활성 했던 것 리셋
-           //bntDetail.insertAdjacentHTML("beforeend");
 
-            for(let btn of skillUpperBtn){
-                btn.classList.replace("btn-on","n-btn:filled-4");
-                btn.disabled = false;
-            }
-            for(let btn of atkItems) {
-                btn.classList.replace("btn-on","n-btn:filled-4");
-                btn.disabled = false;
-            }
             console.log("여기는 submitAnswer밖");
             
             return this;
@@ -556,27 +572,6 @@ runQuiz();
 //}, []);
 
 
-    //자동으로 넘어가게...
-    // quizBox.addEventListener("click",function(){
-    //     quizDivs[4].classList.add("d:none");
-    //     setTimeout(function() {
-    //         quizDivs[5].classList.remove("d:none");
-    //         setTimeout(function() {
-    //             quizDivs[5].classList.add("d:none");
-    //             quizDivs[6].classList.remove("d:none");
-    //             setTimeout(function() {
-    //                 quizDivs[6].classList.add("d:none");
-    //                 quizDivs[7].classList.remove("d:none");
-
-
-    //             },2000);
-    //         }, 2000); 
-    //     }, 0); 
-
-    //     quizBox.removeEventListener("click", arguments.callee);//제거
-
-    // })
-  
 
 
 

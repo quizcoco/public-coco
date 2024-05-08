@@ -52,9 +52,14 @@
     position: relative;
 }
 
-.btn-base:hover{
-
+/* ★★자식인 input이 disabled 됐을때 부모에 hover안먹히게 하는법 */
+.btn-base:hover:not(:has(:disabled)){
     background-color:#FACDCD;
+}
+
+.btn-base:has(:disabled){
+
+ color: #666;
 }
 
 .btn-base>input{
@@ -113,7 +118,12 @@
 }
 
 
+/* =================================== */
+.n-progress {
 
+    --progressbar-color-main: var(--color-accent-2);
+
+}
 
 
 /* ====================지문박스=================== */
