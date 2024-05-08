@@ -11,11 +11,14 @@ ownAvartar.addEventListener("click", () => {
    
       ownAvartar.classList.add("n-btn:filled-on");
       ownAvartar.classList.remove("n-btn:filled-off");
-      showAvartar.style.display = "block";
+      showAvartar.classList.add("d:flex");
+      showAvartar.classList.remove("d:none");
+
 
       ownCoco.classList.add("n-btn:filled-off");
       ownCoco.classList.remove("n-btn:filled-on");
-      showCoco.style.display = "none";
+      showCoco.classList.add("d:none");
+      showCoco.classList.remove("d:flex");
 
 });
 
@@ -23,11 +26,13 @@ ownCoco.addEventListener("click", () => {
    
       ownCoco.classList.add("n-btn:filled-on");
       ownCoco.classList.remove("n-btn:filled-off");
-      showCoco.style.display = "block";
+      showCoco.classList.add("d:flex");
+      showCoco.classList.remove("d:none");
 
       ownAvartar.classList.add("n-btn:filled-off");
       ownAvartar.classList.remove("n-btn:filled-on");
-      showAvartar.style.display = "none";
+      showAvartar.classList.add("d:none");
+      showAvartar.classList.remove("d:flex");
    
 });
 
