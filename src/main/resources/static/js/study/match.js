@@ -54,10 +54,13 @@ class Coco{
         this.hp = cocoData.hp;
         this.level = cocoData.level;
         this.skillId = cocoData.skillId;
+        this.damage = 10;
+        this.magicDamage = 20;
         this.correct = [];
         this.wrong = [];
         this.allQuiz = [];
         this.win=false;
+        this.skill='';
     }
 
     async getCoco(){
@@ -69,13 +72,26 @@ class Coco{
     }
 
     attack(enemy){
-        enemy.takeDamage();
+        switch (this.skill) {
+            case 'physical' :
+                enemy.takeDamage(this.damage);
+                systemMent.innerHTML=`코코는 앞발로 냥펀치를 날렸다.`;
+                break;
+            case 'magic' :
+                enemy.takeMagigDamage(this.magicDamage);
+                systemMent.innerHTML=`코코는 화염구 공격을 하였다.`;
+                break;
+            case 'debuff' :
+                enemy.receiveDebuff();
+                systemMent.innerHTML=`적의 공격력이 다소 낮아졌다.`;
+                break;
+        }
 
 
     }
-    takeDamage() {
+    takeDamage(damage) {
         // 예시로 간단히 10의 데미지를 입음
-        this.hp -= 10;
+        this.hp -= damage;
         console.log("코코가 공격을 받아서 HP가 감소했습니다.");
         console.log("코코의 현재 HP: " + this.hp);
     }
@@ -92,12 +108,11 @@ class Coco{
         hpNow.textContent=this.hp;
         barStyle.style.width=(((this.hp)/fullHP)*100) +"%";//(총-상대방공격)/총 * 100
     }
-    auto(){
+    // auto(){
 
-        // TODO 자동
 
         
-    }
+    // }
     
 }
 
@@ -107,17 +122,28 @@ class Enemy{
         this.hp = 20;
         this.level = 1;
         this.skillId = 1;
+        this.damage = 10;
 
     }
     attack(coco){
-        coco.takeDamage();
-
+        coco.takeDamage(this.damage);
     }
-    takeDamage() {
-        // 예시로 간단히 10의 데미지를 입음
-        this.hp -= 10;
+    takeDamage(damage) {
+        // 10의 데미지를 입음
+        this.hp -= damage;
         console.log("적이 공격을 받아서 HP가 감소했습니다.");
         console.log("적의 현재 HP: " + this.hp);
+    }
+    takeMagigDamage(damage) {
+        // 20의 데미지를 입음
+        this.hp -= damage;
+        console.log("적이 마법 공격을 받아서 HP가 감소했습니다.");
+        console.log("적의 현재 HP: " + this.hp);
+    }
+    receiveDebuff(){
+        this.damage -= 2;
+        console.log("디버프가 적용되어 적의 공격력이 낮아집니다.");
+
     }
 
 }
@@ -207,12 +233,11 @@ else
     }
 
     async next(){
-       // quizBox.addEventListener("click",async()=>{
 
            if(this.enemy.hp<=0 && 0<this.coco.hp){
             this.coco.win=true;
-            // alert(this.coco.win);
-               return this.closed();
+            this.closed();
+               return ;
            }
             else if(0<this.coco.hp){
                     
@@ -227,18 +252,14 @@ else
             console.log("hp가 0이 되어..");
             this.closed();
 
-            
-
-       // },{ once : true})
-
+        
            
     }
     closed(){//TODO 종료:코코는 기분이 좋아보인다 
         console.log("종료. 틀림:"+this.coco.wrong+"맞음:"+this.coco.correct);
-        quizDivs[quizDivs.length-2].classList.add("d:none");
-        quizDivs[quizDivs.length-1].classList.remove("d:none");//코코는 기분이 좋아보인다
-        
-
+ 
+        //     document.querySelector(".end").classList.remove("d:none");//코코는 기분이 좋아보인다
+  
 
         let form = document.createElement("form");
         form.method="post";
@@ -276,7 +297,61 @@ else
                     quizDivs[2].classList.add("d:none"); //어떻게 할까요?
                     quizDivs[3].classList.add("d:none"); //사용버튼
 
-                    systemMent.innerHTML=`<span class="skill-ment">자동으로 대응합니다.</span><button class="btn-base use-item">확인</button>`;
+                    systemMent.innerHTML=`<span class="skill-ment">자동으로 대응합니다.</span><button class="btn-base use-auto">확인</button>`;
+
+                    document.querySelector(".use-auto").addEventListener("click",(e)=>{
+                        systemMent.innerHTML="";
+
+                        //비활성화
+                        for(let btn of skillUpperBtn)
+                            btn.disabled = true;
+
+                            // 0 또는 1 중 랜덤으로 선택
+                        const action = Math.floor(Math.random() * 3);
+
+                        if (this.coco.hp<15){
+                            // 힐링하기
+                            systemMent.innerHTML="";
+
+                            this.coco.useItem();
+                            quizBox.addEventListener("click",()=>{
+                                this.afterQuiz();
+                                skillMenus.classList.add("vis:hidden"); //스킬 창 닫기
+
+                            },{ once : true})
+                            console.log("체력을 회복합니다.");
+                            return;
+                        }
+                        else if (action === 0) {// 물리 공격하기
+                            this.coco.skill='physical';
+                            quizDivs[0].classList.remove("d:none"); //문제
+
+                            console.log("물리 공격합니다.");
+                        } 
+                        else if (action === 1) {// 마법 공격하기
+                            this.coco.skill='magic';
+                            quizDivs[0].classList.remove("d:none"); //문제
+
+                            console.log("마법 공격합니다.");
+                        } 
+                        else if (action === 2) {// 디버프하기
+                            this.coco.skill='debuff';
+                            quizDivs[0].classList.remove("d:none"); //문제
+
+                            console.log("적을 디버프합니다.");
+                        } 
+                        else {// else 물리 공격하기
+                            this.coco.skill='physical';
+                            quizDivs[0].classList.remove("d:none"); //문제
+
+                            console.log("else 물리 공격합니다.");
+                        } 
+
+                     
+
+                        
+                    })
+
 
 
                     break;
@@ -288,9 +363,9 @@ else
 
                     let attackHtml=
                                 `<ul class="atk-item d:flex gap:4 mt:1 jc:start">
-                                    <li><label class="btn-base ac:center txt-al:center"><input type="radio" name="sub">발차기</label></li>
-                                    <li><label class="btn-base ac:center txt-al:center"><input type="radio" name="sub">파이어볼</label></li>
-                                    <li><label class="btn-base ac:center txt-al:center w:2"><input type="radio" name="sub">공격 디버프</label></li>
+                                    <li><label class="physical-atk btn-base ac:center txt-al:center"><input type="radio" name="sub">발차기</label></li>
+                                    <li><label class="magical-atk btn-base ac:center txt-al:center"><input type="radio" name="sub">파이어볼</label></li>
+                                    <li><label class="debuff btn-base ac:center txt-al:center w:2"><input type="radio" name="sub">공격 디버프</label></li>
                                 </ul>`;
                     
                     bntDetail.insertAdjacentHTML("beforeend",attackHtml);
@@ -299,9 +374,12 @@ else
                         
                     
                     //하부 버튼 선택  
-                    for(let btn of atkItems)
-                    btn.addEventListener("click",function(e){
-                        // e.stopPropagation();
+                    // for(let btn of atkItems)
+                        // btn.addEventListener("click",function(e){
+                        //1. 물리공격
+                    document.querySelector(".physical-atk").addEventListener("click",function(e){
+                        if(e.target.tagName!='INPUT')
+                            return;
                         
                         systemMent.innerHTML="";
                         
@@ -313,7 +391,7 @@ else
                         
                     })
     
-                    useBtn.addEventListener("click",function(e){
+                    useBtn.addEventListener("click",(e)=>{
     
                         quizDivs[3].classList.add("d:none"); //사용버튼
                         quizDivs[0].classList.remove("d:none"); //문제
@@ -323,8 +401,67 @@ else
                             btn.disabled = true;
                         for(let btn of atkItems) 
                             btn.disabled = true;
+
+                        this.coco.skill='physical';
      
                     })
+
+                    //2.마법 공격
+                    document.querySelector(".magical-atk").addEventListener("click",(e)=>{
+
+                        if(e.target.tagName!='INPUT')
+                            return;
+
+                        systemMent.innerHTML="";
+                        quizDivs[2].classList.add("d:none"); //어떻게 할까요?
+                        quizDivs[3].classList.add("d:none"); //사용버튼
+
+                    systemMent.innerHTML=`<span class="skill-ment">화염구를 사용하여 약한 데미지로 공격.</span><button class="btn-base use-skill">사용</button>`;
+
+                    document.querySelector(".use-skill").addEventListener("click",(e)=>{
+                        systemMent.innerHTML="";
+
+                        quizDivs[0].classList.remove("d:none"); //문제
+
+                        //비활성화
+                        for(let btn of skillUpperBtn)
+                            btn.disabled = true;
+                        for(let btn of atkItems) 
+                            btn.disabled = true;
+
+
+                        this.coco.skill='magic';
+                    })
+                    
+                })
+
+                //3.디버프
+                document.querySelector(".debuff").addEventListener("click",(e)=>{
+
+                    if(e.target.tagName!='INPUT')
+                        return;
+
+                    systemMent.innerHTML="";
+                    quizDivs[2].classList.add("d:none"); //어떻게 할까요?
+                    quizDivs[3].classList.add("d:none"); //사용버튼
+
+                systemMent.innerHTML=`<span class="skill-ment">상대방의 공격력을 약화시킨다.</span><button class="btn-base use-skill">사용</button>`;
+
+                document.querySelector(".use-skill").addEventListener("click",(e)=>{
+                    systemMent.innerHTML="";
+
+                    quizDivs[0].classList.remove("d:none"); //문제
+
+                    //비활성화
+                    for(let btn of skillUpperBtn)
+                        btn.disabled = true;
+                    for(let btn of atkItems) 
+                        btn.disabled = true;
+                    this.coco.skill='debuff';
+                })
+                
+            })
+                
     
                 break;
                 
@@ -411,14 +548,31 @@ else
 
                 count++;
                 if(count==6){
-                    this.enemy.attack(this.coco);
+                    this.enemy.attack(this.coco);//TODO 적의 hp가 0일 경우에 공격을 못하는게 맞겠지?~~?~?~?
                     hpNow.textContent=this.coco.hp;
                     barStyle.style.width=(((this.coco.hp)/fullHP)*100) +"%";//(총-상대방공격)/총 * 100
 
                     console.log(this.coco.hp);
                 }
-                if(count==7)this.next();
+                if(count==7 && (this.coco.hp<=0||this.enemy.hp<=0)){
+                    quizDivs[quizDivs.length-2].classList.add("d:none");//다음문제를 풀자
+                    document.querySelector(".end").classList.remove("d:none");//코코는 기분이 좋아보인다
+                    count++;
+
+
+
+                }
+                else if(count==7 && this.coco.hp>0){
+                    quizDivs[quizDivs.length-2].classList.add("d:none");//다음문제를 풀자
+                    this.next();
+                        //quizBox.addEventListener("click",()=>{
+
+                        //})
+                }
+                if(count==8)
+                    this.next();
             }
+          
             //else if((count < quizDivs.length-1 && this.coco.hp==0)||this.enemy.hp<=0)
                 //this.closed();//await후밖으로?
             //if(!(quizDivs[quizDivs.length-1].classList.contains("d:none")))
@@ -482,7 +636,9 @@ else
                             this.coco.correct.push(randQ.id);
                             this.coco.attack(this.enemy);
 
-                            systemMent.innerHTML=`코코는 앞발로 냥펀치를 날렸다.`;
+                            // systemMent.innerHTML=`코코는 앞발로 냥펀치를 날렸다.`;
+                            // systemMent.innerHTML=`코코는 화염구 공격을 하였다.`;
+                            // systemMent.innerHTML=`적의 공격력이 다소 낮아졌다.`;
 
                             break;
                         }
