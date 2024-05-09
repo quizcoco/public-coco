@@ -41,7 +41,7 @@
             <ul>
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}">내정보</a>
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
-                    <a href="" class="icon icon:myinfo arrow">>></a></li>
+                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
                 <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
@@ -67,18 +67,18 @@
             <section>
                 <h1 class="d:none">유저 프로필</h1>
                 <div class="d:flex fl-dir:row gap:5 ai:center">
-                    <nav>
-                        <div class="profile-place">
-                            <a href="" class="profile"></a>
+                    <nav class="profile-img">
+                        <div class="default-place">
+                            <a href="" class="defaul-profile"></a>
                         </div>
-                        <ul class="d:flex fl-dir:row gap:1 pt:1">
+                        <ul class="d:flex fl-dir:row gap:1 pt:2 pl:2">
                             <li><a href="/myinfo/edit" class="icon icon:pencil_simple">유저 정보 수정</a></li>
                             <li><a href="/myinfo/stemp" class="icon icon:trophy">달성 스탬프</a></li>
                             <li><a href="/myinfo/bookmark" class="icon icon:bookmark_simple">북마크</a></li>
                         </ul>
                     </nav>
-                    <div>
-                        <ul>
+                    <div class="user-profile">
+                        <ul class="md:fs:3 fw:1 lg:fs:5 fw:3">
                             <li class="pt:2"><span>별명 : </span><span sec:authentication="principal.nickname">김철수</span></li>
                             <li class="pt:2"><span>레벨 : </span><span sec:authentication="principal.level">55</span></li>
                             <li class="pt:2"><span>경험치 : </span><span sec:authentication="principal.exp">1234567</span></li>
@@ -88,18 +88,20 @@
                     </div>
                 </div>
             </section>
-            <section class="d:flex jc:center gap:2 pt:4 md:fl-dir:row lg:fl-dir:column">
+            <section class="btn-section d:flex jc:center gap:2 pt:10 md:fl-dir:row lg:fl-dir:column">
                 <h1 class="d:none">보유 내역</h1>
                     <div class="own-avartar n-btn:filled-on filled-off csr:pointer">보유아바타</div>
                     <div class="own-coco n-btn:filled-off filled-on csr:pointer">보유 코코</div>    
             </section>
-            <div class="show-avartar d:flex ai:center jc:center pt:6">
-                <img th:src="${avatarImg}">
-            </div>
-            <div class="show-coco d:flex ai:center jc:center pt:6">
-                <img>
-            </div>
-            <div><a href="/myinfo/inventory" class="mt:6 n-btn:long-btn">나의 인벤토리</a></div>
+            <section class="img-section d:flex ai:center jc:center h:3">
+                <div class="show-avartar">
+                    <img th:src="${avatarImg}">
+                </div>
+                <div class="show-coco hidden">
+                    <img th:src="${cocoImg}">
+                </div>
+            </section>
+            <div class="inventory-btn"><a href="/myinfo/inventory" class="n-btn:long-btn mt:5">나의 인벤토리</a></div>
         </section>
    </section>        
    </main>
@@ -112,7 +114,7 @@
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
-                    <a href="" class="icon icon:myinfo arrow">>p></a></li>
+                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
                 <li class="fs:1 bd-bottom">
                     <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
