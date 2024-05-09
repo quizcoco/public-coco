@@ -126,7 +126,10 @@ class Enemy{
 
     }
     attack(coco){
+        if(this.hp<=0)
+            return;
         coco.takeDamage(this.damage);
+
     }
     takeDamage(damage) {
         // 10의 데미지를 입음
@@ -255,11 +258,9 @@ else
         
            
     }
-    closed(){//TODO 종료:코코는 기분이 좋아보인다 
+    closed(){
         console.log("종료. 틀림:"+this.coco.wrong+"맞음:"+this.coco.correct);
- 
-        //     document.querySelector(".end").classList.remove("d:none");//코코는 기분이 좋아보인다
-  
+   
 
         let form = document.createElement("form");
         form.method="post";
@@ -512,9 +513,15 @@ else
                     systemMent.innerHTML=`<span class="skill-ment">연습 대결을 종료합니다.</span><button class="btn-base use-item">확인</button>`;
 
                     document.querySelector("button.use-item").addEventListener("click",()=>{
-                        let reportURL = `http://localhost:8080/study/self-match/report`;
                         // 지금까지 푼 문제 서버로
-                        window.location.href = reportURL;
+
+                        if (this.coco.correct.length === 0 && this.coco.wrong.length === 0) {
+                            window.location.href = `http://localhost:8080/`;
+                            return;
+                        }
+                        this.closed();
+
+
                     })
                     
 
@@ -528,7 +535,7 @@ else
     //================================================================================
 
 
-    afterQuiz(){
+    afterQuiz(){//TODO 멘트수정........
      
        
      
@@ -541,42 +548,41 @@ else
 
 
          quizBox.addEventListener("click",()=>{//타격을 입었다 까지..
-            if (count < quizDivs.length-3) {
+            if (count < quizDivs.length-2) {
                 systemMent.innerHTML=``;
                 quizDivs[count].classList.add("d:none");
                 quizDivs[count+1].classList.remove("d:none");
+                quizDivs[8].classList.add("d:none");
 
-                count++;
-                if(count==6){
-                    this.enemy.attack(this.coco);//TODO 적의 hp가 0일 경우에 공격을 못하는게 맞겠지?~~?~?~?
+                if(count==6 && !this.coco.hp<=0 && !this.enemy.hp<=0){
+                    this.enemy.attack(this.coco);
                     hpNow.textContent=this.coco.hp;
                     barStyle.style.width=(((this.coco.hp)/fullHP)*100) +"%";//(총-상대방공격)/총 * 100
 
                     console.log(this.coco.hp);
+                    this.next();
                 }
                 if(count==7 && (this.coco.hp<=0||this.enemy.hp<=0)){
-                    quizDivs[quizDivs.length-2].classList.add("d:none");//다음문제를 풀자
-                    document.querySelector(".end").classList.remove("d:none");//코코는 기분이 좋아보인다
-                    count++;
 
-
-
+                    systemMent.innerHTML=``;
+                    systemMent.innerHTML=`코코는 기분이 좋아보인다`;
+                    
+                    
                 }
-                else if(count==7 && this.coco.hp>0){
-                    quizDivs[quizDivs.length-2].classList.add("d:none");//다음문제를 풀자
-                    this.next();
-                        //quizBox.addEventListener("click",()=>{
-
-                        //})
-                }
-                if(count==8)
-                    this.next();
             }
-          
-            //else if((count < quizDivs.length-1 && this.coco.hp==0)||this.enemy.hp<=0)
-                //this.closed();//await후밖으로?
-            //if(!(quizDivs[quizDivs.length-1].classList.contains("d:none")))
-            //return ;
+                // else if(count==7 && this.coco.hp>0){
+                //     // quizDivs[quizDivs.length-2].classList.add("d:none");//다음문제를 풀자
+                //     systemMent.innerHTML=``;
+
+                   
+                //     }
+                    if(count==8 && (this.coco.hp<=0||this.enemy.hp<=0)){
+                        this.next();
+                    }
+                        count++;
+                        
+
+      
         
         
     });
@@ -620,33 +626,26 @@ else
                     //for (let v of answerInputs) {
                     
                     //정답처리
-                    let answerChecked = false;
+                    // let answerChecked = false;
                     for (let v of answerInputs) {
                         if(v.checked && v.dataset.value !=randQ.answer){//틀림
                             this.coco.wrong.push(randQ.id);
                             // this.coco.hp -=25;
       
-                            answerChecked = true;
+                            // answerChecked = true;
 
                             systemMent.innerHTML=`답은 ${randQ.answer} 입니다.`;
                             break; 
                         }
                         else if(v.checked && v.dataset.value ==randQ.answer){//맞음
-                            answerChecked = true;
+                            // answerChecked = true;
                             this.coco.correct.push(randQ.id);
                             this.coco.attack(this.enemy);
-
-                            // systemMent.innerHTML=`코코는 앞발로 냥펀치를 날렸다.`;
-                            // systemMent.innerHTML=`코코는 화염구 공격을 하였다.`;
-                            // systemMent.innerHTML=`적의 공격력이 다소 낮아졌다.`;
 
                             break;
                         }
                     }
-                    if(!answerChecked){
-                       
-                        //그냥 버튼 disabled함..
-                    }
+                    
 
                     
                     quizBox.addEventListener("click",()=>{
@@ -660,8 +659,7 @@ else
 
                
             },{ once : true});
-            // return this;//답은 뭐다..타격을 입었다 
-            // })//프로미스
+         
             
 
             console.log("여기는 submitAnswer밖");
@@ -671,27 +669,7 @@ else
 
            
 }
-        //정답처리
-//for (let v of answerInputs) {
-    
-    // if(v.target.tagName != "BUTTON")
-    //      return;
-    // let quiz ={};
-    // quiz.id = quizBox.dataset.id;
-    // quiz.answer = quizBox.dataset.answer;
-    
-    // console.log(quiz.id);
-    // console.log(quiz.answer);
-    
-    // v.addEventListener("click",function(e){
-        
-    //     if(e.target.dataset.value==quiz.answer)
-        
-    //     if(e.target.dataset.value!=quiz.answer)
-    //     quiz.wrong = e.target.dataset.value;//오답
-    // })
-//}
-    
+
 
 
 }//class
@@ -723,13 +701,7 @@ async function runQuiz(){
         
 }
 
-//useEffect(() => {
 runQuiz();
-//}, []);
-
-
-
-
 
 
 
