@@ -13,4 +13,14 @@ SELECT * FROM coco where user_id=#{userId}
 
 </select>
 
+<!-- 코코 이미지 가져오기 -->
+<select id="findCocoByUserId" resultType="Coco" parameterType="Long">
+  select
+    ct.img
+  from coco c
+  join coco_type ct 
+       on c.type_id = ct.id
+  where c.user_id =#{useredId}     
+</select>
+
 </mapper>

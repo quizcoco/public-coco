@@ -93,12 +93,14 @@
                     <div class="own-avartar n-btn:filled-on filled-off csr:pointer">보유아바타</div>
                     <div class="own-coco n-btn:filled-off filled-on csr:pointer">보유 코코</div>    
             </section>
-            <div class="show-avartar d:flex ai:center jc:center pt:6">
-                <img th:src="${avatarImg}">
-            </div>
-            <div class="show-coco d:flex ai:center jc:center pt:6">
-                <img>
-            </div>
+            <section class="d:flex ai:center jc:center pt:6">
+                <div class="show-avartar">
+                    <img th:src="${avatarImg}">
+                </div>
+                <div class="show-coco hidden">
+                    <img th:src="${cocoImg}">
+                </div>
+            </section>
             <div><a href="/myinfo/inventory" class="mt:6 n-btn:long-btn">나의 인벤토리</a></div>
         </section>
    </section>        
