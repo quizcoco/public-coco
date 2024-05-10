@@ -16,5 +16,20 @@ public class CocoServiceImp implements CocoService{
     public Coco getCocoById(long userId) {
       return repository.findCocoById(userId);
     }
+
+    @Override
+    public String getCocoImgUrl(Long useredId) {
+      
+      Coco coco = repository.findCocoByUserId(useredId);
+
+      if (coco != null) {
+
+        return coco.getImg();
+      
+      } else {
+          return null;
+      } 
+      
+    }
     
 }

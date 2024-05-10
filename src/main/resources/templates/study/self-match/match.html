@@ -56,7 +56,7 @@
             <ul>
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}">내정보</a>
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
-                    <a href="" class="icon icon:myinfo arrow">>></a></li>
+                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
                 <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
@@ -99,7 +99,7 @@
         <div class="d:none icon icon:arrow_left order:1 mr:1">뒤로가기 버튼</div> 
         <section id="hp-progressbar" class="order:3 ml:auto w:3">
             <h1 class="d:none">H.P</h1>
-            <div class="n-progress n-progress-color:accent" role="progressbar">
+            <div class="n-progress n-progress-color:main" role="progressbar">
                 <div style="width:100%" class=" d:flex jc:start ac:center">
                     <div class="mr:1 txt-indent:5">H.P</div>
                     <div class="hp-now mr:1">255</div>
@@ -143,8 +143,8 @@
 
 
         <!-- 스킬 하위메뉴 js -->
-        <nav class="bnt-detail mt:2">
-            <ul class="d:flex gap:4 mt:1 jc:center" style="height: 30px;"></ul>
+        <nav class="bnt-detail mt:2" style="height: 30px;">
+            <ul class="d:flex gap:4 mt:1 jc:center" ></ul>
         </nav>
     </section>
 </section>
@@ -164,7 +164,7 @@
                 <div class="wait-msg"><button class="btn-base n-btn:filled-4">제출</button></div>-->
                 <!-- //XXX 버튼 비활성화로 시간 끝날때까지 있다 넘어감  -->
                 <!-- XXX 방금 깨달은 사실은 혼자 연습 대결은 타이머를 할 필요가 없다는 것입니당.. 이걸 이제서야.. 2인,팀 대결 하려면 웹소켓 같은걸 공부해야하지 싶은데 언제가될지 모루겠네요ㅋ-->
-            </div>
+            <!-- </div> -->
         </div> 
         <div class="d:flex mt:10 deco icon:skip deco-pos:right deco-size:1 deco-ml:0 icon-color:main-4">상대는 강해보인다</div>   
         <div class="d:none mt:10">어떻게 할까요?</div>   
@@ -172,9 +172,10 @@
         <div class="d:none mt:10">답은 <span class="color:accent-4" th:text="${randQ.answer == 1 ? '①' : randQ.answer == 2 ? '②' : randQ.answer == 3 ? '③' : '④'}">②</span>
             <span class="color:accent-4" th:utext="${randQ.answer == 1 ? randQ.num1 : randQ.answer == 2 ? randQ.num2 : randQ.answer == 3 ? randQ.num3 : randQ.num4}">망</span>입니다.</div>   
         <div class="d:none mt:10">상대방은 간지러운듯 하다.</div>   
-        <div class="bebeaten d:none mt:10">상대방은 어택을 날렸다.</div>   
+        <div class="bebeaten d:none mt:10">상대방은 깨물기 공격을 했다.</div>   
         <div class="d:none mt:10 d:block">타격을 입어 HP가 <span>10</span>감소하였다. <span class="deco icon:skip deco-pos:right deco-size:1 deco-ml:0 icon-color:main-4">다음 문제를 풀자.</span></div>   
         <div class="end d:none mt:10"><span>코코</span>는 기분이 좋아보인다.</div>   
+        <div class="system-comment mt:10"></div>   
             
     </section>
 
@@ -197,7 +198,7 @@
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
-                    <a href="" class="icon icon:myinfo arrow">>p></a></li>
+                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
                 <li class="fs:1 bd-bottom">
                     <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>

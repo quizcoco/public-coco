@@ -124,6 +124,27 @@ header ul{
     background-size: cover;
 }
 
+.default-place{
+    display: grid;
+    grid-template:
+    "profile icon" 100px
+    /130px 1fr;
+
+}
+
+.defaul-profile {
+    grid-area: profile;
+    text-indent: 999px;
+    /* white-space: nowrap; */
+    height: 100px;
+    width: 100px;
+    background-color: rgb(12, 140, 224);
+    border-radius: 50px;
+    background-image: url('../../image/man.png');
+    background-size: cover;
+}
+
+
 .arrow{
     grid-area: icon;
     align-self: center;

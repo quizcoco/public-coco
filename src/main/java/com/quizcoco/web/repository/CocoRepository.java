@@ -8,5 +8,7 @@ import com.quizcoco.web.entity.Coco;
 public interface CocoRepository {
 
     Coco findCocoById(long userId);
+
+    Coco findCocoByUserId(Long useredId);
     
 }

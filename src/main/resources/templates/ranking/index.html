@@ -40,7 +40,7 @@
             <ul>
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}">내정보</a>
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
-                    <a href="" class="icon icon:myinfo arrow">>></a></li>
+                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
                 <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
@@ -86,7 +86,7 @@
                             <i class=""></i>
                         </td>
                     </td>
-                    <td></td>
+                    <td>프로필사진</td>
                     <td th:text="${user.nickName}">닉네임</td>
                     <td th:text="${user.point}">포인트</td>
                 </tr>
@@ -103,7 +103,7 @@
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
-                    <a href="" class="icon icon:myinfo arrow">>p></a></li>
+                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
                 <li class="fs:1 bd-bottom">
                     <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>

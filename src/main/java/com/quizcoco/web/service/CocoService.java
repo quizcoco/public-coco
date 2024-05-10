@@ -6,5 +6,7 @@ public interface CocoService {
 
         Coco getCocoById(long userId);
 
+        String getCocoImgUrl(Long useredId);
+
     
 }

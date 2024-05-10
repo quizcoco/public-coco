@@ -45,7 +45,7 @@
             <ul>
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}">내정보</a>
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
-                    <a href="" class="icon icon:myinfo arrow">>></a></li>
+                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
                 <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                     <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
@@ -64,7 +64,6 @@
 
     <main class="of:auto">
         <!--=========================== 메인 입력 ===============================-->
-        <!-- TODO 데이터 넣어야함 -->
         <section class="d:flex fl-direction:column ac:center gap:2">
             <section class="fs:5 ac:center h:6">
                 <h1 class="d:none">대결 결과</h1>
@@ -84,6 +83,7 @@
                                                         wrong = ${wrongQ} ==null ? 0 : ${#lists.size(wrongQ)}">
             <section class="section-s">
                 <!-- 1. 맞힌문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+                <!-- TODO 다 맞았을 경우 클릭안됨 -->
                 <div class="n-expander d:fl-direction:row ac:center">
                     <div class="n-expander-title">
                     <input type="checkbox" class="n-expander-trigger" checked/>
@@ -185,6 +185,7 @@
                 <button type="button" class="n-btn n-btn:void n-btn-size:1 d:flex mt:2">오탈자 신고</button>
             </div>
         </section> -->
+        <!-- TODO 문제 맞았을 경우 답 제대로 표시~~~~~cq -->
          <section id="detail-modal" class="d:none n-modal" th:each="wq: ${wrongQ}" tabindex="-1">
                                     <h1 class="d:none">문제 디테일 모달</h1>
                                     <div class="p:2">
@@ -209,7 +210,7 @@
                 <ul class="d:grid gap:4 mt:7 w:min-content">
                     <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
                         <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
-                        <a href="" class="icon icon:myinfo arrow">>p></a></li>
+                        <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
                     <li class="fs:1 bd-bottom">
                         <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                         <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
