@@ -90,9 +90,11 @@ async function nextCard(count, userQ){
                 <h1 class="d:none">카드 상단</h1>
         
                 <div class="d:flex fl-dir:row jc:space-between pb:4">
-                    <div class="d:flex justify-content:flex-end">
-                        <a class="icon icon:star icon-color:base-4" href="">즐겨찾기</a>
-                    </div>
+                <div class="d:flex justify-content:flex-end">
+                    <form action="add" method="post">
+                    <a class="icon icon:star icon-color:base-4"
+                    href="">즐겨찾기</a></form>
+                </div>
                     <!-- 모달 추가하기  -->
                     <div class="n-dropdown">
                     <button id="dropdown-btn" class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</button>
@@ -262,3 +264,58 @@ quizQuestion.addEventListener("click", function(){
 progressbar.style.width=(count/ totalCount.dataset.count)*100+"%";//프로그레스바
 
 delModal();
+
+
+/* 즐겨찾기=============================== */
+
+let star = document.querySelector(".favorite");
+// 문제 즐겨찾기 버튼 클릭 시 이벤트 처리
+star.addEventListener("click", async (e) => {
+    
+    e.preventDefault();
+                                // 빈별 누르면 노란별로 변할것이다
+    star.classList.replace("icon:star","icon-star");
+
+
+    
+    // 해당 문제의 ID와 카테고리 가져오기
+    // let id = paramsObject["id"];
+    // let category = paramsObject["category"];
+    // const url = `/api/user-quizzes-favorites/add?id=${id}&category=${category}`; // 요청할 URL
+
+    // id,category를 불러올수있냐? 
+    console.log("============",id,category); //불러와진다
+
+    fetch(`/api/user-quizzes-favorites/add?id=${id}&category=${category}`)
+    .then(response => {
+        if (!response.ok) {
+        throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+
+    })
+    .catch(error => {
+        console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+    });
+
+
+});
+
+fetch(`/api/user-quizzes-favorites/fav?id=${id}&category=${category}`)
+.then(response => {
+    if (!response.ok) {
+    throw new Error('Network response was not ok');
+    }
+    return response.json();
+})
+.then(data => {
+    console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+    star.classList.add("icon-star");
+
+})
+.catch(error => {
+    console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+});

@@ -38,4 +38,33 @@
 		</where>
 	</delete>
 
+
+
+    <select id="isFavorite" resultType="java.lang.Boolean">
+        SELECT COUNT(*) > 0 FROM user_quizzes_favorite
+        
+        
+        		<where>
+            user_id=#{userId}
+
+            <if test="userOxId !=null">
+                and user_ox_id=#{userOxId}
+            </if>
+            <if test="userShortAnswerQuizId !=null">
+                and user_short_answer_quiz_id=#{userShortAnswerQuizId}
+            </if>
+            <if test="userMultipleChoiceQuizId !=null">
+                and user_multiple_choice_quiz_id=#{userMultipleChoiceQuizId}
+            </if>
+		</where>
+        
+        
+        <!-- WHERE user_id = #{userId} AND quiz_id = #{quizId} -->
+    </select>
+
+
+    <select id="getFavoritesByUserId" resultType="UserQuizzesFavorite">
+        SELECT * FROM user_quizzes_favorite WHERE user_id = #{userId}
+    </select>
+
 </mapper>

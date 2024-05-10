@@ -19,8 +19,10 @@ import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.UserMultipleQuiz;
 import com.quizcoco.web.entity.UserOXQuiz;
 import com.quizcoco.web.entity.UserQuizView;
+import com.quizcoco.web.entity.UserQuizzesFavorite;
 import com.quizcoco.web.entity.UserShortQuiz;
 import com.quizcoco.web.service.UserQuizService;
+import com.quizcoco.web.service.UserQuizzesFavoriteService;
 
 @Controller
 @RequestMapping("study/userquiz")
@@ -28,6 +30,9 @@ public class UserQuizController {
    
     @Autowired
     private UserQuizService service;
+
+    @Autowired
+    private UserQuizzesFavoriteService favoriteService;
 
     @GetMapping("list")
     public String list(Model model
@@ -71,6 +76,29 @@ public class UserQuizController {
         userId=userDetails.getId();
 
         UserQuizView userQuizView = service.getListById(id, userId, cate);
+
+
+
+
+
+//         UserQuizzesFavorite favorite = new UserQuizzesFavorite();
+//         favorite.setUserId(userId);
+
+//         if(cate.equals("short"))
+//         favorite.setUserShortAnswerQuizId(id);
+
+//         if(cate.equals("multi"))
+//         favorite.setUserMultipleChoiceQuizId(id);
+        
+//         if(cate.equals("ox"))
+//         favorite.setUserOxId(id);
+//                                                     // 여기에 담아야한다
+//         boolean isSuccess = favoriteService.add(favorite);
+
+
+// model.
+
+        
         int count = 0;
 
         if(id==null) {

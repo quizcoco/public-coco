@@ -83,9 +83,9 @@
 
                         <div class="d:flex fl-dir:row jc:space-between pb:4">
                             <div class="d:flex justify-content:flex-end">
-                                <form action="add" method="post">
-                                <a class="icon icon-star-fill icon-color:base-4"
-                                th:classappend="${userQuiz.like}==1 ? 'icon-star-fill':'icon:star'"
+                                <form action="add" method="get">
+                                <a class="favorite icon icon:star icon-color:base-4"
+                                th:classappend="${userQuiz.like}==1 ? 'icon-star':'icon:star'"
                                 href="">즐겨찾기</a></form>
                             </div>
                             <!-- 모달 추가하기  -->

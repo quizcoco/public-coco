@@ -13,10 +13,20 @@ public class UserQuizzesFavoriteServiceImp implements UserQuizzesFavoriteService
     private UserQuizzesFavoriteRepository repository;
 
     @Override
-    public UserQuizzesFavorite add(UserQuizzesFavorite favorite) {
-        int reslut = repository.save(favorite);
-        return favorite;
+    public boolean add(UserQuizzesFavorite favorite) {
+        repository.save(favorite);
+
+        boolean isfavorite = repository.isFavorite(favorite);
+        return isfavorite;
     }
+
+    public boolean isFavorite(UserQuizzesFavorite favorite) {
+
+        boolean isfavorite = repository.isFavorite(favorite);
+        return isfavorite;
+    }
+
+
 
     @Override
     public String cancel(UserQuizzesFavorite favorite) {

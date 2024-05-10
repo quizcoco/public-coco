@@ -1,5 +1,7 @@
 package com.quizcoco.web.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.quizcoco.web.entity.UserQuizzesFavorite;
@@ -9,5 +11,9 @@ public interface UserQuizzesFavoriteRepository {
 
 int save(UserQuizzesFavorite favorite);
 int delete(UserQuizzesFavorite favorite);
+
+boolean isFavorite(UserQuizzesFavorite favorite);
+
+List<UserQuizzesFavorite> getFavoritesByUserId(Long userId);
 
 }
