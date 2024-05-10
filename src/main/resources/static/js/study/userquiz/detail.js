@@ -44,17 +44,18 @@ paramsArray.forEach(function(param) {
 let id = paramsObject["id"];
 let category = paramsObject["category"];
 
-//========================================================================
+//=====================================================================
 
 class Repository{
     constructor(count){
         this.count = count;
     }
+
     async getQuiz(){
         const response = await fetch(`/api/userQuizs/detail?no=${this.count}`);
-        // this.count++;
         return response;
     }
+    
     async getAllCnt(){
         return await fetch(`/api/userQuizs/count`);
     }
@@ -74,19 +75,15 @@ function formatDate(date) {
 function padZero(num) {
     return (num < 10 ? '0' : '') + num;
 }
- 
-async function nextCard(count,userQ){
 
-    let allCount = await getQuizCount();
+async function nextCard(count, userQ){
+    mainCard.innerHTML ="";
 
-    for(quiz of userQ){
-
-        mainCard.innerHTML ="";
-
+    for(let quiz of userQ){
         const regDate = new Date(quiz.regDate);
         const formattedDate = formatDate(regDate);
 
-        let quizHtml=             
+        let quizHtml =             
         `<article class="card-container" draggable="true">
             <h1 class="d:none">하위그룹</h1>
             <section>
@@ -94,8 +91,7 @@ async function nextCard(count,userQ){
         
                 <div class="d:flex fl-dir:row jc:space-between pb:4">
                     <div class="d:flex justify-content:flex-end">
-                        <a class="icon icon:star icon-color:base-4"
-                        href="">즐겨찾기</a>
+                        <a class="icon icon:star icon-color:base-4" href="">즐겨찾기</a>
                     </div>
                     <!-- 모달 추가하기  -->
                     <div class="n-dropdown">
@@ -113,7 +109,7 @@ async function nextCard(count,userQ){
                     <div class="d:flex jc:flex-start">
                         <span style="margin-right:6px;">${count}</span> 
                         <span style="margin-right:6px;">/</span> 
-                        <span>${allCount}</span>
+                        <span>${totalCount.textContent}</span>
                     </div>
                 
                     <!-- reg_date -->
@@ -127,18 +123,17 @@ async function nextCard(count,userQ){
             <section id="quiz-card" class="bg-color:base-1 h:5">
                 <h1 class="d:none">카드 내용</h1>
                 <section>
-                    <div class="quiz-question p:2">
+                    <div class="quiz-question input-text:Qcard">
                         <span class="d:inline-block pb:1">[${quiz.category=='ox'?"OX":quiz.category=='multi'?"사지선다":"단답"} 문제]</span><br>
                         <span class="d:inline-block pb:3 fw:bold pb:7">${quiz.question}</span><br>
                         <span class="d:inline-block pb:2 fw:bold">${quiz.num1?? ""}</span><br>
                         <span class="d:inline-block pb:2 fw:bold">${quiz.num2?? ""}</span><br>
                         <span class="d:inline-block pb:2 fw:bold">${quiz.num3?? ""}</span><br>
                         <span class="d:inline-block pb:2 fw:bold">${quiz.num4?? ""}</span><br>
-                        <span class="d:none d:inline-block pb:2 fw:bold color:accent-4">${quiz.answer}</span>
+                        <span class="d:none d:inline-block pb:2 fw:bold color:accent-4 mt:4">${quiz.answer}</span>
                     </div>
                 </section>
             </section>
-        
             
             <section class="d:flex fl-dir:column ai:center">
                 <h1 class="d:none">카드 하단</h1>
@@ -146,14 +141,17 @@ async function nextCard(count,userQ){
                     <div style="width: 40%"></div>
                 </div>
                 <div class="d:flex gap:10">
-                <a href="" class="left"><div class="icon icon:caret_left_bold pr:10">왼쪽</div></a>
+                    <a href="" data-id=${count} class="left"><div class="icon icon:caret_left_bold pr:10">왼쪽</div></a>
                     <a href="" data-id=${count} class="right"><div class="icon icon:caret_right_bold pr:10 pl:5">오른쪽</div></a>
-                    </div>
+                </div>
             </section>
         </article>`;
 
         mainCard.insertAdjacentHTML("beforeend",quizHtml);
     }
+
+    // 이벤트 리스너 등록
+    registerEventListeners(count, userQ);
 
     //기타메뉴
     const dropdownButton = document.getElementById("dropdown-btn");
@@ -163,27 +161,9 @@ async function nextCard(count,userQ){
         dropdownList.classList.toggle("active");
     });
 
-    //다음카드
-    getUserQuiz(count,(userQ)=>{
-        
-        document.querySelector(".right").addEventListener("click", async (e) => {
-            e.preventDefault();
-            count++;
-
-            nextCard(count,userQ);
-        });
-
-        document.querySelector(".left").addEventListener("click", async (e) => {
-            e.preventDefault();
-            count--;
-
-            nextCard(count,userQ);
-        });
-    });
-
     //프로그레스바
     let progressbar = document.querySelector("div[role='progressbar']>div");
-    progressbar.style.width=(count/allCount)*100+"%";
+    progressbar.style.width=(count/ totalCount.dataset.count)*100+"%";//프로그레스바
 
     let quizCard = document.querySelector("#quiz-card");
     let quizQuestion = document.querySelector(".quiz-question");
@@ -196,17 +176,17 @@ async function nextCard(count,userQ){
     delModal();
 }
 
- /* ============================================ */
- 
-async function getUserQuiz(count,callback){
+/* ================================================== */
+
+async function getUserQuiz(count, callback){
     let repository = new Repository(count);
     let response = await repository.getQuiz();
     let userQ = await response.json();
 
-    // console.log("============================"+userQ, count)
-
-    callback(userQ)
+    callback(userQ);
 }
+
+/* ====================================================== */
 
 async function getQuizCount(){
     let repository = new Repository();
@@ -216,30 +196,47 @@ async function getQuizCount(){
     return allCount;
 }
 
-let count = currentCard.dataset.no || 1;
-getUserQuiz(count,(userQ)=>{
-
-    rightBtn.addEventListener("click",async(e) => {
-
-    e.preventDefault();
-    
-    nextCard(count,userQ);
-});
-
-   leftBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-
-        nextCard(count,userQ);
+async function registerEventListeners(count, userQ) {
+    // 왼쪽 버튼 클릭
+    document.querySelector(".left").addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (count > 1) {
+        count--;
+        getUserQuiz(count, (userQ) => {
+          nextCard(count, userQ);
+        });
+      }
     });
+    
+    document.querySelector(".right").addEventListener("click", async (e) => {
+        e.preventDefault();
+    
+        // 문제수와 count가 같으면 right 버튼을 비활성화
+        if (count >= parseInt(totalCount.dataset.count)) {
+            document.querySelector(".right").disabled = true;
+            return; // right 버튼을 더 이상 처리하지 않고 종료
+        }
+    
+        if (1 < totalCount.dataset.count) {
+            count++;
+            getUserQuiz(count, (userQ) => {
+                nextCard(count, userQ);
+            });
+        }
+    });
+
+}
+  
+let count = currentCard.dataset.no || 1;
+
+getUserQuiz(count, (userQ) => {
+    registerEventListeners(count, userQ); // 합병된 부분
 });
 
-//삭제 모달
-
+// 삭제 모달
 function delModal(){
-
-    document.querySelector(".del").addEventListener("click",(e) => {
+    document.querySelector(".del").addEventListener("click", (e) => {
         e.preventDefault();
-
         deleteModal.classList.remove('d:none');
     });
 
@@ -253,14 +250,14 @@ function delModal(){
 
         delID.value = id;
         delCate.value = category;
-
+                   
         form.submit();
     });
 }
 
 quizQuestion.addEventListener("click", function(){
     sectionSpan.classList.remove('d:none');
-})
+});
 
 progressbar.style.width=(count/ totalCount.dataset.count)*100+"%";//프로그레스바
 

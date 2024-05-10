@@ -3,71 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>QUIZCOCO</title>
 <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
-    <link href="/css/admin/util.css" rel="stylesheet" type="text/css">
-    <link href="/css/util.css" rel="stylesheet" type="text/css">
-    <link href="/css/root.css" rel="stylesheet" type="text/css">
+    <link href="/css/components/header.css" rel="stylesheet" type="text/css">
     <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
-    <link href="/css/admin/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/root.css" rel="stylesheet" type="text/css">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/util.css" rel="stylesheet" type="text/css">
+    <link href="/css/modal.css" rel="stylesheet" type="text/css">
+    <link href="/css/user-quiz.css" rel="stylesheet" type="text/css">
+    
+    <link rel="icon" type="image/png" href="/image/logo.png">
+    <script defer src="/js/header.js"></script>
+    <script defer src="/js/study/userquiz/detail.js"></script>
 </head>
 <body>
-    <header class="admin-hd d:flex jc:flex-start h:2 bg-color:base-8 color:base-1 p:5 ai:center">
-        <h1 class="order:2 fs:7">기출문제 디테일 페이지</h1>
-        <div class="order:1"><a href="#" onclick="history.back()" class="icon icon:caret_left_bold icon-color:base-1 mr:3">뒤로가기</a></div>
-        <div class="order:3 hd-right-item"><a href="/" class="icon icon:admin icon-color:base-1">관리자-유저</a></div>
-        <div class="order:4 p:2"><a href="/admin/index" class="icon icon:house icon-color:base-1 js:end">홈</a></div>
+    <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
+        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- 내 퀴즈 보기</span></h1>
+        <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
+            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">내 퀴즈 보기</span></h1>
+            <div class="order:1"><a href="#" onclick="history.back()" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
+        </div>
+
+        <section class="d:none md:d:flex root-header-menu">
+            <h1 class="d:none">접속중인 친구</h1>
+            <div class="d:flex gap:4"><span class="online-user"></span><span class="online-user"></span><span class="online-user"></span><span class="online-num">6</span></div>
+        </section>
+        <nav class="root-header-menu">
+            <h1 class="d:none">유저 메뉴</h1>
+            <ul class="md:d:none">
+                <li><a href="/admin" class="icon icon:admin">관리자-유저 전환</a></li>
+                <li><a href="/" class="icon-home">홈으로</a></li>
+                <li><a href="" id="m" class="icon icon:list">메뉴</a></li>
+            </ul>
+        </nav>
+        <nav class="menu d:none md:d:none">
+            <h1 class="d:none">모바일 메뉴바</h1>
+            <ul>
+                <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}">내정보</a>
+                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
+                    <a href="" class="icon icon:myinfo arrow">>></a></li>
+                <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                    <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
+                <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+                <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+                <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+                <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+            </ul>
+            <div class="d:flex jc:flex-end pt:6">
+                <a class="fs:1 bd-bottom" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
+            </div>
+        </nav>
     </header>
-    <main>
-        <section class="d:flex fl-dir:column jc:center flex:1 ai:center as:stretch pos:relative px:11 mx:7 my:7">
-            <h1 class="d:none">문제 디테일</h1>
-            <form>
-                <fieldset class="d:flex fl-dir:column ai:flex-start pos:relative gap:3">
-                    <div class="d:flex fl-dir:row ai:center jc:space-between pos:relative w:312px">
-                        <label class="admin-textarea:1 w:30px fs:3 fw:1 pr:11">질문</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:5 jc:flex-end fs:1"disabled th:text="${examq.question}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between pos:relative w:312px">
-                        <label class="admin-textarea:1 w:30px fs:3 fw:1 pr:11">지문</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:5 jc:flex-start fs:1"disabled th:text="${examq.context}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
-                        <label class="fs:3 fw:1 pos:relative pr:11">1번</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.num1}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
-                        <label class="fs:3 fw:1 pos:relative pr:11">2번</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.num2}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
-                        <label class="fs:3 fw:1 pos:relative pr:11">3번</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.num3}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative w:25px">
-                        <label class="fs:3 fw:1 pos:relative pr:11">4번</label><textarea type="text" class="n-textbox-admin n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.num4}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative mt:10">
-                        <label class="admin-textarea:1 w:30px fs:3 fw:1">답</label><textarea type="text" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.answer}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
-                        <label class="admin-textarea:1 w:30px fs:3 fw:1">연도</label><textarea type="text" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:1"disabled th:text="${examq.year}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
-                        <label class="admin-textarea:1 w:30px fs:3 fw:1">직급</label><textarea type="text" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:1"disabled 
-                        th:text="${examq.examOfficialRankId == 1 ? '국가직 9급' : (examq.examOfficialRankId == 2 ? '국가직 7급' : (examq.examOfficialRankId == 3 ? '지방직 9급' : '지방직 7급'))}"></textarea>
-                    </div>
-                    <div class="d:flex fl-dir:row ai:center jc:space-between as:stretch pos:relative">
-                    <label class="admin-textarea:1 w:30px fs:3 fw:1">분류</label><textarea type="text" class="n-textbox-admin-2 n-textbox:outline admin-textarea:4 fs:1"disabled 
-                    th:text="${examq.typeId == 1 ? '문법' : examq.typeId == 2 ? '한자' : examq.typeId == 3 ? '어휘' : '기타'}"></textarea>
-                    </div>
-                </fieldset>
-            </form>
-            <div class="d:flex fl-dir:row gap:2">
-                <div class="d:flex fl-dir:row ai:center as:stretch pos:relative gap:10px jc:center gap:10 mt:10">
-                    <a href="edit" th:href="@{edit(id=${examq.id})}" class="admin-textarea:4 n-btn n-btn:filled-2 ai:center">수정</a>
+
+    <main class="of:auto">
+        <!--=========================== 메인 입력 ===============================-->
+        <section id="card-section" class="main-container-center">
+            <h1 class="d:none">내가 만든 문제</h1>
+            <section class="d:flex fl-dir:column" >
+                <h1 class="d:none">메인 카드 섹션</h1>
+                <article class="card-container" draggable="true">
+                    <h1 class="d:none">하위그룹</h1>
+                    <section>
+                        <h1 class="d:none">카드 상단</h1> 
+                        <div class="d:flex fl-dir:row jc:space-between pb:4">
+
+                            <!-- 즐겨찾기 ============================================ -->
+                            <div class="d:flex justify-content:flex-end">
+                                <form action="add" method="post">
+                                <a class="icon icon-star-fill icon-color:base-4"
+                                th:classappend="${userQuiz.like}==1 ? 'icon-star-fill':'icon:star'"
+                                href="">즐겨찾기</a></form>
+                            </div>
+
+                            <!-- 기타 모달 =======================================  -->
+                            <div class="n-dropdown">
+                                <button id="dropdown-btn" class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</button>
+                                <ul id="dropdown-list" class="left:-2">
+                                    <h1 class="d:none">기타 메뉴</h1>
+                                    <li><a href="" th:href="@{edit(id=${param.id},category=${param.category})}">수정</a></li>
+                                    <li><a href="" class="del">삭제</a></li>
+                                </ul>
+                            </div>
+                        </div>
+     
+                        <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+
+                        <div class="d:flex fl-dir:row jc:space-between">
+                            <!-- 카드갯수 -->
+                            <div class="card-count d:flex jc:flex-start">
+                                <!-- TODO 앞 카드번호 오래된순일때 리스트의 1번째 문제는 무조건 1번으로 나오게 35->1번이어야함-->
+                                <span th:data-no="${userQuiz.rowNum}" th:text="${userQuiz.rowNum}" style="margin-right:6px;">현재 문제 번호</span> 
+                                <span style="margin-right:6px;">/</span> 
+                                <span th:data-count="${count}" th:text="${count}">총 문제 갯수</span>
+                            </div>
+                        
+                            <!-- reg_date -->
+                            <div class="d:flex jc:flex-end pb:3">
+                                <span style="margin-right:6px;" th:text="${#temporals.format(userQuiz.regDate, 'yyyy-MM-dd HH:mm:ss')}">문제등록 날짜</span> 
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- 문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+                    <section id="quiz-card" class="bg-color:base-1 h:5">
+                        <h1 class="d:none">카드 내용</h1>
+                        <section th:if="${userQuiz !=null && userQuiz !=''}">
+                            <!-- <div class="quiz-question p:2"> -->
+                            <div class="quiz-question input-text:Qcard">
+                                <span class="d:inline-block pb:1" th:text="${userQuiz.category == 'ox' ? '[OX 문제]' : userQuiz.category == 'multi' ? '[사지선다 문제]' : '[단답 문제]'}">[사지선다 문제]</span><br>
+                                <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">문제</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num1}">①</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num2}">②</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num3}">③</span><br>
+                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num4}">④</span><br>
+                                <span class="d:none d:inline-block pb:2 fw:bold color:accent-4 mt:4" th:text="${userQuiz.answer}">답</span>
+                            </div>
+                        </section>
+                    </section>
+
+                    <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+                    <!-- 버튼형식으로 카드 넘기기 -->
+                    <section class="d:flex fl-dir:column ai:center">
+                        <h1 class="d:none">카드 하단</h1>
+                        <div class="n-progress n-progress-card" role="progressbar">
+                            <div style="width:40%"></div>
+                        </div>
+                        <div class="d:flex gap:10">
+                            <a href="" class="left"><div class="icon icon:caret_left_bold pr:10">왼쪽</div></a>
+                            <a href="" class="right"><div class="icon icon:caret_right_bold pr:10 pl:5">오른쪽</div></a>
+                        </div>
+                    </section>
+                </article>
+            </section>
+        </section>
+
+        <!-- 퀴즈삭제확인 모달 -->
+        <section id="delete-modal" class="d:none n-modal w:6 h:3 ac:center">
+            <h1 class="d:none">퀴즈삭제 컨펌</h1>
+            <div class="d:flex fl-direction:flex jc:center">
+                <div class="d:flex deco icon:warning_circle"></div>
+                <div>
+                    <div>선택하신 퀴즈를</div>
+                    <div>정말로 삭제 하시겠습니까?</div>
                 </div>
-                <div class="mt:10">
-                    <form method="post" th:action="@{del(id=${examq.id})}">
-                        <button class="admin-textarea:4 n-btn n-btn:filled-2 ai:center">삭제</button>
-                    </form>
+            </div>
+            <div>
+                <div class="d:flex jc:center gap:3 mt:4">
+                    <div><button id="cancel-btn" class="n-btn n-btn-size:1">취소</button></div>
+                    <div>
+                        <form method="post" action="del">
+                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="category" value="">
+                            <button id="confirm-btn" class="n-btn n-btn-size:1">확인</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
+
+    <!--=========================== 메인 끝 ===============================-->
     </main>
-</body> 
+    
+    <aside class="d:none md:d:flex jc:center right:1 zi:1">
+        <div class="pos:fixed h:100p bg-color:main-2">
+            <nav class="d:flex jc:center">
+                <h1 class="d:none">pc 메뉴바</h1>
+                <ul class="d:grid gap:4 mt:7 w:min-content">
+                    <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
+                        <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
+                        <a href="" class="icon icon:myinfo arrow">>p></a></li>
+                    <li class="fs:1 bd-bottom">
+                        <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                        <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
+                            <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
+                            <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+                    <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+                    <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+                    <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                    <li><a href="/admin" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
+                </ul>
+            </nav>
+            <div class="d:flex jc:flex-end pr:3 pt:10">
+                <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
+            </div>
+        </div>
+    </aside>
+        
+    <footer class="ad md:d:none d:flex jc:center ai:center">
+        <div>광고</div>
+    </footer>
+
+</body>
 </html>
