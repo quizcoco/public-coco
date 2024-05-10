@@ -90,11 +90,11 @@ async function nextCard(count, userQ){
                 <h1 class="d:none">카드 상단</h1>
         
                 <div class="d:flex fl-dir:row jc:space-between pb:4">
-                <div class="d:flex justify-content:flex-end">
-                    <form action="add" method="post">
-                    <a class="icon icon:star icon-color:base-4"
-                    href="">즐겨찾기</a></form>
-                </div>
+                    <div class="d:flex justify-content:flex-end">
+                        <form action="add" method="post">
+                        <a class="icon ${quiz.like!="0"?'icon-star':'icon:star'} icon-color:base-4"
+                        href="">즐겨찾기</a></form>
+                    </div>
                     <!-- 모달 추가하기  -->
                     <div class="n-dropdown">
                     <button id="dropdown-btn" class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</button>

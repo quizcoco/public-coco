@@ -111,29 +111,59 @@
     <!-- ============================================================== -->
 
     <select id="findAll" resultType="UserQuizView">
-        select *from
-        (select id,question, null num1, null num2, null num3, null num4, answer,"ox" category,reg_date,user_id from user_ox 
-        UNION all
-        select id,question, num1,num2,num3,num4, answer,"multi" category,reg_date,user_id from user_multiple_choice_quiz
-        UNION all
-        select id,question, null num1, null num2, null num3, null num4, answer,"short" category,reg_date,user_id from user_short_answer_quiz) qv
-       
+        select * from
+        (
+            select
+                qv.id,
+                qv.question,
+                qv.num1,
+                qv.num2,
+                qv.num3,
+                qv.num4,
+                qv.answer,
+                qv.category,
+                qv.reg_date,
+                qv.user_id,
+                nvl(a.user_id,0) 'like'
+
+                from
+                (
+                    (select id,question, null num1, null num2, null num3, null num4, answer,"ox" category,reg_date,user_id from user_ox 
+                    UNION all
+                    select id,question, num1,num2,num3,num4, answer,"multi" category,reg_date,user_id from user_multiple_choice_quiz
+                    UNION all
+                    select id,question, null num1, null num2, null num3, null num4, answer,"short" category,reg_date,user_id from user_short_answer_quiz
+                    ) qv
+                    
+                    LEFT JOIN user_quizzes_favorite fv  
+                    
+                    ON (qv.category = 'multi' AND qv.id = fv.user_multiple_choice_quiz_id) 
+                    OR (qv.category = 'short' AND qv.id = fv.user_short_answer_quiz_id) 
+                    OR (qv.category = 'ox' AND qv.id = fv.user_ox_id))
+
+                    LEFT JOIN(select user_ox_id,user_multiple_choice_quiz_id, user_short_answer_quiz_id,user_id from user_quizzes_favorite where user_id=#{userId}
+                ) a
+            ON (qv.category = 'multi' AND qv.id = a.user_multiple_choice_quiz_id) 
+            OR (qv.category = 'short' AND qv.id = a.user_short_answer_quiz_id) 
+            OR (qv.category = 'ox' AND qv.id = a.user_ox_id)
+
+        ) faview
         <where>
             <if test="query != null">
                 question LIKE '%${query}%'
             </if>
 
             <if test="userId != null">
-                and qv.user_id=${userId}
+                and faview.user_id=#{userId}
             </if>
         </where>
 
         <if test="newOld == 0">
-            order by qv.reg_date desc 
+            order by faview.reg_date desc 
         </if>
 
         <if test="newOld == 1">
-            order by qv.reg_date asc 
+            order by faview.reg_date asc 
         </if>
 
         limit #{offset}, #{size}
