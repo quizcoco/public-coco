@@ -317,6 +317,19 @@ utill.css 목록
     height: 28px !important;
  }
 
+ /* --------------------변경 버튼----------------------- */
+
+.n-btn\:save {
+    background-color: var(--color-main-2) !important;
+    border-radius: 12px !important; 
+    border: 1px solid transparent !important;
+    color: var(--color-base-8) !important;
+    width: 80px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
 /* =======================3.폰트========================== */
 
 .font\:1{
