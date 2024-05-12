@@ -89,7 +89,7 @@ async function nextCard(count, userQ){
             <section>
                 <h1 class="d:none">카드 상단</h1>
         
-                <div class="d:flex fl-dir:row jc:space-between pb:4">
+                <div class="d:flex fl-dir:row jc:space-between pb:6 h:1">
                     <div class="d:flex justify-content:flex-end">
                         <form action="add" method="post">
                         <a class="icon ${quiz.like!="0"?'icon-star':'icon:star'} icon-color:base-4"

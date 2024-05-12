@@ -17,10 +17,6 @@
     padding-bottom: 15px;
     padding-left: 17px;
     padding-right: 17px;
-
-   
-    
-    
 }
 
 #card-section{
@@ -200,3 +196,37 @@ select.none {
     width: 300px;
     height: 10px;
 }
+
+/* 유저 퀴즈카드 박스 ================================ */
+
+.input-text\:Qcard {
+    display: block;
+    padding-top: 4px;
+    padding-bottom: 5px;
+    border-radius: 8px;
+
+    padding: 10px;
+    /* font-size: 13px; */
+
+    width: 287px;
+    height: 250px;
+
+    /* 스크롤 */
+    overflow-y: auto;   
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: none;
+}
+
+/* detail 카드 반응형 */
+@media (min-width: 768px) {
+    .card-container {
+      width: 90%; /* 화면 너비가 768px 이상일 때 card-container 너비를 90%로 설정 */
+    }
+    .input-text\:Qcard {
+        width: 329px;
+        height: 250px;
+    }
+}
+  

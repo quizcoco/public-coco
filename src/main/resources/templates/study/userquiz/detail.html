@@ -63,86 +63,47 @@
         <!--=========================== 메인 입력 ===============================-->
         <section id="card-section" class="main-container-center">
             <h1 class="d:none">내가 만든 문제</h1>
-            <!-- 옆 카드 -->
-            <!-- <div class="small-card-l md:d:flex jc:center">
-                <div class="left-card d:flex ai:center jc:center">
-                    <img src="/image/logo.png" class="h:2 w:2" alt="왼쪽">
-                </div>
-            </div> -->
             <section class="d:flex fl-dir:column" >
                 <h1 class="d:none">메인 카드 섹션</h1>
                 <article class="card-container" draggable="true">
                     <h1 class="d:none">하위그룹</h1>
                     <section>
                         <h1 class="d:none">카드 상단</h1> 
-                        <!-- TODO 즐겨찾기(좋아요) star,star-fill icon은 넣어둠// rland도 안되어있음 -->
-                        <!-- <div class="d:flex fl-dir:row jc:space-between pb:4">
-                            <div class="icon-star">즐겨찾기 아이콘</div>
-                            <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
-                        </div> -->
+                        <div class="d:flex fl-dir:row jc:space-between pb:6 h:1">
 
-                        <div class="d:flex fl-dir:row jc:space-between pb:4">
+                            <!-- 즐겨찾기 ============================================ -->
                             <div class="d:flex justify-content:flex-end">
                                 <form action="add" method="get">
                                 <a class="favorite icon icon:star icon-color:base-4"
                                 th:classappend="${userQuiz.like}==1 ? 'icon-star':'icon:star'"
                                 href="">즐겨찾기</a></form>
                             </div>
-                            <!-- 모달 추가하기  -->
+
+                            <!-- 기타 모달 =======================================  -->
                             <div class="n-dropdown">
                                 <button id="dropdown-btn" class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</button>
                                 <ul id="dropdown-list" class="left:-2">
                                     <h1 class="d:none">기타 메뉴</h1>
                                     <li><a href="" th:href="@{edit(id=${param.id},category=${param.category})}">수정</a></li>
                                     <li><a href="" class="del">삭제</a></li>
-                                    <!-- <li><a href="">외부로 공유</a></li> -->
-                                    <!-- <li><a href="">슬라이드 시간 설정</a></li> -->
                                 </ul>
                             </div>
                         </div>
-
+     
                         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 
-                        <!-- <div class="d:flex fl-dir:row jc:space-between pb:4">
-                            <div class="d:flex justify-content:flex-end">
-                                <a class="icon icon-star icon-color:base-4"
-                                th:classappend="${}?'icon-star-fill'"
-                                href="">즐겨찾기</a>
-                            </div>
-
-                            <div class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</div>
-                        </div> -->
-
-                        <!-- rland 좋아요 -->
-                        <!-- </div>
-                        <div class="like-block d:flex justify-content:flex-end">
-                            <a class="icon icon-heart icon-color:base-4"
-                            th:classappend="${m.like}?'icon-heart-fill'"
-                            href="">좋아요</a>
-                            <span class="font-weight:bold ml:1" th:text="${m.likeCount}">2</span>                                
-                        </div> -->
-
-                        <!-- TODO 모달
-                        <section class="d:none">
-                            <h1 class="d:none">기타 메뉴</h1>
-                            <div><a href="">수정</a></div>
-                            <div><a href="">삭제</a></div>
-                            <div>외부로 공유</div>
-                            <div>슬라이드 시간 설정</div>
-                        </section> -->
-                        
                         <div class="d:flex fl-dir:row jc:space-between">
                             <!-- 카드갯수 -->
                             <div class="card-count d:flex jc:flex-start">
                                 <!-- TODO 앞 카드번호 오래된순일때 리스트의 1번째 문제는 무조건 1번으로 나오게 35->1번이어야함-->
-                                <span th:data-no="${userQuiz.rowNum}" th:text="${userQuiz.rowNum}" style="margin-right:6px;">12</span> 
+                                <span th:data-no="${userQuiz.rowNum}" th:text="${userQuiz.rowNum}" style="margin-right:6px;">현재 문제 번호</span> 
                                 <span style="margin-right:6px;">/</span> 
-                                <span th:data-count="${count}" th:text="${count}">52</span>
+                                <span th:data-count="${count}" th:text="${count}">총 문제 갯수</span>
                             </div>
                         
                             <!-- reg_date -->
                             <div class="d:flex jc:flex-end pb:3">
-                                <span style="margin-right:6px;" th:text="${#temporals.format(userQuiz.regDate, 'yyyy-MM-dd HH:mm:ss')}">2024-02-13</span> 
+                                <span style="margin-right:6px;" th:text="${#temporals.format(userQuiz.regDate, 'yyyy-MM-dd HH:mm:ss')}">문제등록 날짜</span> 
                             </div>
                         </div>
                     </section>
@@ -151,44 +112,35 @@
                     <section id="quiz-card" class="bg-color:base-1 h:5">
                         <h1 class="d:none">카드 내용</h1>
                         <section th:if="${userQuiz !=null && userQuiz !=''}">
-                            <div class="quiz-question p:2">
+                            <div class="quiz-question input-text:Qcard">
                                 <span class="d:inline-block pb:1" th:text="${userQuiz.category == 'ox' ? '[OX 문제]' : userQuiz.category == 'multi' ? '[사지선다 문제]' : '[단답 문제]'}">[사지선다 문제]</span><br>
                                 <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">문제</span><br>
                                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num1}">①</span><br>
                                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num2}">②</span><br>
                                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num3}">③</span><br>
                                 <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num4}">④</span><br>
-                                <span class="d:none d:inline-block pb:2 fw:bold color:accent-4" th:text="${userQuiz.answer}">답</span>
+                                <span class="d:none d:inline-block pb:2 fw:bold color:accent-4 mt:4" th:text="${userQuiz.answer}">답</span>
                             </div>
                         </section>
                     </section>
 
                     <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-                    <!-- TODO 카드 슬라이드 -->
+                    <!-- 버튼형식으로 카드 넘기기 -->
                     <section class="d:flex fl-dir:column ai:center">
                         <h1 class="d:none">카드 하단</h1>
                         <div class="n-progress n-progress-card" role="progressbar">
-                            <div style="width: 40%"></div>
+                            <div style="width:40%"></div>
                         </div>
                         <div class="d:flex gap:10">
-                            <!-- <div class="icon icon:shuffle_fill pr:10">랜덤 재생 아이콘,왼쪽</div> -->
                             <a href="" class="left"><div class="icon icon:caret_left_bold pr:10">왼쪽</div></a>
-                            <!-- <div class="icon icon:pause_fill pr:10 pl:5">재생/멈춤 아이콘</div> -->
-                            <!-- <a href="" class="right"><div class="icon icon:arrows_clockwise_fill pr:10 pl:5">반복 재생 아이콘,오른쪽</div></a> -->
                             <a href="" class="right"><div class="icon icon:caret_right_bold pr:10 pl:5">오른쪽</div></a>
                         </div>
                     </section>
                 </article>
             </section>
-            <div class="small-card-r d:none jc:center">
-                <div class="d:flex ai:center jc:center">
-                    <!-- <img src="/image/logo.png" class="h:2 w:2 rotating-img"> -->
-                    <img src="/image/logo.png" class="h:2 w:2" alt="오른쪽">
-                </div>
-            </div>
         </section>
 
-        <!-- 모달 -->
+        <!-- 퀴즈삭제확인 모달 -->
         <section id="delete-modal" class="d:none n-modal w:6 h:3 ac:center">
             <h1 class="d:none">퀴즈삭제 컨펌</h1>
             <div class="d:flex fl-direction:flex jc:center">
@@ -201,10 +153,13 @@
             <div>
                 <div class="d:flex jc:center gap:3 mt:4">
                     <div><button id="cancel-btn" class="n-btn n-btn-size:1">취소</button></div>
-                    <div><form method="post" action="del">
-                        <input type="hidden" name="id" value="">
-                        <input type="hidden" name="category" value="">
-                        <button id="confirm-btn" class="n-btn n-btn-size:1">확인</button></form></div>
+                    <div>
+                        <form method="post" action="del">
+                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="category" value="">
+                            <button id="confirm-btn" class="n-btn n-btn-size:1">확인</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
