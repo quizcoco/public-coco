@@ -42,9 +42,7 @@
 
     <select id="isFavorite" resultType="java.lang.Boolean">
         SELECT COUNT(*) > 0 FROM user_quizzes_favorite
-        
-        
-        		<where>
+        <where>
             user_id=#{userId}
 
             <if test="userOxId !=null">

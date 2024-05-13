@@ -16,14 +16,14 @@
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
-    <script defer src="/js/study/userquiz/list.js"></script>
+    <!-- <script defer src="/js/study/userquiz/list.js"></script> -->
 </head>
 <body>
  
     <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
-        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- 내가 만든 퀴즈</span></h1>
+        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- 문제 즐겨찾기</span></h1>
         <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
-            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">내가 만든 퀴즈</span></h1>
+            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">문제 즐겨찾기</span></h1>
             <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
         </div>
 
@@ -181,13 +181,9 @@
                 <li><span th:if="${page} lt 6">이전</span>
                     <a th:if="${page} ge 6" href="list?p=1" th:href="@{list(p=${startnum}-1,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}">이전</a>
                 </li>
-                <li  th:each="n : ${#numbers.sequence(startnum,startnum+4)}"  
-                th:class="${{page}}== ${n}?'active'"><!-- ★★★ -->
-
-                
+                <li  th:each="n : ${#numbers.sequence(startnum,startnum+4)}" th:class="${{page}}== ${n}?'active'"><!-- ★★★ -->
                     <span th:if="${n} gt ${lastnum}" th:text="${n}">1</span><!-- ★★★ -->
-                    <a href="list?p=1" th:href="@{list(p=${n},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}"
-                        th:if="${n} le ${lastnum}">1</a>
+                    <a href="list?p=1" th:href="@{list(p=${n},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}" th:if="${n} le ${lastnum}">1</a>
                 </li>
                 
                 <li><span th:if="${lastnum} lt ${startnum+5}">다음</span>
@@ -253,7 +249,7 @@
                 </div>
             </div>
         </section>
-        
+       
         <!-- 폴더 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
         <section class="d:none">
             <h1>폴더 지정</h1>
