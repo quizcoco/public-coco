@@ -16,6 +16,8 @@ public class CocoUserDetails implements UserDetails {
     private String mail;
     private String username;
     private String password;
+    private String img;
+    private String message;
     private List<GrantedAuthority> authorities;
 
 /* ----------- getter ------------- */
@@ -44,7 +46,13 @@ public class CocoUserDetails implements UserDetails {
         return nickname;
     }
 
+    public String getImg() {
+        return img;
+    }
 
+    public String getMessage() {
+        return message;
+    }
 
 /* --------------- setter ---------- */
 
@@ -70,6 +78,14 @@ public class CocoUserDetails implements UserDetails {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     @Override

@@ -22,6 +22,7 @@ public class User {
     private int exp;
     private LocalDateTime joinDate;
     private String mail;
-
+    private String img;
+    private String message;
 
 }

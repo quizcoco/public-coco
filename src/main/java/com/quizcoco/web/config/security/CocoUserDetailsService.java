@@ -46,6 +46,8 @@ public class CocoUserDetailsService implements UserDetailsService {
         userDetails.setNickname(user.getNickName());
         userDetails.setUsername(user.getUserName());
         userDetails.setPassword(user.getPw());
+        userDetails.setImg(user.getImg());
+        userDetails.setMessage(user.getMessage());        
         userDetails.setAuthorities(authorities);
         System.out.println("authorities==========:"+authorities);
 

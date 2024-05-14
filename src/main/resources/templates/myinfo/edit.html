@@ -13,6 +13,7 @@
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
+    <script defer src="/js/myinfo/edit.js"></script>
 </head>
 <body>
  
@@ -59,8 +60,65 @@
 
     <main class="of:auto">
 <!--=========================== 메인에 입력 ===============================-->
-    
-           
+   <section id="reg-form" class="main-container-center">
+    <h1 class="d:none">내 정보 수정</h1>
+        <form action="edit" method="post" enctype="multipart/form-data" novalidate class="d:flex fl-dir:column ai:center">
+        <sectionaa class="d:flex fl-dir:column">
+            <h1 class="d:none">프로필등록폼</h1>
+                    <div>
+                        <label class="img-label d:flex fl-dir:column ai:center jc:center">
+                            <span sec:authentication="principal.img" class="preview-panel preview"></span>
+                            <input name="img-file" type="file" class="d:none profile-img" multiple />
+                            <span class="n-btn n-btn:save">사진 변경</span>
+                        </label>
+                    </div>
+                    <div class="pt:8 d:flex fl-dir:row ai:center">
+                        <label class="d:flex fl-dir:row gap:3 ai:center">
+                            <span class="fw:3">닉네임</span><span class="fs:4 fw:3" sec:authentication="principal.nickname">현재 닉네임</span>
+                            <input type="text" name="nickname" autocomplete="off" required minlength="2" class="input-nickname hidden"/>
+                            <span class="n-btn n-btn:save">변경</span>
+                        </label>
+                    </div>
+        </sectionaa>
+        <section class="d:flex fl-dir:column pt:10">
+            <h1 class="fs:4 fw:3 d:flex ai:center jc:center">공개 설정</h1>
+            <div class="pt:5 d:flex jc:space-between">
+              <label class="d:flex jc:space-between">
+                <span class="fw:3 d:inline-block">순위</span>
+                <input type="checkbox" class="n-toggle d:inline-block" />
+              </label>  
+            </div>
+            <div class="pt:5">
+                <label>
+                  <span class="fw:3">포인트</span>
+                  <input type="checkbox" class="n-toggle" />
+                </label>  
+            </div>    
+            <div class="pt:5">
+                <label>
+                  <span class="fw:3">보유 아바타</span>
+                  <input type="checkbox" class="n-toggle" />
+                </label>  
+            </div>
+            <div class="pt:5">
+                <label>
+                  <span class="fw:3">보유 코코</span>
+                  <input type="checkbox" class="n-toggle" />
+                </label>  
+            </div>
+            <div class="pt:5 d:flex fl-dir:row ai:center">
+                <label class="d:flex fl-dir:row gap:3 ai:center">
+                  <span class="fw:3">메세지</span><span class="fw:2" sec:authentication="principal.message">현재 메세지</span>
+                  <input type="text" name="message" autocomplete="off" minlength="2" class="input-message hidden"/>
+                  <span class="n-btn n-btn:save">변경</span>
+                </label>  
+            </div>
+        </section>
+        <div class="pt:10">
+            <button formnovalidate class="n-btn n-btn:save">저장</button>
+        </div>
+        </form>
+   </section>  
    </main>
 
    <aside class="d:none md:d:flex jc:center right:1 zi:1">
