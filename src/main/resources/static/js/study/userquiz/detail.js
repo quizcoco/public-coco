@@ -20,6 +20,8 @@ let form = document.querySelector("form[action='del']");
 let delID = form.querySelector("input[name='id']");
 let delCate = form.querySelector("input[name='category']");
 
+let star = document.querySelector(".favorite");
+
 const dropdownButton = document.getElementById("dropdown-btn");
 const dropdownList = document.getElementById("dropdown-list");
 
@@ -88,21 +90,23 @@ async function nextCard(count, userQ){
             <h1 class="d:none">하위그룹</h1>
             <section>
                 <h1 class="d:none">카드 상단</h1>
-        
                 <div class="d:flex fl-dir:row jc:space-between pb:6 h:1">
+
+                    <!-- 즐겨찾기  -->
                     <div class="d:flex justify-content:flex-end">
-                        <form action="add" method="post">
-                        <a class="icon ${quiz.like!="0"?'icon-star':'icon:star'} icon-color:base-4"
+                        <form action="add" method="get">
+                        <a class="favorite icon ${quiz.like!="0"?'icon-star':'icon:star'} icon-color:base-4"
                         href="">즐겨찾기</a></form>
-                    </div>
-                    <!-- 모달 추가하기  -->
+                        </div>
+
+                    <!-- 기타모달-->
                     <div class="n-dropdown">
-                    <button id="dropdown-btn" class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</button>
-                    <ul id="dropdown-list" class="left:-2">
-                        <h1 class="d:none">기타 메뉴</h1>
-                        <li><a href="edit?id=${quiz.id}&category=${quiz.category}">수정</a></li>
-                        <li><a href="" class="del">삭제</a></li>
-                    </ul>
+                        <button id="dropdown-btn" class="icon icon:dots_three_outline_vertical_fill">기타 아이콘</button>
+                        <ul id="dropdown-list" class="left:-2">
+                            <h1 class="d:none">기타 메뉴</h1>
+                            <li><a href="edit?id=${quiz.id}&category=${quiz.category}">수정</a></li>
+                            <li><a href="" class="del">삭제</a></li>
+                        </ul>
                     </div>
                 </div>
                 
@@ -150,6 +154,57 @@ async function nextCard(count, userQ){
         </article>`;
 
         mainCard.insertAdjacentHTML("beforeend",quizHtml);
+
+        delModal(quiz.id,quiz.category);
+        
+        let favorite = document.querySelector(".favorite");
+
+        favorite.addEventListener("click", (e)=>{
+
+            e.preventDefault();
+
+            if(favorite.classList.contains("icon:star")){
+    
+                favorite.classList.replace("icon:star","icon-star");
+    
+            fetch(`/api/user-quizzes-favorites/add?id=${quiz.id}&category=${quiz.category}`)
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+    
+            })
+            .catch(error => {
+                console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+            });
+        }
+    
+        else if(favorite.classList.contains("icon-star")){
+    
+            favorite.classList.replace("icon-star","icon:star");
+    
+            fetch(`/api/user-quizzes-favorites/del?id=${quiz.id}&category=${quiz.category}`)
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+    
+            })
+            .catch(error => {
+                console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+            });
+    
+        }
+
+        })
     }
 
     // 이벤트 리스너 등록
@@ -175,7 +230,6 @@ async function nextCard(count, userQ){
         sectionSpan.classList.remove('d:none');
     })
 
-    delModal();
 }
 
 /* ================================================== */
@@ -236,7 +290,7 @@ getUserQuiz(count, (userQ) => {
 });
 
 // 삭제 모달
-function delModal(){
+function delModal(id,category){
     document.querySelector(".del").addEventListener("click", (e) => {
         e.preventDefault();
         deleteModal.classList.remove('d:none');
@@ -263,47 +317,70 @@ quizQuestion.addEventListener("click", function(){
 
 progressbar.style.width=(count/ totalCount.dataset.count)*100+"%";//프로그레스바
 
-delModal();
+delModal(id,category);
 
 
 /* 즐겨찾기=============================== */
 
-let star = document.querySelector(".favorite");
 // 문제 즐겨찾기 버튼 클릭 시 이벤트 처리
-star.addEventListener("click", async (e) => {
-    
-    e.preventDefault();
-                                // 빈별 누르면 노란별로 변할것이다
-    star.classList.replace("icon:star","icon-star");
 
+function favorite(id,category){
 
-    
-    // 해당 문제의 ID와 카테고리 가져오기
-    // let id = paramsObject["id"];
-    // let category = paramsObject["category"];
-    // const url = `/api/user-quizzes-favorites/add?id=${id}&category=${category}`; // 요청할 URL
+    star.addEventListener("click", async (e) => {
 
-    // id,category를 불러올수있냐? 
-    console.log("============",id,category); //불러와진다
+        e.preventDefault();
 
-    fetch(`/api/user-quizzes-favorites/add?id=${id}&category=${category}`)
-    .then(response => {
-        if (!response.ok) {
-        throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+        if(!star.classList.contains("icon-star")){
 
-    })
-    .catch(error => {
-        console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
-    });
+            // star.classList.replace("icon:star","icon-star");
+            star.classList.remove("icon:star"); // icon:star 클래스 삭제
 
+        fetch(`/api/user-quizzes-favorites/add?id=${id}&category=${category}`)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+            star.classList.add("icon-star");
 
+        })
+        .catch(error => {
+            console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+        });
+    }
+
+    else if(star.classList.contains("icon-star")){
+
+        // star.classList.replace("icon-star","icon:star");
+        star.classList.remove("icon-star"); // icon-star 클래스 삭제
+        star.classList.add("icon:star"); 
+
+        fetch(`/api/user-quizzes-favorites/del?id=${id}&category=${category}`)
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+
+        })
+        .catch(error => {
+            console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+        });
+
+    }
 });
 
+}
+
+favorite(id,category);
+
+// 조회 (list에서 detail 바로 넘어가는 카드)
 fetch(`/api/user-quizzes-favorites/fav?id=${id}&category=${category}`)
 .then(response => {
     if (!response.ok) {

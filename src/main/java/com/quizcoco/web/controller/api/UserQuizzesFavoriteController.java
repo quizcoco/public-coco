@@ -90,9 +90,7 @@ public class UserQuizzesFavoriteController {
         if(userDetails != null)
             userId=userDetails.getId();
 
-        // 이거나와서 위에 두개를 불러오는것까지는 됐음...
-        System.out.println("===========출력====="+id+category);
-        System.out.println("================");
+  
 
 
         Long quizId = Long.parseLong(id);
@@ -122,11 +120,42 @@ public class UserQuizzesFavoriteController {
     
     }
 
+    @GetMapping("del")
+    public ResponseEntity<Boolean> delete(Long id,        
+                        @RequestParam("category")String category,
+                        @AuthenticationPrincipal CocoUserDetails userDetails){
+
+    Long userId=null;
+    if(userDetails != null)
+        userId=userDetails.getId();
 
 
 
-    @DeleteMapping("del")
-    public String delete(Long id){
-        return null;
+              // 이거나와서 위에 두개를 불러오는것까지는 됐음...
+              System.out.println("===========출력====="+id+category);
+              System.out.println("================");
+
+
+        UserQuizzesFavorite favorite = new UserQuizzesFavorite();
+        favorite.setUserId(userId);
+
+        if(category.equals("short"))
+        favorite.setUserShortAnswerQuizId(id);
+
+        if(category.equals("multi"))
+        favorite.setUserMultipleChoiceQuizId(id);
+        
+        if(category.equals("ox"))
+        favorite.setUserOxId(id);
+                                                    // 여기에 담아야한다
+        boolean isSuccess = service.cancel(favorite);
+
+
+        if (isSuccess) {
+            return ResponseEntity.ok(true);
+        } else {
+            return ResponseEntity.badRequest().body(false);
+        }
+
     }
 }

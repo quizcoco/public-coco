@@ -29,8 +29,12 @@ public class UserQuizzesFavoriteServiceImp implements UserQuizzesFavoriteService
 
 
     @Override
-    public String cancel(UserQuizzesFavorite favorite) {
-        return null;
+    public boolean cancel(UserQuizzesFavorite favorite) {
+
+            repository.delete(favorite);
+            boolean isfavorite = repository.isFavorite(favorite);
+
+        return isfavorite;
     }
 
 }
