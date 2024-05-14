@@ -11,8 +11,7 @@
     nick_name,
     point,
     row_number() over (order by point desc) as rank
-  from user
-  ORDER BY point DESC LIMIT 10   
+  from user limit 10   
 </select>
 
 <!-- 내 정보 페이지에 순위 표시 -->
