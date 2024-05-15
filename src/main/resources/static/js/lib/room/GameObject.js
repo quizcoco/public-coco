@@ -10,16 +10,39 @@ class GameObject{
             src:
             config.src ||"/image/room/man1.png",
 
-
         });
+        this.behaviorLoop = config.behaviorLoop || [];
+        this.behaviorLoopIndex=0;//behaviorLoop는 배열이니까 인덱스...
     }
 
     mount(map){
         this.isMounted=true;
         map.addWall(this.x,this.y);
+
+        setTimeout(()=>{
+            this.doBehaviorEvent(map);
+        },10)
     }
 
     update(){
 
+    }
+
+    async doBehaviorEvent(map){//동작이벤트
+        if(map.isCutscenePlaying || this.behaviorLoop.length === 0||this.isStanding)
+            return;
+
+        let eventConfig = this.behaviorLoop[this.behaviorLoopIndex];
+        eventConfig.who=this.id;
+
+        const eventHandler = new OverworldEvent({map,event:eventConfig});
+        await eventHandler.init();
+
+        this.behaviorLoopIndex+=1;
+        if(this.behaviorLoopIndex===this.behaviorLoop.length){
+            this.behaviorLoopIndex=0;
+        }
+
+        this.doBehaviorEvent(map);//다시
     }
 }

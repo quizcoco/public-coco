@@ -31,7 +31,9 @@ startGameLoop(){//초당60 everysingleframe run
         this.map.drawLowerImage(this.ctx,cameraPerson);
 
         //draw game objects
-        Object.values(this.map.gameObjects).forEach(object=>{
+        Object.values(this.map.gameObjects).sort((a,b)=>{
+            return a.y - b.y;
+        }).forEach(object=>{
             //object.x +=1;
             object.sprite.draw(this.ctx,cameraPerson);
         })
@@ -57,6 +59,15 @@ init(){
     //this.directionInput.direction;
     this.startGameLoop();
 
+    this.map.startCutscene([
+        // { who:"man1",type:"walk",direction:"down"},
+        // { who:"man1",type:"walk",direction:"down"},
+        // { who:"npcA",type:"walk",direction:"left"},
+        // { who:"npcA",type:"stand",direction:"up",time:800},
+
+
+    ]);
+
     
 
 
@@ -65,29 +76,3 @@ init(){
 
 }
 
-
-//init에 있던것.
-// const x=7;
-// const y=5;
-
-// const shadow = new Image();
-// shadow.onload=()=>{
-//     this.ctx.drawImage(shadow,0,0,14,30
-//         ,x*16
-//         ,y*16
-//         ,14,30)
-
-
-// }
-// shadow.src="/image/room/그림자";
-
-// const man1 = new Image();
-// man1.onload=()=>{
-//     this.ctx.drawImage(man1,0,0,14,30
-//         ,x*16
-//         ,y*16
-//         ,14,30)
-
-
-// }
-// man1.src="/image/room/avata.gif";

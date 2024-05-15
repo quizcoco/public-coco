@@ -10,6 +10,8 @@ class OverworldMap{
         this.upperImage = new Image(); //캐릭터 위 이미지(나무,지붕 등)
         this.upperImage.src=config.upperSrc;
 
+        this.isCutscenePlaying = false;
+
     }
 
     drawLowerImage(ctx,cameraPerson){
@@ -37,6 +39,24 @@ class OverworldMap{
         })
     }
 
+    async startCutscene(events){
+        this.isCutscenePlaying=true;
+
+        for(let i=0;i<events.length;i++){
+            const eventHandler = new OverworldEvent({
+                event:events[i],
+                map:this
+            })
+            await eventHandler.init();
+
+        }
+
+
+        this.isCutscenePlaying=false;
+
+        Object.values(this.gameObjects).forEach(object=>object.doBehaviorEvent(this))
+    }
+
     addWall(x,y){
         this.walls[`${x},${y}`] = true;
     };
@@ -50,7 +70,7 @@ class OverworldMap{
     }
 
 }
-window.OverworldMaps={ //각종맵객체
+window.OverworldMaps={ //각종맵객체.. 이게 config?????
     DemoRoom:{
         lowerSrc:"/image/room/room.png",
         upperSrc:"/image/room/room.png",
@@ -60,10 +80,17 @@ window.OverworldMaps={ //각종맵객체
                 x:utils.withGrid(7),
                 y:utils.withGrid(9),
             }),
-                npc1: new Person({
+                npcA: new Person({
                 x:utils.withGrid(10),
                 y:utils.withGrid(10),
-               // src:"/image/room/cat-idle.png"
+               // src:"/image/room/cat-idle.png",
+               behaviorLoop:[
+                {type:"stand",direction:"left", time:1200},
+                {type:"stand",direction:"right", time:800},
+                {type:"stand",direction:"up", time:800},
+                {type:"stand",direction:"down",time:800},
+                // {type:"walk",direction:"down"},
+               ]
                })
         },
         walls:{
