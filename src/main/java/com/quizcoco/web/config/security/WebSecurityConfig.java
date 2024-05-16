@@ -11,6 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -20,6 +24,9 @@ public class WebSecurityConfig {
 
 	@Autowired
 	private DataSource dataSource;
+
+	@Autowired
+	private WebOAuth2UserDetailsService oauth2UserDetailsService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -43,6 +50,10 @@ public class WebSecurityConfig {
 			.usernameParameter("username")
 			.permitAll()
 			)
+			//구글 소셜로그인하기
+			.oauth2Login(config->config
+				.userInfoEndpoint(userInf->userInf
+					.userService(oauth2UserDetailsService)))
 			.logout((logout) -> logout	
 			.logoutUrl("/logout")
 			.logoutSuccessUrl("/index")

@@ -94,7 +94,7 @@
                 <span class="hr"></span>
             </div>    
             <div class="pb:10">
-                <button type="button" class="n-btn n-btn:google fw:3"><span class="icon icon-google"></span>Login with Google</button>
+                <a href="/oauth2/authorization/google?redirect_uri=/login/oauth2/code/google" class="n-btn n-btn:google fw:3"><span class="icon icon-google"></span>Login with Google</a>
             </div>
             <div class="pt:6 d:flex ai:center jc:center">
                 <span class="color:base-5 pr:2">Don't have an acount?</span>
@@ -147,8 +147,14 @@
         </div>
     </fieldset>
     </form>    
+    
+    <!-- <div class="mt:5">
+        <a href="/oauth2/authorization/google?redirect_uri=/login/oauth2/code/google">
+            <span class="google">구글 로그인</span>
+        </a>
+    </div> -->
 </section>
-
+    
    </main>
    <aside class="d:none md:d:flex jc:center right:1 zi:1">
     <div class="pos:fixed h:100p bg-color:main-2">
