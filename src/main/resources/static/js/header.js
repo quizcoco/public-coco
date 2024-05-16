@@ -1,16 +1,33 @@
 let header = document.querySelector("#header");
 let mobileMenuIcon = header.querySelectorAll("nav.root-header-menu a");
 let mobileMenus = header.querySelector("nav.menu");
+let mobileOverlay = header.querySelector(".mobile-overlay");
+let menuIcon = document.getElementById("m");
 
 //====================메뉴아이콘 눌러 메뉴 여닫기================
 mobileMenuIcon[2].addEventListener("click",function(e){
     e.preventDefault();
     e.stopPropagation();
     
-    if(!mobileMenus.classList.contains("d:none"))
+    if(!mobileMenus.classList.contains("d:none")) {
+
         mobileMenus.classList.add("d:none");
-    else
+        // 메뉴 외 화면 어둡게
+        mobileOverlay.classList.remove("active");
+        // 메뉴 아이콘 x모양으로 바뀜
+        menuIcon.classList.remove("icon:x");
+        menuIcon.classList.add("icon:list");
+    }
+
+    else {
+        
         mobileMenus.classList.remove("d:none");
+        // 화면 원래대로 밝아짐
+        mobileOverlay.classList.add("active");
+        // 메뉴 아이콘 리스트 모양으로 바뀜
+        menuIcon.classList.remove("icon:list");
+        menuIcon.classList.add("icon:x");
+    }
 
 });
 // ====================메뉴 닫기=======================
@@ -19,8 +36,13 @@ document.addEventListener("click",function(e){
     if(mobileMenus.classList.contains("d:none"))
     return;
 
-    if(!mobileMenus.contains(e.target))
-    mobileMenus.classList.add("d:none");
+    if(!mobileMenus.contains(e.target)) {
+
+        mobileMenus.classList.add("d:none");
+        mobileOverlay.classList.remove("active");
+        menuIcon.classList.remove("icon:x");
+        menuIcon.classList.add("icon:list");
+    }
 
     // e.preventDefault();
-})
+});
