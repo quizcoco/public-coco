@@ -59,100 +59,108 @@
     </header>
 
     <main class="of:auto">
-<!--=========================== 메인에 입력 ===============================-->
-   <section id="reg-form" class="main-container-center">
-    <h1 class="d:none">내 정보 수정</h1>
-        <form action="edit" method="post" enctype="multipart/form-data" novalidate class="d:flex fl-dir:column ai:center">
-        <sectionaa class="d:flex fl-dir:column">
-            <h1 class="d:none">프로필등록폼</h1>
-                    <div>
-                        <label class="img-label d:flex fl-dir:column ai:center jc:center">
-                            <span sec:authentication="principal.img" class="preview-panel preview"></span>
-                            <input name="img-file" type="file" class="d:none profile-img" multiple />
-                            <span class="n-btn n-btn:save">사진 변경</span>
-                        </label>
-                    </div>
-                    <div class="pt:8 d:flex fl-dir:row ai:center">
-                        <label class="d:flex fl-dir:row gap:3 ai:center">
-                            <span class="fw:3">닉네임</span><span class="fs:4 fw:3" sec:authentication="principal.nickname">현재 닉네임</span>
-                            <input type="text" name="nickname" autocomplete="off" required minlength="2" class="input-nickname hidden"/>
-                            <span class="n-btn n-btn:save">변경</span>
-                        </label>
-                    </div>
-        </sectionaa>
-        <section class="d:flex fl-dir:column pt:10">
-            <h1 class="fs:4 fw:3 d:flex ai:center jc:center">공개 설정</h1>
-            <div class="pt:5 d:flex jc:space-between">
-              <label class="d:flex jc:space-between">
-                <span class="fw:3 d:inline-block">순위</span>
-                <input type="checkbox" class="n-toggle d:inline-block" />
-              </label>  
-            </div>
-            <div class="pt:5">
-                <label>
-                  <span class="fw:3">포인트</span>
-                  <input type="checkbox" class="n-toggle" />
-                </label>  
-            </div>    
-            <div class="pt:5">
-                <label>
-                  <span class="fw:3">보유 아바타</span>
-                  <input type="checkbox" class="n-toggle" />
-                </label>  
-            </div>
-            <div class="pt:5">
-                <label>
-                  <span class="fw:3">보유 코코</span>
-                  <input type="checkbox" class="n-toggle" />
-                </label>  
-            </div>
-            <div class="pt:5 d:flex fl-dir:row ai:center">
-                <label class="d:flex fl-dir:row gap:3 ai:center">
-                  <span class="fw:3">메세지</span><span class="fw:2" sec:authentication="principal.message">현재 메세지</span>
-                  <input type="text" name="message" autocomplete="off" minlength="2" class="input-message hidden"/>
-                  <span class="n-btn n-btn:save">변경</span>
-                </label>  
-            </div>
-        </section>
-        <div class="pt:10">
-            <button formnovalidate class="n-btn n-btn:save">저장</button>
-        </div>
-        </form>
-   </section>  
-   </main>
+    <!--=========================== 메인에 입력 ===============================-->
+        <section id="reg-form" class="main-container-center">
+        <h1 class="d:none">내 정보 수정</h1>
+            <form action="edit" method="post" enctype="multipart/form-data" novalidate class="d:flex fl-dir:column ai:center">
 
-   <aside class="d:none md:d:flex jc:center right:1 zi:1">
-    <div class="pos:fixed h:100p bg-color:main-2">
-        <nav class="d:flex jc:center">
-            <h1 class="d:none">pc 메뉴바</h1>
-            <ul class="d:grid gap:4 mt:7 w:min-content">
-                <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
-                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
-                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
-                <li class="fs:1 bd-bottom">
-                    <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
-                        <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
-                        <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
-                <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
-                <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
-                <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
-            </ul>
-        </nav>
-        <div class="d:flex jc:flex-end pr:3 pt:10">
-            <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
-        </div>
-    </div>
-</aside>
+            <sectionaa class="d:flex fl-dir:column">
+                <h1 class="d:none">프로필등록폼</h1>
+                        <div>
+                            <label class="img-label d:flex fl-dir:column ai:center jc:center">
+                                <span sec:authentication="principal.img" class="preview-panel preview"></span>
+                                <input name="img-file" type="file" class="d:none profile-img" multiple />
+                                <span class="n-btn n-btn:save">사진 변경</span>
+                            </label>
+                        </div>
+                        <div class="pt:8 d:flex fl-dir:row ai:center">
+                            <label class="d:flex fl-dir:row gap:3 ai:center">
+                                <span class="fw:3">닉네임</span><span class="fs:4 fw:3" sec:authentication="principal.nickname">현재 닉네임</span>
+                                <input type="text" name="nickname" autocomplete="off" required minlength="2" class="input-nickname hidden"/>
+                                <span class="n-btn n-btn:save">변경</span>
+                            </label>
+                        </div>
+            </sectionaa>
 
-<footer class="ad md:d:none d:flex jc:center ai:center">
-    <div>광고</div>
-</footer>
+            <section class="d:flex fl-dir:column pt:10">
+                <h1 class="fs:4 fw:3 d:flex ai:center jc:center">공개 설정</h1>
+            
+                <div class="pt:5 w:10 d:flex jc:center">
+                    <label class="w:8 jc:space-between">
+                        <span class="fw:3">순위</span>
+                        <input type="checkbox" class="n-toggle" />
+                    </label>  
+                </div>
+
+                <div class="pt:5 w:10 d:flex jc:center">
+                    <label class="w:8 jc:space-between">
+                        <span class="fw:3">포인트</span>
+                        <input type="checkbox" class="n-toggle" />
+                    </label>  
+                </div>    
+
+                <div class="pt:5 w:10 d:flex jc:center">
+                    <label class="w:8 jc:space-between">
+                        <span class="fw:3">보유 아바타</span>
+                        <input type="checkbox" class="n-toggle" />
+                    </label>  
+                </div>
+
+                <div class="pt:5 w:10 d:flex jc:center">
+                    <label class="w:8 jc:space-between">
+                        <span class="fw:3">보유 코코</span>
+                        <input type="checkbox" class="n-toggle" />
+                    </label>
+                </div>
+                
+                <div class="pt:5 d:flex fl-dir:row jc:center">
+                    <label class="d:flex fl-dir:row gap:3 ai:center">
+                    <span class="fw:3">메세지</span><span class="fw:2" sec:authentication="principal.message">현재 메세지</span>
+                    <input type="text" name="message" autocomplete="off" minlength="2" class="input-message hidden"/>
+                    <span class="n-btn n-btn:save">변경</span>
+                    </label>  
+                </div>
+            </section>
+            <div class="pt:10">
+                <button formnovalidate class="n-btn n-btn:save">저장</button>
+            </div>
+            </form>
+        </section> 
+
+    </main>
+
+    <aside class="d:none md:d:flex jc:center right:1 zi:1">
+        <div class="pos:fixed h:100p bg-color:main-2">
+            <nav class="d:flex jc:center">
+                <h1 class="d:none">pc 메뉴바</h1>
+                <ul class="d:grid gap:4 mt:7 w:min-content">
+                    <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
+                        <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
+                        <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
+                    <li class="fs:1 bd-bottom">
+                        <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                        <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
+                            <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
+                            <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+                    <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+                    <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+                    <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
+                </ul>
+            </nav>
+            <div class="d:flex jc:flex-end pr:3 pt:10">
+                <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
+            </div>
+        </div>
+    </aside>
+
+    <footer class="ad md:d:none d:flex jc:center ai:center">
+        <div>광고</div>
+    </footer>
 
 </body>
 </html>
