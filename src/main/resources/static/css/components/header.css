@@ -124,48 +124,6 @@ header ul{
     background-size: cover;
 }
 
-.default-place{
-    display: grid;
-    grid-template:
-    "profile icon" 100px
-    /130px 1fr;
-
-}
-
-.defaul-profile {
-    grid-area: profile;
-    text-indent: 999px;
-    /* white-space: nowrap; */
-    height: 100px;
-    width: 100px;
-    background-color: rgb(12, 140, 224);
-    border-radius: 50px;
-    background-image: url('../../image/man.png');
-    background-size: cover;
-}
-
-
-.preview {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-    background-color:var(--color-base-2);
-}
-
-.preview img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-    vertical-align:middle;
-}
-
-
 .arrow{
     grid-area: icon;
     align-self: center;
