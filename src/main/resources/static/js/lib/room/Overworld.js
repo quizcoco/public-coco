@@ -77,7 +77,7 @@ init(){
         { who:"man1",type:"walk",direction:"down"},
         { who:"man1",type:"walk",direction:"right"},
         { who:"man1",type:"walk",direction:"right"},
-        { who:"npcA",type:"stand",direction:"right",time:200},
+        { who:"myCocoA",type:"stand",direction:"right",time:200},
         { type:"textMessage",text:"안녕? 너는 누구니?"},
         { type:"textMessage",text:"이름을 입력해 주세요."},
         { type:"textMessage",text:"안녕 철수야 나는 너의 코코란다"},
@@ -88,7 +88,7 @@ init(){
         { type:"textMessage",text:"우리 재미있게 잘 지내보자 ^.~"},
         { type:"textMessage",text:"웰컴포인트를 100 point 받았습니다."},
 
-        // { who:"npcA",type:"stand",direction:"up",time:800},
+        // { who:"myCocoA",type:"stand",direction:"up",time:800},
 
 
     ]);

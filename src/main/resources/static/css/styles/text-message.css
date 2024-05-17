@@ -29,3 +29,53 @@
     bottom: 0;
 
 }
+
+/* ========================== 캐릭터 선택 ======================== */
+
+input{
+    appearance: none;
+
+}
+
+.select-avatar{
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px;
+    
+    img{
+        height: 60px;
+        margin: 40px;
+        transform: scale(2) translateY(0%);
+        image-rendering: pixelated;
+        
+    }
+}
+/* label{
+    height: 100px;
+} */
+label~:hover:not(:has(:checked)){
+    
+    background-image: url('/image/room/select.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+}
+
+.select-avatar label:has(:checked){
+  
+    background-image: url('/image/room/select.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+    display: block; 
+    
+    
+}
+
+
+

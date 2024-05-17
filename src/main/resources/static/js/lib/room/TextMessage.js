@@ -26,21 +26,40 @@ class TextMessage{
 
     selectAvatar(){
         this.element=document.createElement("section");
+        this.element.classList.add("select-modal");
         this.element.classList.add("n-modal");
         this.element.classList.add("p:8");
         this.element.classList.add("w:8");
 
         this.element.innerHTML=(`
         <h1 class="n-font:h3  font-weight:3">${this.text}</h1>
-        <div class="mt:8 text-a:center"><div><label><input type="radio" name="avatar">여자</label><label><input type="radio" name="avatar">남자</label></div></div>
-        <div class="d:flex fl-direction:column gap:2 mt:10">
+        <div class="select-avatar" class="mt:8 text-a:center">
+            <label><input type="radio" name="avatar" class="girl-avatar"><img class="girl" src="/image/room/woman1.png"></label>
+            <label><input type="radio" name="avatar" class="boy-avatar"><img class="boy" src="/image/room/avata.gif"></label>
+        </div>
+        <div class="d:flex fl-direction:column gap:2">
     <button type="button" class="n-btn n-btn-size:3">선택</button>
   </div>
 
     `)
+
+    let girlInput = this.element.querySelector("input[class='girl-avatar']");
+    let boyInput = this.element.querySelector("input[class='boy-avatar']");
+
+    this.element.querySelector(".girl").addEventListener("click",()=>{
+        girlInput.checked=true;
+    
+    })
+    this.element.querySelector(".boy").addEventListener("click",()=>{
+        boyInput.checked=true;
+    })
+
+
         this.element.querySelector("button").addEventListener("click",()=>{
             this.done();
         })
+
+
 
     }
     done(){

@@ -44,7 +44,7 @@
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
                     <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
                 <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
+                    <!-- <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li> -->
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
@@ -95,7 +95,7 @@
                 <span class="hr"></span>
             </div>    
             <div class="pb:10">
-                <a href="/oauth2/authorization/google?redirect_uri=/login/oauth2/code/google" class="n-btn n-btn:google fw:3"><span class="icon icon-google"></span>Login with Google</a>
+                <a href="/oauth2/authorization/google" class="n-btn n-btn:google fw:3"><span class="icon icon-google"></span>Login with Google</a>
             </div>
             <div class="pt:6 d:flex ai:center jc:center">
                 <span class="color:base-5 pr:2">Don't have an acount?</span>
