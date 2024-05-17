@@ -12,7 +12,7 @@ mobileMenuIcon[2].addEventListener("click",function(e){
     if(!mobileMenus.classList.contains("d:none")) {
 
         mobileMenus.classList.add("d:none");
-        // 메뉴 외 화면 어둡게
+        // 화면 원래대로 밝아짐
         mobileOverlay.classList.remove("active");
         // 메뉴 아이콘 x모양으로 바뀜
         menuIcon.classList.remove("icon:x");
@@ -22,7 +22,7 @@ mobileMenuIcon[2].addEventListener("click",function(e){
     else {
         
         mobileMenus.classList.remove("d:none");
-        // 화면 원래대로 밝아짐
+         // 메뉴 외 화면 어둡게
         mobileOverlay.classList.add("active");
         // 메뉴 아이콘 리스트 모양으로 바뀜
         menuIcon.classList.remove("icon:list");
@@ -45,4 +45,11 @@ document.addEventListener("click",function(e){
     }
 
     // e.preventDefault();
+});
+
+//=============화면 크기 변화 감지해서 밝은 상태로============
+window.addEventListener("resize", ()=> {
+    if(window.innerWidth >= 1200) {
+        mobileOverlay.classList.remove("active");
+    }
 });
