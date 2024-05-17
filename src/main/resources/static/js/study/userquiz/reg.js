@@ -69,6 +69,7 @@ quizType.addEventListener("click",function(e){
                 
             case 'ox' :  
             inputQuizBlock.innerHTML ="";
+            // <label class="n-toggle n-toggle-type:outline-box" value="o">O<input type="radio" name="answer" class="d:none" /></label>
 
             let oxHtml=
                         `<div id="oxQuiz" class="bd-radius:2 bg-color:">
@@ -76,10 +77,10 @@ quizType.addEventListener("click",function(e){
                             <textarea name="question" class="input-text:short" autocomplete="off" required></textarea></label>
                             
                         <label class="pb:3 fw:bold fs:5">OX답<span class="color:accent-1">*</span></label>    
-                          <div class="d:flex fl-dir:row gap:3 ai:center jc:flex-end pb:2">
-                            <label><input type="radio" name="answer" class="n-btn n-btn:filled-o" value="o">O</label>
-                            <label><input type="radio" name="answer" class="n-btn n-btn:filled-x" value="x">X</label>
-                        </div>
+                            <div class="d:flex fl-dir:row gap:3 ai:center jc:flex-end pb:2">
+                                <label class="n-toggle n-toggle-type:outline-box">O<input type="radio" value="o" name="answer" class="d:none" /></label>
+                                <label class="n-toggle n-toggle-type:outline-box">X<input type="radio" value="x" name="answer" class="d:none" /></label>
+                            </div>
                         <label class="pb:3 fw:bold fs:5">해설(선택)</label>    
                             <textarea name="commentary" class="input-text:short" autocomplete="off"></textarea>
                     </div>`;
@@ -89,11 +90,6 @@ quizType.addEventListener("click",function(e){
             break;
         }
     });
-
-
-
-
-
 
 /* ============================================= */
 

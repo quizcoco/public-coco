@@ -104,8 +104,8 @@ getUserQuiz().then(userQ=>{
                                 <textarea name="question" class="input-text:short" autocomplete="off" required>${userQ.question}</textarea></label>   
                             <label class="pb:3 fw:bold fs:5">OX답<span class="color:accent-1">*</span></label>    
                             <div class="d:flex fl-dir:row gap:3 ai:center jc:flex-end pb:2">
-                                <label><input type="radio" name="answer" class="n-btn n-btn:filled-o" value="o" ${userQ.answer === 'o'?'checked' : ''}>O</label>
-                                <label><input type="radio" name="answer" class="n-btn n-btn:filled-x" value="x" ${userQ.answer === 'x'?'checked' : ''}>X</label>
+                                <label class="n-toggle n-toggle-type:outline-box"><input type="radio" value="o" name="answer" class="d:none" ${userQ.answer === 'o'?'checked' : ''}>O</label>
+                                <label class="n-toggle n-toggle-type:outline-box"><input type="radio" value="x" name="answer" class="d:none" ${userQ.answer === 'x'?'checked' : ''}>X</label>
                             </div>
                             <label class="pb:3 fw:bold fs:5">해설(선택)</label>    
                                 <textarea name="commentary" class="input-text:short" autocomplete="off">${userQ.commentary}</textarea>
