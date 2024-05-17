@@ -96,7 +96,7 @@ window.addEventListener("load", () => {
       profileImg.style.position = "absolute";
       profileImg.style.transform = "translateY(-50%)";
       profileImg.style.top = "38%";
-      profileImg.style.left = "20%";
+      profileImg.style.left = "23%";
 
       userProfile.style.position = "absolute";
       userProfile.style.transform = "translateY(-50%)";

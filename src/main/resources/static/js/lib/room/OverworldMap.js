@@ -56,6 +56,18 @@ class OverworldMap{
 
         Object.values(this.gameObjects).forEach(object=>object.doBehaviorEvent(this))
     }
+    checkForActionCutscene(){//앞에있는게 뭔지 인지하기...
+        const man1 = this.gameObjects["man1"];
+        const nextCoords = utils.nextPosition(man1.x,man1.y,man1.direction);
+        const match = Object.values(this.gameObjects).find(object=>{
+            return `${object.x},${object.y}`===`${nextCoords.x},${nextCoords.y}`;
+        })
+        if(!this.isCutscenePlaying && match && match.talking.length){
+            this.startCutscene(match.talking[0].events)
+
+        }
+
+    }
 
     addWall(x,y){
         this.walls[`${x},${y}`] = true;
@@ -79,17 +91,27 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
                 isPlayerControlled:true,
                 x:utils.withGrid(7),
                 y:utils.withGrid(9),
+                src:"/image/room/man1.png",
             }),
-                npcA: new Person({
+                myCocoA: new Person({
                 x:utils.withGrid(10),
                 y:utils.withGrid(10),
-               // src:"/image/room/cat-idle.png",
+                src:"/image/room/woman1.png",//TODO 4*3캐릭터 사진으로 변경
                behaviorLoop:[
                 {type:"stand",direction:"left", time:1200},
                 {type:"stand",direction:"right", time:800},
-                {type:"stand",direction:"up", time:800},
+                // {type:"stand",direction:"up", time:800},
                 {type:"stand",direction:"down",time:800},
                 // {type:"walk",direction:"down"},
+               ],
+               talking:[
+                {
+                    events:[
+                        {type:"textMessage",text:"퀴즈코코에 온걸 환영해",faceman1:"myCocoA"},
+                        {type:"textMessage",text:"로그인 안하면 저장이 안돼"},
+
+                    ]
+                }
                ]
                })
         },
@@ -101,7 +123,10 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
             [utils.asGridCoord(6,4)]:true,
 
         
-        }
+        },
+        // cutsceneSpace:{
+        //     9강:32분
+        // }
     },
     battleField:{
         lowerSrc:"",

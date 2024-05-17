@@ -49,21 +49,46 @@ startGameLoop(){//초당60 everysingleframe run
     step();
 }
 
+bindActionInput(){
+    new KeyPressListener("Enter",()=>{
+        this.map.checkForActionCutscene()
+    })
+
+}
+
 
 
 init(){
     this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
     this.map.mountObjects();
+
+    this.bindActionInput();
+    // this.bindman1PositionCheck();
+
     this.directionInput = new DirectionInput();
     this.directionInput.init();
     //this.directionInput.direction;
     this.startGameLoop();
 
+    //이것도 한번말고 실행 안되게 if문
     this.map.startCutscene([
-        // { who:"man1",type:"walk",direction:"down"},
-        // { who:"man1",type:"walk",direction:"down"},
-        // { who:"npcA",type:"walk",direction:"left"},
-        // { who:"npcA",type:"stand",direction:"up",time:800},
+        { type:"textMessage", text:"아바타를 선택해 주세요"},
+        { who:"man1",type:"stand",direction:"down",time:1000},
+        { who:"man1",type:"walk",direction:"down"},
+        { who:"man1",type:"walk",direction:"right"},
+        { who:"man1",type:"walk",direction:"right"},
+        { who:"myCocoA",type:"stand",direction:"right",time:200},
+        { type:"textMessage",text:"안녕? 너는 누구니?"},
+        { type:"textMessage",text:"이름을 입력해 주세요."},
+        { type:"textMessage",text:"안녕 철수야 나는 너의 코코란다"},
+        { type:"textMessage",text:"나는 너의 도움이 필요해  나를 보살펴 주겠니?"},
+        { type:"textMessage",text:"나를 부르고 싶은대로 불러도 좋아"},
+        { type:"textMessage",text:"코코의 이름을 입력해 주세요."},
+        { type:"textMessage",text:"쪼꼬쪼꼬.. 멋진 이름이야 ! "},
+        { type:"textMessage",text:"우리 재미있게 잘 지내보자 ^.~"},
+        { type:"textMessage",text:"웰컴포인트를 100 point 받았습니다."},
+
+        // { who:"myCocoA",type:"stand",direction:"up",time:800},
 
 
     ]);

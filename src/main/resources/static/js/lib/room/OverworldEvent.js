@@ -46,6 +46,33 @@ class OverworldEvent{
         document.addEventListener("PersonWalkingComplete",completeHandler)
 
     }
+
+    textMessage(resolve){
+        if(this.event.faceman1){
+            const obj = this.map.gameObjects[this.event.faceman1]
+            obj.direction = utils.oppositeDirection(this.map.gameObjects["man1"].direction);
+        }
+
+        const message = new TextMessage({
+            text:this.event.text,
+            onComplete:()=>resolve()
+        })
+        message.init(document.querySelector(".game-container"));
+    }
+
+    selectAvatar(resolve){
+        // if(this.map.gameObjects["man1"].avatar!==null){
+        //     return;
+        // }
+        //TODO 유저의 아바타가 null이면 실행
+        const message = new TextMessage({
+            text:this.event.text,
+            onComplete:()=>resolve()
+        })
+        message.init(document.querySelector(".game-container"));
+    }
+
+
     init(){
         return new Promise(resolve=>{
             this[this.event.type](resolve)

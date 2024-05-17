@@ -7,7 +7,8 @@
 <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
     <link href="/css/components/header.css" rel="stylesheet" type="text/css">
     <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
-    <link href="/css/room.css" rel="stylesheet" type="text/css">
+    <link href="/css/styles/global.css" rel="stylesheet" type="text/css">
+    <link href="/css/styles/text-message.css" rel="stylesheet" type="text/css">
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
@@ -40,6 +41,8 @@
     <script defer src="/js/lib/room/Sprite.js"></script>
     <script defer src="/js/lib/room/OverworldMap.js"></script>
     <script defer src="/js/lib/room/OverworldEvent.js"></script>
+    <script defer src="/js/lib/room/TextMessage.js"></script>
+    <script defer src="/js/lib/room/KeyPressListener.js"></script>
     <script defer src="/js/lib/room/init.js"></script>
 
     <!-- 헤더 -->
@@ -86,6 +89,7 @@
                 <a class="fs:1 bd-bottom" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
             </div>
         </nav>
+        <div class="mobile-overlay"></div>
     </header>
 
     <main class="p:0">
@@ -94,8 +98,9 @@
 <div class="game-container mt:auto">
     <canvas class="game-canvas" width="240" height="224"></canvas>
     <img src="/image/room/man1.png" class="d:none">
+    <img src="/image/room/woman1.png" class="d:none">
 </div>
-
+    
            
    </main>
 

@@ -94,7 +94,11 @@
 		<version>20231013</version>
 	</dependency>
 
-
+<!-- 소셜로그인 오프너스 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
