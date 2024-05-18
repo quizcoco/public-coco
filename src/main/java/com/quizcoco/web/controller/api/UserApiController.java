@@ -1,7 +1,11 @@
 package com.quizcoco.web.controller.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.User;
 import com.quizcoco.web.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController("apiUserController")
@@ -39,10 +41,25 @@ public class UserApiController {
     }
 
 
-    // @GetMapping("info")
-    // public String myInfo(@AuthenticationPrincipal CocoUserDetails userDetails) {
-    //     return new String();
-    // }
+    @GetMapping("info")
+    public User myInfo(@AuthenticationPrincipal CocoUserDetails userDetails) {
+
+
+        Long userId = null;
+
+        User user = new User();
+
+        if(userDetails != null){
+            user.setLevel(userDetails.getLevel());
+            user.setNickName(userDetails.getNickname());
+            user.setExp(userDetails.getExp());
+            user.setPoint(userDetails.getPoint());
+            user.setImg(userDetails.getImg());
+            user.setMessage(userDetails.getMessage());
+
+        }
+        return user;
+    }
     
 
 }

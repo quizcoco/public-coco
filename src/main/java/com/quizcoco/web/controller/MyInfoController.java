@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.quizcoco.web.config.security.CocoUserDetails;
+import com.quizcoco.web.entity.Avatar;
 import com.quizcoco.web.service.AvatarService;
 import com.quizcoco.web.service.CocoService;
 import com.quizcoco.web.service.RankingService;
@@ -37,7 +38,8 @@ public class MyInfoController {
 
         // 유저 아바타 이미지 가져오기
         Long useredId = userDetails.getId();                    
-        String avatarImg = avatarService.getAvatarByUserId(useredId);
+        Avatar avatar = avatarService.getAvatarByUserId(useredId);
+        String avatarImg = avatar.getImg();
 
         model.addAttribute("avatarImg", avatarImg);
         

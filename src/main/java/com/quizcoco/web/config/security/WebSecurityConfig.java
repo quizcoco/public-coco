@@ -25,8 +25,8 @@ public class WebSecurityConfig {
 	@Autowired
 	private DataSource dataSource;
 
-	@Autowired
-	private WebOAuth2UserDetailsService oauth2UserDetailsService;
+	// @Autowired
+	// private WebOAuth2UserDetailsService oauth2UserDetailsService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -51,9 +51,9 @@ public class WebSecurityConfig {
 			.permitAll()
 			)
 			//구글 소셜로그인하기
-			.oauth2Login(config->config
-				.userInfoEndpoint(userInf->userInf
-					.userService(oauth2UserDetailsService)))
+			// .oauth2Login(config->config
+			// 	.userInfoEndpoint(userInf->userInf
+			// 		.userService(oauth2UserDetailsService)))
 			.logout((logout) -> logout	
 			.logoutUrl("/logout")
 			.logoutSuccessUrl("/index")

@@ -6,9 +6,35 @@
 
 <select id="findAvatarByUserId" resultType="Avatar" parameterType="Long">
   select
-    img
+    *
   from avatar
-  where user_id = #{useredId}
+  where user_id = #{userId}
 </select>
+
+
+
+<insert id="save" parameterType="Avatar">
+INSERT INTO avatar(level,exp,gender,hp,dex,img,user_id) 
+
+VALUES(#{level},#{exp},#{gender},#{hp},#{dex},#{img},#{userId}) 
+
+</insert>
+
+<update id="update" parameterType="Avatar">
+    UPDATE avatar
+    SET
+        level = #{avatar.level},
+        exp = #{avatar.exp},
+        gender = #{avatar.gender},
+        hp = #{avatar.hp},
+        dex = #{avatar.dex},
+        img = #{avatar.img}
+
+    WHERE user_id = #{userId}
+</update>
+
+
+
+
 
 </mapper>

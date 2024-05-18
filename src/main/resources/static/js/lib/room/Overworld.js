@@ -4,6 +4,7 @@ constructor(config){
     this.canvas = this.element.querySelector(".game-canvas");
     this.ctx = this.canvas.getContext("2d");
     this.map = null;
+    this.user=null;
 
 }
 
@@ -58,7 +59,7 @@ bindActionInput(){
 
 
 
-init(){
+async init(){
     this.map = new OverworldMap(window.OverworldMaps.DemoRoom);
     this.map.mountObjects();
 
@@ -70,7 +71,14 @@ init(){
     //this.directionInput.direction;
     this.startGameLoop();
 
+        //유저의 정보
+    this.user = new MyInfo();
+    await this.user.init();
+    console.log(this.user.gender);
+
+
     //이것도 한번말고 실행 안되게 if문
+    if(this.user.gender==null){
     this.map.startCutscene([
         { type:"textMessage", text:"아바타를 선택해 주세요"},
         { who:"man1",type:"stand",direction:"down",time:1000},
@@ -92,6 +100,8 @@ init(){
 
 
     ]);
+
+    }
 
     
 

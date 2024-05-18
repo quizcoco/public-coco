@@ -13,16 +13,35 @@ public class AvatarServiceImp implements AvatarService {
     private AvatarRepository repository;
 
     @Override
-    public String getAvatarByUserId(Long useredId) {
+    public Avatar getAvatarByUserId(Long useredId) {
        
         Avatar avatar = repository.findAvatarByUserId(useredId);
         if (avatar != null) {
 
-            return avatar.getImg();
+            return avatar;
             
         } else {
             return null;
         }
     }
+
+    @Override //아바타 생성
+    public void regAvatar(Long userId) {
+       
+               
+        Avatar avatar = new Avatar();
+        avatar.setUserId(userId);
+        repository.save(avatar);
+    }
+
+    @Override
+    public void editAvatar(Long userId,Avatar avatar) {
+      
+        repository.update(userId, avatar);
+    }
+
+
+
+    
     
 }

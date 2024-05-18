@@ -25,4 +25,8 @@ public class User {
     private String img;
     private String message;
 
+
+    // private Long cocoId;
+    // private Long avatarId;
+
 }

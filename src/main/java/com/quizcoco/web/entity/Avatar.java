@@ -14,7 +14,7 @@ public class Avatar {
     private Long id;
     private int level;
     private int exp;
-    private int gender;
+    private Integer gender;
     private int hp;
     private int dex;
     private String img;

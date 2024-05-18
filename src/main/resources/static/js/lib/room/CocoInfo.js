@@ -1,0 +1,12 @@
+class CocoInfo{
+constructor(){
+
+
+}
+
+init(){
+
+    
+}
+
+}
