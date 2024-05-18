@@ -16,6 +16,9 @@
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" defer></script>
+    <script type="module" src="/js/study/favorite/list.js" defer></script>
     <!-- <script defer src="/js/study/userquiz/list.js"></script> -->
 </head>
 <body>
@@ -104,16 +107,15 @@
                 <h1 class="d:none">페이지 보기 설정</h1>
                 <div class="see-num as:center">
                     <select name="s">
-                        <option value="5" th:selected="${{param.s}}==5">5개</option>
-                        <option value="10" th:selected="${{param.s}}==10">10개</option>
-                        <option value="15" th:selected="${{param.s}}==15">15개</option>
-                        <option value="20" th:selected="${{param.s}}==20">20개</option>
+                        <option value="5">5개</option>
+                        <option value="10">10개</option>
+                        <option value="15">15개</option>
+                        <option value="20">20개</option>
                     </select>
                 </div>
 
-                <!-- TODO userquiz 처음들어갔을때 페이지 위치가 1로 표시되게 해야함 -->
                 <div class="old-new as:center mb:3 mt:3">
-                        <button th:value="${{param.newold}} == 1 ? 0 : 1" value="1" name="newold" th:text="${{param.newold}}==0 or ${{param.newold}} == null ? '오래된 순' : '최신 순'"
+                        <button  value="1" name="newold"
                     class="n-btn n-btn:filled">오래된 순</button>
                 </div>
             </section>
@@ -121,16 +123,15 @@
         </section>
 
         <!-- 퀴즈리스트 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <section th:each="uq:${userQuiz}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1">
-            <h1 class="d:none">퀴즈 리스트</h1>
-            <input th:value="${uq.id}" th:data-cate="${uq.category}" type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
-            <a th:href="@{detail(id=${uq.id}, category=${uq.category})}"><div class="pl:5"><span th:text="${uq.question}">문제</span><br><span th:text="${uq.answer}" class="color:accent-4">답</span></div></a>
-        </section>
-
+        <section class="list-shape n-item n-item:underline bg-color:main-1 d:flex mb:1" v-for="q in list">
+            <h1 class="d:none">즐겨찾기 리스트</h1>
+            <input type="checkbox" name="checkbox" class="n-toggle n-toggle-type:check-box n-toggle-size:1 as:center">
+            <a><div class="pl:5"><span>{{q.question}}</span><br><span class="color:accent-4">{{q.answer}}</span></div></a>
+            </section>
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-        <section class="mt:1 md:d:flex jc:center ai:center mb:3 mt:3">
+        <!-- <section class="mt:1 md:d:flex jc:center ai:center mb:3 mt:3">
             <h1 class="d:none">페이저</h1>
-            <div class="d:none md:d:block"><!-- 10짜리 -->
+            <div class="d:none md:d:block">
                 <ul class="n-pager jc:center"
                     th:with="page=${param.p} eq null ? 1 : ${{param.p}}
                             ,s = ((${param.s} == null)?5:${{param.s}} == '' )? 5 : ${param.s}
@@ -140,16 +141,13 @@
                             ,endfloatnum=${uqcount} % ${{s}} >0 ? ${uqcount} / ${{s}} +1 :${uqcount} / ${{s}}
                             ,endintnum=${T(java.lang.Math).floor(endfloatnum)}
                             ,lastnum=(${endintnum}*10)/10">
-                            <!--${s}는 화면에 표시되는 리스트갯수 -->
-                    <!-- ========='<<'============== -->
-                    <li><span th:if="${page} lt 2" class="icon icon:page_start icon-size:2"></span>
+
+                            <li><span th:if="${page} lt 2" class="icon icon:page_start icon-size:2"></span>
                         <a th:if="${page} ge 2" href="list?p=1" th:href="@{list(p=1,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" class="icon icon:page_start icon-size:2"></a></li>
 
-                    <!-- ========='<'============== -->
                     <li><span th:if="${page} lt 11" class="icon icon:caret_left icon-size:2"></span>
                         <a th:if="${page} ge 11" th:href="@{list(p=${startnum}-1,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" href="" class="icon icon:caret_left icon-size:2"></a></li>
 
-                    <!-- ========='1'============== -->
                     <li th:each="n : ${#numbers.sequence(startnum,startnum+9)}"  
                     th:class="${{page}}== ${n}?'active'">
                     <span th:if="${n} gt ${lastnum}" th:text="${n}"></span>
@@ -157,16 +155,14 @@
                     <a href="list?p=1" th:href="@{list(p=${n},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}"
                     th:if="${n} le ${lastnum}">1</a></li>
 
-                    <!-- ========='>'============== -->
                     <li><span th:if="${lastnum} lt ${startnum+10}" class="icon icon:caret_right icon-size:2"></span>
                         <a th:if="${lastnum} ge ${startnum+10}" th:href="@{list(p=${startnum}+10,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" href="" class="icon icon:caret_right icon-size:2"></a></li>
 
-                    <!-- ========='>>'============== -->
                     <li class="mr:8"><span th:if="${lastnum} eq ${page}" class="icon icon:page_end icon-size:2"></span>
                         <a th:if="${lastnum} gt ${page}" th:href="@{list(p=${lastnum},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" href="" class="icon icon:page_end icon-size:2"></a></li>
                 </ul>
             </div>
-            <div class="d:block md:d:none"><!-- 5짜리 -->
+            <div class="d:block md:d:none">
                 <ul class="n-pager" style="display: flex; justify-content: center;" 
                 th:with="page=${param.p} eq null ? 1 : ${{param.p}},
                 s = ((${param.s} == null)?5:${{param.s}} == '' )? 5 : ${param.s},
@@ -177,13 +173,11 @@
                 ,endintnum=${T(java.lang.Math).floor(endfloatnum)}
                 ,lastnum=(${endintnum}*10)/10"> 
         
-                <!-- <li th:text="${uqcount div 6}+1">aa</li> -->
-
                 <li><span th:if="${page} lt 6">이전</span>
                     <a th:if="${page} ge 6" href="list?p=1" th:href="@{list(p=${startnum}-1,s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}">이전</a>
                 </li>
-                <li  th:each="n : ${#numbers.sequence(startnum,startnum+4)}" th:class="${{page}}== ${n}?'active'"><!-- ★★★ -->
-                    <span th:if="${n} gt ${lastnum}" th:text="${n}">1</span><!-- ★★★ -->
+                <li  th:each="n : ${#numbers.sequence(startnum,startnum+4)}" th:class="${{page}}== ${n}?'active'">
+                    <span th:if="${n} gt ${lastnum}" th:text="${n}">1</span>
                     <a href="list?p=1" th:href="@{list(p=${n},s=${param.s}, newold=${{param.newold}} == 1 ? 1 : 0)}" th:text="${n}" th:if="${n} le ${lastnum}">1</a>
                 </li>
                 
@@ -203,7 +197,7 @@
                 <span th:text="${lastnum}">38</span>
                 <a href="" class="n-btn n-btn-type:outline deco-ml:1 deco-size:2 deco-pos:right icon:caret_right deco ml:2">Go</a>
             </div>
-        </section>
+        </section> -->
 
         <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
         <nav id="ctrl-menu" class="d:flex jc:space-between ai:center">

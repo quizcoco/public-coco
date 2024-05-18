@@ -1,8 +1,11 @@
 package com.quizcoco.web.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quizcoco.web.entity.UserQuizView;
 import com.quizcoco.web.entity.UserQuizzesFavorite;
 import com.quizcoco.web.repository.UserQuizzesFavoriteRepository;
 
@@ -37,6 +40,20 @@ public class UserQuizzesFavoriteServiceImp implements UserQuizzesFavoriteService
         return isfavorite;
     }
 
+    @Override
+    public List<UserQuizView> getList(Long userId, Integer newOld, Integer page, Integer size) {
+
+        int offset=(page-1)*size;
+        List<UserQuizView> list = repository.getFavoritesByUserId(userId, newOld, offset, size);
+       return  list;
+    }
+
+    @Override
+    public int getCount(long userId) {
+
+        int count = repository.count(userId);
+       return count;
+    }
 }
 
 

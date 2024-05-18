@@ -55,14 +55,104 @@
                 and user_multiple_choice_quiz_id=#{userMultipleChoiceQuizId}
             </if>
 		</where>
-        
-        
         <!-- WHERE user_id = #{userId} AND quiz_id = #{quizId} -->
     </select>
 
+    <select id="getFavoritesByUserId" resultType="UserQuizView">
+        select * from
+        (
+            select
+                qv.id,
+                qv.question,
+                qv.num1,
+                qv.num2,
+                qv.num3,
+                qv.num4,
+                qv.answer,
+                qv.category,
+                qv.reg_date,
+                qv.user_id,
+                nvl(a.user_id,0) 'like'
 
-    <select id="getFavoritesByUserId" resultType="UserQuizzesFavorite">
-        SELECT * FROM user_quizzes_favorite WHERE user_id = #{userId}
+                from
+                (
+                    (select id,question, null num1, null num2, null num3, null num4, answer,"ox" category,reg_date,user_id from user_ox 
+                    UNION all
+                    select id,question, num1,num2,num3,num4, answer,"multi" category,reg_date,user_id from user_multiple_choice_quiz
+                    UNION all
+                    select id,question, null num1, null num2, null num3, null num4, answer,"short" category,reg_date,user_id from user_short_answer_quiz
+                    ) qv
+                    
+                    LEFT JOIN user_quizzes_favorite fv  
+                    
+                    ON (qv.category = 'multi' AND qv.id = fv.user_multiple_choice_quiz_id) 
+                    OR (qv.category = 'short' AND qv.id = fv.user_short_answer_quiz_id) 
+                    OR (qv.category = 'ox' AND qv.id = fv.user_ox_id))
+
+                    LEFT JOIN(select user_ox_id,user_multiple_choice_quiz_id, user_short_answer_quiz_id,user_id from user_quizzes_favorite where user_id=#{userId}
+                ) a
+            ON (qv.category = 'multi' AND qv.id = a.user_multiple_choice_quiz_id) 
+            OR (qv.category = 'short' AND qv.id = a.user_short_answer_quiz_id) 
+            OR (qv.category = 'ox' AND qv.id = a.user_ox_id)
+
+        ) faview
+        where faview.like=#{userId}
+
+        <if test="newOld == 0">
+            order by faview.reg_date desc 
+        </if>
+
+        <if test="newOld == 1">
+            order by faview.reg_date asc 
+        </if>
+
+        limit #{offset}, #{size}
+        
+    </select>
+
+
+    <select id="count" resultType="Integer">
+        select count(cnt.id) from
+        (
+        select * from
+            (
+                select
+                    qv.id,
+                    qv.question,
+                    qv.num1,
+                    qv.num2,
+                    qv.num3,
+                    qv.num4,
+                    qv.answer,
+                    qv.category,
+                    qv.reg_date,
+                    qv.user_id,
+                    nvl(a.user_id,0) 'like'
+
+                    from
+                    (
+                        (select id,question, null num1, null num2, null num3, null num4, answer,"ox" category,reg_date,user_id from user_ox 
+                        UNION all
+                        select id,question, num1,num2,num3,num4, answer,"multi" category,reg_date,user_id from user_multiple_choice_quiz
+                        UNION all
+                        select id,question, null num1, null num2, null num3, null num4, answer,"short" category,reg_date,user_id from user_short_answer_quiz
+                        ) qv
+                        
+                        LEFT JOIN user_quizzes_favorite fv  
+                        
+                        ON (qv.category = 'multi' AND qv.id = fv.user_multiple_choice_quiz_id) 
+                        OR (qv.category = 'short' AND qv.id = fv.user_short_answer_quiz_id) 
+                        OR (qv.category = 'ox' AND qv.id = fv.user_ox_id))
+
+                        LEFT JOIN(select user_ox_id,user_multiple_choice_quiz_id, user_short_answer_quiz_id,user_id from user_quizzes_favorite where user_id=#{userId}
+                    ) a
+                ON (qv.category = 'multi' AND qv.id = a.user_multiple_choice_quiz_id) 
+                OR (qv.category = 'short' AND qv.id = a.user_short_answer_quiz_id) 
+                OR (qv.category = 'ox' AND qv.id = a.user_ox_id)
+
+            ) faview
+            where faview.like=#{userId}
+        ) cnt
     </select>
 
 </mapper>

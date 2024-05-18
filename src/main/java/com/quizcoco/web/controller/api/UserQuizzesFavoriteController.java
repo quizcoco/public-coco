@@ -1,21 +1,22 @@
 package com.quizcoco.web.controller.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quizcoco.web.config.security.CocoUserDetails;
+import com.quizcoco.web.entity.UserQuizView;
 import com.quizcoco.web.entity.UserQuizzesFavorite;
 import com.quizcoco.web.service.UserQuizzesFavoriteService;
 
-@RestController
+@RestController("apiUserQuizzesFavoriteController")
 @RequestMapping("api/user-quizzes-favorites") //이름너무길다
 public class UserQuizzesFavoriteController {
     
@@ -65,14 +66,7 @@ public class UserQuizzesFavoriteController {
         } else {
             return ResponseEntity.badRequest().body(false);
         }
-        // System.out.println("================"+favorite );
 
-        // //추가했는지 확인
-        // if(newOne==null){
-        //    return ResponseEntity.badRequest().body(false);
-        // }
-        
-        // return ResponseEntity.ok(true);
     }
 
 
@@ -158,4 +152,28 @@ public class UserQuizzesFavoriteController {
         }
 
     }
+
+    // @GetMapping("list")
+    // public List<UserQuizView> getFavoriteList( @AuthenticationPrincipal CocoUserDetails userDetails
+    // ,@RequestParam(name="p", defaultValue = "1") Integer page
+    // ,@RequestParam(name="s", required = false, defaultValue = "5") Integer size
+    // ,@RequestParam(name = "newold", defaultValue = "0")Integer newOld) {
+
+    //     Long userId = null; 
+    //     if(userDetails != null)
+    //     userId=userDetails.getId();
+
+    //     int UQcount = 0;
+
+    //     List<UserQuizView> userQuizView = new ArrayList<>();
+    //     // if(query != null){
+    //     // userQuizView = service. getList(query,userId,newOld,page, size);
+    //     // UQcount = service.getCount(query,userId);
+    //     // }
+
+    //     userQuizView = service. getList(userId,newOld,page, size);
+    //     UQcount = service.getCount(userId);
+
+    //     return userQuizView;
+    // }
 }

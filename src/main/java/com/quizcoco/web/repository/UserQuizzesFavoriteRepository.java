@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.quizcoco.web.entity.UserQuizView;
 import com.quizcoco.web.entity.UserQuizzesFavorite;
 
 @Mapper
@@ -14,6 +15,8 @@ int delete(UserQuizzesFavorite favorite);
 
 boolean isFavorite(UserQuizzesFavorite favorite);
 
-List<UserQuizzesFavorite> getFavoritesByUserId(Long userId);
+List<UserQuizView> getFavoritesByUserId(Long userId,Integer newOld, Integer offset,Integer size);
+
+int count(long userId);
 
 }
