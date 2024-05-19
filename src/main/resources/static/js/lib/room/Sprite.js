@@ -10,7 +10,7 @@ class Sprite{
 
         //그림자
         this.shadow = new Image();
-        this.useShadow=true;//config.useShadow ||false
+        this.useShadow=config.useShadow || false;
         if(this.useShadow){
             this.shadow.src = "/image/room/shadow.png";
             
@@ -40,10 +40,17 @@ class Sprite{
 
         //Reference the game object
         this.gameObject=config.gameObject;
+        this.width = config.width || 32;  // 이미지의 너비
+        this.height = config.height || 32; // 이미지의 높이
 
     }
     get frame(){
-        return this.animations[this.currentAnimation][this.currentAnimationFrame];
+        // return this.animations[this.currentAnimation][this.currentAnimationFrame];
+        const animation = this.animations[this.currentAnimation];
+        if (animation) {
+            return animation[this.currentAnimationFrame];
+        }
+        return [0, 0];
     }
 
     setAnimation(key){
@@ -67,8 +74,12 @@ class Sprite{
         this.animationFrameProgress=this.animationFrameLimit;
         this.currentAnimationFrame +=1;
 
-        if(this.frame===undefined){
-            this.currentAnimationFrame=0;
+        // if(this.frame===undefined){
+        //     this.currentAnimationFrame=0;
+        // }기존
+        const animation = this.animations[this.currentAnimation];
+        if (!animation || this.currentAnimationFrame >= animation.length) {
+            this.currentAnimationFrame = 0;
         }
     }
 
@@ -80,10 +91,14 @@ class Sprite{
         const[frameX, frameY] = this.frame;
 
         this.isLoaded && ctx.drawImage(this.image,
-            frameX*32, frameY*32,
-            32,32,
-            x,y,
-            32,32
+            // frameX*32, frameY*32,
+            // 32,32,
+            // x,y,
+            // 32,32
+            frameX * this.width, frameY * this.height,
+            this.width, this.height,
+            x, y,
+            this.width, this.height
         )
 
 

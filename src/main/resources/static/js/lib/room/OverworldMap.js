@@ -99,12 +99,15 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
                 isPlayerControlled:true,
                 x:utils.withGrid(7),
                 y:utils.withGrid(9),
-                src:"/image/room/man1.png",
+                // gender:user?user.gender:0,
+                src:user? (user.gender==1 ? "/image/room/woman1-walk2.png": "/image/room/man1.png"):"/image/room/man1.png",
+                shadow:true,
             }),
                 myCocoA: new Person({
                 x:utils.withGrid(10),
                 y:utils.withGrid(10),
-                src:"/image/room/woman1.png",//TODO 4*3캐릭터 사진으로 변경
+                src:"/image/room/woman1-walk2.png",
+                shadow:true,
                behaviorLoop:[
                 {type:"stand",direction:"left", time:1200},
                 {type:"stand",direction:"right", time:800},
@@ -126,7 +129,21 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
                     ]
                 }
                ]
-               })
+               }),
+               window:new Furniture({
+                x:utils.withGrid(7),
+                y:utils.withGrid(3.5),
+                src:"/image/room/window.png",
+                width: 32,
+                height: 31,
+                shadow:true,
+                click:"board/reg",
+                talking:[{events:[
+                    {type:"textMessage",text:"로그인 안하면 저장이 안돼요"},
+                ]}]
+
+
+            }),
         },
         walls:{
             [utils.asGridCoord(2,4)]:true,

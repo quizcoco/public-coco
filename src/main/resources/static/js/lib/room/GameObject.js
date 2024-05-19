@@ -7,8 +7,8 @@ class GameObject{
         this.direction = config.direction || "down";
         this.sprite=new Sprite({
             gameObject:this,
-            src:
-            config.src ||"/image/room/man1.png",
+            src:config.src,
+            useShadow:config.shadow,
 
         });
         this.behaviorLoop = config.behaviorLoop || [];

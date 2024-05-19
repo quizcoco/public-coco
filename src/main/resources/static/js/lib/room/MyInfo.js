@@ -1,7 +1,7 @@
 class MyInfo{
     constructor(){
         this.name = null;
-        this.gender=null;
+        this.gender=0;
 
 
     }
