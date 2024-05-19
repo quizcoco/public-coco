@@ -26,5 +26,5 @@ public class Coco {
     private long stateId;
     private long typeId;
 
-    private String img;
+    private String img;//타입 조인
 }

@@ -20,5 +20,6 @@ public class Avatar {
     private String img;
 
     private Long userId;
+    private int typeId;
 
 }

@@ -39,12 +39,12 @@ class OverworldMap{
         })
     }
 
-    async startCutscene(events){
+    async startCutscene(events,context){
         this.isCutscenePlaying=true;
 
         for(let i=0;i<events.length;i++){
             const eventHandler = new OverworldEvent({
-                event:events[i],
+                event:events[i],context,
                 map:this
             })
             await eventHandler.init();
@@ -82,6 +82,14 @@ class OverworldMap{
     }
 
 }
+let isLoggedIn=false;
+const userInfo = new MyInfo();
+userInfo.init().then((user)=>{
+    if(user)
+        isLoggedIn=true;
+    console.log("로그인되었나요??"+isLoggedIn)
+
+
 window.OverworldMaps={ //각종맵객체.. 이게 config?????
     DemoRoom:{
         lowerSrc:"/image/room/room.png",
@@ -106,9 +114,14 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
                ],
                talking:[
                 {
-                    events:[
-                        {type:"textMessage",text:"퀴즈코코에 온걸 환영해",faceman1:"myCocoA"},
-                        {type:"textMessage",text:"로그인 안하면 저장이 안돼"},
+                    events:isLoggedIn
+                    ?[
+                        {type:"textMessage",text:"집이 참 대궐 같지요?",faceman1:"myCocoA"},
+                        {type:"textMessage",text:"혹시 식사제공을 부탁드려도 될까요"},
+                    ]
+                    :[
+                        {type:"textMessage",text:"퀴즈코코에 온걸 환영해요",faceman1:"myCocoA"},
+                        {type:"textMessage",text:"로그인 안하면 저장이 안돼요"},
 
                     ]
                 }
@@ -144,3 +157,14 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
         }
     }
 }
+
+//init.js내용
+
+    // Overworld 초기화
+    const overworld = new Overworld({
+        element: document.querySelector(".game-container"),
+        userInfo: userInfo  // Overworld 클래스에 userInfo를 전달
+    });
+    overworld.init();
+
+});

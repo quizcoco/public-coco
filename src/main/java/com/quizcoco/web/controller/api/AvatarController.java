@@ -1,9 +1,12 @@
 package com.quizcoco.web.controller.api;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,8 +42,8 @@ public class AvatarController {
 
 
     @PutMapping("edit")//아바타 정보수정
-    public void makeAvatar(Integer gender, @AuthenticationPrincipal CocoUserDetails userDetails) {
-
+    public void makeAvatar(@RequestBody Map<String, Integer> body, @AuthenticationPrincipal CocoUserDetails userDetails) {
+        Integer gender = body.get("gender");
         System.out.println("아바타성별~~"+gender);
 
         Long userId=null;

@@ -1,10 +1,11 @@
-(function(){
+// (function(){
 
-const overworld = new Overworld({
-    element:document.querySelector(".game-container")
+// const overworld = new Overworld({
+//     element:document.querySelector(".game-container"),
+//     userInfo: userInfo
 
 
-});
+// });
 
-overworld.init();
-})();
+// overworld.init();
+// })();

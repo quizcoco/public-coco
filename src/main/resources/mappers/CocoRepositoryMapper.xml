@@ -5,7 +5,7 @@
 <mapper namespace="com.quizcoco.web.repository.CocoRepository">
 
 
-<select id="findCocoById" resultType="Coco">
+<select id="findCocoByUserId" resultType="Coco">
 
 SELECT * FROM coco where user_id=#{userId} 
 
@@ -14,13 +14,40 @@ SELECT * FROM coco where user_id=#{userId}
 </select>
 
 <!-- 코코 이미지 가져오기 -->
-<select id="findCocoByUserId" resultType="Coco" parameterType="Long">
+<select id="findCocoImgByUserId" resultType="Coco" parameterType="Long">
   select
     ct.img
   from coco c
   join coco_type ct 
        on c.type_id = ct.id
-  where c.user_id =#{useredId}     
+  where c.user_id =#{userId}     
 </select>
+
+
+<insert id="save" parameterType="Coco">
+INSERT INTO coco(name,user_id,type_id) 
+
+VALUES(#{name},#{userId},#{typeId}) 
+
+</insert>
+
+
+<update id="update" parameterType="Coco">
+    UPDATE coco
+    SET
+
+    name = #{coco.name},
+    gender = #{coco.gender},
+    hungry = #{coco.hungry},
+    level = #{coco.level},
+    hp = #{coco.hp},
+    birth = #{coco.birth},
+    skill_id = #{coco.skillId},
+    state_id = #{coco.stateId},
+    type_id = #{coco.typeId}
+
+    WHERE user_id = #{userId}
+</update>
+
 
 </mapper>

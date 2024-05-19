@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.User;
+import com.quizcoco.web.service.AvatarService;
+import com.quizcoco.web.service.CocoService;
 import com.quizcoco.web.service.UserService;
 
 import jakarta.servlet.http.Cookie;
@@ -25,6 +27,12 @@ public class UserController {
     
     @Autowired
     private UserService service;
+
+    @Autowired
+    private CocoService cocoService;
+
+    @Autowired
+    private AvatarService avatarService;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -84,8 +92,12 @@ public class UserController {
         user.setPw(encodedPw);
 
        service.sign(user);
+
+       //TODO 가입시 코코랑 아바타 최초 생성하도록
+    //    cocoService.regCoco(user.getId());
+    //    avatarService.regAvatar(user.getId());
         
         return "redirect:/user/login";
     }
     
-}
+}    

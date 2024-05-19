@@ -1,7 +1,8 @@
 class OverworldEvent{
-    constructor({map,event}){
+    constructor({map,event,context}){
         this.map = map;
         this.event = event;
+        this.context=context;
 
     }
     stand(resolve){
@@ -53,8 +54,15 @@ class OverworldEvent{
             obj.direction = utils.oppositeDirection(this.map.gameObjects["man1"].direction);
         }
 
+        let text = this.event.text;
+        if (this.event.dynamicText) {
+            text = this.event.dynamicText(this.context);
+        }
+
         const message = new TextMessage({
             text:this.event.text,
+            dynamicText: this.event.dynamicText,
+            context: this.context,
             onComplete:()=>resolve()
         })
         message.init(document.querySelector(".game-container"));
@@ -65,9 +73,21 @@ class OverworldEvent{
         //     return;
         // }
         //TODO 유저의 아바타가 null이면 실행
-        const message = new TextMessage({
+        const message = new SelectAvatar({
             text:this.event.text,
             onComplete:()=>resolve()
+        })
+        message.init(document.querySelector(".game-container"));
+    }
+
+    insertBox(resolve){
+
+        const message = new InsertBox({
+            text:this.event.text,
+            onComplete:(inputValue) => {
+                this.context.inputValue = inputValue; // 입력된 값을 context에 저장
+                resolve();
+            }
         })
         message.init(document.querySelector(".game-container"));
     }

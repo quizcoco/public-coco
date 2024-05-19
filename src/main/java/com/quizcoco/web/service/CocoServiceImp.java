@@ -3,6 +3,7 @@ package com.quizcoco.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.quizcoco.web.entity.Avatar;
 import com.quizcoco.web.entity.Coco;
 import com.quizcoco.web.repository.CocoRepository;
 
@@ -13,14 +14,14 @@ public class CocoServiceImp implements CocoService{
     CocoRepository repository;
 
     @Override
-    public Coco getCocoById(long userId) {
-      return repository.findCocoById(userId);
+    public Coco getCocoByUserId(long userId) {
+      return repository.findCocoByUserId(userId);
     }
 
     @Override
-    public String getCocoImgUrl(Long useredId) {
+    public String getCocoImgUrl(Long userId) {
       
-      Coco coco = repository.findCocoByUserId(useredId);
+      Coco coco = repository.findCocoImgByUserId(userId);
 
       if (coco != null) {
 
@@ -30,6 +31,19 @@ public class CocoServiceImp implements CocoService{
           return null;
       } 
       
+    }
+
+    @Override
+    public void editCoco(Long userId, Coco coco) {
+        repository.update(userId, coco);
+    }
+
+    @Override
+    public void regCoco(Long userId) {
+              
+        Coco coco = new Coco();
+        coco.setUserId(userId);
+        repository.save(coco);
     }
     
 }

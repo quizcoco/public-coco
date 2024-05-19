@@ -14,9 +14,9 @@
 
 
 <insert id="save" parameterType="Avatar">
-INSERT INTO avatar(level,exp,gender,hp,dex,img,user_id) 
+INSERT INTO avatar(gender,user_id,type_id) 
 
-VALUES(#{level},#{exp},#{gender},#{hp},#{dex},#{img},#{userId}) 
+VALUES(#{gender},#{userId},#{typeId}) 
 
 </insert>
 
