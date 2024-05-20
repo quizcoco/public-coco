@@ -99,7 +99,7 @@ async init(){
         { type:"insertBox",text:"코코의 이름을 지어주세요."},
         { type: "textMessage", dynamicText: (context) => `${context.inputValue}.. 멋진 이름이야!` },
         { type:"textMessage",text:"우리 재미있게 잘 지내보자 ^.~"},
-        { type:"textMessage",text:"웰컴포인트를 100 point 받았습니다."},
+        { type:"textMessage",text:"웰컴포인트를 100 point 받았습니다."},//TODO 100p오르게
 
 
     ], this.context);

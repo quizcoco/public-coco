@@ -93,9 +93,10 @@ public class UserController {
 
        service.sign(user);
 
-       //TODO 가입시 코코랑 아바타 최초 생성하도록
-    //    cocoService.regCoco(user.getId());
-    //    avatarService.regAvatar(user.getId());
+       //가입시 코코랑 아바타 최초 생성
+       System.out.println("회원가입 유저아이디를 알아봅시다~~~~"+user.getId());
+       cocoService.regCoco(user.getId());
+       avatarService.regAvatar(user.getId());
         
         return "redirect:/user/login";
     }

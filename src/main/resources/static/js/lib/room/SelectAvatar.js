@@ -39,7 +39,7 @@ class SelectAvatar{
 
 
         this.element.querySelector("button").addEventListener("click",async()=>{
-            const genderValue= this.element.querySelector("input[name='avatar']:checked");
+            const genderValue= this.element.querySelector("input[name='avatar']:checked").value;
 
             
             if (!genderValue) {
@@ -47,13 +47,13 @@ class SelectAvatar{
                 return;
             }
 
-                console.log(genderValue.value);
+                console.log(genderValue);
             const response = await fetch(`/api/avatar/edit`, {
             method: 'PUT', // or 'PUT' based on your API design
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ gender: genderValue.value })
+            body: JSON.stringify({ gender: genderValue })
         });
 
         this.done();

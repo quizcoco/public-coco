@@ -8,6 +8,7 @@ import com.quizcoco.web.entity.User;
 public interface UserRepository {
 
     User findByUserName(String username);
+    User findByEmail(String email);
 
     void save(User user);
 

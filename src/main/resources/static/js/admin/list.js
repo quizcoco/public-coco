@@ -78,7 +78,7 @@ chkAllButton.onclick= function(e){
         };
         
         var q = inputSearch.value;
-        xhr.open("GET", `http://localhost:8080/api/examQuizs?q=${q}&p=1`);
+        xhr.open("GET", `/api/examQuizs?q=${q}&p=1`);
         
         xhr.send();
         

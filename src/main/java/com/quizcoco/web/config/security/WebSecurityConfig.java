@@ -11,13 +11,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 public class WebSecurityConfig {
@@ -25,8 +22,10 @@ public class WebSecurityConfig {
 	@Autowired
 	private DataSource dataSource;
 
-	// @Autowired
-	// private WebOAuth2UserDetailsService oauth2UserDetailsService;
+	@Autowired
+	private WebOAuth2UserDetailsService oauth2UserDetailsService;
+
+	private AuthenticationSuccessHandler loginSuccessHandler = new LoginSuccessHandler();
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -49,11 +48,13 @@ public class WebSecurityConfig {
 			.defaultSuccessUrl("/")
 			.usernameParameter("username")
 			.permitAll()
+			.successHandler(loginSuccessHandler)
 			)
 			//구글 소셜로그인하기
-			// .oauth2Login(config->config
-			// 	.userInfoEndpoint(userInf->userInf
-			// 		.userService(oauth2UserDetailsService)))
+			.oauth2Login(config->config
+				.userInfoEndpoint(userInf->userInf
+					.userService(oauth2UserDetailsService)).successHandler(loginSuccessHandler))//토큰으로 받기
+					
 			.logout((logout) -> logout	
 			.logoutUrl("/logout")
 			.logoutSuccessUrl("/index")

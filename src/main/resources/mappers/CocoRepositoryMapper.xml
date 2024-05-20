@@ -25,9 +25,9 @@ SELECT * FROM coco where user_id=#{userId}
 
 
 <insert id="save" parameterType="Coco">
-INSERT INTO coco(name,user_id,type_id) 
+INSERT INTO coco(name,user_id,coco_type_id) 
 
-VALUES(#{name},#{userId},#{typeId}) 
+VALUES(#{name},#{userId},1) 
 
 </insert>
 
@@ -44,7 +44,7 @@ VALUES(#{name},#{userId},#{typeId})
     birth = #{coco.birth},
     skill_id = #{coco.skillId},
     state_id = #{coco.stateId},
-    type_id = #{coco.typeId}
+    coco_type_id = #{coco.typeId}
 
     WHERE user_id = #{userId}
 </update>
