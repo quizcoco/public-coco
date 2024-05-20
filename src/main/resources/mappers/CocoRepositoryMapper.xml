@@ -23,7 +23,7 @@ SELECT * FROM coco where user_id=#{userId}
   where c.user_id =#{userId}     
 </select>
 
-
+<!-- 첫등록 -->
 <insert id="save" parameterType="Coco">
 INSERT INTO coco(name,user_id,coco_type_id) 
 
@@ -42,9 +42,9 @@ VALUES(#{name},#{userId},1)
     level = #{coco.level},
     hp = #{coco.hp},
     birth = #{coco.birth},
-    skill_id = #{coco.skillId},
-    state_id = #{coco.stateId},
-    coco_type_id = #{coco.typeId}
+    skill_id = 1,
+    state_id = 1,
+    coco_type_id = 1
 
     WHERE user_id = #{userId}
 </update>

@@ -72,7 +72,7 @@ class OverworldEvent{
         // if(this.map.gameObjects["man1"].avatar!==null){
         //     return;
         // }
-        //TODO 유저의 아바타가 null이면 실행
+       
         const message = new SelectAvatar({
             text:this.event.text,
             onComplete:()=>resolve()

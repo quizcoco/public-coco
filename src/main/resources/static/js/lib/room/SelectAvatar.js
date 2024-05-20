@@ -9,10 +9,11 @@ class SelectAvatar{
 
     createElement(){
         this.element=document.createElement("section");
-        this.element.classList.add("select-modal");
-        this.element.classList.add("n-modal");
-        this.element.classList.add("p:8");
-        this.element.classList.add("w:8");
+        this.element.classList.add("select-modal", "n-modal", "p:8", "w:8");
+        // this.element.classList.add("select-modal");
+        // this.element.classList.add("n-modal");
+        // this.element.classList.add("p:8");
+        // this.element.classList.add("w:8");
 
         this.element.innerHTML=(`
         <h1 class="n-font:h3  font-weight:3">${this.text}</h1>
@@ -56,15 +57,15 @@ class SelectAvatar{
             body: JSON.stringify({ gender: genderValue })
         });
 
-        this.done();
+        this.done(genderValue);
     });
 
 
 
     }
-    done(){
+    done(genderValue){
         this.element.remove();
-        this.onComplete();
+        this.onComplete(genderValue);
     }
 
 

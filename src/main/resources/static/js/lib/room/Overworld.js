@@ -91,7 +91,7 @@ async init(){
         { who:"man1",type:"walk",direction:"right"},
         { who:"man1",type:"walk",direction:"right"},
         { who:"myCocoA",type:"stand",direction:"right",time:200},
-        { type:"textMessage",text:"(안녕? 너는 누구니?)"},
+        { type:"textMessage",text:"(안녕? 너는 누구니?)",faceman1:"myCocoA"},
         // { type:"textMessage",text:"이름을 입력해 주세요."},
         { type:"textMessage",text:`안녕 ${this.user.name}.. 나는 너의 코코란다`},
         { type:"textMessage",text:"나는 너의 도움이 필요해.  나를 보살펴 주겠니?"},
@@ -102,9 +102,19 @@ async init(){
         { type:"textMessage",text:"웰컴포인트를 100 point 받았습니다."},//TODO 100p오르게
 
 
-    ], this.context);
+    // ], this.context);
+        ]).then(selectedGender => {
+            this.user.gender = selectedGender;
+            this.updateAvatar();
+        });
+
     }
 
+}
+
+updateAvatar() {
+    const man1 = this.map.gameObjects.man1;
+    man1.sprite.src = this.user.gender == 1 ? "/image/room/woman1-walk2.png" : "/image/room/man1.png";
 }
 
 }
