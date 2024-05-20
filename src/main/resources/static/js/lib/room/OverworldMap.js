@@ -47,11 +47,11 @@ class OverworldMap{
                 event:events[i],context,
                 map:this
             })
-            // await eventHandler.init();
-            const result = await eventHandler.init();
-            if (events[i].type === "selectAvatar") {
-                return result;
-            }
+            await eventHandler.init();
+            // const result = await eventHandler.init();
+            // if (events[i].type === "selectAvatar") {
+            //     return result;
+            // }
 
         }
 
