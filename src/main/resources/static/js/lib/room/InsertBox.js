@@ -56,6 +56,15 @@ class InsertBox{
     done(cocoName){
         this.element.remove();
         this.onComplete(cocoName);
+
+        //저장
+        fetch(`/api/users/edit`, {
+        method: 'PUT', // POST
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ point: 100 })
+        });
     }
 
 

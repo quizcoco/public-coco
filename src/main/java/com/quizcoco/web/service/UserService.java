@@ -5,8 +5,9 @@ import com.quizcoco.web.entity.User;
 public interface UserService {
     
     User getByUserName(String username);
+    User getByUserId(Long userId);
 
-
+    void editUser(User user);
     void sign(User user);
 
     int mailCheck(String mail) throws Exception;

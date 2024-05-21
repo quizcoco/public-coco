@@ -105,4 +105,11 @@ class Sprite{
         this.updateAnimationProgress();
     }
 
+    updateGender(newSrc,ctx,cameraPerson) {//추가한것...
+
+        this.image.src = (newSrc == 1 ? "/image/room/woman1-walk2.png" : "/image/room/man1.png");
+        this.draw(ctx,cameraPerson);
+          
+    }
+
 }

@@ -58,28 +58,14 @@ bindActionInput(){
 
 }
 
-bindman1PositionCheck(){
-    document.addEventListener("PersonWalkingComplete",e=>{
-        if(e.detail.whoId==="man1"){
-            this.map.checkForFootstepCutscene()
-        }
 
-    })
-}
-
-startMap(mapConfig){
-    // this.map = new OverworldMap(window.OverworldMaps.DemoRoom,this);
-    this.map = new OverworldMap(mapConfig,this);
-    this.map.overworld=this;
-    this.map.mountObjects();
-
-}
 
 async init(){
-    this.startMap(window.OverworldMaps.DemoRoom);
+    this.map = new OverworldMap(window.OverworldMaps.BattleField,this);
+    this.map.mountObjects();
 
     this.bindActionInput();
-    this.bindman1PositionCheck();
+    // this.bindman1PositionCheck();
 
     this.directionInput = new DirectionInput();
     this.directionInput.init();
@@ -112,10 +98,10 @@ async init(){
         { type:"insertBox",text:"코코의 이름을 지어주세요."},
         { type: "textMessage", dynamicText: (context) => `${context.inputValue}.. 멋진 이름이야!` },
         { type:"textMessage",text:"우리 재미있게 잘 지내보자 ^.~"},
-        { type:"textMessage",text:"웰컴포인트를 100 point 받았습니다."},
+        { type:"textMessage",text:"웰컴포인트를 100 point 받았습니다."},//TODO 100p오르게
 
 
-    ], this.context);
+    ], this.context,this);
 
     }
 }

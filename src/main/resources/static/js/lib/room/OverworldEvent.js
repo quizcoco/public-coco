@@ -1,8 +1,9 @@
 class OverworldEvent{
-    constructor({map,event,context}){
+    constructor({map,event,context,user}){
         this.map = map;
         this.event = event;
         this.context=context;
+        this.user=user;
 
     }
     stand(resolve){
@@ -86,12 +87,17 @@ class OverworldEvent{
             text:this.event.text,
             onComplete:(inputValue) => {
                 this.context.inputValue = inputValue; // 입력된 값을 context에 저장
+                // this.user.point +=100;
                 resolve();
             }
         })
         message.init(document.querySelector(".game-container"));
     }
 
+    changeMap(resolve){
+        this.map.overworld.startMap(window.OverworldMaps[this.event.map]);
+        resolve();
+    }
 
     init(){
         return new Promise(resolve=>{

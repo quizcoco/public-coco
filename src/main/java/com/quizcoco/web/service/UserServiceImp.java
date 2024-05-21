@@ -66,4 +66,17 @@ public class UserServiceImp implements UserService {
     }
 
 
+    @Override
+    public User getByUserId(Long userId) {
+        User user= repository.findByUserId(userId);
+        return user;
+    }
+
+
+    @Override
+    public void editUser(User user) {
+        repository.update(user);
+    }
+
+
 }
