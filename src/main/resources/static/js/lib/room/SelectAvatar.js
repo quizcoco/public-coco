@@ -3,6 +3,7 @@ class SelectAvatar{
         this.text=text;
         this.onComplete=onComplete;
         this.element=null;
+        
         // this.gender=null;
         // this.cocoName=null;
     }
@@ -50,7 +51,7 @@ class SelectAvatar{
 
                 console.log(genderValue);
             const response = await fetch(`/api/avatar/edit`, {
-            method: 'PUT', // or 'PUT' based on your API design
+            method: 'PUT', // POST
             headers: {
                 'Content-Type': 'application/json'
             },

@@ -2,6 +2,7 @@ class MyInfo{
     constructor(){
         this.name = null;
         this.gender=0;
+        this.point=0;
 
 
     }
@@ -15,6 +16,9 @@ class MyInfo{
                 return resp.json();
             }).then(user=>{
                 this.name=user.nickName;
+                this.point=user.point;
+                console.log("시작=제가 가진 포인트는요..."+this.point);
+
                 console.log(this.name);
                 return this.name;
             })

@@ -1,7 +1,8 @@
 class OverworldMap{
-    constructor(config){
+    constructor(config,overworld){
 
         this.gameObjects=config.gameObjects;
+        this.cutsceneSpaces = config.cutsceneSpaces || {};
         this.walls = config.walls ||{};
         
         this.lowerImage = new Image();//캐릭터가 서있는 바닥 이미지
@@ -11,6 +12,13 @@ class OverworldMap{
         this.upperImage.src=config.upperSrc;
 
         this.isCutscenePlaying = false;
+        //추가
+        this.user = overworld.user || {};
+        this.overworld=overworld;
+        // this.overworld=null;
+        // this.user = null;
+        
+        // console.log("config.user"+this.user.point);
 
     }
 
@@ -42,24 +50,46 @@ class OverworldMap{
     async startCutscene(events,context){
         this.isCutscenePlaying=true;
 
-        for(let i=0;i<events.length;i++){
-            const eventHandler = new OverworldEvent({
-                event:events[i],context,
-                map:this
-            })
-            await eventHandler.init();
-            // const result = await eventHandler.init();
-            // if (events[i].type === "selectAvatar") {
-            //     return result;
-            // }
 
+        for (const event of events) {
+            switch (event.type) {
+                case "selectAvatar":
+                    await new Promise(resolve => {
+                        new SelectAvatar({
+                            text: event.text,
+                            onComplete: (genderValue) => {
+                                // 서버에 저장된 아바타 정보와 맞추기 위해 사용자 정보를 업데이트
+                                // this.user.gender = genderValue; 안쓰는것같아
+                                // 아바타를 즉시 업데이트
+                                this.gameObjects['man1'].sprite.updateGender(genderValue, this.overworld.ctx, this.gameObjects["man1"]);
+                                resolve();
+                            }
+                        }).init(document.querySelector(".game-container"));
+                    });
+                    break;
+            }
         }
 
+      // 나머지 이벤트 처리
+      for (const event of events) {
+        if (event.type !== "selectAvatar") {
+            const eventHandler = new OverworldEvent({
+                event,
+                context,
+                map: this,
+                user:this.user
+            });
+            await eventHandler.init();
+        }
+    }
+     
 
         this.isCutscenePlaying=false;
 
         Object.values(this.gameObjects).forEach(object=>object.doBehaviorEvent(this))
     }
+
+
     checkForActionCutscene(){//앞에있는게 뭔지 인지하기...
         const man1 = this.gameObjects["man1"];
         const nextCoords = utils.nextPosition(man1.x,man1.y,man1.direction);
@@ -71,6 +101,15 @@ class OverworldMap{
 
         }
 
+    }
+
+    checkForFootstepCutscene(){
+        const man1 = this.gameObjects["man1"];
+        const match = this.cutsceneSpaces[`${man1.x},${man1.y}`];
+        if(!this.isCutscenePlaying && match){
+            this.startCutscene(match[0].events)
+        }
+        
     }
 
     addWall(x,y){
@@ -145,8 +184,8 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
                 talking:[{events:[
                     {type:"textMessage",text:"로그인 안하면 저장이 안돼요"},
                 ]}]
-
-
+                
+                
             }),
         },
         walls:{
@@ -155,28 +194,38 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
             [utils.asGridCoord(4,4)]:true,
             [utils.asGridCoord(5,4)]:true,
             [utils.asGridCoord(6,4)]:true,
-
-        
+            [utils.asGridCoord(7,4)]:true,
+            [utils.asGridCoord(8,4)]:true,
+            [utils.asGridCoord(9,4)]:true,
+            [utils.asGridCoord(10,4)]:true,
+            [utils.asGridCoord(11,4)]:true,
         },
-        // cutsceneSpace:{
-        //     9강:32분
-        // }
+        cutsceneSpaces:{
+            [utils.asGridCoord(7,5)]:[{
+                events:[
+                    // {type:"textMessage",text:"창문을 통해 게시판으로 이동할 예정이예요"},
+                    {type:"changeMap",map:"BattleField"},
+                ]
+            }],
+            
+        }
     },
-    battleField:{
-        lowerSrc:"",
-        upperSrc:"",
+    BattleField:{
+        lowerSrc:"/image/room/battle.png",
+        upperSrc:"/image/room/battle.png",
         gameObjects:{
-            coco:new GameObject({
+            man1:new Person({
                 x:5,
                 y:6,
             }),
-            insect: new GameObject({
+            insect: new Person({
                 x:7,
                 y:9,
                 //src:"/image/"
                })
         }
-    }
+    },
+    user: user
 }
 
 //init.js내용

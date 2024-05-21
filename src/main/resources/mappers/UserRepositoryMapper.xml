@@ -45,4 +45,29 @@
         or nick_name = #{nickname}
 </select>
 
+
+
+<!-- 포인트 변경 등 -->
+<update id="update" parameterType="User">
+    UPDATE user
+    SET
+
+    nick_name = #{nickName},
+    level = #{level},
+    point = #{point},
+    exp = #{exp},
+    img = #{img},
+    message = #{message}
+
+    WHERE id = #{id}
+</update>
+
+<!-- 조회 -->
+<select id="findByUserId" resultType="User">
+    select 
+      *
+    from user
+    where id=#{id}
+</select>
+
 </mapper>
