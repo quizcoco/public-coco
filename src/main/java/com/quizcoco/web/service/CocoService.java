@@ -4,7 +4,7 @@ import com.quizcoco.web.entity.Coco;
 
 public interface CocoService {
 
-        Coco getCocoByUserId(long userId);
+        Coco getCocoByUserId(Long userId);
 
         String getCocoImgUrl(Long userId);
 

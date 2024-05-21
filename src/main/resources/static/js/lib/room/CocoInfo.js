@@ -8,7 +8,7 @@ async init(){
 
     try{
 
-        await fetch(`/api/coco/detail`)
+        await fetch(`/api/cocos/detail`)
         .then(resp=>{
             return resp.json();})
         .then(coco=>{

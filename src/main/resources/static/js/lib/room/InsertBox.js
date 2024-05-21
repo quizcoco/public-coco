@@ -36,7 +36,7 @@ class InsertBox{
             //TODO 이름은 8자 안으로 검사 
 
                 console.log(cocoName);
-            const response = await fetch(`/api/coco/edit`, {
+            const response = await fetch(`/api/cocos/edit`, {
             method: 'PUT', // or 'PUT' based on your API design
             headers: {
                 'Content-Type': 'application/json'

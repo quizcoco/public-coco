@@ -29,7 +29,7 @@ class Repository{
         return fetch("/api/examQuizs/rand");
     }
     findCoco(){
-        return fetch("/api/coco/detail");
+        return fetch("/api/cocos/detail");
     }
 }
 

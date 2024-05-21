@@ -1,11 +1,13 @@
-.Battle{
+.battle{
 position: absolute;
 left: 0;
 right: 0;
 top: 0;
-bottom: 500px;
-background-image: url(/image/room/shadow.png);
+bottom: 0;
+background-image: url("../../image/battle.png");
 background-size: cover;
 image-rendering: pixelated;
 
 }
+
+/* 13분    https://www.youtube.com/watch?v=xfCPZhMw5Z0&t=404s */

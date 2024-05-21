@@ -39,7 +39,7 @@ class Repository{
         return fetch("/api/examQuizs/rand");
     }
     findCoco(){
-        return fetch("/api/coco/detail");
+        return fetch("/api/cocos/detail");
     }
 }
 
@@ -515,6 +515,9 @@ else
                     document.querySelector("button.use-item").addEventListener("click",()=>{
                         // 지금까지 푼 문제 서버로
 
+                        this.coco.allQuiz.pop();//마지막 하나 삭제
+
+
                         if (this.coco.correct.length === 0 && this.coco.wrong.length === 0) {
                             window.location.href = `http://localhost:8080/`;
                             return;
@@ -621,6 +624,7 @@ else
            // return await new Promise((resolve) => {
                
         }  
+        
             submitBtn.addEventListener("click",()=>{//arrow function부분 보기!!
                 quizDivs[0].classList.add("d:none");
                     //for (let v of answerInputs) {

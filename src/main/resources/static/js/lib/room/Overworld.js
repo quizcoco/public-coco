@@ -77,6 +77,13 @@ startMap(mapConfig){
 
 async init(){
     this.startMap(window.OverworldMaps.DemoRoom);
+    //const path = window.location.pathname;
+
+    // if (path === "/study/self-match/match") {
+    //     this.startMap(window.OverworldMaps.BattleField);
+    // } else {
+    //     this.startMap(window.OverworldMaps.DemoRoom);
+    // }
 
     this.bindActionInput();
     this.bindman1PositionCheck();
@@ -114,10 +121,12 @@ async init(){
         { type:"textMessage",text:"우리 재미있게 잘 지내보자 ^.~"},
         { type:"textMessage",text:"웰컴포인트를 100 point 받았습니다."},
 
-
     ], this.context);
 
     }
+    
+    this.map.startCutscene([{ type:"battle"}]);
+
 }
 
 

@@ -62,7 +62,7 @@ public class MatchController {
     public String regMatchResolt(@RequestParam(name ="cocoId",required = false) Long cocoId ,Long[] wrongId,Long[] correctId,Long[] allQuizId,Long enemyId,Long avatarId ,boolean win
                                 ,@AuthenticationPrincipal CocoUserDetails userDetails,RedirectAttributes redirectAttributes
     ){
-        Long userId = 1L; //TODO 저장안되고 비회원도 가능하게
+        Long userId = null;
         if(userDetails != null)
         userId=userDetails.getId();
         System.out.println("총 결과는 무엇입니까:"+allQuizId.length);
