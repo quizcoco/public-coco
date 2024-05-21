@@ -21,5 +21,7 @@ public interface ExamQuizRepository {
     void save(ExamQuiz examQuiz);
     void update(ExamQuiz examQuiz);
     void delete(Long id);
+    
+    ExamQuiz latest();
 
 }

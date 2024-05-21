@@ -25,4 +25,6 @@ public interface ExamQuizService {
     
 // ==========================랜덤=============================
     ExamQuiz getRand();
+
+    ExamQuiz getLatestQuiz();
 }

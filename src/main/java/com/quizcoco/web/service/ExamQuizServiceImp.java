@@ -96,11 +96,13 @@ public class ExamQuizServiceImp implements ExamQuizService{
         ExamQuiz randQ = repository.rand();
         return randQ;
     }
+
 //===============================================================================
 
-
-
-
-
+    @Override
+    public ExamQuiz getLatestQuiz() {
+        ExamQuiz latestQ = repository.latest();
+        return latestQ;
+    }
     
 }

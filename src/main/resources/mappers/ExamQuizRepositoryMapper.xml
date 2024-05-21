@@ -4,65 +4,63 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.quizcoco.web.repository.ExamQuizRepository">
 
-<select id="findAll" resultType="ExamQuiz">
-		select * from exam_quizzes eq 
-
+  <select id="findAll" resultType="ExamQuiz">
+    select * from exam_quizzes eq 
     <where>
-<if test="query != null">
-   eq.question LIKE '%${query}%' OR 
-   eq.context LIKE '%${query}%' OR 
-   eq.num1 LIKE '%${query}%' OR 
-   eq.num2 LIKE '%${query}%' OR 
-   eq.num3 LIKE '%${query}%' OR 
-   eq.num4 LIKE '%${query}%'
-     </if>
-  <if test="typeId != null and typeId != 0">
-  and type_id = #{typeId}
-    </if>
-      <if test="year != null and year != 0">
-  and year = #{year}
-    </if>
-  <if test="examOfficialRankId != null and examOfficialRankId != 0">
-  and exam_official_rank_id =#{examOfficialRankId}
-    </if>
-   <if test="secret != null">
-  and secret =#{secret}
-    </if>
+      <if test="query != null">
+        eq.question LIKE '%${query}%' OR 
+        eq.context LIKE '%${query}%' OR 
+        eq.num1 LIKE '%${query}%' OR 
+        eq.num2 LIKE '%${query}%' OR 
+        eq.num3 LIKE '%${query}%' OR 
+        eq.num4 LIKE '%${query}%'
+      </if>
 
+      <if test="typeId != null and typeId != 0">
+        and type_id = #{typeId}
+      </if>
+
+      <if test="year != null and year != 0">
+        and year = #{year}
+      </if>
+
+      <if test="examOfficialRankId != null and examOfficialRankId != 0">
+        and exam_official_rank_id =#{examOfficialRankId}
+      </if>
+
+      <if test="secret != null">
+        and secret =#{secret}
+      </if>
     </where>
     order by reg_date desc
- limit #{offset}, #{size}
-</select>
+    limit #{offset}, #{size}
+  </select>
 
 
-<select id="count" resultType="Integer">
-select 
-count(eq.id)
- from exam_quizzes eq
+  <select id="count" resultType="Integer">
+    select 
+    count(eq.id)
+    from exam_quizzes eq
 
     <where>
-<if test="query != null">
-   eq.question LIKE '%${query}%' OR 
-   eq.context LIKE '%${query}%' OR 
-   eq.num1 LIKE '%${query}%' OR 
-   eq.num2 LIKE '%${query}%' OR 
-   eq.num3 LIKE '%${query}%' OR 
-   eq.num4 LIKE '%${query}%'
-     </if>
+      <if test="query != null">
+        eq.question LIKE '%${query}%' OR 
+        eq.context LIKE '%${query}%' OR 
+        eq.num1 LIKE '%${query}%' OR 
+        eq.num2 LIKE '%${query}%' OR 
+        eq.num3 LIKE '%${query}%' OR 
+        eq.num4 LIKE '%${query}%'
+      </if>
     </where>
+  </select>
 
- </select>
+  <select id="findById" resultType="ExamQuiz">
+    select * from exam_quizzes where id=#{id}
+  </select>
 
-<select id="findById" resultType="ExamQuiz">
-select * from exam_quizzes where id=#{id}
- </select>
-
-
-
-
-<update id="update" parameterType="ExamQuiz">
-    UPDATE exam_quizzes
-    SET
+  <update id="update" parameterType="ExamQuiz">
+      UPDATE exam_quizzes
+      SET
         year = #{year},
         question = #{question},
         context = #{context},
@@ -74,30 +72,31 @@ select * from exam_quizzes where id=#{id}
         type_id = #{typeId},
         exam_official_rank_id = #{examOfficialRankId},
         secret = #{secret}
+      WHERE id = #{id}
+  </update>
 
+  <!-- TODO 수정시 지문이 널아니고 빈문자열되는 문제 -->
 
-    WHERE id = #{id}
-</update>
-<!-- TODO 수정시 지문이 널아니고 빈문자열되는 문제 -->
-
-<delete id="delete" parameterType="Long">
+  <delete id="delete" parameterType="Long">
     DELETE FROM exam_quizzes
     WHERE id = #{id}
-</delete>
+  </delete>
 
-<insert id="save" parameterType="ExamQuiz">
-INSERT INTO exam_quizzes(year,question,context,num1,num2,num3,num4,answer,type_id,exam_official_rank_id,secret) 
+  <insert id="save" parameterType="ExamQuiz">
+    INSERT INTO exam_quizzes(year,question,context,num1,num2,num3,num4,answer,type_id,exam_official_rank_id,secret) 
 
-VALUES(#{year},#{question},#{context},#{num1},#{num2},#{num3},#{num4},#{answer},#{typeId},#{examOfficialRankId},#{secret}) 
+    VALUES(#{year},#{question},#{context},#{num1},#{num2},#{num3},#{num4},#{answer},#{typeId},#{examOfficialRankId},#{secret}) 
+  </insert>
 
-</insert>
-<!-- ==============================랜덤으로 정렬=========================== -->
- 
- <select id="rand" resultType="ExamQuiz">
+  <!-- ==============================랜덤으로 정렬=========================== -->
+  
+  <select id="rand" resultType="ExamQuiz">
+    SELECT * FROM exam_quizzes where secret='' ORDER BY RAND() limit 1;
+  </select>
 
- SELECT * FROM exam_quizzes where secret='' ORDER BY RAND() limit 1;
-
- </select>
-
+  <!-- study index 최신문제 -->
+  <select id="latest" resultType="ExamQuiz">
+      SELECT * FROM exam_quizzes ORDER BY reg_date DESC LIMIT 1
+  </select>
 
 </mapper>
