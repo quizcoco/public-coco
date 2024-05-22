@@ -75,6 +75,7 @@ public class UserApiController {
         if(userDetails != null)
         userId=userDetails.getId();
         
+        System.out.println("userDetails.getPoint()~~"+userDetails.getPoint());
         Integer pointSum = userDetails.getPoint()+point;
         System.out.println("유저아이디~~"+userId);
 

@@ -23,34 +23,43 @@ class InsertBox{
   </div>
 
     `)
-
-        this.element.querySelector("button").addEventListener("click",async()=>{
-
+    
+    //마우스
+    this.element.querySelector("button").addEventListener("click",async()=>{
+            const cocoName= this.element.querySelector("input[name='coco']").value;
+            console.log("안되는삘"+cocoName)
+            this.saveCocoName(cocoName);
+    
+        })
+        //키보드
+        this.actionListener = new KeyPressListener("Enter",()=>{
             const cocoName= this.element.querySelector("input[name='coco']").value;
 
-            if (cocoName.trim() === "") {
-                console.error('이름을 입력하지 않았습니다');
-                return;
-            }
-
-            //TODO 이름은 8자 안으로 검사 
-
-                console.log(cocoName);
-            const response = await fetch(`/api/cocos/edit`, {
-            method: 'PUT', // or 'PUT' based on your API design
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ name: cocoName })
-        });
-
-            this.done(cocoName);
-        })
-
-        this.actionListener = new KeyPressListener("Enter",()=>{
             this.actionListener.unbind();
-            this.done(cocoName);
+            this.saveCocoName(cocoName);
+
         })
+    }
+
+    async saveCocoName(cocoName){
+
+        if (cocoName.trim() === "") {
+            console.error('이름을 입력하지 않았습니다');
+            return;
+        }
+
+        //TODO 이름은 8자 안으로 검사 
+
+            console.log(cocoName);
+        const response = await fetch(`/api/cocos/edit`, {
+        method: 'PUT', // or 'PUT' based on your API design
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name: cocoName })
+    });
+
+        this.done(cocoName);
     }
 
     done(cocoName){

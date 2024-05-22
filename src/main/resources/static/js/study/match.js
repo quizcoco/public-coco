@@ -556,6 +556,8 @@ else
                 quizDivs[count].classList.add("d:none");
                 quizDivs[count+1].classList.remove("d:none");
                 quizDivs[8].classList.add("d:none");
+                //스킬$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                document.querySelector(".skill-effect[data-team='player']").classList.add("battle-spin-right");
 
                 if(count==6 && !this.coco.hp<=0 && !this.enemy.hp<=0){
                     this.enemy.attack(this.coco);
@@ -683,6 +685,15 @@ async function runQuiz(){
     let coco = new Coco();
     await coco.init();
     let enemy = new Enemy();
+
+    let battle = new Battle();
+    battle.init(document.querySelector(".game-container"));
+
+
+    document.querySelector(".skill-effect[data-team='player']").addEventListener("click",()=>{
+        alert("fgf")
+    })
+
 
     let quizManager = new Quiz(coco,enemy);
     quizManager.init();

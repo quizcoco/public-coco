@@ -10,4 +10,59 @@ image-rendering: pixelated;
 
 }
 
-/* 13분    https://www.youtube.com/watch?v=xfCPZhMw5Z0&t=404s */
+.battle-coco, .battle-bug{
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    background: url(/image/room/shadow.png) no-repeat no-repeat;
+}
+.battle-coco img, .battle-bug img{
+    pointer-events: none;
+}
+.battle-coco{
+    /* bottom:200px; */
+    top:150px;
+    left: 70px;
+    transform: scale(6);
+
+}
+.battle-coco img{
+    transform: translateY(-64px);
+}
+.battle-bug{
+    top:170px;
+    right: 70px;
+    transform: scale(4);
+
+}
+
+/* 애니메이션 */
+@keyframes battle-damage-blink{
+    to{
+        visibility:hidden;
+    }
+}
+.battle-damage-blink{
+    animation: battle-damage-blink 0.3s steps(2,start) infinite;
+}
+
+@keyframes battle-spin-right{
+    0% { transform: translate3d(0,0,0) rotate(0deg) scale(2)}
+    25% { transform: translate3d(175px,-25px,0) rotate(45deg) scale(2)}
+    100% { transform: translate3d(0,0,0) scale(2)}
+
+}
+.battle-spin-right{
+    animation: battle-spin-right 0.8s;
+}
+
+@keyframes battle-spin-left{
+    0% { transform: translate3d(0,0,0) rotate(0deg) scale(2)}
+    25% { transform: translate3d(-100%,25%,0) rotate(45deg) scale(2)}
+    100% { transform: translate3d(0,0,0) scale(2)}
+
+}
+.battle-spin-left{
+    animation: battle-spin-left 0.8s;
+}
