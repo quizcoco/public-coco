@@ -10,13 +10,12 @@ import com.quizcoco.web.entity.UserQuizzesFavorite;
 @Mapper
 public interface UserQuizzesFavoriteRepository {
 
-int save(UserQuizzesFavorite favorite);
-int delete(UserQuizzesFavorite favorite);
+    int save(UserQuizzesFavorite favorite);
+    int delete(UserQuizzesFavorite favorite);
 
-boolean isFavorite(UserQuizzesFavorite favorite);
+    boolean isFavorite(UserQuizzesFavorite favorite);
 
-List<UserQuizView> getFavoritesByUserId(Long userId,Integer newOld, Integer offset,Integer size);
+    List<UserQuizView> getFavoritesByUserId(Long userId, Integer size);
 
-int count(long userId);
-
+    int count(long userId);
 }

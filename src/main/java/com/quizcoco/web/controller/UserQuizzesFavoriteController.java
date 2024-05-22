@@ -14,14 +14,7 @@ import com.quizcoco.web.config.security.CocoUserDetails;
 public class UserQuizzesFavoriteController {
 
     @GetMapping("list")
-    public String list(
-        
-    // @AuthenticationPrincipal CocoUserDetails userDetails
-    // ,@RequestParam(name="p", defaultValue = "1") Integer page
-    // ,@RequestParam(name="s", required = false, defaultValue = "5") Integer size
-    // ,@RequestParam(name = "newold", defaultValue = "0")Integer newOld
-    
-    ) {
+    public String list() {
 
         return "study/favorite/list";
     }

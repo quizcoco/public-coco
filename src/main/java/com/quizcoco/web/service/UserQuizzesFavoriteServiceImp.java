@@ -41,10 +41,9 @@ public class UserQuizzesFavoriteServiceImp implements UserQuizzesFavoriteService
     }
 
     @Override
-    public List<UserQuizView> getList(Long userId, Integer newOld, Integer page, Integer size) {
+    public List<UserQuizView> getList(Long userId, Integer size) {
 
-        int offset=(page-1)*size;
-        List<UserQuizView> list = repository.getFavoritesByUserId(userId, newOld, offset, size);
+        List<UserQuizView> list = repository.getFavoritesByUserId(userId, size);
        return  list;
     }
 
