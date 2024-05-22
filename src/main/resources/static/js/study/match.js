@@ -39,7 +39,7 @@ class Repository{
         return fetch("/api/examQuizs/rand");
     }
     findCoco(){
-        return fetch("/api/coco/detail");
+        return fetch("/api/cocos/detail");
     }
 }
 
@@ -515,6 +515,9 @@ else
                     document.querySelector("button.use-item").addEventListener("click",()=>{
                         // 지금까지 푼 문제 서버로
 
+                        this.coco.allQuiz.pop();//마지막 하나 삭제
+
+
                         if (this.coco.correct.length === 0 && this.coco.wrong.length === 0) {
                             window.location.href = `http://localhost:8080/`;
                             return;
@@ -553,6 +556,8 @@ else
                 quizDivs[count].classList.add("d:none");
                 quizDivs[count+1].classList.remove("d:none");
                 quizDivs[8].classList.add("d:none");
+                //스킬$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+                document.querySelector(".skill-effect[data-team='player']").classList.add("battle-spin-right");
 
                 if(count==6 && !this.coco.hp<=0 && !this.enemy.hp<=0){
                     this.enemy.attack(this.coco);
@@ -621,6 +626,7 @@ else
            // return await new Promise((resolve) => {
                
         }  
+        
             submitBtn.addEventListener("click",()=>{//arrow function부분 보기!!
                 quizDivs[0].classList.add("d:none");
                     //for (let v of answerInputs) {
@@ -679,6 +685,15 @@ async function runQuiz(){
     let coco = new Coco();
     await coco.init();
     let enemy = new Enemy();
+
+    let battle = new Battle();
+    battle.init(document.querySelector(".game-container"));
+
+
+    document.querySelector(".skill-effect[data-team='player']").addEventListener("click",()=>{
+        alert("fgf")
+    })
+
 
     let quizManager = new Quiz(coco,enemy);
     quizManager.init();

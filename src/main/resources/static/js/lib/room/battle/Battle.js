@@ -1,16 +1,32 @@
-export default class Battle{
+class Battle{
     constructor(){
+        this.combatants={
+            "player1":new Combatant({
+                ...Skills.p01,
+                team:"player",
+                // hp:50,
+                //xp:0,
+                status:null
+            },this),
+            "enemy1":new Combatant({
+                ...Skills.p02,
+                team:"enemy",
+                // hp:50,
+                //xp:0,
+                status:null
+            },this),
+        }
 
     }
     createElement(){
         this.element = document.createElement("div");
-        this.element.classList.add("Battle");
+        this.element.classList.add("battle");
         this.element.innerHTML=(`
-        <div class="Battle-coco">
+        <div class="battle-coco">
             <img src="${'/image/room/cat-idle.png'}" alt="coco"/>
         </div>
-        <div class="Battle-bug">
-            <img src="${'/image/bug.gif'}" alt="bug"/>
+        <div class="battle-bug">
+            <img src="${'/image/room/bug.png'}" alt="bug"/>
         </div>
         `)
 
@@ -18,6 +34,13 @@ export default class Battle{
     init(container){
         this.createElement();
         container.appendChild(this.element);
+
+        Object.keys(this.combatants).forEach(key=>{
+
+            let combatant = this.combatants[key];
+            combatant.id=key;
+            combatant.init(this.element);
+        })
 
     }
 

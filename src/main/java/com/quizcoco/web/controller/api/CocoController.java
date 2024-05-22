@@ -15,7 +15,7 @@ import com.quizcoco.web.entity.Avatar;
 import com.quizcoco.web.entity.Coco;
 import com.quizcoco.web.service.CocoService;
 
-@RequestMapping("api/coco")
+@RequestMapping("api/cocos")
 @RestController
 public class CocoController {
 
@@ -27,12 +27,11 @@ public class CocoController {
 
 
          Long userId=null;
-        if(userDetails != null){
+        if(userDetails != null)
             userId=userDetails.getId();
-            Coco coco = service.getCocoByUserId(userId);
-            return coco;
-        }
-        return null;
+        
+        Coco coco = service.getCocoByUserId(userId);
+        return coco;
 
 
     }

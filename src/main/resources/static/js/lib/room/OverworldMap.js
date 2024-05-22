@@ -149,7 +149,7 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
                 myCocoA: new Person({
                 x:utils.withGrid(10),
                 y:utils.withGrid(10),
-                src:"/image/room/woman1-walk2.png",
+                src:"/image/room/cat-idle.png",
                 shadow:true,
                behaviorLoop:[
                 {type:"stand",direction:"left", time:1200},
@@ -203,28 +203,48 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
         cutsceneSpaces:{
             [utils.asGridCoord(7,5)]:[{
                 events:[
-                    // {type:"textMessage",text:"창문을 통해 게시판으로 이동할 예정이예요"},
-                    {type:"changeMap",map:"BattleField"},
+                    {type:"textMessage",text:"창문을 통해 게시판으로 이동할 예정이예요"},
+                    // {type:"changeMap",map:"BattleField"},
                 ]
             }],
             
         }
     },
-    BattleField:{
-        lowerSrc:"/image/room/battle.png",
-        upperSrc:"/image/room/battle.png",
-        gameObjects:{
-            man1:new Person({
-                x:5,
-                y:6,
-            }),
-            insect: new Person({
-                x:7,
-                y:9,
-                //src:"/image/"
-               })
-        }
-    },
+    // BattleField:{
+    //     lowerSrc:"/image/room/battle.png",
+    //     upperSrc:"/image/room/battle.png",
+    //     gameObjects:{
+    //         man1:new Person({
+    //             // isPlayerControlled:true,
+    //             x:utils.withGrid(7),
+    //             y:utils.withGrid(4),
+    //             shadow:false,
+    //             src:""
+    //         }),
+    //         coco:new Person({
+    //             x:utils.withGrid(1),
+    //             y:utils.withGrid(2),
+    //             shadow:true,
+    //             behaviorLoop:[
+    //                 {type:"stand",direction:"left", time:1200},
+    //                 {type:"stand",direction:"right", time:800},
+    //                 {type:"stand",direction:"down",time:800},
+    //                ],
+    //             src:"/image/room/cat-idle.png"
+    //         }),
+    //         insect: new Person({
+    //             x:utils.withGrid(5.3),
+    //             y:utils.withGrid(2),
+    //             shadow:true,
+    //             behaviorLoop:[
+    //                 {type:"stand",direction:"left", time:200},
+    //                 {type:"stand",direction:"right", time:200},
+    //                 {type:"stand",direction:"down",time:200},
+    //                ],
+    //             src:"/image/room/bug.png"
+    //            })
+    //     }
+    // },
     user: user
 }
 

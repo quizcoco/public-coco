@@ -14,7 +14,9 @@ public class MatchReportServiceImp implements MatchReportService {
 
     @Override
     public void reg(Long userId,Long quiz,boolean wrong) {
-        repository.save(userId,quiz,wrong);
+
+        if(userId != null)
+            repository.save(userId,quiz,wrong);
     }
     
 }

@@ -99,6 +99,21 @@ class OverworldEvent{
         resolve();
     }
 
+    battle(resolve){
+      
+        if (typeof Battle !== "undefined") {
+            const battle = new Battle({
+                onComplete: () => {
+                    resolve();
+                }
+            });
+            battle.init(document.querySelector(".game-container"));
+        } else {
+            console.warn("Battle is not defined, skipping battle.");
+            resolve();
+        }
+    }
+
     init(){
         return new Promise(resolve=>{
             this[this.event.type](resolve)

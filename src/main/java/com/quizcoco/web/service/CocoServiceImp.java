@@ -14,7 +14,11 @@ public class CocoServiceImp implements CocoService{
     CocoRepository repository;
 
     @Override
-    public Coco getCocoByUserId(long userId) {
+    public Coco getCocoByUserId(Long userId) {
+
+      if (userId == null)
+        return createDefaultCoco();
+
       return repository.findCocoByUserId(userId);
     }
 
@@ -45,5 +49,13 @@ public class CocoServiceImp implements CocoService{
         coco.setUserId(userId);
         repository.save(coco);
     }
+
+    // 비회원용 코코
+    public Coco createDefaultCoco() {
+      Coco defaultCoco = new Coco();
+      defaultCoco.setHp(50);
+
+      return defaultCoco;
+  }
     
 }
