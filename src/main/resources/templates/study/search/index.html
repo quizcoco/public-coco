@@ -70,8 +70,8 @@
                     <div class="d:flex jc:center">
                         <label class="d:flex ac:center w:6">
                             <!-- 검색기록 지우는거 pc는 가능인데 모바일에서는 안나옴 -->
-                            <input type="text" autocomplete="on" autofocus class="search-form bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="quiz-list"  name="q" placeholder="검색어를 입력하세요" enterkey>
-                            <input type="hidden" value="3" name="s">
+                            <input type="text" autocomplete="on" autofocus class="search-form bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="d:none quiz-list"  name="q" placeholder="검색어를 입력하세요" enterkey>
+                            <!-- <input type="hidden" value="3" name="s"> -->
                             <datalist id="quiz-list">
                                 <option>OX문제</option>
                                 <option>단답문제</option>
@@ -86,7 +86,7 @@
             </section>
 
             <!-- 버튼 카테고리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="d:flex jc:center">
+            <section class="d:none d:flex jc:center">
                 <h1 class="d:none">문제 카테고리</h1>
                 <div class="d:flex fl-direction:column gap:2 mt:4">
                     <div class="d:flex fl-dir:row gap:2">
@@ -105,17 +105,24 @@
                     </div>
                 </div>
             </section>
-
+            
             <!-- 추천문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="d:flex fl-direction:column jc:center ai:center">
+            <section class="d:flex fl-direction:column jc:center ai:center mt:10">
                 <div class="fs:4">추천 문제</div>
                 <div class="d:flex fl-direction:column mt:2">
-                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center">랜덤 추천 문제</div>
+                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center w:5 h:2">
+                        <span class="mr:5 ml:5" th:text="${randQ.question}">랜덤 추천 문제</span>
+                    </div>
                 </div>
             </section>
 
+            <!-- 카테고리 작업하면 삭제 -->
+            <section>
+                <div class="h:2"></div>
+            </section>
+
             <!-- 검색기록 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="d:flex fl-direction:column jc:center ai:center">
+            <section class="d:none d:flex fl-direction:column jc:center ai:center">
                 <div class="fs:4">문제 검색 기록</div>
                 <div class="d:flex fl-direction:column mt:2">
                 <!-- <div class="d:flex fl-direction:column ai:center"> -->
@@ -125,8 +132,8 @@
             </section>
 
             <!-- 내가 본 기록 링크버튼 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="flex-direction:row d:flex jc:center">
-                <div class="flex-direction:row d:flex jc:center ai:center border-radius:3 w:7 h:1">
+            <section class="d:none flex-direction:row d:flex jc:center">
+                <div class="flex-direction:row d:flex jc:center ai:center border-radius:3 w:7 h:2">
                     <a href="/study/search/record"><button class="admin-textarea:4 bg-color:main-5 n-btn n-btn:filled-3 ai:center">내가 본 기록</button></a>
                 </div>
             </section>
