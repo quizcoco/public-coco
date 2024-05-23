@@ -15,7 +15,7 @@ public interface UserQuizzesFavoriteService {
 
     boolean isFavorite(UserQuizzesFavorite favorite);
 
-    List<UserQuizView> getList(Long userId, Integer newOld, Integer page, Integer size);
+    List<UserQuizView> getList(Long userId, Integer size);
 
     int getCount(long userId);
 }

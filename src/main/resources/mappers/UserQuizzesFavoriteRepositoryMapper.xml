@@ -98,7 +98,7 @@
         ) faview
         where faview.like=#{userId}
 
-        <if test="newOld == 0">
+        <!-- <if test="newOld == 0">
             order by faview.reg_date desc 
         </if>
 
@@ -107,7 +107,7 @@
         </if>
 
         limit #{offset}, #{size}
-        
+         -->
     </select>
 
 

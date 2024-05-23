@@ -130,13 +130,13 @@ async function nextCard(count, userQ){
                 <h1 class="d:none">카드 내용</h1>
                 <section>
                     <div class="quiz-question input-text:Qcard">
-                        <span class="d:inline-block pb:1">[${quiz.category=='ox'?"OX":quiz.category=='multi'?"사지선다":"단답"} 문제]</span><br>
-                        <span class="d:inline-block pb:3 fw:bold pb:7">${quiz.question}</span><br>
-                        <span class="d:inline-block pb:2 fw:bold">${quiz.num1?? ""}</span><br>
-                        <span class="d:inline-block pb:2 fw:bold">${quiz.num2?? ""}</span><br>
-                        <span class="d:inline-block pb:2 fw:bold">${quiz.num3?? ""}</span><br>
-                        <span class="d:inline-block pb:2 fw:bold">${quiz.num4?? ""}</span><br>
-                        <span class="d:none d:inline-block pb:2 fw:bold color:accent-4 mt:4">${quiz.answer}</span>
+                        <span class="d:inline-block pb:2">[${quiz.category=='multi'?"사지선다":quiz.category=='ox'?"OX":"단답"} 문제]</span><br>
+                        <span class="d:inline-block pb:5 fw:bold">${quiz.question}</span><br>
+                        <span class="d:inline-block pb:2 fw:bold ${quiz.num1 !== null ? '' : 'd:none'}">${'① ' + quiz.num1 ?? ""}</span><br>
+                        <span class="d:inline-block pb:2 fw:bold ${quiz.num2 !== null ? '' : 'd:none'}">${'② ' + quiz.num2 ?? ""}</span><br>
+                        <span class="d:inline-block pb:2 fw:bold ${quiz.num3 !== null ? '' : 'd:none'}">${'③ ' + quiz.num3 ?? ""}</span><br>
+                        <span class="d:inline-block pb:2 fw:bold ${quiz.num4 !== null ? '' : 'd:none'}">${'④ ' + quiz.num4 ?? ""}</span><br>
+                        <span class="d:none d:inline-block fw:bold color:accent-4 mt:4">${'정답 : ' + quiz.answer}</span>
                     </div>
                 </section>
             </section>
@@ -167,43 +167,41 @@ async function nextCard(count, userQ){
     
                 favorite.classList.replace("icon:star","icon-star");
     
-            fetch(`/api/user-quizzes-favorites/add?id=${quiz.id}&category=${quiz.category}`)
-            .then(response => {
-                if (!response.ok) {
-                throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+                fetch(`/api/user-quizzes-favorites/add?id=${quiz.id}&category=${quiz.category}`)
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+        
+                })
+                .catch(error => {
+                    console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+                });
+            }
     
-            })
-            .catch(error => {
-                console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
-            });
-        }
-    
-        else if(favorite.classList.contains("icon-star")){
-    
-            favorite.classList.replace("icon-star","icon:star");
-    
-            fetch(`/api/user-quizzes-favorites/del?id=${quiz.id}&category=${quiz.category}`)
-            .then(response => {
-                if (!response.ok) {
-                throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
-    
-            })
-            .catch(error => {
-                console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
-            });
-    
-        }
-
+            else if(favorite.classList.contains("icon-star")){
+        
+                favorite.classList.replace("icon-star","icon:star");
+        
+                fetch(`/api/user-quizzes-favorites/del?id=${quiz.id}&category=${quiz.category}`)
+                .then(response => {
+                    if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+        
+                })
+                .catch(error => {
+                    console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+                });
+            }
         })
     }
 
@@ -255,13 +253,13 @@ async function getQuizCount(){
 async function registerEventListeners(count, userQ) {
     // 왼쪽 버튼 클릭
     document.querySelector(".left").addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (count > 1) {
-        count--;
-        getUserQuiz(count, (userQ) => {
-          nextCard(count, userQ);
-        });
-      }
+        e.preventDefault();
+        if (count > 1) {
+            count--;
+            getUserQuiz(count, (userQ) => {
+                nextCard(count, userQ);
+            });
+        }
     });
     
     document.querySelector(".right").addEventListener("click", async (e) => {
@@ -280,7 +278,6 @@ async function registerEventListeners(count, userQ) {
             });
         }
     });
-
 }
   
 let count = currentCard.dataset.no || 1;
@@ -335,47 +332,45 @@ function favorite(id,category){
             // star.classList.replace("icon:star","icon-star");
             star.classList.remove("icon:star"); // icon:star 클래스 삭제
 
-        fetch(`/api/user-quizzes-favorites/add?id=${id}&category=${category}`)
-        .then(response => {
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
-            star.classList.add("icon-star");
+            fetch(`/api/user-quizzes-favorites/add?id=${id}&category=${category}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+                star.classList.add("icon-star");
 
-        })
-        .catch(error => {
-            console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
-        });
-    }
+            })
+            .catch(error => {
+                console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+            });
+        }
 
-    else if(star.classList.contains("icon-star")){
+        else if(star.classList.contains("icon-star")){
 
-        // star.classList.replace("icon-star","icon:star");
-        star.classList.remove("icon-star"); // icon-star 클래스 삭제
-        star.classList.add("icon:star"); 
+            // star.classList.replace("icon-star","icon:star");
+            star.classList.remove("icon-star"); // icon-star 클래스 삭제
+            star.classList.add("icon:star"); 
 
-        fetch(`/api/user-quizzes-favorites/del?id=${id}&category=${category}`)
-        .then(response => {
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
+            fetch(`/api/user-quizzes-favorites/del?id=${id}&category=${category}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('성공', data); // 성공적으로 응답을 받았을 때 콘솔에 출력
 
-        })
-        .catch(error => {
-            console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
-        });
-
-    }
-});
-
+            })
+            .catch(error => {
+                console.error('에러 발생', error); // 오류가 발생했을 때 콘솔에 출력
+            });
+        }
+    });
 }
 
 favorite(id,category);
@@ -384,7 +379,7 @@ favorite(id,category);
 fetch(`/api/user-quizzes-favorites/fav?id=${id}&category=${category}`)
 .then(response => {
     if (!response.ok) {
-    throw new Error('Network response was not ok');
+        throw new Error('Network response was not ok');
     }
     return response.json();
 })

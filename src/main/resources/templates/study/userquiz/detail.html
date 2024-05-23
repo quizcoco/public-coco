@@ -114,13 +114,13 @@
                         <h1 class="d:none">카드 내용</h1>
                         <section th:if="${userQuiz !=null && userQuiz !=''}">
                             <div class="quiz-question input-text:Qcard">
-                                <span class="d:inline-block pb:1" th:text="${userQuiz.category == 'ox' ? '[OX 문제]' : userQuiz.category == 'multi' ? '[사지선다 문제]' : '[단답 문제]'}">[사지선다 문제]</span><br>
-                                <span class="d:inline-block pb:3 fw:bold pb:7" th:text="${userQuiz.question}">문제</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num1}">①</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num2}">②</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num3}">③</span><br>
-                                <span class="d:inline-block pb:2 fw:bold" th:text="${userQuiz.num4}">④</span><br>
-                                <span class="d:none d:inline-block pb:2 fw:bold color:accent-4 mt:4" th:text="${userQuiz.answer}">답</span>
+                                <span class="d:inline-block pb:2" th:text="${userQuiz.category == 'ox' ? '[OX 문제]' : userQuiz.category == 'multi' ? '[사지선다 문제]' : '[단답 문제]'}">[사지선다 문제]</span><br>
+                                <span class="d:inline-block pb:5 fw:bold" th:text="${userQuiz.question}">문제</span><br>
+                                <span class="pb:2 fw:bold" th:classappend="${userQuiz.num1 != null} ? 'd:inline-block' : 'd:none'" th:text="'① ' + ${userQuiz.num1}"><br>①</span><br>
+                                <span class="pb:2 fw:bold" th:classappend="${userQuiz.num2 != null} ? 'd:inline-block' : 'd:none'" th:text="'② ' + ${userQuiz.num2}"><br>②</span><br>
+                                <span class="pb:2 fw:bold" th:classappend="${userQuiz.num3 != null} ? 'd:inline-block' : 'd:none'" th:text="'③ ' + ${userQuiz.num3}"><br>③</span><br>
+                                <span class="pb:2 fw:bold" th:classappend="${userQuiz.num4 != null} ? 'd:inline-block' : 'd:none'" th:text="'④ ' + ${userQuiz.num4}"><br>④</span><br>
+                                <span class="d:none d:inline-block fw:bold color:accent-4 mt:4" th:text="${'정답 : ' + userQuiz.answer}">답</span>
                             </div>
                         </section>
                     </section>
