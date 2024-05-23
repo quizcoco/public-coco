@@ -24,7 +24,7 @@ image-rendering: pixelated;
     /* bottom:200px; */
     top:150px;
     left: 70px;
-    transform: scale(6);
+    transform: scale(8);
 
 }
 .battle-coco img{
@@ -33,7 +33,7 @@ image-rendering: pixelated;
 .battle-bug{
     top:170px;
     right: 70px;
-    transform: scale(4);
+    transform: scale(6);
 
 }
 
@@ -48,21 +48,52 @@ image-rendering: pixelated;
 }
 
 @keyframes battle-spin-right{
-    0% { transform: translate3d(0,0,0) rotate(0deg) scale(2)}
-    25% { transform: translate3d(175px,-25px,0) rotate(45deg) scale(2)}
-    100% { transform: translate3d(0,0,0) scale(2)}
+    0% { opacity: 1;}
+    5% { transform: translate3d(0,0,0) rotate(0deg) scale(3)}
+    25% { transform: translate3d(375px,-25px,0) rotate(145deg) scale(3)}
+    70% { transform: translate3d(0,0,0) scale(3); opacity: 1;}
+    100% { opacity: 0;}
 
 }
 .battle-spin-right{
-    animation: battle-spin-right 0.8s;
+    animation: battle-spin-right 0.8s forwards;
 }
 
 @keyframes battle-spin-left{
-    0% { transform: translate3d(0,0,0) rotate(0deg) scale(2)}
-    25% { transform: translate3d(-100%,25%,0) rotate(45deg) scale(2)}
-    100% { transform: translate3d(0,0,0) scale(2)}
+    0% { opacity: 1;}
+    5% { transform: translate3d(0,0,0) rotate(0deg) scale(3)}
+    25% { transform: translate3d(-375px,85px,0) rotate(45deg) scale(3)}
+    70% { transform: translate3d(0,0,0) scale(3); opacity: 1;}
+    100% { opacity: 0;}
 
 }
 .battle-spin-left{
-    animation: battle-spin-left 0.8s;
+    animation: battle-spin-left 0.8s forwards;
+}
+
+
+@keyframes battle-knockdown{
+    from{
+        opacity: 1;
+    }
+
+    to{
+        bottom:0;
+        opacity: 0;
+    }
+}
+.battle-knockdown{
+    animation: battle-knockdown 1s forwards;
+
+}
+
+@keyframes battle-fireball{
+    0% { opacity: 1;}
+    25% { transform: translate3d(0,0,0) rotate(0deg) scale(3)}
+    55% { transform: translate3d(375px,100px,0) rotate(45deg) scale(3); opacity: 1;}
+    100% { transform: translate3d(375px,100px,0) rotate(45deg) scale(3); opacity: 0;}
+
+}
+.battle-fireball{
+    animation: battle-fireball 2s forwards;
 }

@@ -1,23 +1,44 @@
 class Battle{
-    constructor(){
+    constructor(coco, enemy){
+        this.coco = coco;
+        this.enemy = enemy;
+
+        //스킬들
         this.combatants={
-            "player1":new Combatant({
-                ...Skills.p01,
+            "coco":new Combatant(
+                {
+                ...Skills.p01,//...Skills.f01,
                 team:"player",
-                // hp:50,
-                //xp:0,
+                hp:this.coco.hp,
+                // xp:0,
                 status:null
-            },this),
-            "enemy1":new Combatant({
+            },
+            // {
+            //     ...Skills.f01,
+            //     team:"player",
+            //     hp:this.coco.hp,
+            //     // xp:0,
+            //     status:null
+            // },
+            this),
+            // "coco":new Combatant({
+            //     ...Skills.f01,
+            //     team:"player",
+            //     hp:this.coco.hp,
+            //     // xp:0,
+            //     status:null
+            // },this),
+            "enemy":new Combatant({
                 ...Skills.p02,
                 team:"enemy",
-                // hp:50,
-                //xp:0,
+                hp:this.enemy.hp,
+                // xp:0,
                 status:null
             },this),
         }
 
     }
+    
     createElement(){
         this.element = document.createElement("div");
         this.element.classList.add("battle");
@@ -31,7 +52,7 @@ class Battle{
         `)
 
     }
-    init(container){
+    async init(container){
         this.createElement();
         container.appendChild(this.element);
 
@@ -41,6 +62,11 @@ class Battle{
             combatant.id=key;
             combatant.init(this.element);
         })
+        // for (let key in this.combatants) {
+        //     let combatant = this.combatants[key];
+        //     combatant.id = key;
+        //     await combatant.createElement(); // 비동기적으로 createElement 호출
+        // }
 
     }
 
