@@ -46,6 +46,7 @@ class Repository{
 
 class Coco{
      constructor(){
+        this.skillElement = null;
  
     }
     async init() {
@@ -63,6 +64,10 @@ class Coco{
         this.skill='';
     }
 
+    setSkillElement(skillElement) {
+        this.skillElement = skillElement;
+    }
+
     async getCoco(){
         let repository = new Repository();
         let response= await repository.findCoco();
@@ -72,12 +77,31 @@ class Coco{
     }
 
     attack(enemy){
+ 
+        
         switch (this.skill) {
             case 'physical' :
+            let physical = document.querySelector(".skill-effect[alt='솜방망이 펀치']");
+            physical.classList.remove("d:none");
+            physical.classList.add("battle-spin-right");
+        setTimeout(() => {
+            physical.classList.remove("battle-spin-right");
+            physical.classList.add("d:none");
+
+        }, 1000);
                 enemy.takeDamage(this.damage);
                 systemMent.innerHTML=`코코는 앞발로 냥펀치를 날렸다.`;
                 break;
             case 'magic' :
+                //파이어볼
+                  let fireball = document.querySelector(".skill-effect[data-type='fire']");//alt로 할까?
+                    fireball.classList.remove("d:none");
+                    fireball.classList.add("battle-fireball");
+                    setTimeout(() => {
+                        fireball.classList.remove("battle-fireball");
+                        fireball.classList.add("d:none");
+                    }, 1000);
+                    //데미지
                 enemy.takeMagigDamage(this.magicDamage);
                 systemMent.innerHTML=`코코는 화염구 공격을 하였다.`;
                 break;
@@ -85,6 +109,7 @@ class Coco{
                 enemy.receiveDebuff();
                 systemMent.innerHTML=`적의 공격력이 다소 낮아졌다.`;
                 break;
+
         }
 
 
@@ -92,6 +117,13 @@ class Coco{
     takeDamage(damage) {
         // 예시로 간단히 10의 데미지를 입음
         this.hp -= damage;
+        
+        let battleCocoElement = document.querySelector(".battle-coco");
+        battleCocoElement.classList.add("battle-damage-blink");
+        setTimeout(() => {
+            battleCocoElement.classList.remove("battle-damage-blink");
+        }, 1000); // 3000밀리초 = 3초
+
         console.log("코코가 공격을 받아서 HP가 감소했습니다.");
         console.log("코코의 현재 HP: " + this.hp);
     }
@@ -107,12 +139,15 @@ class Coco{
 
         hpNow.textContent=this.hp;
         barStyle.style.width=(((this.hp)/fullHP)*100) +"%";//(총-상대방공격)/총 * 100
+        this.allQuiz.pop();//마지막 하나 삭제
+
     }
-    // auto(){
-
-
-        
-    // }
+    knockdown(){
+        let battlecocoElement = document.querySelector(".battle-coco");
+        if(this.hp<=0)
+        battlecocoElement.classList.add("battle-knockdown");
+    
+    }
     
 }
 
@@ -126,6 +161,13 @@ class Enemy{
 
     }
     attack(coco){
+        document.querySelector(".skill-effect[data-team='enemy']").classList.remove("d:none");
+        document.querySelector(".skill-effect[data-team='enemy']").classList.add("battle-spin-left");
+        setTimeout(() => {
+            document.querySelector(".skill-effect[data-team='enemy']").classList.remove("battle-spin-left");
+            document.querySelector(".skill-effect[data-team='enemy']").classList.add("d:none");
+        }, 1000);
+
         if(this.hp<=0)
             return;
         coco.takeDamage(this.damage);
@@ -134,10 +176,24 @@ class Enemy{
     takeDamage(damage) {
         // 10의 데미지를 입음
         this.hp -= damage;
+        let battleEnemyElement = document.querySelector(".battle-bug");
+        battleEnemyElement.classList.add("battle-damage-blink");
+        setTimeout(() => {
+            battleEnemyElement.classList.remove("battle-damage-blink");
+        }, 1000);
+
+
         console.log("적이 공격을 받아서 HP가 감소했습니다.");
         console.log("적의 현재 HP: " + this.hp);
     }
     takeMagigDamage(damage) {
+
+        this.hp -= damage;
+        let battleEnemyElement = document.querySelector(".battle-bug");
+        battleEnemyElement.classList.add("battle-damage-blink");
+        setTimeout(() => {
+            battleEnemyElement.classList.remove("battle-damage-blink");
+        }, 1000);
         // 20의 데미지를 입음
         this.hp -= damage;
         console.log("적이 마법 공격을 받아서 HP가 감소했습니다.");
@@ -147,6 +203,12 @@ class Enemy{
         this.damage -= 2;
         console.log("디버프가 적용되어 적의 공격력이 낮아집니다.");
 
+    }
+    knockdown(){
+        let battleEnemyElement = document.querySelector(".battle-bug");
+        if(this.hp<=0)
+        battleEnemyElement.classList.add("battle-knockdown");
+    
     }
 
 }
@@ -162,7 +224,7 @@ class Quiz{
 
         level.textContent = "LV."+this.coco.level;
         hpTotal.textContent=this.coco.hp; //토탈피통
-        hpNow.textContent=this.coco.hp; //토탈피통
+        hpNow.textContent=this.coco.hp; 
   
         // return this;
     }
@@ -320,6 +382,7 @@ else
                                 skillMenus.classList.add("vis:hidden"); //스킬 창 닫기
 
                             },{ once : true})
+
                             console.log("체력을 회복합니다.");
                             return;
                         }
@@ -556,10 +619,11 @@ else
                 quizDivs[count].classList.add("d:none");
                 quizDivs[count+1].classList.remove("d:none");
                 quizDivs[8].classList.add("d:none");
-                //스킬$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
-                document.querySelector(".skill-effect[data-team='player']").classList.add("battle-spin-right");
-
+                this.enemy.knockdown();
+                
+                
                 if(count==6 && !this.coco.hp<=0 && !this.enemy.hp<=0){
+                    this.coco.knockdown();
                     this.enemy.attack(this.coco);
                     hpNow.textContent=this.coco.hp;
                     barStyle.style.width=(((this.coco.hp)/fullHP)*100) +"%";//(총-상대방공격)/총 * 100
@@ -682,17 +746,12 @@ else
 
 async function runQuiz(){
 
+    let enemy = new Enemy();
     let coco = new Coco();
     await coco.init();
-    let enemy = new Enemy();
 
-    let battle = new Battle();
+    let battle = new Battle(coco, enemy);
     battle.init(document.querySelector(".game-container"));
-
-
-    document.querySelector(".skill-effect[data-team='player']").addEventListener("click",()=>{
-        alert("fgf")
-    })
 
 
     let quizManager = new Quiz(coco,enemy);
@@ -706,6 +765,18 @@ async function runQuiz(){
 
 
     quizManager.repeatQuiz(randQ);
+
+
+
+        // 예시로 플레이어의 Combatant를 생성 및 초기화하는 부분 추가
+        // let playerConfig = {
+        //     name: 'PlayerSkill',
+        //     src: 'path/to/player-skill-image.png',
+        //     team: 'player',
+        //     isActive: true
+        // };
+        // let player = new Combatant(playerConfig, battle);
+        // player.init(document.querySelector(".game-container"));
     
     
     //hp = quiz.repeatQuiz().then(response=>response.json()).then(quiz=>quiz.hp);

@@ -27,7 +27,7 @@ window.Skills={
     "f01":{
         name:"파이어볼",
         type:SkillType.fire,
-        src:"/image/room/fireball1.png",
+        src:"/image/room/fireball.png",
         actions:["damage1"],
 
     },

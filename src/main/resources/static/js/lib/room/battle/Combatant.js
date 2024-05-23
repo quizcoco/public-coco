@@ -7,14 +7,16 @@ class Combatant{
 
     }
 
-    createElement(){
+    async createElement(){
         this.skillElement = document.createElement("img");
         this.skillElement.classList.add("skill-effect");
+        // this.skillElement.classList.add("d:none");
         this.skillElement.setAttribute("src",this.src);
         this.skillElement.setAttribute("alt",this.name);
         this.skillElement.setAttribute("data-team",this.team);
+        this.skillElement.setAttribute("data-type",this.type);
 
-    }
+    }//여기하나만 만들어서 그런듯???
     update(){
 
         this.skillElement.setAttribute("data-active",this.isActive)
