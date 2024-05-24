@@ -10,7 +10,7 @@ class Combatant{
     async createElement(){
         this.skillElement = document.createElement("img");
         this.skillElement.classList.add("skill-effect");
-        // this.skillElement.classList.add("d:none");
+        this.skillElement.classList.add("d:none");
         this.skillElement.setAttribute("src",this.src);
         this.skillElement.setAttribute("alt",this.name);
         this.skillElement.setAttribute("data-team",this.team);
