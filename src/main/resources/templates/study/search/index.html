@@ -14,6 +14,7 @@
     <link href="/css/match.css" rel="stylesheet" type="text/css">
     <link href="/css/report.css" rel="stylesheet" type="text/css">
     <link href="/css/user-quiz.css" rel="stylesheet" type="text/css">
+    <link href="/css/modal.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
@@ -65,7 +66,7 @@
 
     <main class="of:auto ac:center">
     <!--=========================== 메인 입력 ===============================-->
-        <section class="d:flex fl-direction:column gap:3">
+        <section id="search-quiz" class="d:flex fl-direction:column gap:3">
             <!-- 검색어 폼 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
             <section class="d:flex jc:center">
                 <form method="get" action="search/result" class="d:flex">
@@ -112,9 +113,9 @@
             <!-- 추천문제 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
             <section class="d:flex fl-direction:column jc:center ai:center mt:10">
                 <div class="fs:4">추천 문제</div>
-                <div class="d:flex fl-direction:column mt:2">
-                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center w:5 h:2">
-                        <button id="rand-quiz" class="mr:5 ml:5"><span th:text="${randQ.question}">랜덤 추천 문제</span></button>
+                <div class="d:flex fl-direction:column mt:2 cursor:pointer">
+                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center w:5 h:2 cursor:pointer">
+                        <button id="rand-quiz" class="mr:5 ml:5 cursor:pointer"><span th:text="${randQ.question}">랜덤 추천 문제</span></button>
                     </div>
                 </div>
             </section>
@@ -157,7 +158,7 @@
                     <button id="conf-btn" class="n-btn n-btn:void n-btn-size:3">확인</button>
                 </div>
             </section>
-
+            <div class="backdrop d:none"></div>
     <!--=========================== 메인 끝 =================================-->
     </main>
 
