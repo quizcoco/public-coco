@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QUIZCOCO</title>
-<link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
+    
+    <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
     <link href="/css/components/header.css" rel="stylesheet" type="text/css">
     <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
     <link href="/css/root.css" rel="stylesheet" type="text/css">
@@ -12,9 +13,11 @@
     <link href="/css/util.css" rel="stylesheet" type="text/css">
     <link href="/css/match.css" rel="stylesheet" type="text/css">
     <link href="/css/report.css" rel="stylesheet" type="text/css">
+    <link href="/css/user-quiz.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
+    <script defer src="/js/study/search.js"></script>
 </head>
 <body>
  
@@ -111,7 +114,7 @@
                 <div class="fs:4">추천 문제</div>
                 <div class="d:flex fl-direction:column mt:2">
                     <div class="searchQuiz d:flex fl-direction:column jc:center ai:center w:5 h:2">
-                        <span class="mr:5 ml:5" th:text="${randQ.question}">랜덤 추천 문제</span>
+                        <button id="rand-quiz" class="mr:5 ml:5"><span th:text="${randQ.question}">랜덤 추천 문제</span></button>
                     </div>
                 </div>
             </section>
@@ -137,6 +140,24 @@
                     <a href="/study/search/record"><button class="admin-textarea:4 bg-color:main-5 n-btn n-btn:filled-3 ai:center">내가 본 기록</button></a>
                 </div>
             </section>
+
+            <!-- 모달  ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            <section id="r-modal" class="d:none n-modal" tabindex="-1">
+                <h1 class="d:none n-font:h3 font-weight:3">오늘올라온문제 디테일모달</h1>
+                <div class="mt:8 text-a:center">
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center"><span class="fw:bold" th:text="${randQ.question}">질문</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:5"><span class="fw:bold" th:text="${'① ' + randQ.num1}">1</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'② ' + randQ.num2}">2</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'③ ' + randQ.num3}">3</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'④ ' + randQ.num4}">4</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center color:accent-4 mt:5"><span class="fw:bold" th:text="${'정답 : ' + randQ.answer}">답</span></div>
+                </div>
+
+                <div class="d:flex fl-direction:column gap:2 mt:8">
+                    <button id="conf-btn" class="n-btn n-btn:void n-btn-size:3">확인</button>
+                </div>
+            </section>
+
     <!--=========================== 메인 끝 =================================-->
     </main>
 
