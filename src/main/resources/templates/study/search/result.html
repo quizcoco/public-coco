@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QUIZCOCO</title>
-<link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
     <link href="/css/components/header.css" rel="stylesheet" type="text/css">
     <link href="/css/components/icon.css" rel="stylesheet" type="text/css">
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/list.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
     <link href="/css/match.css" rel="stylesheet" type="text/css">
     <link href="/css/report.css" rel="stylesheet" type="text/css">
@@ -60,15 +62,16 @@
         <div class="mobile-overlay"></div>
     </header>
 
-    <main class="of:auto ac:center">
+    <main class="of:auto pr:10 pl:10">
     <!--=========================== 메인 입력 ===============================-->
-        <section class="d:flex fl-direction:column jc:center gap:4">
+        <section class="d:flex fl-direction:column jc:center gap:1">
             <!-- 검색어 폼 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ-->
             <section class="d:flex jc:center">
-                <div class="deco icon:magnifying_glass"></div>
-                <div class="d:flex jc:center">
-                    <label class="d:flex ac:center w:6">
-                        <input type="text" autocomplete="on" autofocus class="search-form  bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="menu-list"  name="q" placeholder="검색어를 입력하세요">
+                <form method="get" action="?/result" class="d:flex">
+                    <div class="deco icon:magnifying_glass"></div>
+                    <div class="d:flex jc:center">
+                        <label class="d:flex ac:center w:6">
+                        <input type="text" autocomplete="on" autofocus class="search-form  bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="d:none menu-list"  name="q" placeholder="검색어를 입력하세요">
                         <datalist id="menu-list">
                             <option>OX문제</option>
                             <option>단답문제</option>
@@ -81,77 +84,59 @@
                 </div>
             </section>
 
-            <!-- 버튼 카테고리 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="d:none d:flex jc:center"> <!-- 그룹 보류 -->
-                <h1 class="d:none">버튼 카테고리</h1>
-                <div class="d:flex fl-direction:column gap:2 mt:4">
-                    <div class="d:flex gap:2">
-                        <div><button class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center mr:1">전체</button></div>
-                        <div><button class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center">그룹</button></div>
-                        <div><button class="btn-base n-btn:filled-4 btn-off ac:center txt-al:center mr:1">퀴즈</button></div>
-                        <div><button class="btn-base2 n-btn:filled-4 btn-off ac:center txt-al:center">내 그룹 내</button></div>
-                    </div>
+            <!-- 퀴즈리스트 -->
+            <section th:each="list:${list}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex">
+                <h1 class="d:none">퀴즈 리스트</h1>
+                <div>
+                    <span th:text="${list.question}">문제</span><br>
+                    <span class="d:flex mt:5" th:text="${'① ' + list.num1}">1</span>
+                    <span class="d:flex mt:1" th:text="${'② ' + list.num2}">2</span>
+                    <span class="d:flex mt:1" th:text="${'③ ' + list.num3}">3</span>
+                    <span class="d:flex mt:1" th:text="${'④ ' + list.num4}">4</span><br>
+                    <span th:text="${'정답 : ' + list.answer}" class="color:accent-4">답</span>
                 </div>
             </section>
 
-            <!-- 그룹 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section class="d:none d:flex fl-direction:column jc:center ai:center">
-                <div class="fs:4">그룹</div>
-                <div class="d:flex fl-direction:column mt:2">
-                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center"><span>220105 띄어쓰기</span><span>20문항</span></div>
-                </div>
-                <div class="d:flex flex:end justify-content:flex-end fs:1 w:4"><button>더보기</button></div>
+            <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+            <section class="ad mt:4 d:none md:d:flex jc:center">
+                <h1 class="d:none">광고</h1>
+                <div class="ac:center">광고어디니</div>
             </section>
-
-            <!-- 퀴즈 -->
-            <div class="txt-al:center fs:4">퀴즈</div>
-            <!-- 퀴즈반복 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            <section th:each="list:${list}" class="d:flex fl-direction:column jc:center ai:center">
-                <div class="d:flex fl-direction:column mt:2">
-                    <div class="searchQuiz d:flex fl-direction:column jc:center ai:center p:4" th:text="${list.question}">문제문제</div>
-                </div>
-            </section>
-            <!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-            
-            <!-- 더보기 -->
-            <section class="d:flex jc:center">
-                <div class="d:flex jc:center fs:1 w:4"><button>더보기</button></div>
-            </section>
-    <!--=========================== 메인 끝 =================================-->
+        </section?>
     </main>
 
-<aside class="d:none md:d:flex jc:center right:1 zi:1">
-    <div class="pos:fixed h:100p bg-color:main-2">
-        <nav class="d:flex jc:center">
-            <h1 class="d:none">pc 메뉴바</h1>
-            <ul class="d:grid gap:4 mt:7 w:min-content">
-                <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
-                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
-                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
-                <li class="fs:1 bd-bottom">
-                    <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
-                        <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
-                        <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
-                <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
-                <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
-                <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
-            </ul>
-        </nav>
-        <div class="d:flex jc:flex-end pr:3 pt:10">
-            <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
+    <aside class="d:none md:d:flex jc:center right:1 zi:1">
+        <div class="pos:fixed h:100p bg-color:main-2">
+            <nav class="d:flex jc:center">
+                <h1 class="d:none">pc 메뉴바</h1>
+                <ul class="d:grid gap:4 mt:7 w:min-content">
+                    <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
+                        <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
+                        <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
+                    <li class="fs:1 bd-bottom">
+                        <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                        <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
+                            <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
+                            <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+                    <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+                    <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+                    <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
+                </ul>
+            </nav>
+            <div class="d:flex jc:flex-end pr:3 pt:10">
+                <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
+            </div>
         </div>
-    </div>
-</aside>
+    </aside>
 
-<footer class="ad md:d:none d:flex jc:center ai:center">
-    <div>광고</div>
-</footer>
+    <footer class="ad md:d:none d:flex jc:center ai:center">
+        <div>광고</div>
+    </footer>
 
 </body>
 </html>

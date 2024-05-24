@@ -1,3 +1,4 @@
+/* 프로필 이미지 관련 */
 
 .default-place{
     display: grid;
@@ -17,8 +18,80 @@
     border-radius: 50px;
     background-image: url('../../image/man.png');
     background-size: cover;
+    cursor: pointer;
 }
 
+
+/* 프로필 이미지 눌렀을때 이미지 모달 */
+
+.n-modal {
+    transition: transform 0.13s, opacity 0.13s;
+    position: fixed;
+    /* padding: 15px; */
+    min-width:500px;
+    min-height: 500px;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: hidden;
+    z-index: 1050;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+} 
+
+.n-modal img {
+    width: 100%;
+    height: 100%;
+    /* max-width: calc(100% - 30px);
+    max-height: calc(100% - 30px); */
+    border-radius: 15px;
+    object-fit: contain;
+    vertical-align:middle;
+    cursor: pointer;
+}
+
+.modal-fade-in {
+    animation: modal-fade-in 0.13s forwards;
+}
+
+.modal-fade-out {
+    animation: modal-fade-out 0.13s forwards;
+}
+
+@keyframes modal-fade-in {
+    from {
+        opacity: 0;
+        transform: translate(50%, -50%) scale(1);
+    }
+    to {
+        opacity: 1;
+        transform: translate(50%, -50%) scale(1);
+    }
+}
+
+@keyframes modal-fade-out {
+    from {
+        opacity: 1;
+        transform: translate(50%, -50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate(50%, -48%) scale(0.97);
+    }
+}
+
+/* 모달 열릴 때 배경 어두워지게 */
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0,0,0,0.2);
+    z-index: 1040;
+}
+
+    /* 프로필 이미지 미리보기 */
 
 .preview {
     width: 150px;
@@ -31,6 +104,9 @@
     align-items: center;
     margin-bottom: 20px;
     background-color:var(--color-base-2);
+    background-size: cover;
+    background-position: center;
+    background-repeat:no-repeat;
 }
 
 .preview img {
@@ -40,3 +116,28 @@
     vertical-align:middle;
 }
 
+    /* 닉네임, 메세지 관련 멘트 */
+
+.mcheck-place {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.message-check {
+    display: block;
+    text-align: center;
+}
+
+.ncheck-place {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.nickname-check {
+    display: block;
+    text-align: center;
+}

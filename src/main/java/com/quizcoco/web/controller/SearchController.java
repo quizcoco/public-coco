@@ -21,91 +21,50 @@ public class SearchController {
     private ExamQuizService service;
     
     @GetMapping("")
-    public String searchIndex(){
+    public String searchIndex(Model model){
+
+        ExamQuiz randQ = service.getRand();
+        model.addAttribute("randQ", randQ);
 
         return "study/search/index";
     }
 
-//     @GetMapping(value = "", params = "s")
-//     public String searchIndex(Model model
-//     ,@RequestParam(name = "q",required = false) String query
-//     ,@RequestParam(name = "p",required = false, defaultValue = "1") Integer page
-//     ,@RequestParam(name = "exam-official-rank-id",required = false,defaultValue = "0") Integer examOfficialRankId
-//        ,@RequestParam(name = "type-id",required = false, defaultValue = "0") Integer typeId
-//        ,@RequestParam(required = false,defaultValue = "0") Integer year
-//        ,@RequestParam(required = false) Integer secret
-//        ,@RequestParam(name = "s", required = false, defaultValue = "3") Integer size
-// ){
-
-
-//     System.out.println("--------------------------"+query); //여기까지 확인
-
-
-//     List<ExamQuiz> list = new ArrayList<>();
-//     int count = 0;
-
-//     if(query != null){
-//         list =service.getList(page,query,size);
-//         count = service.getCount(query);
-//     }
-//     else if(secret != null){
-//         list =service.getList(page,secret,size);
-//     }
-//     else if(year != null && typeId != null && examOfficialRankId != null){
-//         list =service.getList(page,typeId,year,examOfficialRankId,size);
-//     }
-//     else {
-//         list =service.getList(page,size);
-//         count = service.getCount();
-//     }
-    
-//     System.out.println("----------리스트----------------"+list);
-
-
-//     model.addAttribute("list", list);
-//     model.addAttribute("count", count);
-    
-
-//         return "redirect:search/result";
-//     }
-    
-
     @GetMapping("result")
     public String searchResult(Model model
-    ,@RequestParam(name = "q",required = false) String query
-    ,@RequestParam(name = "p",required = false, defaultValue = "1") Integer page
-    ,@RequestParam(name = "exam-official-rank-id",required = false,defaultValue = "0") Integer examOfficialRankId
+        ,@RequestParam(name = "q",required = false) String query
+        ,@RequestParam(name = "p",required = false, defaultValue = "1") Integer page
+        ,@RequestParam(name = "exam-official-rank-id",required = false,defaultValue = "0") Integer examOfficialRankId
        ,@RequestParam(name = "type-id",required = false, defaultValue = "0") Integer typeId
        ,@RequestParam(required = false,defaultValue = "0") Integer year
        ,@RequestParam(required = false) Integer secret
-       ,@RequestParam(name = "s", required = false, defaultValue = "3") Integer size
-){
+       ,@RequestParam(name = "s", required = false, defaultValue = "100") Integer size
+    ){
 
-    System.out.println("--------------------------"+query); //여기까지 확인
+        System.out.println("--------------------------"+query); //여기까지 확인
 
 
-    List<ExamQuiz> list = new ArrayList<>();
-    int count = 0;
+        List<ExamQuiz> list = new ArrayList<>();
+        int count = 0;
 
-    if(query != null){
-        list =service.getList(page,query,size);
-        count = service.getCount(query);
-    }
-    else if(secret != null){
-        list =service.getList(page,secret,size);
-    }
-    else if(year != null && typeId != null && examOfficialRankId != null){
-        list =service.getList(page,typeId,year,examOfficialRankId,size);
-    }
-    else {
-        list =service.getList(page,size);
-        count = service.getCount();
-    }
-    
-    System.out.println("----------리스트----------------"+list);
+        if(query != null){
+            list =service.getList(page,query,size);
+            count = service.getCount(query);
+        }
+        else if(secret != null){
+            list =service.getList(page,secret,size);
+        }
+        else if(year != null && typeId != null && examOfficialRankId != null){
+            list =service.getList(page,typeId,year,examOfficialRankId,size);
+        }
+        else {
+            list =service.getList(page,size);
+            count = service.getCount();
+        }
+        
+        System.out.println("----------리스트----------------"+list);
 
-    model.addAttribute("list", list);
-    model.addAttribute("count", count);
+        model.addAttribute("list", list);
+        model.addAttribute("count", count);
 
         return "study/search/result";
     }
