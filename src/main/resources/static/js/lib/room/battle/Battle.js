@@ -13,21 +13,14 @@ class Battle{
                 // xp:0,
                 status:null
             },
-            // {
-            //     ...Skills.f01,
-            //     team:"player",
-            //     hp:this.coco.hp,
-            //     // xp:0,
-            //     status:null
-            // },
             this),
-            // "coco":new Combatant({
-            //     ...Skills.f01,
-            //     team:"player",
-            //     hp:this.coco.hp,
-            //     // xp:0,
-            //     status:null
-            // },this),
+            "coco1":new Combatant({
+                ...Skills.f01,
+                team:"player",
+                hp:this.coco.hp,
+                // xp:0,
+                status:null
+            },this),
             "enemy":new Combatant({
                 ...Skills.p02,
                 team:"enemy",
