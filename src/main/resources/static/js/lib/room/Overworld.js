@@ -125,7 +125,7 @@ async init(){
 
     }
     
-    this.map.startCutscene([{ type:"battle"}]);
+    // this.map.startCutscene([{ type:"battle"}]);
 
 }
 
