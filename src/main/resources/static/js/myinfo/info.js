@@ -137,12 +137,50 @@ window.addEventListener("load", () => {
   window.addEventListener("resize", moveSections);
   moveSections();
 
+
+   /* 프로필 이미지 누르면 모달창 뜨기 */
+   
+  const openModal = ownSection.querySelector(".open-modal");
+  const closeBtn = ownSection.querySelector(".close-btn");
+  const modal = ownSection.querySelector(".modal");
+  const modalBackdrop = ownSection.querySelector(".modal-backdrop");
+  const modalImage = ownSection.querySelector(".modal-image");
+
+   openModal.addEventListener("click", ()=> {
+      
+      modal.classList.remove("d:none");
+      modalBackdrop.classList.remove("d:none");
+      modal.classList.add("modal-fade-in");
+
+      //프로필 이미지 가져오기
+      const imgElement = openModal.querySelector("img");
+      const imgSrc = openModal.style.backgroundImage.slice(5, -2);
+      modalImage.setAttribute("src", imgSrc);
+      
+   });
+
+   // 모달 창 닫기
+   modal.addEventListener("click", ()=> {
+      
+         closeModal();
+   });
+
+   modalImage.addEventListener("click", ()=> {
+     
+         closeModal();
+   });
+
+   function closeModal() {
+      modal.classList.replace("modal-fade-in", "modal-fade-out");
+    
+      setTimeout(() => {
+        modal.classList.add("d:none");
+        modalBackdrop.classList.add("d:none");
+        modal.classList.remove("modal-fade-out");
+      }, 130);
+    }
+
+
 });
 
    
-
-
-
-
-
-
