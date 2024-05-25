@@ -82,7 +82,6 @@
         transform: translate(50%, -48%) scale(0.97);
     }
 }
-
 /* 모달 열릴 때 배경 어두워지게 */
 .backdrop {
     position: fixed;
@@ -114,6 +113,27 @@
     max-height: 100%;
     object-fit: cover;
     vertical-align:middle;
+}
+
+.remove-btn {
+    background-color: #ffffff;
+    color: #000000;
+    border-radius: 50%;
+    width:20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 26px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 15px;
+    line-height: 1;    
+}
+
+.remove-btn:hover {
+    background-color: gainsboro;
 }
 
     /* 닉네임, 메세지 관련 멘트 */
