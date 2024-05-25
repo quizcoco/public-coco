@@ -229,4 +229,81 @@ select.none {
         height: 250px;
     }
 }
-  
+
+/* study index 문제 스크롤바 ======================*/
+
+.latestQuiz-box{
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    overflow-y: auto;   
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: none;
+}
+
+/* 스크롤바의 너비와 모양 변경 */
+.latestQuiz-box::-webkit-scrollbar {
+    width: 8px; /* 스크롤바의 너비 */
+}
+
+/* 스크롤바 트랙을 투명하게 설정 */
+.latestQuiz-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 스크롤바 핸들을 투명하게 설정 */
+.latestQuiz-box::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1); /* 배경을 투명하게 설정 */
+    border-radius: 10px; /* 모서리를 둥글게 설정 */
+}
+
+/* Firefox에서 스크롤바를 투명하게 설정 */
+.latestQuiz-box {
+    scrollbar-width: thin; /* 스크롤바를 얇게 설정 */
+    scrollbar-color: rgba(0, 0, 0, 0.1) transparent; /* 스크롤바 색상을 투명하게 설정 */
+}
+
+
+/* search index 문제 스크롤바 ======================*/
+
+.randQuiz-box{
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+
+    overflow-y: auto;   
+    overflow-x: hidden;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    resize: none;
+}
+
+/* 스크롤바의 너비와 모양 변경 */
+.randQuiz-box::-webkit-scrollbar {
+    width: 8px; /* 스크롤바의 너비 */
+}
+
+/* 스크롤바 트랙을 투명하게 설정 */
+.randQuiz-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 스크롤바 핸들을 투명하게 설정 */
+.randQuiz-box::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1); /* 배경을 투명하게 설정 */
+    border-radius: 10px; /* 모서리를 둥글게 설정 */
+}
+
+/* Firefox에서 스크롤바를 투명하게 설정 */
+.randQuiz-box {
+    scrollbar-width: thin; /* 스크롤바를 얇게 설정 */
+    scrollbar-color: rgba(0, 0, 0, 0.1) transparent; /* 스크롤바 색상을 투명하게 설정 */
+}
+
+
+/*  */
