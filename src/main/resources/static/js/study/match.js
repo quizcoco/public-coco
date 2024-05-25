@@ -57,6 +57,7 @@ class Coco{
         this.skillId = cocoData.skillId;
         this.damage = 10;
         this.magicDamage = 20;
+        this.exp=0;
         this.correct = [];
         this.wrong = [];
         this.allQuiz = [];
@@ -321,6 +322,7 @@ else
            
     }
     closed(){
+        this.saveEXP();
         console.log("종료. 틀림:"+this.coco.wrong+"맞음:"+this.coco.correct);
    
 
@@ -739,6 +741,16 @@ else
 
            
 }
+
+    saveEXP(){
+        fetch(`/api/users/edit`, {
+            method: 'PUT', // POST
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ point: this.coco.win ? this.coco.correct.length*10+10:this.coco.correct.length*10, exp:this.coco.win ? this.coco.correct.length*10:0})
+            });//이겼을시 보너스 포인트 10점 설정
+    }
 
 
 
