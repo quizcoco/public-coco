@@ -12,6 +12,7 @@
     where username=#{username}
 </select>
 
+<!-- 소셜 로그인 -->
 <select id="findByEmail" resultType="User">
     select 
       *
@@ -68,6 +69,46 @@
       *
     from user
     where id=#{id}
+</select>
+
+<!-- 유저 프로필 사진 및 정보 업데이트 -->
+<update id="updateUser" parameterType="User">
+  update user set 
+    img = #{img},
+    nick_name = #{nickName},
+    message = #{message}
+  where id = #{id}
+</update>
+
+<!-- 회원 정보 업데이트 시 닉네임 중복 체크 -->
+<select id="nicknameExists" resultType="int">
+  select count(*)
+  from user
+  where nick_name = #{nickname}
+</select>
+
+<!-- 회원 정보 업데이트 시 메세지 체크 -->
+<select id="messageExists" resultType="int">
+  select count(*)
+  from user
+  where message = #{message}
+</select>
+
+<!-- 회원 정보 불러오기 (레벨, 경험치,포인트 ) -->
+<select id="findLevelByUserId" resultType="int" parameterType="Long">
+  select level
+  from user
+  where id = #{id}
+</select>
+<select id="findExpByUserId" resultType="int" parameterType="Long">
+  select exp
+  from user
+  where id = #{id}
+</select>
+<select id="findPointByUserId" resultType="int" parameterType="Long">
+  select point
+  from user
+  where id = #{id}
 </select>
 
 </mapper>

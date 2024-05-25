@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.quizcoco.web.config.security.CocoUserDetails;
@@ -42,6 +44,20 @@ public class UserApiController {
         }
 
         return null;
+    }
+
+     //회원 정보 중 닉네임 중복 확인
+    @GetMapping("checkNickname")
+    public ResponseEntity<Boolean> checkNickname(@RequestParam String nickname) {
+        boolean exists = service.nicknameExists(nickname);
+        return ResponseEntity.ok(exists);
+    }
+
+    //회원 정보 중 메세지 확인
+    @GetMapping("checkMessage")
+    public ResponseEntity<Boolean> checkMessage(@RequestParam String message) {
+        boolean exists = service.messageExists(message);
+        return ResponseEntity.ok(exists);
     }
 
 

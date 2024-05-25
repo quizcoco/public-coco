@@ -1,9 +1,15 @@
 package com.quizcoco.web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.quizcoco.web.config.security.CocoUserDetailsService;
 import com.quizcoco.web.entity.MemberRole;
 import com.quizcoco.web.entity.User;
 import com.quizcoco.web.repository.MemberRoleRepository;
@@ -18,11 +24,16 @@ public class UserServiceImp implements UserService {
     @Autowired
     private MemberRoleRepository memberRoleRepository;
 
+    @Autowired
+    private CocoUserDetailsService userDetailsService;
+
     @Override
-    public User getByUserName(String username) {
+    public User getByUserName(String username) throws UsernameNotFoundException {
+
+        //User user = repository.findByUserName(username);
        
-        return repository.findByUserName(username);
-    }
+        return repository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }    
 
 
     @Override
@@ -77,6 +88,59 @@ public class UserServiceImp implements UserService {
     public void editUser(User user) {
         repository.update(user);
     }
+    
 
+    //회원 정보 업데이트
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        repository.updateUser(user);
+        updateSecurityContext(user.getUserName());
+       
+    }
+
+     // 회원 정보 업데이트 시큐리티에 바로 적용하기 위해 사용.
+    private void updateSecurityContext(String username) {
+       
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                                                                    userDetails, userDetails.getPassword(),
+                                                                    userDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);                                                        
+    }
+
+    @Override
+    public boolean nicknameExists(String nickname) {
+        
+        return repository.nicknameExists(nickname) > 0;
+    }
+
+
+    @Override
+    public boolean messageExists(String message) {
+        
+        return repository.messageExists(message) > 0;
+    }
+
+
+    @Override
+    public int getUserExp(Long useredId) {
+        
+        return repository.findExpByUserId(useredId);
+    }
+
+
+    @Override
+    public int getUserLevel(Long useredId) {
+        
+        return repository.findLevelByUserId(useredId);
+    }
+
+
+    @Override
+    public int getUserPoint(Long useredId) {
+        
+        return repository.findPointByUserId(useredId);
+    }
 
 }

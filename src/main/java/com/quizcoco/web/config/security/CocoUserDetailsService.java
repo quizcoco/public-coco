@@ -2,6 +2,7 @@ package com.quizcoco.web.config.security;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -28,7 +29,10 @@ public class CocoUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
-        User user = repository.findByUserName(username);
+        //User user = repository.findByUserName(username);
+        Optional<User> optionalUser = repository.findByUserName(username);
+    
+        User user = optionalUser.orElseThrow(() -> new UsernameNotFoundException("해당 사용자를 찾을 수 없습니다."));
 
         List<MemberRole> roles = memberRoleRepository.findAllByUserId(user.getId());
         

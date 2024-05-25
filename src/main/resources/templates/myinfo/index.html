@@ -41,10 +41,14 @@
             <h1 class="d:none">모바일 메뉴바</h1>
             <ul>
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}">내정보</a>
-                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
+                    <a href="" class="profile" 
+                                th:style="'background-image: url(' + ${currentUser.img != null ? '/img/user/' + currentUser.img : '../../image/man.png'} + ')'"
+                                sec:authorize="isAuthenticated()" 
+                                th:href="@{/myinfo}">내정보
+                    </a>
                     <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
                 <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
+                    <a href="" class="fs:2" sec:authorize="isAuthenticated()" th:text="${currentUser.nickName}" th:href="@{/myinfo}">로그인</a></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
@@ -71,7 +75,9 @@
                 <div class="d:flex fl-dir:row gap:5 ai:center">
                     <nav class="profile-img">
                         <div class="default-place">
-                            <a href="" class="defaul-profile"></a>
+                            <!-- <span class="open-modal"><img class="defaul-profile" src=""></span> -->
+                            <span class="open-modal defaul-profile" th:style="'background-image: url(' + ${currentUser.img != null ? '/img/user/' + currentUser.img : '../../image/man.png'} + ')'"></span>
+                            
                         </div>
                         <ul class="d:flex fl-dir:row gap:1 pt:2 pl:2">
                             <li><a href="/myinfo/edit" class="icon icon:pencil_simple">유저 정보 수정</a></li>
@@ -81,10 +87,10 @@
                     </nav>
                     <div class="user-profile">
                         <ul class="md:fs:3 fw:1 lg:fs:5 fw:3">
-                            <li class="pt:2"><span>별명 : </span><span sec:authentication="principal.nickname">김철수</span></li>
-                            <li class="pt:2"><span>레벨 : </span><span sec:authentication="principal.level">55</span></li>
-                            <li class="pt:2"><span>경험치 : </span><span sec:authentication="principal.exp">1234567</span></li>
-                            <li class="pt:2"><span>포인트 : </span><span sec:authentication="principal.point">7654321</span></li>
+                            <li class="pt:2"><span>별명 : </span><span th:text="${currentUser.nickName}">김철수</span></li>
+                            <li class="pt:2"><span>레벨 : </span><span th:text="${userLevel}">55</span></li>
+                            <li class="pt:2"><span>경험치 : </span><span th:text="${userExp}">1234567</span></li>
+                            <li class="pt:2"><span>포인트 : </span><span th:text="${userPoint}">7654321</span></li>
                             <li class="pt:2"><span>순위 : </span><span th:text="${userRank}">2024</span><span>등</span></li>
                         </ul>
                     </div>
@@ -105,6 +111,17 @@
             </section>
             <div class="inventory-btn"><a href="/myinfo/inventory" class="n-btn:long-btn mt:5">나의 인벤토리</a></div>
         </section>
+        <!-- 이미지 모달 -->
+            <section class="n-modal d:none modal">
+                <h1 class="d:none">이미지 새창으로 열기</h1>
+                <!-- <div class="d:flex jc:flex-end">
+                    <button type="button" class="n-btn close-btn">&times;</button>
+                </div> -->
+                <div class="modal-content">
+                    <img class="modal-image" th:src="@{'/img/use43r/' + ${currentUser.img != null ? currentUser.img : 'default-image.png'}}">
+                </div>
+            </section>
+        <div class="backdrop d:none modal-backdrop"></div>
    </section>        
    </main>
 
@@ -115,12 +132,16 @@
             <h1 class="d:none">pc 메뉴바</h1>
             <ul class="d:grid gap:4 mt:7 w:min-content">
                 <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
-                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
+                    <a href="" class="profile" 
+                                th:style="'background-image: url(' + ${currentUser.img != null ? '/img/user/' + currentUser.img : '../../image/man.png'} + ')'"    
+                                sec:authorize="isAuthenticated()" 
+                                th:href="@{/myinfo}">
+                    </a>
                     <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
                 <li class="fs:1 bd-bottom">
                     <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
-                        <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
+                    <a href="/myinfo" sec:authorize="isAuthenticated()" th:text="${currentUser.nickName}">로그인</a>
+                        <span>Lv</span><span sec:authorize="isAuthenticated()" th:text="${userLevel}">5</span>
                         <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>

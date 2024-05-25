@@ -1,5 +1,7 @@
 package com.quizcoco.web.repository;
 
+import java.util.Optional;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.quizcoco.web.entity.User;
@@ -7,7 +9,9 @@ import com.quizcoco.web.entity.User;
 @Mapper
 public interface UserRepository {
 
-    User findByUserName(String username);
+   //User findByUserName(String username);
+   Optional<User>findByUserName(String username);
+   
     User findByUserId(Long id);
     User findByEmail(String email);
 
@@ -17,5 +21,16 @@ public interface UserRepository {
     int mailCheck(String mail);
     int nameCheck(String username);
     int nickCheck(String nickname);
- 
+    
+     // 유저 프로필 업데이트
+     void updateUser(User user);
+    
+    // 닉네임, 메세지 중복 확인
+    int nicknameExists(String nickname);
+    int messageExists(String message);
+
+    // 유저 정보(경험치, 레벨, 포인트) 가져오기
+    int findExpByUserId(Long useredId);
+    int findLevelByUserId(Long useredId);
+    int findPointByUserId(Long useredId); 
 }
