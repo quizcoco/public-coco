@@ -115,7 +115,7 @@
                 <div class="fs:4">추천 문제</div>
                 <div class="d:flex fl-direction:column mt:2 cursor:pointer">
                     <div class="searchQuiz d:flex fl-direction:column jc:center ai:center w:5 h:2 cursor:pointer">
-                        <button id="rand-quiz" class="mr:5 ml:5 cursor:pointer"><span th:text="${randQ.question}">랜덤 추천 문제</span></button>
+                        <button id="rand-quiz" class="mr:5 ml:5 cursor:pointer"><span th:utext="${randQ.question}">랜덤 추천 문제</span></button>
                     </div>
                 </div>
             </section>
@@ -146,12 +146,12 @@
             <section id="r-modal" class="d:none n-modal" tabindex="-1">
                 <h1 class="d:none n-font:h3 font-weight:3">오늘올라온문제 디테일모달</h1>
                 <div class="mt:8 text-a:center">
-                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center"><span class="fw:bold" th:text="${randQ.question}">질문</span></div>
-                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:5"><span class="fw:bold" th:text="${'① ' + randQ.num1}">1</span></div>
-                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'② ' + randQ.num2}">2</span></div>
-                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'③ ' + randQ.num3}">3</span></div>
-                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'④ ' + randQ.num4}">4</span></div>
-                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center color:accent-4 mt:5"><span class="fw:bold" th:text="${'정답 : ' + randQ.answer}">답</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center"><span class="fw:bold" th:utext="${randQ.question}">질문</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center mt:5"><span class="fw:bold" th:utext="${'① ' + randQ.num1}">1</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center mt:1"><span class="fw:bold" th:utext="${'② ' + randQ.num2}">2</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center mt:1"><span class="fw:bold" th:utext="${'③ ' + randQ.num3}">3</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center mt:1"><span class="fw:bold" th:utext="${'④ ' + randQ.num4}">4</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center color:accent-4 mt:5"><span class="fw:bold" th:utext="${'정답 : ' + randQ.answer}">답</span></div>
                 </div>
 
                 <div class="d:flex fl-direction:column gap:2 mt:8">

@@ -10,7 +10,8 @@
     <link href="/css/root.css" rel="stylesheet" type="text/css">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/util.css" rel="stylesheet" type="text/css">
-    
+    <link href="/css/modal.css" rel="stylesheet" type="text/css">
+
     <link rel="icon" type="image/png" href="/image/logo.png">
     <script defer src="/js/header.js"></script>
     <script defer src="/js/study/userquiz.js"></script>
@@ -62,9 +63,8 @@
 
     <main class="of:auto ac:center">
         <!--=========================== 메인에 입력 ===============================-->
-        <section class="my:8 mx:8 ac:center">
+        <section id="index-quiz" class="my:8 mx:8 ac:center">
             <div class="display:flex fl-direction:column row-gap:5 ai:center">
-
                 <div class="d:column border-radius:3 bg-color:base-3 w:7 h:1 ac:center">
                     <div class="d:flex jc:center"><a href="study/self-match/match">1인 대결</a></div>
                 </div>
@@ -87,7 +87,7 @@
                         <div class="margin-right:auto">오늘 올라온 문제</div>
                         <div><button id="dtail-quiz" class="n-btn:void n-btn-size:3">자세히보기</button></div>
                     </div>
-                    <div class="d:flex fs:1 pr:10 pl:10 ac:center jc:center mt:3"><span th:text="${latestQ.question}">질문</span></div>
+                    <div class="d:flex fs:1 pr:10 pl:10 ac:center jc:center mt:3"><span th:utext="${latestQ.question}">질문</span></div>
                 </div>
 
                 <div class="d:flex col-gap:10">
@@ -103,27 +103,28 @@
                 <div class="d:column border-radius:3 bg-color:base-3 w:7 h:1 ac:center">
                     <div class="d:flex jc:center"><a href="study/favorite/list">문제 즐겨찾기</a></div>
                 </div>
-
             </div>
+            
+            <section id="d-modal" class="d:none n-modal" tabindex="-1">
+                <h1 class="d:none n-font:h3 font-weight:3">오늘올라온문제 디테일모달</h1>
+                <div class="mt:8 text-a:center">
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center"><span class="fw:bold" th:utext="${latestQ.question}">질문</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center mt:5"><span class="fw:bold" th:utext="${'① ' + latestQ.num1}">1</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center mt:1"><span class="fw:bold" th:utext="${'② ' + latestQ.num2}">2</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center mt:1"><span class="fw:bold" th:utext="${'③ ' + latestQ.num3}">3</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center mt:1"><span class="fw:bold" th:utext="${'④ ' + latestQ.num4}">4</span></div>
+                    <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center color:accent-4 mt:5"><span class="fw:bold" th:utext="${'정답 : ' + latestQ.answer}">답</span></div>
+                </div>
+              
+                <div class="d:flex fl-direction:column gap:2 mt:8">
+                  <button id="confirm-btn" class="n-btn n-btn:void n-btn-size:3">확인</button>
+                </div>
+            </section>
+            <div class="backdrop d:none"></div>
         </section>
 
-        <section id="d-modal" class="d:none n-modal" tabindex="-1">
-            <h1 class="d:none n-font:h3 font-weight:3">오늘올라온문제 디테일모달</h1>
-            <div class="mt:8 text-a:center">
-                <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center"><span class="fw:bold" th:text="${latestQ.question}">질문</span></div>
-                <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:5"><span class="fw:bold" th:text="${'① ' + latestQ.num1}">1</span></div>
-                <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'② ' + latestQ.num2}">2</span></div>
-                <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'③ ' + latestQ.num3}">3</span></div>
-                <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center mt:1"><span class="fw:bold" th:text="${'④ ' + latestQ.num4}">4</span></div>
-                <div class="d:flex fs:2 pr:8 pl:8 ac:center jc:center color:accent-4 mt:5"><span class="fw:bold" th:text="${'정답 : ' + latestQ.answer}">답</span></div>
-            </div>
-          
-            <div class="d:flex fl-direction:column gap:2 mt:8">
-              <button id="confirm-btn" class="n-btn n-btn:void n-btn-size:3">확인</button>
-            </div>
-        </section>
-
-   </main>
+    <!--=========================== 메인 끝 =================================-->
+    </main>
 
     <aside class="d:none md:d:flex jc:center right:1 zi:1">
         <div class="pos:fixed h:100p bg-color:main-2">
