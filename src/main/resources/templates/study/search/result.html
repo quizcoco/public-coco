@@ -88,12 +88,12 @@
             <section th:each="list:${list}" class="list-shape n-item n-item:underline bg-color:main-1 d:flex">
                 <h1 class="d:none">퀴즈 리스트</h1>
                 <div>
-                    <span th:text="${list.question}">문제</span><br>
-                    <span class="d:flex mt:5" th:text="${'① ' + list.num1}">1</span>
-                    <span class="d:flex mt:1" th:text="${'② ' + list.num2}">2</span>
-                    <span class="d:flex mt:1" th:text="${'③ ' + list.num3}">3</span>
-                    <span class="d:flex mt:1" th:text="${'④ ' + list.num4}">4</span><br>
-                    <span th:text="${'정답 : ' + list.answer}" class="color:accent-4">답</span>
+                    <span th:utext="${list.question}">문제</span><br>
+                    <span class="d:flex mt:5" th:utext="${'① ' + list.num1}">1</span>
+                    <span class="d:flex mt:1" th:utext="${'② ' + list.num2}">2</span>
+                    <span class="d:flex mt:1" th:utext="${'③ ' + list.num3}">3</span>
+                    <span class="d:flex mt:1" th:utext="${'④ ' + list.num4}">4</span><br>
+                    <span th:utext="${'정답 : ' + list.answer}" class="color:accent-4">답</span>
                 </div>
             </section>
 
