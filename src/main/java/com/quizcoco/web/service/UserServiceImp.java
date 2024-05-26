@@ -49,31 +49,16 @@ public class UserServiceImp implements UserService {
         memberRoleRepository.saveMemberRole(memberRole);
     }
 
-    //메일 중복체크
-    @Override
-    public int mailCheck(String mail) throws Exception {
-       
-        int result = repository.mailCheck(mail);
-
-        return result;
-    }
-
     // 아이디 중복체크
     @Override
-    public int nameCheck(String username) throws Exception {
-        
-        int result = repository.nameCheck(username);
-
-        return result;
+    public boolean usernameExists(String username) {
+        return repository.usernameExists(username) > 0;
     }
 
-    // 닉네임 중복체크
+    // 메일 중복체크
     @Override
-    public int nickCheck(String nickname) throws Exception {
-        
-        int result = repository.nickCheck(nickname);
-
-        return result;
+    public boolean mailExists(String mail) {
+        return repository.mailExists(mail) > 0;
     }
 
 

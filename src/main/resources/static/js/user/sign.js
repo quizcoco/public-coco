@@ -133,6 +133,79 @@ window.addEventListener("load", ()=>{
            }
        });
    
+   //========================회원가입 시 중복체크======================================    
        
+   const nameCheckBtn = signUp.querySelector(".nameCheck-btn");
+   const nickCheckBtn = signUp.querySelector(".nickCheck-btn");
+   const mailCheckBtn = signUp.querySelector(".mailCheck-btn");
+
+   const userNamePlace = signUp.querySelector(".usernamecheck-place");
+   const usernameCheckMessage = signUp.querySelector(".username-check");
+   userNamePlace.appendChild(usernameCheckMessage);
+   usernameCheckMessage.style.display = "block";
+
+    //아이디 중복 체크
+    nameCheckBtn.addEventListener("click", ()=> {
+          const username = inputId.value;
+          if(username.length > 1) {
+              fetch(`/api/users/checkUserName?username=${username}`)
+              .then(response => response.json())
+              .then(exists => {
+                  if(exists) {
+                      usernameCheckMessage.textContent = "이미 사용중인 아이디입니다.";
+                      usernameCheckMessage.style.color = "red";
+                  } else {
+                      usernameCheckMessage.textContent = "사용 가능한 아이디입니다.";
+                      usernameCheckMessage.style.color = "green";
+                  }
+              });
+          }
+    });
+
+    const nickNamePlace = signUp.querySelector(".mailcheck-place");
+    const nicknameCheckMessage = signUp.querySelector(".nickname-check");
+    nickNamePlace.appendChild(nicknameCheckMessage);
+    nicknameCheckMessage.style.display = "block";
+
+    //닉네임 중복 체크
+    nickCheckBtn.addEventListener("click", ()=> {
+      const nickname = inputName.value;
+      if(nickname.length > 1) {
+          fetch(`/api/users/checkNickname?nickname=${nickname}`)
+          .then(response => response.json())
+          .then(exists => {
+              if(exists) {
+                  nicknameCheckMessage.textContent = "이미 사용중인 아이디입니다.";
+                  nicknameCheckMessage.style.color = "red";
+              } else {
+                  nicknameCheckMessage.textContent = "사용 가능한 아이디입니다.";
+                  nicknameCheckMessage.style.color = "green";
+              }
+            });
+          }
+      });
+
+      const mailPlace = signUp.querySelector(".mailcheck-place");
+      const mailCheckMessage = signUp.querySelector(".mail-check");
+      mailPlace.appendChild(mailCheckMessage);
+      mailCheckMessage.style.display = "block";
+
+    //메일 중복 체크
+    mailCheckBtn.addEventListener("click", ()=> {
+      const mail = inputMail.value;
+      if(mail.length > 1) {
+          fetch(`/api/users/checkMail?mail=${mail}`)
+          .then(response => response.json())
+          .then(exists => {
+              if(exists) {
+                  mailCheckMessage.textContent = "이미 사용중인 아이디입니다.";
+                  mailCheckMessage.style.color = "red";
+              } else {
+                  mailCheckMessage.textContent = "사용 가능한 아이디입니다.";
+                  mailCheckMessage.style.color = "green";
+              }
+          });
+      }
+    });    
    
-   });
+});

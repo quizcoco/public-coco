@@ -18,9 +18,10 @@ public interface UserRepository {
     void save(User user);
     void update(User user);
 
-    int mailCheck(String mail);
-    int nameCheck(String username);
-    int nickCheck(String nickname);
+    //아이디, 메일 중복 확인
+    int usernameExists(String username);
+    int mailExists(String mail);
+
     
      // 유저 프로필 업데이트
      void updateUser(User user);
