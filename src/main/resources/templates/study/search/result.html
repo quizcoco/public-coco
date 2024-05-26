@@ -14,9 +14,12 @@
     <link href="/css/util.css" rel="stylesheet" type="text/css">
     <link href="/css/match.css" rel="stylesheet" type="text/css">
     <link href="/css/report.css" rel="stylesheet" type="text/css">
+    <link href="/css/user-quiz.css" rel="stylesheet" type="text/css">
     
     <link rel="icon" type="image/png" href="/image/logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script defer src="/js/header.js"></script>
+    <script defer src="/js/study/searchHighlight.js"></script>
 </head>
 <body>
  
@@ -70,7 +73,7 @@
                     <div class="deco icon:magnifying_glass"></div>
                     <div class="d:flex jc:center">
                         <label class="d:flex ac:center w:6">
-                        <input type="text" autocomplete="on" autofocus class="search-form  bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="d:none menu-list"  name="q" placeholder="검색어를 입력하세요">
+                        <input type="text" id="searchInput" autocomplete="on" autofocus class="search-form bg-color:base-3 bd-radius:3 w:10 h:1 p:3" list="d:none menu-list" name="q" placeholder="검색어를 입력하세요">
                         <datalist id="menu-list">
                             <option>OX문제</option>
                             <option>단답문제</option>
@@ -111,7 +114,7 @@
                 <ul class="d:grid gap:4 mt:7 w:min-content">
                     <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
                         <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
-                        <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
+                        <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
                     <li class="fs:1 bd-bottom">
                         <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
                         <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
