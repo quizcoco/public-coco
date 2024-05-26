@@ -38,12 +38,18 @@
     )
 </insert>
 
-<!-- 회원가입 시 중복체크 -->
-<select id="nameCheck" resultType="int">
-  select count (*) from user
+<!-- 회원 가입 시 아이디 중복 체크 -->
+<select id="usernameExists" resultType="int">
+  select count(*)
+  from user
   where username = #{username}
-        or mail = #{mail}
-        or nick_name = #{nickname}
+</select>
+
+<!-- 회원 가입 시 메일 중복 체크 -->
+<select id="mailExists" resultType="int">
+  select count(*)
+  from user
+  where mail = #{mail}
 </select>
 
 
@@ -80,7 +86,7 @@
   where id = #{id}
 </update>
 
-<!-- 회원 정보 업데이트 시 닉네임 중복 체크 -->
+<!-- 회원 가입, 업데이트 시 닉네임 중복 체크 -->
 <select id="nicknameExists" resultType="int">
   select count(*)
   from user

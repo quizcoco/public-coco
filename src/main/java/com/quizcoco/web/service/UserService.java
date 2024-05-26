@@ -10,9 +10,8 @@ public interface UserService {
     void editUser(User user);
     void sign(User user);
 
-    int mailCheck(String mail) throws Exception;
-    int nameCheck(String username) throws Exception;
-    int nickCheck(String nickname) throws Exception;
+    boolean usernameExists(String username);
+    boolean mailExists(String mail);
 
     void updateUser(User user);
 

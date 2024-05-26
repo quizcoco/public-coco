@@ -31,24 +31,20 @@ public class UserApiController {
     private static final int[] levelUpThresholds = {0, 144, 250, 500, 1000, 2000}; // 1 요구량0 /2요구량 144 / 3요구량 250 /4요구량 500
 
 
-    @PostMapping
-    public User sign(User user) throws Exception {
+   //회원 가입 시 아이디 중복 확인
+   @GetMapping("checkUserName")
+   public ResponseEntity<Boolean> checkUsername(@RequestParam String username) {
+       boolean exists = service.usernameExists(username);
+       return ResponseEntity.ok(exists);
+   }
 
-        if (service.mailCheck(user.getMail()) > 0) {
-            throw new RuntimeException("사용중인 이메일입니다.");
-        }
-
-        if (service.nameCheck(user.getUserName()) > 0) {
-            throw new RuntimeException("사용중인 아이디입니다.");
-        }
-
-        if (service.nickCheck(user.getNickName()) > 0) {
-            throw new RuntimeException("사용중인 닉네임입니다.");
-        }
-
-        return null;
-    }
-
+   //회원 가입 시 이메일 중복 확인
+   @GetMapping("checkMail")
+   public ResponseEntity<Boolean> checkMail(@RequestParam String mail) {
+       boolean exists = service.mailExists(mail);
+       return ResponseEntity.ok(exists);
+   }
+   
      //회원 정보 중 닉네임 중복 확인
     @GetMapping("checkNickname")
     public ResponseEntity<Boolean> checkNickname(@RequestParam String nickname) {
