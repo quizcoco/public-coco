@@ -1,0 +1,69 @@
+.rank-body{
+    margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .rank-div {
+      margin: 0 auto;
+      display: block;
+  }
+  
+  ol.large-numbers {
+      counter-reset:li; /* Initiate a counter */
+      margin-left:0; /* Remove the default left margin */
+      padding-left:0; /* Remove the default left padding */
+      line-height: 1.25;
+    }
+    ol.large-numbers > li {
+      position:relative; /* Create a positioning context */
+      list-style:none; /* Disable the normal item numbering */
+      margin: 1rem 0 1rem 2rem;
+      padding: 0 0 0 1rem;
+      display: flex;
+      align-items: center;
+    }
+    ol.large-numbers > li:before {
+      content:counter(li); /* Use the counter as content */
+      counter-increment:li; /* Increment the counter by 1 */
+      /* Position and style the number */
+      position:absolute;
+      top: -0.3em; /* move numbers up or down as needed */
+      left:-0.9em;
+      width: 1em;
+      text-align:center;
+      -moz-box-sizing:border-box;
+      -webkit-box-sizing:border-box;
+      box-sizing:border-box;
+      font-size: 2em;
+      font-weight: bold;
+      font-weight: 700;
+      color: #A8CABA;
+      text-shadow:
+           3px 3px 0 #838689,
+         -1px -1px 0 #838689,  
+          1px -1px 0 #838689,
+          -1px 1px 0 #838689,
+           1px 1px 0 #838689;
+    }
+    ol.large-numbers li:hover:before {
+      color: #EBE3AA;
+    }
+  
+    ol.large-numbers > li > span, ol.large-numbers > li > i {
+      margin-right: 40px;
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight:bolder;
+    }
+  
+    .rank-medal, .profile-photo, .nick-name, .point {
+      display: inline-block;
+      width: 150px;
+      text-align: center; 
+      margin-right: 20px; 
+    }
+  
