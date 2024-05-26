@@ -58,9 +58,9 @@ header ul{
     display: block;
     height: 40px;
     width: 40px;
-    background-color: rgb(12, 140, 224);
-    border-radius: 50px;
-    background-image: url('../../image/man.png');
+    background-color: rgb(255, 255, 255);
+    /* border-radius: 50px; */ 
+    background-image: url('../../image/logo.png');
     background-size: cover;
 }
 

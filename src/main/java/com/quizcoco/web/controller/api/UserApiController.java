@@ -28,6 +28,9 @@ public class UserApiController {
     @Autowired
     private UserService service;
 
+    private static final int[] levelUpThresholds = {0, 144, 250, 500, 1000, 2000}; // 1 요구량0 /2요구량 144 / 3요구량 250 /4요구량 500
+
+
     @PostMapping
     public User sign(User user) throws Exception {
 
@@ -88,6 +91,7 @@ public class UserApiController {
         Integer exp = body.get("point");
         System.out.println("얻은 포인트~~"+point);
         System.out.println("얻은 경험치~~"+exp);
+
         
         Long userId=null;
         if(userDetails != null)
@@ -97,12 +101,22 @@ public class UserApiController {
         Integer pointSum = userDetails.getPoint()+point;
         Integer expSum = userDetails.getExp()+exp;
         System.out.println("유저아이디~~"+userId);
-
-            User user = service.getByUserId(userId);
-
-            user.setPoint(pointSum);
-            user.setExp(expSum);
-
+        
+        User user = service.getByUserId(userId);
+        int level = userDetails.getLevel();
+        while (level < levelUpThresholds.length &&
+                expSum >= levelUpThresholds[level]) {
+                    expSum -= levelUpThresholds[level]; // 현재 레벨에 필요한 경험치만큼 차감
+                    user.setLevel(level + 1);
+                    level++;
+            System.out.println("만족하는 값있다");
+        }
+        
+        
+        user.setPoint(pointSum);
+        user.setExp(expSum);
+        // user.setLevel(newLevel);
+        
 
             service.editUser(user);
 

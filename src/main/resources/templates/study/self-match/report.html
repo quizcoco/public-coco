@@ -30,7 +30,7 @@
 
         <section class="d:none md:d:flex root-header-menu">
             <h1 class="d:none">접속중인 친구</h1>
-            <div class="d:flex gap:4"><span class="online-user"></span><span class="online-user"></span><span class="online-user"></span><span class="online-num">6</span></div>
+            <div class="d:flex gap:4"><span class="online-user"></span><span class="d:none online-user"></span><span class="d:none online-user"></span><span class="d:none online-num">6</span></div>
         </section>
         <nav class="root-header-menu">
             <h1 class="d:none">유저 메뉴</h1>
@@ -186,17 +186,18 @@
             </div>
         </section> -->
         <!-- TODO 문제 맞았을 경우 답 제대로 표시~~~~~cq -->
-         <section id="detail-modal" class="d:none n-modal" th:each="wq: ${wrongQ}" tabindex="-1">
+         <section id="detail-modal" class="d:none n-modal" th:each="aq: ${allQ}" tabindex="-1">
                                     <h1 class="d:none">문제 디테일 모달</h1>
                                     <div class="p:2">
                                         <div><span class="pb:3 fw:bold pb:7 question">아첨하는 말과 알랑거리는 태도 라는 뜻을 가진 사자성어는 무엇인가?</span></div>
-                                        <div th:classappend="${wq.answer}==1 ? 'color:accent-4'"><span>①</span><span class="pb:2 fw:bold num1">교언영색</span></div>
-                                        <div th:classappend="${wq.answer}==2 ? 'color:accent-4'"><span>②</span><span class="pb:2 fw:bold num2">곡학아세</span></div>
-                                        <div th:classappend="${wq.answer}==3 ? 'color:accent-4'"><span>③</span><span class="pb:2 fw:bold num3">다문박식</span></div>
-                                        <div th:classappend="${wq.answer}==4 ? 'color:accent-4'"><span>④</span><span class="pb:2 fw:bold num4">감언지지</span></div>
+                                        <div class="jc:center mt:1 context">지문</div>
+                                        <div><span class="pb:2 fw:bold num1">교언영색</span></div>
+                                        <div><span class="pb:2 fw:bold num2">곡학아세</span></div>
+                                        <div><span class="pb:2 fw:bold num3">다문박식</span></div>
+                                        <div><span class="pb:2 fw:bold num4">감언지지</span></div>
                                         <!-- <span class="pb:2 fw:bold color:accent-4 answer">답</span> -->
                                     </div>
-                                    <div><button id="close-btn" type="button" class="n-btn w:5">닫기</button>
+                                    <div class="txt-al:center"><button id="close-btn" type="button" class="n-btn w:5">닫기</button>
                                     </div>
                                 </section>
 

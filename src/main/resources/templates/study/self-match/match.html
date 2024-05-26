@@ -65,7 +65,7 @@
 
         <section class="d:none md:d:flex root-header-menu">
             <h1 class="d:none">접속중인 친구</h1>
-            <div class="d:flex gap:4"><span class="online-user"></span><span class="online-user"></span><span class="online-user"></span><span class="online-num">6</span></div>
+            <div class="d:flex gap:4"><span class="online-user"></span><span class="d:none online-user"></span><span class="d:none online-user"></span><span class="d:none online-num">6</span></div>
         </section>
         <nav class="root-header-menu">
             <h1 class="d:none">유저 메뉴</h1>
@@ -113,7 +113,7 @@
     
     <header class="d:flex mt:4 my:5">
         <h1 class="order:2 d:none white-space:nowrap">문제</h1>
-        <h1 class="order:2 white-space:nowrap">나의 상태<span class="ml:3 level">LV.5</span></h1>
+        <h1><span class="coco-name order:2 white-space:nowrap">로그인 해주세요</span><span class="ml:3 level">레벨</span></h1>
         <h1 class="order:2 d:none white-space:nowrap">스킬/도구</h1>
 
         <div class="d:none icon icon:arrow_left order:1 mr:1">뒤로가기 버튼</div> 
@@ -192,7 +192,7 @@
         <div class="d:none mt:10">답은 <span class="color:accent-4" th:text="${randQ.answer == 1 ? '①' : randQ.answer == 2 ? '②' : randQ.answer == 3 ? '③' : '④'}">②</span>
             <span class="color:accent-4" th:utext="${randQ.answer == 1 ? randQ.num1 : randQ.answer == 2 ? randQ.num2 : randQ.answer == 3 ? randQ.num3 : randQ.num4}">망</span>입니다.</div>   
         <div class="d:none mt:10">상대방은 간지러운듯 하다.</div>   
-        <div class="bebeaten d:none mt:10">상대방은 깨물기 공격을 했다.</div>   
+        <div class="bebeaten d:none mt:10">상대방은 화분을 던졌다.</div>   
         <div class="d:none mt:10 d:block">타격을 입어 HP가 <span>10</span>감소하였다. <span class="deco icon:skip deco-pos:right deco-size:1 deco-ml:0 icon-color:main-4">다음 문제를 풀자.</span></div>   
         <div class="end d:none mt:10"><span>코코</span>는 기분이 좋아보인다.</div>   
         <div class="system-comment mt:10"></div>   

@@ -16,7 +16,7 @@ import com.quizcoco.web.entity.Coco;
 import com.quizcoco.web.service.CocoService;
 
 @RequestMapping("api/cocos")
-@RestController
+@RestController("apiCocoController")
 public class CocoController {
 
     @Autowired

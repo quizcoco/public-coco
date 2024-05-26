@@ -3,7 +3,8 @@ let quizLists = document.querySelectorAll("div.report-box");
 let detailModal = document.querySelector("#detail-modal");
 let closeButton = document.querySelector("#close-btn");
 
-let question = detailModal.querySelector(".question");
+let questionM = detailModal.querySelector(".question");
+let context = detailModal.querySelector(".context");
 let num1 = detailModal.querySelector(".num1");
 let num2 = detailModal.querySelector(".num2");
 let num3 = detailModal.querySelector(".num3");
@@ -19,17 +20,24 @@ let answer = detailModal.querySelector(".answer");
         if(e.target.tagName!='SPAN')
             return;
         let questionData= e.target.dataset.question;
+        let contextData= e.target.dataset.context;
         let num1Data= e.target.dataset.num1;
         let num2Data= e.target.dataset.num2;
         let num3Data= e.target.dataset.num3;
         let num4Data= e.target.dataset.num4;
+        let answerData= e.target.dataset.answer;
+
         // console.log(quiz);
         detailModal.classList.remove("d:none");
-        question.innerHTML=questionData;
-        num1.innerHTML=num1Data;
-        num2.innerHTML=num2Data;
-        num3.innerHTML=num3Data;
-        num4.innerHTML=num4Data;
+        questionM.innerHTML=`- ${questionData}`;
+
+        context.innerHTML = contextData != null ? `<div class="bd p:3 jc:center mt:1 context">${contextData}</div>`: null ;
+
+
+        num1.innerHTML=answerData==1? `<span class="pb:2 fw:bold color:accent-4 answer">①${num1Data}</span>` :`<span>①${num1Data}</span>`;
+        num2.innerHTML=answerData==2? `<span class="pb:2 fw:bold color:accent-4 answer">②${num2Data}</span>` :`<span>②${num2Data}</span>`;
+        num3.innerHTML=answerData==3? `<span class="pb:2 fw:bold color:accent-4 answer">③${num3Data}</span>` :`<span>③${num3Data}</span>`;
+        num4.innerHTML=answerData==4? `<span class="pb:2 fw:bold color:accent-4 answer">④${num4Data}</span>` :`<span>④${num4Data}</span>`;
 
     //     let modalHTML=
 

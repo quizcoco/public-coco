@@ -184,8 +184,30 @@ window.OverworldMaps={ //각종맵객체.. 이게 config?????
                 talking:[{events:[
                     {type:"textMessage",text:"로그인 안하면 저장이 안돼요"},
                 ]}]
-                
-                
+            }),
+            bed:new Furniture({
+                x:utils.withGrid(10),
+                y:utils.withGrid(5),
+                src:"/image/room/bed.png",
+                width: 26,
+                height: 48,
+                shadow:true,
+                click:"board/reg",
+                talking:[{events:[
+                    {type:"textMessage",text:"따스한 침대다. "},
+                ]}]
+            }),
+            pot:new Furniture({
+                x:utils.withGrid(2),
+                y:utils.withGrid(5),
+                src:"/image/room/pot.png",
+                width: 32,
+                height: 32,
+                shadow:true,
+                click:"board/reg",
+                talking:[{events:[
+                    {type:"textMessage",text:"화분이 있다."},
+                ]}]
             }),
         },
         walls:{

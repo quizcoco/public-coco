@@ -20,6 +20,7 @@ let barStyle = hpProgressbar.querySelector("div>div");
 let hpNow =  hpProgressbar.querySelector(".hp-now");
 let hpTotal =  hpProgressbar.querySelector(".hp-total");
 let level =  document.querySelector(".level");
+let cocoName =  document.querySelector(".coco-name");
 
 
 
@@ -52,6 +53,7 @@ class Coco{
     async init() {
         let cocoData = await this.getCoco(); // 비동기로 getCoco 메서드 호출
         this.id = cocoData.id;
+        this.name = cocoData.name;
         this.hp = cocoData.hp;
         this.level = cocoData.level;
         this.skillId = cocoData.skillId;
@@ -91,7 +93,7 @@ class Coco{
 
         }, 1000);
                 enemy.takeDamage(this.damage);
-                systemMent.innerHTML=`코코는 앞발로 냥펀치를 날렸다.`;
+                systemMent.innerHTML=`코코는 벽돌을 날렸다.`;
                 break;
             case 'magic' :
                 //파이어볼
@@ -223,6 +225,7 @@ class Quiz{
 
     init() {
 
+        cocoName.textContent = this.coco.name ? this.coco.name+"의 레벨" : "로그인 해주세요";
         level.textContent = "LV."+this.coco.level;
         hpTotal.textContent=this.coco.hp; //토탈피통
         hpNow.textContent=this.coco.hp; 
@@ -429,7 +432,7 @@ else
 
                     let attackHtml=
                                 `<ul class="atk-item d:flex gap:4 mt:1 jc:start">
-                                    <li><label class="physical-atk btn-base ac:center txt-al:center"><input type="radio" name="sub">발차기</label></li>
+                                    <li><label class="physical-atk btn-base ac:center txt-al:center"><input type="radio" name="sub">물리공격</label></li>
                                     <li><label class="magical-atk btn-base ac:center txt-al:center"><input type="radio" name="sub">파이어볼</label></li>
                                     <li><label class="debuff btn-base ac:center txt-al:center w:2"><input type="radio" name="sub">공격 디버프</label></li>
                                 </ul>`;
@@ -798,8 +801,9 @@ async function runQuiz(){
 
         
 }
+document.addEventListener('DOMContentLoaded', runQuiz);
 
-runQuiz();
+// runQuiz();
 
 
 
