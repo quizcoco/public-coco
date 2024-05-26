@@ -81,7 +81,9 @@
                     <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
                     <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
                 <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="" class="fs:2" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a></li>
+                    <a href="" class="fs:2 pr:10" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a>
+                    <a class="fs:1 bd-bottom pl:10" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
+                </li>
                 <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                 <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                 <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
@@ -90,9 +92,6 @@
                 <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
                 <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
             </ul>
-            <div class="d:flex jc:flex-end pt:6">
-                <a class="fs:1 bd-bottom" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
-            </div>
         </nav>
         <div class="mobile-overlay"></div>
     </header>
