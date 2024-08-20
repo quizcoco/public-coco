@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.quizcoco.web.entity.ExamQuiz;
 import com.quizcoco.web.service.ExamQuizService;
 import com.quizcoco.web.service.UserQuizService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("study")
@@ -24,8 +26,9 @@ public class StudyController {
     public String studyIndex(Model model){
 
         // ExamQuiz latestQ = ((ExamQuizService) service).getLatestQuiz();
-        ExamQuiz latestQ = examservice.getLatestQuiz();
+        ExamQuiz latestQ = examservice.getLatestQuiz(); //오늘 올라온 문제
         model.addAttribute("latestQ", latestQ);
+        model.addAttribute("pageTitle","학습하기");
 
         return "study/index";
     }

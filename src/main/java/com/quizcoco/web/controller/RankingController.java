@@ -23,6 +23,8 @@ public class RankingController {
     public String ranking (Model model) {
         List<User> users = service.getUsersOrderByPoint();
         model.addAttribute("users", users);
+        model.addAttribute("pageTitle","순위");
+
 
         return "ranking/index";
     }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <aside class="d:none md:d:flex jc:center right:1 zi:1">
+        <div class="pos:fixed h:100p bg-color:main-2">
+            <nav class="d:flex jc:center">
+                <h1 class="d:none">pc 메뉴바</h1>
+                <ul class="d:grid gap:4 mt:7 w:min-content">
+                    <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
+                        <a href="" class="profile" 
+                        th:style="'background-image: url(' + ${currentUser.img != null ? '/img/user/' + currentUser.img : '../../image/man.png'} + ')'" 
+                        sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
+                        <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
+                    <li class="fs:1 bd-bottom">
+                        <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
+                        <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
+                            <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
+                            <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
+                    <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
+                    <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
+                    <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
+                    <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
+                </ul>
+            </nav>
+            <div class="d:flex jc:flex-end pr:3 pt:10">
+                <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
+            </div>
+        </div>
+    </aside>
+</html>
