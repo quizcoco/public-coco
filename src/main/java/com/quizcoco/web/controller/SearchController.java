@@ -25,6 +25,8 @@ public class SearchController {
 
         ExamQuiz randQ = service.getRand();
         model.addAttribute("randQ", randQ);
+        model.addAttribute("pageTitle","퀴즈검색");
+
 
         return "study/search/index";
     }
@@ -65,12 +67,17 @@ public class SearchController {
 
         model.addAttribute("list", list);
         model.addAttribute("count", count);
+        model.addAttribute("pageTitle","검색 결과");
+
 
         return "study/search/result";
     }
 
     @GetMapping("record")
-    public String searchRecord(){
+    public String searchRecord(Model model){
+
+        model.addAttribute("pageTitle","내가 본 문제 기록");
+
 
         return "study/search/record";
     }

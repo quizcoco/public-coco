@@ -34,13 +34,18 @@ public class StudyController {
     }
 
     @GetMapping("setting")
-    public String studySetting(){
+    public String studySetting(Model model){
+
+        model.addAttribute("pageTitle","퀴즈 설정");
+
 
         return "study/setting";
     }
 
     @GetMapping("userquiz/detailspeed")
-    public String settingSpeed(){
+    public String settingSpeed(Model model){
+        
+        model.addAttribute("pageTitle","속도 조절");
 
         return "study/userquiz/detailspeed";
     }

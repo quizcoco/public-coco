@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,10 @@ public class BoardController {
     private BoardService service;
 
     @GetMapping("reg")
-    public String reg(){
+    public String reg(Model model){
+
+        model.addAttribute("pageTitle","게시글 작성");
+
 
         return "board/reg";
         

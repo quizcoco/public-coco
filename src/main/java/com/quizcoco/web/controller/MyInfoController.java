@@ -82,7 +82,10 @@ public class MyInfoController {
         model.addAttribute("userExp", userExp);
 
         int userPoint = userService.getUserPoint(useredId);
-        model.addAttribute("userPoint", userPoint);                    
+        model.addAttribute("userPoint", userPoint);  
+        
+        model.addAttribute("pageTitle","내 정보");
+
 
         return "myinfo/index";
     }
@@ -93,6 +96,8 @@ public class MyInfoController {
         String userId = userDetails.getUsername();
         User currentUser = userService.getByUserName(userId);
         model.addAttribute("currentUser", currentUser);
+        model.addAttribute("pageTitle","내 정보 수정");
+
 
         return "myinfo/edit";
     }
@@ -160,19 +165,28 @@ public class MyInfoController {
 
 
     @GetMapping("bookmark")
-    public String bookmark() {
+    public String bookmark(Model model) {
+
+        model.addAttribute("pageTitle","북마크");
+
 
         return "myinfo/bookmark";
     }
 
     @GetMapping("stemp")
-    public String stemp() {
+    public String stemp(Model model) {
+
+        model.addAttribute("pageTitle","달성 스템프");
+
         
         return "myinfo/stemp";
     }
 
     @GetMapping("inventory")
-    public String inventory() {
+    public String inventory(Model model) {
+
+        model.addAttribute("pageTitle","유저 인벤토리");
+
 
         return "myinfo/inventory";
     }

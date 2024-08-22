@@ -57,7 +57,7 @@ public class WebSecurityConfig {
 					
 			.logout((logout) -> logout	
 			.logoutUrl("/logout")
-			.logoutSuccessUrl("/index")
+			.logoutSuccessUrl("/")
 			.invalidateHttpSession(true) //로그아웃시 사용자 섹션 삭제
 			.permitAll());
 

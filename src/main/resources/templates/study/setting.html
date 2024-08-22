@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="inc/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,50 +17,7 @@
     <script defer src="/js/header.js"></script>
 </head>
 <body>
- 
-    <header id="header" class="root-header pd-t:0 pos:sticky top:1 zi:1">
-        <h1 class="root-header-title d:none md:d:flex"><a href="/" class="header-font">QUIZCOCO</a><span class="white-space:nowrap ln-h:2">- 퀴즈 설정</span></h1>
-        <div class="header-ribbon-container md:d:none"><div class="box-under-shadow"></div> 
-            <h1 class="order:2"><span class="font-color:base-8 txt-al:center font-size:6 font-weight:1 pos:relative w:180px">퀴즈 설정</span></h1>
-            <div class="order:1"><a href="" class="icon icon:caret_left_bold icon-color:base-8 w:13px h:24px">뒤로가기 버튼</a></div>
-        </div>
-
-        <section class="d:none md:d:flex root-header-menu">
-            <h1 class="d:none">접속중인 친구</h1>
-            <div class="d:flex gap:4"><span class="online-user"></span><span class="d:none online-user"></span><span class="d:none online-user"></span><span class="d:none online-num">6</span></div>
-        </section>
-        <nav class="root-header-menu">
-            <h1 class="d:none">유저 메뉴</h1>
-            <ul class="md:d:none">
-                <li><a href="/admin" class="icon icon:admin">관리자-유저 전환</a></li>
-                <li><a href="/" class="icon-home">홈으로</a></li>
-                <li><a href="" id="m" class="icon icon:list">메뉴</a></li>
-            </ul>
-        </nav>
-        <nav class="menu d:none md:d:none">
-            <h1 class="d:none">모바일 메뉴바</h1>
-            <ul>
-                <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}">내정보</a>
-                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}">내정보</a>
-                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>></a></li>
-                <li><a href="" class="fs:2" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="" class="fs:2 pr:10" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname" th:href="@{/myinfo}">로그인</a>
-                    <a class="fs:1 bd-bottom pl:10" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
-                </li>
-                <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
-                <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
-                <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
-            </ul>
-        </nav>
-        <div class="mobile-overlay"></div>
-    </header>
-
-    <main class="of:auto">
-<!--=========================== 메인에 입력 ===============================-->
+    <main layout:fragment="main" class="of:auto">
 <section class="list-width:2 jc:center mx:7 my:7">
     <h1 class="d:none">학습하기 설정</h1>
     <div class="display:flex fl-direction:column row-gap:5 ai:center">
@@ -89,39 +48,5 @@
 </section>
            
    </main>
-
-   <aside class="d:none md:d:flex jc:center right:1 zi:1">
-    <div class="pos:fixed h:100p bg-color:main-2">
-        <nav class="d:flex jc:center">
-            <h1 class="d:none">pc 메뉴바</h1>
-            <ul class="d:grid gap:4 mt:7 w:min-content">
-                <li class="profile-place"><a href="" class="profile" sec:authorize="isAnonymous()" th:href="@{/user/login}"></a>
-                    <a href="" class="profile" sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
-                    <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
-                <li class="fs:1 bd-bottom">
-                    <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                    <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
-                        <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
-                        <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
-                <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
-                <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:team">팀</a></li>
-                <li><a href="/ranking" class="deco deco-margin-right:8 icon:rank">순위</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:mail">우편함</a></li>
-                <li><a href="/setting" class="deco deco-margin-right:8 icon:setting">설정</a></li>
-                <li><a href="" class="deco deco-margin-right:8 icon:admin" sec:authorize="hasRole('ADMIN')" th:href="@{/admin/index}">관리자</a></li>
-            </ul>
-        </nav>
-        <div class="d:flex jc:flex-end pr:3 pt:10">
-            <a class="fs:1 bd-bottom" href="" sec:authorize="isAuthenticated()" th:href="@{/logout}">logout</a>
-        </div>
-    </div>
-</aside>
-
-<footer class="ad md:d:none d:flex jc:center ai:center">
-    <div>광고</div>
-</footer>
-
 </body>
 </html>

@@ -18,10 +18,12 @@ public class GlobalControllerAdvice {
 
     @ModelAttribute
     public void currentUser(@AuthenticationPrincipal CocoUserDetails userDetails, Model model){
+        if (userDetails != null) {
         String userId = userDetails.getUsername();
         User currentUser = userService.getByUserName(userId);
        
         model.addAttribute("currentUser", currentUser);
+        }
 
     }
     

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="inc/layout">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +17,7 @@
     <script defer src="/js/header.js"></script>
 </head>
 <body>
-    <main class="of:auto ac:center">
+    <main layout:fragment="main" class="of:auto ac:center">
         <section class="d:flex jc:center">
             <nav class="d:flex fl-direction:column jc:center ac:center">
                 <h1 class="d:none">설정 메뉴</h1>

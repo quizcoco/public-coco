@@ -35,6 +35,8 @@ public class MatchController {
         ExamQuiz randQ = examQService.getRand();
 
         model.addAttribute("randQ", randQ);
+        model.addAttribute("pageTitle","혼자 연습 대결");
+
 
         return "study/self-match/match";
 
@@ -53,6 +55,8 @@ public class MatchController {
     //   }
     //   System.out.println(list);
     //   model.addAttribute("wrongQ", list);
+        model.addAttribute("pageTitle","연습 결과 보고서");
+
       
         
         return "study/self-match/report";

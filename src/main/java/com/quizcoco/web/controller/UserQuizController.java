@@ -60,6 +60,8 @@ public class UserQuizController {
 
         model.addAttribute("userQuiz", userQuizView);
         model.addAttribute("uqcount", UQcount);
+        model.addAttribute("pageTitle","내가 만든 퀴즈");
+
 
         return "study/userquiz/list";
     }   
@@ -109,6 +111,8 @@ public class UserQuizController {
                                     
         count = service.getCount(userId);
         model.addAttribute("count", count);
+        model.addAttribute("pageTitle","내 퀴즈 보기");
+
 
         return "study/userquiz/detail";
     }
@@ -145,7 +149,10 @@ public class UserQuizController {
 
     // 유저 문제 등록 페이지
     @GetMapping("reg")
-    public String reg() {
+    public String reg(Model model) {
+
+        model.addAttribute("pageTitle","내 퀴즈 등록");
+
 
         return "study/userquiz/reg";
     }
@@ -181,6 +188,8 @@ public class UserQuizController {
                         ,@AuthenticationPrincipal CocoUserDetails userDetails
                         ,@RequestParam(name = "category") String cate
                         ,Model model){
+        
+        model.addAttribute("pageTitle","내 퀴즈 수정");
 
         return "study/userquiz/edit";
     }
