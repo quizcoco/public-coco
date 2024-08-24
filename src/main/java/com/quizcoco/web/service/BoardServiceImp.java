@@ -22,5 +22,12 @@ public class BoardServiceImp implements BoardService {
 
          return affected;
     }
+
+    @Override
+    public List<Board> getList() {
+
+      List<Board> list = repository.findAll();
+      return list;
+    }
     
 }

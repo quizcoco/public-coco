@@ -60,3 +60,31 @@
   .preview-panel img.slide-in{
     transform: rotate(360deg);
   }    
+
+  /*================= 리스트 ============================*/
+
+  .board-list{
+    display: grid;
+    grid-template: 
+      "no title date recommend hit" 25px
+      /50px auto 80px 50px 50px;
+    place-items: center;
+
+  }
+
+  .board-no{
+    grid-area: no;
+  }
+  .board-title{
+    grid-area: title;
+  }
+  .board-date{
+    grid-area: date;
+  }
+  .board-recommend{
+    grid-area: recommend;
+  }
+  .board-hit{
+    grid-area: hit;
+  }
+

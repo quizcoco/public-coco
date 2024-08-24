@@ -2,6 +2,7 @@ package com.quizcoco.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,19 @@ public class BoardController {
 
     @Autowired
     private BoardService service;
+
+    @GetMapping("list")
+    public String list(Model model){
+
+        List<Board> list = service.getList();
+
+
+        model.addAttribute("boardList",list);
+        model.addAttribute("pageTitle","자유 게시판");
+
+        return "board/list";
+        
+    }
 
     @GetMapping("reg")
     public String reg(Model model){
@@ -67,7 +81,7 @@ public class BoardController {
         //board.setImg(fileName);
         service.add(board,fileNames);
 
-        return "redirect:reg";
+        return "redirect:list";
     }
 }
 

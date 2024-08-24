@@ -11,10 +11,10 @@
                         sec:authorize="isAuthenticated()" th:href="@{/myinfo}"></a>
                         <a href="/myinfo/edit" class="icon icon:myinfo arrow">>p></a></li>
                     <li class="fs:1 bd-bottom">
-                        <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인</a>
-                        <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">로그인</a>
-                            <span>Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">5</span>
-                            <br><a href="/myinfo/inventory" class="pr:1">인벤토리</a><a href="/myinfo/bookmark">북마크</a></li>
+                        <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">로그인해주세요.</a>
+                        <a href="/myinfo" sec:authorize="isAuthenticated()" sec:authentication="principal.nickname">닉네임</a>
+                            <span sec:authorize="isAuthenticated()">Lv</span><span sec:authorize="isAuthenticated()" sec:authentication="principal.level">0</span>
+                            <br><a href="/myinfo/inventory" sec:authorize="isAuthenticated()" class="pr:1">인벤토리</a><a sec:authorize="isAuthenticated()" href="/myinfo/bookmark">북마크</a></li>
                     <li><a href="" class="deco deco-margin-right:8 deco-size:6 icon:calendar_blank">활동하기</a></li>
                     <li><a href="/study" class="deco deco-margin-right:8 icon:learning">학습하기</a></li>
                     <li><a href="" class="deco deco-margin-right:8 icon:friend">친구</a></li>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="inc/layout">
+<head>
+    <link href="/css/board.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <main layout:fragment="main" class="of:auto">
+        <section>
+            <h1 class="d:none">유저 자유 게시판</h1>
+            <div class="d:flex">
+                <section class="d:flex">
+                    <h1 class="d:none">정렬 메뉴</h1>
+                    <div>
+                        <select name="c">
+                            <option value="0" th:selected="${{param.c}}==0">전체글</option>
+                            <option value="10" th:selected="${{param.c}}==10">추천 10</option>
+                            <option value="30" th:selected="${{param.c}}==30">추천 30</option>
+                            <option value="50" th:selected="${{param.c}}==50">추천 50</option>
+                        </select>
+                    </div> 
+                    <div> 
+                        <select name="s">
+                            <option value="15" th:selected="${{param.s}}==15">15개</option>
+                            <option value="20" th:selected="${{param.s}}==20">20개</option>
+                            <option value="30" th:selected="${{param.s}}==30">30개</option>
+                            <option value="50" th:selected="${{param.s}}==50">50개</option>
+                        </select>
+                    </div> 
+                </section>
+                <section>
+                    <h1 class="d:none">검색</h1>
+                    <div><input placeholder="검색어 입력"><button>검색</button></div>
+                </section>
+                <div class="m-left:auto"><a href="reg">작성</a></div>
+            </div>
+            <section>
+                <h1 class="d:none">구분</h1>
+                <ul class="board-list">
+                    <li class="board-no">글번호</li>
+                    <li class="board-title">제목</li>
+                    <li class="board-date">작성일</li>
+                    <li class="board-recommend">추천</li>
+                    <li class="board-hit">조회수</li>
+                </ul>
+            </section>
+            <section th:each="list:${boardList}" 
+                    th:with="minSec = ${#temporals.format(list.regDate,'HH:mm')}
+                            ,date = ${#temporals.format(list.regDate,'MM.dd')}
+                            ,yyyyRegDate = ${#temporals.format(list.regDate,'yyyy.MM.dd')}
+                            ,yyRegDate = ${#temporals.format(list.regDate,'yy.MM.dd')}
+                            ,regYear = ${#temporals.format(list.regDate,'yyyy')}
+                            ,thisYear = ${#temporals.format(#temporals.createToday(), 'yyyy')}
+                            ,today = ${#temporals.format(#temporals.createToday(), 'yyyy.MM.dd')}
+                            ,displayDate = ${regYear==thisYear} ?(${today == yyyyRegDate} ? ${minSec} : ${date}) : ${yyRegDate}">
+                <h1 class="d:none">게시글</h1>
+                <ul class="board-list">
+                    <li class="board-no" th:text="${list.id}">1</li>
+                    <li class="board-title" th:text="${list.title}">글</li>
+                    <li class="board-date" th:text="${displayDate}">8-24</li>
+                    <li class="board-recommend">0</li>
+                    <li class="board-hit" th:text="${list.viewCount}">2</li>
+                </ul>
+            </section>
+            <section><h1 class="d:none">페이저</h1></section>
+        </section>
+
+
+           
+   </main>
+</body>
+</html>
