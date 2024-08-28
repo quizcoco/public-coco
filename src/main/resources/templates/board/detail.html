@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="inc/layout">
+<head>
+    <link href="/css/board.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+    <main layout:fragment="main" class="of:auto">
+    <section class="post-page board-margin post-bottom-border pb:6">
+        <h1 class="post-title fw:bold fs:6" th:text="${post.title}">제목</h1>
+        <div class="d:flex post-top-border fs:1">
+            <div class="post-hit d:flex mr:1"><p>조회수</p><p th:text="${post.viewCount}">0</p></div>
+            <div class="post-hit d:flex"><p>추천</p><p>0</p></div>
+            <div class="post-hit ml:auto" th:text="${#temporals.format(post.regDate,'yyyy.MM.dd HH:mm:ss')}">시간</div>
+        </div>
+        <div class="post-content" th:text="${post.content}">내용</div>
+        <div class="post-image" th:if="${post.img} != null"><img th:each="image:${post.img}" th:src="@{'/img/board/' + ${image.imageUrl}}"></div>
+    </section>
+    <section class="board-margin d:flex">
+        <h1 class="d:none">고정 조작버튼</h1>
+        <div class="d:flex order:2 ml:auto">
+            <div sec:authorize="isAuthenticated()" th:if="${post.userId==currentUser.id}"><a href="edit" th:href="@{edit(id=${post.id})}">수정</a></div>
+            <form method="post" action="del" sec:authorize="isAuthenticated()" th:if="${post.userId==currentUser.id}"><button name="id" th:value="${post.id}">삭제</button></form>
+            <div><a href="reg" sec:authorize="isAuthenticated()">작성</a><a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">작성</a></div>
+        </div>
+        <div class="d:flex order:1">
+            <div class="order:3">좋아요</div>
+            <div class="order:2">댓글</div>
+            <div class="order:1"><a href="list">목록</a></div>
+        </div>
+    </section>
+    <section class="board-margin mt:9">
+        <h1 class="d:none">목록</h1>
+        <section>
+            <h1 class="d:none">구분</h1>
+            <ul class="board-list header-border">
+                <li class="board-no">글번호</li>
+                <li class="board-title">제목</li>
+                <li class="board-date">작성일</li>
+                <li class="board-recommend">추천</li>
+                <li class="board-hit">조회수</li>
+            </ul>
+        </section>
+        <section th:each="list:${boardList}" 
+                th:with="minSec = ${#temporals.format(list.regDate,'HH:mm')}
+                        ,date = ${#temporals.format(list.regDate,'MM.dd')}
+                        ,yyyyRegDate = ${#temporals.format(list.regDate,'yyyy.MM.dd')}
+                        ,yyRegDate = ${#temporals.format(list.regDate,'yy.MM.dd')}
+                        ,regYear = ${#temporals.format(list.regDate,'yyyy')}
+                        ,thisYear = ${#temporals.format(#temporals.createToday(), 'yyyy')}
+                        ,today = ${#temporals.format(#temporals.createToday(), 'yyyy.MM.dd')}
+                        ,displayDate = ${regYear==thisYear} ?(${today == yyyyRegDate} ? ${minSec} : ${date}) : ${yyRegDate}">
+            <h1 class="d:none">게시글</h1>
+            <ul class="board-list title-border" th:classappend="${post.id==list.id} ? 'current-post'">
+                <li class="board-no" th:text="${list.id}">1</li>
+                <li class="board-title js:start ml:10">
+                    <a href="detail?id=" th:href="@{detail(id=${list.id})}" th:text="${list.title}">글</a>
+                </li>
+                <li class="board-date" th:text="${displayDate}">8-24</li>
+                <li class="board-recommend">0</li>
+                <li class="board-hit" th:text="${list.viewCount}">2</li>
+            </ul>
+        </section>
+        <section><h1 class="d:none">페이저</h1></section>
+    </section>
+    
+           
+   </main>
+</body>
+</html>

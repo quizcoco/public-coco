@@ -4,23 +4,88 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.quizcoco.web.repository.BoardRepository">
 
+
+<resultMap id="BoardResultMap" type="Board">
+    <id property="id" column="id"/>
+    <result property="title" column="title"/>
+    <result property="content" column="content"/>
+    <result property="regDate" column="reg_date"/>
+    <result property="viewCount" column="view_count"/>
+    <result property="userId" column="user_id"/>
+    <collection property="img" ofType="BoardImage" column="id" javaType="ArrayList" select="findImgByBoardId"/>
+</resultMap>
+
+
 <select id="findAll" resultType="Board">
 select * from board order by reg_date desc
 </select>
 
-<insert id="save" parameterType="Board">
+
+<select id="findById" resultType="Board">
+select * from board where id=#{id}
+</select>
+
+<insert id="save" parameterType="Board" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO board
 		(
             title,
-            img,
-            content
+            content,
+            user_id
 		)
 		VALUES
 		(
             #{title},
-            #{img},
-            #{content}
+            #{content},
+            #{userId}
 		)
 		
 	</insert>
+
+<!-- 조회수,수정 -->
+<update id="update" parameterType="com.quizcoco.web.entity.Board">
+        
+            UPDATE board
+            SET
+                 title=#{title}
+                ,content=#{content}
+                ,view_count = #{viewCount}
+            where
+                id = #{id}
+        
+</update>
+
+<delete id="deleteById" parameterType="Long">
+        
+      DELETE FROM board
+      WHERE id = #{id}
+</delete>
+
+
+<!-- ====================== 이미지 ========================= -->
+
+
+<select id="findImgByBoardId" resultType="BoardImage">
+select * from board_image where board_id=#{boardId}
+</select>
+
+<insert id="insertImg" parameterType="BoardImage">
+		INSERT INTO board_image
+		(
+            image_url
+            ,board_id
+		)
+		VALUES
+		(
+            #{imageUrl}
+            ,#{boardId}
+		)
+		
+	</insert>
+
+<delete id="deleteImgById" parameterType="Long">
+        
+     DELETE FROM board_image
+        WHERE id = #{id}
+</delete>
+       
 </mapper>

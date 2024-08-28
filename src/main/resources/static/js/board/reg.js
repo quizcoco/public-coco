@@ -17,6 +17,51 @@ InputFileList.prototype={
     }
 }
 
+
+function readFile(file,previewPanel){
+
+    if(file.type.indexOf("image/")!=0){
+        alert ("이미지만 업로드할 수 있습니다.");
+        return;
+    }
+
+    if(file.size > 10*1024*1024) {
+        alert ("이미지가 용량(10MB)을 초과했습니다.");
+        return;
+    }
+    
+
+   var reader = new FileReader();
+   reader.onload =function(e){
+
+    var imgContainer = document.createElement("div"); // 이미지와 X를 감싸는 컨테이너
+    imgContainer.classList.add("img-container");
+
+    var img = document.createElement("img");
+    img.src = e.target.result;
+
+    var removeBtn = document.createElement("span"); // X표시
+    removeBtn.textContent = "X";
+    removeBtn.classList.add("remove-btn");
+
+    removeBtn.onclick = function () {
+        previewPanel.removeChild(imgContainer); // 이미지 삭제
+    }
+
+    // previewPanel.append(img);
+    imgContainer.appendChild(img);
+    imgContainer.appendChild(removeBtn);
+    previewPanel.appendChild(imgContainer);
+
+    setTimeout(()=>{
+        img.classList.add("slide-in");      // 이미지 회전 효과
+    },10);
+   }   
+   reader.readAsDataURL(file);
+
+
+}
+
 var regForm = this.document.querySelector("#reg-form");
 var imgInput = regForm.querySelector(".img-input");
 var previewPanel = regForm.querySelector(".preview-panel");
@@ -60,55 +105,19 @@ imgLabel.ondrop=function(e){
 
     new InputFileList(imgInput).add(file);
 
-    if(file.type.indexOf("image/")!=0){
-        alert ("이미지만 업로드할 수 있습니다.");
-        return;
-    }
-
-    if(file.size > 10*1024*1024) {
-        alert ("이미지가 용량(10MB)을 초과했습니다.");
-        return;
-    }
-        // alert("성공!");
-
-   var reader = new FileReader();
-   reader.onload =function(e){
-    var img = document.createElement("img");
-    img.src = e.target.result;
-
-    previewPanel.append(img);
-    setTimeout(()=>{
-        img.classList.add("slide-in");      // 이미지 회전 효과
-    },10);
-   }   
-   reader.readAsDataURL(file);
+    readFile(file,previewPanel);
 
 }
 
 imgInput.oninput = function(e){
 
-    var file = imgInput.files[0];
+    // var file = imgInput.files[0];
 
-    if(file.type.indexOf("image/")!=0){
-        alert ("이미지만 업로드할 수 있습니다.");
-        return;
-    }
 
-    if(file.size > 10*1024*1024) {
-        alert ("이미지가 용량(10MB)을 초과했습니다.");
-        return;
-    }
-        // alert("성공!");
+    var images = imgInput.files.length;
+        for (var i = 0; i < images; i++) {
+            var file = imgInput.files[i];
 
-   var reader = new FileReader();
-   reader.onload =function(e){
-    var img = document.createElement("img");
-    img.src = e.target.result;
-
-    previewPanel.append(img);
-    setTimeout(()=>{
-        img.classList.add("slide-in");      // 이미지 회전 효과
-    },10);
-   }   
-   reader.readAsDataURL(file);
+    readFile(file,previewPanel);
+        }
 }

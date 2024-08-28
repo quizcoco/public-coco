@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="inc/layout">
+<head>
+    <link href="/css/board.css" rel="stylesheet" type="text/css">
+    <script defer src="/js/board/reg.js"></script>
+    <script defer src="/js/board/edit.js"></script>
+</head>
+<body>
+ 
+    <main layout:fragment="main" class="of:auto">
+<section id="reg-form" class="d:flex jc:center ai:center p:8">
+    <h1 class="d:none">유저 게시판 수정 폼</h1>         
+    <form method="post" enctype="multipart/form-data" action="edit" th:action="@{edit(id=${post.id})}" class="d:flex fl-dir:column">
+        <div class="d:flex fl-dir:row">
+            <label class="d:flex fl-dir:row w:1">제목</label>
+            <input type="text" name="title" class="n-textbox n-textbox-user mb:2" th:value="${post.title}"/>
+        </div>
+        <div class="d:flex fl-dir:row">
+            <label class="d:flex fl-dir:row w:1">본문</label>
+            <textarea type="text" name="content" class="n-textbox h:9 n-textbox-user my:2" th:text="${post.content}"></textarea>
+        </div>
+        <div class="img-label d:flex fl-dir:row my:2">
+            
+            <label class="d:flex fl-dir:row ai:center">이미지첨부
+                <input type="file" name="img-file" class="img-input vis:hidden" multiple/>
+                <span class="n-btn n-btn:filled-2">열기</span>
+            </label>
+        </div>
+        <div class="preview-panel d:flex ai:center jc:center">
+            <div th:if="${post.img}!=null" class="img-container" th:each="image:${post.img}">
+                <img src="" th:src="@{/img/board/{img}(img=${image.imageUrl})}" ><span class="remove-btn" th:data-url="${image.imageUrl}">X</span>
+                <input type="hidden" name="existing-img" th:value="${image.imageUrl}">
+                <!-- List로 받기 -->
+            </div>
+
+
+        </div>
+        <div class="d:flex fl-dir:row gap:3 jc:flex-end">
+            <button class="n-btn n-btn:filled-2">수정</button>
+            <a href="list" class="n-btn n-btn:filled-2">취소</a>
+        </div>
+    </form>     
+</section> 
+           
+   </main>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

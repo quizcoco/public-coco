@@ -8,7 +8,7 @@ layout:decorate="inc/layout">
 
 <body>
     <main layout:fragment="main" class="of:auto">
-        <section>
+        <section class="board-margin">
             <h1 class="d:none">유저 자유 게시판</h1>
             <div class="d:flex">
                 <section class="d:flex">
@@ -34,11 +34,14 @@ layout:decorate="inc/layout">
                     <h1 class="d:none">검색</h1>
                     <div><input placeholder="검색어 입력"><button>검색</button></div>
                 </section>
-                <div class="m-left:auto"><a href="reg">작성</a></div>
+                <div class="m-left:auto">
+                    <a href="reg" sec:authorize="isAuthenticated()">작성</a>
+                    <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">작성</a>
+                </div>
             </div>
             <section>
                 <h1 class="d:none">구분</h1>
-                <ul class="board-list">
+                <ul class="board-list header-border">
                     <li class="board-no">글번호</li>
                     <li class="board-title">제목</li>
                     <li class="board-date">작성일</li>
@@ -56,9 +59,9 @@ layout:decorate="inc/layout">
                             ,today = ${#temporals.format(#temporals.createToday(), 'yyyy.MM.dd')}
                             ,displayDate = ${regYear==thisYear} ?(${today == yyyyRegDate} ? ${minSec} : ${date}) : ${yyRegDate}">
                 <h1 class="d:none">게시글</h1>
-                <ul class="board-list">
+                <ul class="board-list title-border">
                     <li class="board-no" th:text="${list.id}">1</li>
-                    <li class="board-title" th:text="${list.title}">글</li>
+                    <li class="board-title js:start ml:10"><a href="detail?id=" th:href="@{detail(id=${list.id})}" th:text="${list.title}">글</a></li>
                     <li class="board-date" th:text="${displayDate}">8-24</li>
                     <li class="board-recommend">0</li>
                     <li class="board-hit" th:text="${list.viewCount}">2</li>
