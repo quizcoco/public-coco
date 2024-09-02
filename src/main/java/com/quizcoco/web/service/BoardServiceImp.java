@@ -6,10 +6,16 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
+import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.Board;
 import com.quizcoco.web.entity.BoardImage;
+import com.quizcoco.web.entity.User;
 import com.quizcoco.web.repository.BoardRepository;
 
 @Service
@@ -17,6 +23,9 @@ public class BoardServiceImp implements BoardService {
     
     @Autowired
     public BoardRepository repository;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public int add (Board board,List<String> fileNames) {
@@ -47,7 +56,7 @@ public class BoardServiceImp implements BoardService {
 
     @Override
     public void delById(Long id) {
-      
+
       repository.deleteById(id);
     }
 
@@ -59,6 +68,7 @@ public class BoardServiceImp implements BoardService {
       return board;
     }
 
+    @PreAuthorize("isAuthenticated() and ( @boardServiceImp.isOwner(#board.id))") //인가처리
     @Override
     public void edit(Board board, List<String> fileNames ) {
       
@@ -97,6 +107,19 @@ public class BoardServiceImp implements BoardService {
       }
     }
 
+    public boolean isOwner(Long boardId){
 
-    
+      Board board = getById(boardId);
+
+      Long userId = board.getUserId(); //작성자
+      Long currentUserId = userService.getCurrentUserId(); //현재 사용자
+
+      //작성자와 현재 사용자 비교
+      if(!userId.equals(currentUserId)){
+        throw new AccessDeniedException("게시글 권한이 없습니다.");
+      }
+      return userId.equals(currentUserId);
+
+  }
+
 }

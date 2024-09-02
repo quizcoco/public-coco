@@ -15,14 +15,18 @@ layout:decorate="inc/layout">
             <div class="post-hit d:flex"><p>추천</p><p>0</p></div>
             <div class="post-hit ml:auto" th:text="${#temporals.format(post.regDate,'yyyy.MM.dd HH:mm:ss')}">시간</div>
         </div>
-        <div class="post-content" th:text="${post.content}">내용</div>
-        <div class="post-image" th:if="${post.img} != null"><img th:each="image:${post.img}" th:src="@{'/img/board/' + ${image.imageUrl}}"></div>
+        <div class="post-content" th:utext="${post.content}">내용</div>
+        <!-- <div class="post-image" th:if="${post.img} != null"><img th:each="image:${post.img}" th:src="@{'/img/board/' + ${image.imageUrl}}"></div> -->
     </section>
     <section class="board-margin d:flex">
         <h1 class="d:none">고정 조작버튼</h1>
         <div class="d:flex order:2 ml:auto">
             <div sec:authorize="isAuthenticated()" th:if="${post.userId==currentUser.id}"><a href="edit" th:href="@{edit(id=${post.id})}">수정</a></div>
-            <form method="post" action="del" sec:authorize="isAuthenticated()" th:if="${post.userId==currentUser.id}"><button name="id" th:value="${post.id}">삭제</button></form>
+            <form method="post" action="del" sec:authorize="isAuthenticated()" th:if="${post.userId==currentUser.id}">
+                <!-- <input type="hidden" name="_csrf" th:value="${_csrf.token}" /> -->
+                <input type="hidden" name="id" th:value="${post.id}" />
+                <button>삭제</button>
+            </form>
             <div><a href="reg" sec:authorize="isAuthenticated()">작성</a><a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">작성</a></div>
         </div>
         <div class="d:flex order:1">

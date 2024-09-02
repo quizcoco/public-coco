@@ -2,11 +2,17 @@ package com.quizcoco.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -94,22 +100,33 @@ public class BoardController {
                             ,@AuthenticationPrincipal CocoUserDetails userDetails
                             ,@RequestParam("img-file") List<MultipartFile> imgFiles
                             ,HttpServletRequest request) throws IllegalStateException, IOException {
+                                
+                                Long userId=null;
+                                if(userDetails!=null)
+                                userId = userDetails.getId();
+                                
+                            System.out.println("뭐 길면 얼마나길다고 지랄.."+board.getContent());
+                                // HTML 파싱을 위한 Jsoup 사용
+                            String contentHtml = board.getContent();  // 게시판 내용 (텍스트 + 이미지 포함)
+                            Document doc = Jsoup.parse(contentHtml);
 
-        Long userId=null;
-        if(userDetails!=null)
-            userId = userDetails.getId();
+                            List<String> fileNames = new ArrayList<>();
+                            String fileName = "";
+                            String path = "/img/board";
+                            
+                            Elements imgElements = doc.select("img");
 
-
-        List<String> fileNames = new ArrayList<>();
-        for (MultipartFile imgFile : imgFiles)
-        {                       
-            String fileName = "";
+        // for (MultipartFile imgFile : imgFiles){
+    if (!imgFiles.isEmpty() && !imgElements.isEmpty()) {
+        for (int i = 0; i < imgFiles.size(); i++) {
+            MultipartFile imgFile = imgFiles.get(i);
+            Element imgElement = imgElements.get(i); // 현재 img 태그
+                              
 
             if(imgFile != null && !imgFile.isEmpty())   
             {
                 fileName = imgFile.getOriginalFilename();
                 fileName = UUID.randomUUID().toString() + "_" + fileName;
-                String path = "/img/board";
             
                 String realPath = request.getServletContext().getRealPath(path);
                 File pathFile = new File(realPath);
@@ -117,12 +134,21 @@ public class BoardController {
                     pathFile.mkdirs();
                 File file = new File(realPath+File.separator+fileName);
                 
-                imgFile.transferTo(file); //이미지를 경로에 저장
+                Elements spanElements = doc.select("span"); //span태그 제거
+                spanElements.remove();
 
+                imgFile.transferTo(file); //이미지를 경로에 저장
+                
+                imgElement.attr("src", path + "/" + fileName);
                 fileNames.add(fileName);
             }
         }
+    }
+        // 이미지 태그 추출 및 파일로 저장
+        // for (Element img : imgElements) {
+        // }
           
+        board.setContent(doc.body().html());
         board.setUserId(userId);
         service.add(board,fileNames);
 
@@ -179,8 +205,10 @@ public class BoardController {
         return "redirect:list";
     }
 
+    @PreAuthorize("isAuthenticated() and ( @boardServiceImp.isOwner(#id))") //인가처리
     @PostMapping("del")
     public String del(Long id) {
+
         service.delById(id);
         
         return "redirect:list";

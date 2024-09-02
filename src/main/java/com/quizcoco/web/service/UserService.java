@@ -22,4 +22,7 @@ public interface UserService {
     int getUserLevel(Long useredId);
     int getUserPoint(Long useredId);
 
+
+    Long getCurrentUserId();
+
 }

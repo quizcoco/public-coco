@@ -18,7 +18,9 @@ layout:decorate="inc/layout">
         </div>
         <div class="d:flex fl-dir:row">
             <label class="d:flex fl-dir:row w:1">본문</label>
-            <textarea type="text" name="content" class="n-textbox h:9 n-textbox-user my:2"></textarea>
+            <!-- <textarea type="text" name="content" class="n-textbox h:9 n-textbox-user my:2"></textarea> -->
+             <div name="contentData" contenteditable="true" class="n-textbox h:9 n-textbox-user my:2"></div>
+             <input type="hidden" name="content"/>
         </div>
         <div class="img-label d:flex fl-dir:row my:2">
             <label class="d:flex fl-dir:row ai:center">이미지첨부

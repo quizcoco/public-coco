@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.config.security.CocoUserDetailsService;
 import com.quizcoco.web.entity.MemberRole;
 import com.quizcoco.web.entity.User;
@@ -128,4 +129,18 @@ public class UserServiceImp implements UserService {
         return repository.findPointByUserId(useredId);
     }
 
+    //=====================================================================
+    @Override
+    public Long getCurrentUserId() {
+
+
+        CocoUserDetails user = (CocoUserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        Long currentUserId = null; 
+        if(user != null)
+        currentUserId=user.getId();
+
+        return currentUserId;
+
+    }
 }
