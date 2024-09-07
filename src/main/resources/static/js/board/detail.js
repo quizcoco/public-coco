@@ -6,6 +6,50 @@ const cmtBtn = this.document.querySelector(".cmt-btn");
 const postId = cmtSection.getAttribute("data-id");
 const postUserId = cmtSection.getAttribute("data-post-user-id");
 const currentUserId = cmtSection.getAttribute("data-current-user-id")||null; 
+
+const likeBtn = document.querySelector("#like");
+const likeNum = likeBtn.querySelector(".like-number")
+
+//==================좋아요======================
+async function loadlikesCount() {
+
+const response = await fetch(`/api/post-likes/countLikes?id=${postId}`);
+const list = await response.text(); // JSON 데이터 파싱
+likeNum.textContent=list;
+}
+loadlikesCount();
+
+async function cancelLikes() {
+
+    const response = await fetch(`/api/post-likes/unlike`, {
+        method: 'POST', // POST
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postId)
+        });
+
+    await loadlikesCount();
+}
+
+
+likeBtn.addEventListener("click",async()=>{
+    const response = await fetch(`/api/post-likes/like`, {
+        method: 'POST', // POST
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postId)
+        });
+        if(!response.ok)
+            return await cancelLikes();//여기서 지우기 함수
+
+        await loadlikesCount();
+
+})
+
+
+
 //=============코멘트 부르기==================
 
 async function loadComments() {

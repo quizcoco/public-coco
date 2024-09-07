@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Boardrecommend {
+public class BoardRecommend {
 
+    private Long id;
     private Long userId;
     private Long postId;
     private LocalDateTime regDate;

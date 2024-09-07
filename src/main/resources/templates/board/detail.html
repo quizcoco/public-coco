@@ -13,7 +13,7 @@ layout:decorate="inc/layout">
         <h1 class="post-title fw:bold fs:6" th:text="${post.title}">제목</h1>
         <div class="d:flex post-top-border fs:1">
             <div class="post-hit d:flex mr:1"><p>조회수</p><p th:text="${post.viewCount}">0</p></div>
-            <div class="post-hit d:flex"><p>추천</p><p>0</p></div>
+            <div class="post-hit d:flex"><p>추천</p><p th:text="${likeCount}">0</p></div>
             <div class="post-hit ml:auto" th:text="${#temporals.format(post.regDate,'yyyy.MM.dd HH:mm:ss')}">시간</div>
         </div>
         <div class="post-content" th:utext="${post.content}">내용</div>
@@ -31,7 +31,7 @@ layout:decorate="inc/layout">
             <div class="n-btn n-btn:filled ml:1"><a href="reg" sec:authorize="isAuthenticated()">작성</a><a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">작성</a></div>
         </div>
         <div class="d:flex order:1">
-            <div class="order:3 n-btn n-btn:filled">이 글에 좋아요</div>
+            <div id="like" class="order:3 n-btn n-btn:filled">좋아요<span class="like-number">0</span></div>
             <div class="order:2 d:none">댓글</div>
             <div class="order:1 n-btn n-btn:filled mr:1"><a href="list">목록</a></div>
         </div>
@@ -81,9 +81,10 @@ layout:decorate="inc/layout">
                 <li class="board-no" th:text="${list.id}">1</li>
                 <li class="board-title js:start ml:10">
                     <a href="detail?id=" th:href="@{detail(id=${list.id})}" th:text="${list.title}">글</a>
+                    <a class="font-color ml:1" th:href="@{detail(id=${list.id})}+${'#cmt'}" th:text="${cmtCountMap[list.id]}">댓글수</a>
                 </li>
                 <li class="board-date" th:text="${displayDate}">8-24</li>
-                <li class="board-recommend">0</li>
+                <li class="board-recommend" th:text="${likesCountMap[list.id]}!=null ? ${likesCountMap[list.id]} :'0'">0</li>
                 <li class="board-hit" th:text="${list.viewCount}">2</li>
             </ul>
         </section>

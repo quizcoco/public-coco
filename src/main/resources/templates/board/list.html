@@ -70,7 +70,7 @@ layout:decorate="inc/layout">
                         <a class="font-color ml:1" th:href="@{detail(id=${list.id})}+${'#cmt'}" th:text="${cmtCount[list.id]}">댓글수</a>
                     </li>
                     <li class="board-date" th:text="${displayDate}">8-24</li>
-                    <li class="board-recommend">0</li>
+                    <li class="board-recommend" th:text="${likesCount[list.id]}!=null ? ${likesCount[list.id]} :'0'">0</li>
                     <li class="board-hit" th:text="${list.viewCount}">2</li>
                 </ul>
             </section>

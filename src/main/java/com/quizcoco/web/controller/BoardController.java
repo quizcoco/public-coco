@@ -27,6 +27,7 @@ import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.Board;
 import com.quizcoco.web.service.BoardService;
 import com.quizcoco.web.service.CommentService;
+import com.quizcoco.web.service.PostLikeService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +41,8 @@ public class BoardController {
     private BoardService service;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private PostLikeService postLikeService;
 
     @GetMapping("list")
     public String list(Model model
@@ -52,11 +55,13 @@ public class BoardController {
         int count = service.getCount(query);
 
         Map<Long,Long> cmtCount = commentService.getCmtCount();
+        Map<Long,Long> likesCount = postLikeService.getLikesCountMap();
 
 
         model.addAttribute("boardList",list);
         model.addAttribute("count",count);
         model.addAttribute("cmtCount",cmtCount);
+        model.addAttribute("likesCount",likesCount);
         model.addAttribute("pageTitle","자유 게시판");
 
         return "board/list";
@@ -90,13 +95,20 @@ public class BoardController {
 
         //목록
         List<Board> list = service.getList(query, page, size);
+        Map<Long,Long> cmtCountMap = commentService.getCmtCount();
+        Map<Long,Long> likesCountMap = postLikeService.getLikesCountMap();
 
         int count = service.getCount(query);
+
+        //좋아요
+        Integer likeCount =  postLikeService.getLikesCount(id);
 
 
         model.addAttribute("boardList",list);
         model.addAttribute("count",count);
-
+        model.addAttribute("likeCount",likeCount);
+        model.addAttribute("cmtCountMap",cmtCountMap);
+        model.addAttribute("likesCountMap",likesCountMap);
         model.addAttribute("pageTitle","자유 게시판");
 
         return "board/detail";
