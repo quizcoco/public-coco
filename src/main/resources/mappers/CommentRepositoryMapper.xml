@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quizcoco.web.repository.CommentRepository">
+
+<resultMap id="cmtCountMap" type="map">
+    <id column="post_id" property="postId"/>
+    <result column="count" property="count"/>
+</resultMap>
+
+
+<select id="findAllByPostId" resultType="Comment">
+select * from comment where post_id=#{postId}
+
+</select>
+
+<select id="findByCmtId" resultType="Comment">
+select * from comment where id=#{id}
+
+</select>
+
+
+<select id="countCmt" resultMap="cmtCountMap">
+select post_id,count(post_id) count from comment group by post_id
+</select>
+
+
+
+<insert id="insert" parameterType="Comment">
+
+INSERT INTO comment(comment,user_id,post_id,anonymous_num) VALUES(#{comment},#{userId},#{postId},#{anonymousNum}) 
+
+</insert>
+
+
+<update id="update" parameterType="Comment">
+    UPDATE comment
+    SET
+        comment = #{comment}
+
+    WHERE id = #{id}
+</update>
+
+
+<delete id="delete" parameterType="Long">
+       
+  DELETE FROM comment
+  WHERE id = #{id}
+        
+</delete>
+
+</mapper>

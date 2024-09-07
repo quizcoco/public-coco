@@ -71,8 +71,8 @@ InputFileList.prototype={
         // const imgs = contentArea.getElementsByClassName("img-container"); //이미지 컨테이너들
 
         console.log(this.input.files)
-        // console.log(contentArea)
-        console.log(children)
+        console.log(contentArea)
+        // console.log(children)
         // console.log(images)
         for (const image of children) {
             // const img = image.querySelector("img");
@@ -252,12 +252,25 @@ imgInput.oninput = function(e){
     for(var file of files){
         
         inputBox.inputAdd(file);
-    
-        
-        
+
         readFile(file,contentArea);
     }
-
-
-
 }
+
+
+//================사진 복붙해서 옮길때==========================
+
+const observer = new MutationObserver((mutationsList) => {
+    for (let mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+
+            // 이미지들만 추출
+            const images = Array.from(contentArea.querySelectorAll('img'));
+
+            // 기존 파일 순서에 맞춰 다시 정렬
+            inputBox.swapFiles(images);
+        }
+    }
+});
+
+observer.observe(contentArea, { childList: true, subtree: true });

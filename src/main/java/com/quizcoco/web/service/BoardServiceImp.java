@@ -39,9 +39,13 @@ public class BoardServiceImp implements BoardService {
     }
 
     @Override
-    public List<Board> getList() {
+    public List<Board> getList(String query, Integer page, Integer size) {
 
-      List<Board> list = repository.findAll();
+        // int size=10; //~개씩
+        int offset=(page-1)*size; //부터
+        //1-0 :10 / 2-10 / 3-20 / 4-30 / 5-40  
+
+      List<Board> list = repository.findAll(query, offset, size);
       return list;
     }
 
@@ -121,5 +125,10 @@ public class BoardServiceImp implements BoardService {
       return userId.equals(currentUserId);
 
   }
+
+    @Override
+    public int getCount(String query) {
+      return repository.count(query);
+    }
 
 }

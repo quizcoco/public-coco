@@ -7,9 +7,8 @@ import com.quizcoco.web.entity.BoardImage;
 
 public interface BoardService {
 
-    List<Board> getList();
+    List<Board> getList(String query, Integer page, Integer size);
     Board getById(Long id);
-    // List<BoardImage> getImgById(Long id); 지워도돨듯
     
     int add (Board board, List<String> fileNames);
     void addImg (Long id, List<String> fileNames);
@@ -21,5 +20,8 @@ public interface BoardService {
 
     void delById(Long id);
     void delImgById(Long id,List<String> fileNames);
+
+    //카운트(리스트)
+    int getCount(String query);
 }
 

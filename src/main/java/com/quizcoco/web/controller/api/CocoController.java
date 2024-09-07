@@ -20,7 +20,7 @@ import com.quizcoco.web.service.CocoService;
 public class CocoController {
 
     @Autowired
-    CocoService service;
+    private CocoService service;
     
     @GetMapping("detail")
     public Coco getCoco(@AuthenticationPrincipal CocoUserDetails userDetails){

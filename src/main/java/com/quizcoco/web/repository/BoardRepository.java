@@ -10,7 +10,7 @@ import com.quizcoco.web.entity.BoardImage;
 @Mapper
 public interface BoardRepository {
 
-    List<Board> findAll();
+    List<Board> findAll(String query, Integer offset,Integer size);
     Board findById(Long id);
 
     int save (Board board);
@@ -25,5 +25,9 @@ public interface BoardRepository {
 
     void insertImg(BoardImage boardImage);
     void deleteImgById(Long id);
+
+    //카운트(리스트)
+    int count(String query);
+
 
 }

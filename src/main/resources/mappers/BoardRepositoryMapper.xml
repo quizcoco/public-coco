@@ -17,9 +17,28 @@
 
 
 <select id="findAll" resultType="Board">
-select * from board order by reg_date desc
+select * from board 
+
+<where>
+      <if test="query != null">
+            title LIKE '%${query}%' OR 
+            content LIKE '%${query}%'
+      </if>
+</where>
+
+order by reg_date desc
+limit #{offset}, #{size}
 </select>
 
+<select id="count" resultType="Integer">
+        select count(id) from board
+        <where>
+        <if test="query != null">
+            title LIKE '%${query}%' OR 
+            content LIKE '%${query}%'
+        </if>
+        </where>
+</select>
 
 <select id="findById" resultType="Board">
 select * from board where id=#{id}

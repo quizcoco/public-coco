@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.jsoup.Jsoup;
@@ -25,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.Board;
 import com.quizcoco.web.service.BoardService;
+import com.quizcoco.web.service.CommentService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,14 +38,25 @@ public class BoardController {
 
     @Autowired
     private BoardService service;
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("list")
-    public String list(Model model){
+    public String list(Model model
+                        ,@RequestParam(name="q", required = false) String query
+                        ,@RequestParam(name="p", defaultValue = "1") Integer page
+                        ,@RequestParam(name="s", required = false, defaultValue = "15") Integer size){
 
-        List<Board> list = service.getList();
+        List<Board> list = service.getList(query, page, size);
+
+        int count = service.getCount(query);
+
+        Map<Long,Long> cmtCount = commentService.getCmtCount();
 
 
         model.addAttribute("boardList",list);
+        model.addAttribute("count",count);
+        model.addAttribute("cmtCount",cmtCount);
         model.addAttribute("pageTitle","자유 게시판");
 
         return "board/list";
@@ -61,7 +74,10 @@ public class BoardController {
     }
 
     @GetMapping("detail")
-    public String detail(Model model,Long id) {
+    public String detail(Model model,Long id
+                        ,@RequestParam(name="q", required = false) String query
+                        ,@RequestParam(name="p", defaultValue = "1") Integer page
+                        ,@RequestParam(name="s", required = false, defaultValue = "15") Integer size) {
 
         
         //본문
@@ -73,8 +89,13 @@ public class BoardController {
         service.addViewCount(board);
 
         //목록
-        List<Board> list = service.getList();
+        List<Board> list = service.getList(query, page, size);
+
+        int count = service.getCount(query);
+
+
         model.addAttribute("boardList",list);
+        model.addAttribute("count",count);
 
         model.addAttribute("pageTitle","자유 게시판");
 
@@ -105,7 +126,6 @@ public class BoardController {
                                 if(userDetails!=null)
                                 userId = userDetails.getId();
                                 
-                            System.out.println("뭐 길면 얼마나길다고 지랄.."+board.getContent());
                                 // HTML 파싱을 위한 Jsoup 사용
                             String contentHtml = board.getContent();  // 게시판 내용 (텍스트 + 이미지 포함)
                             Document doc = Jsoup.parse(contentHtml);

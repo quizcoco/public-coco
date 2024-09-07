@@ -4,12 +4,15 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="inc/layout">
 <head>
     <link href="/css/board.css" rel="stylesheet" type="text/css">
+    <script defer src="/js/board/list.js"></script>
+
 </head>
 
 <body>
     <main layout:fragment="main" class="of:auto">
         <section class="board-margin">
             <h1 class="d:none">유저 자유 게시판</h1>
+            <form method="get" action="list">
             <div class="d:flex">
                 <section class="d:flex">
                     <h1 class="d:none">정렬 메뉴</h1>
@@ -32,13 +35,14 @@ layout:decorate="inc/layout">
                 </section>
                 <section>
                     <h1 class="d:none">검색</h1>
-                    <div><input placeholder="검색어 입력"><button>검색</button></div>
+                    <div><input placeholder="검색어 입력" name="q"><button class="n-btn n-btn:filled">검색</button></div>
                 </section>
-                <div class="m-left:auto">
+                <div class="m-left:auto n-btn n-btn:filled">
                     <a href="reg" sec:authorize="isAuthenticated()">작성</a>
                     <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">작성</a>
                 </div>
             </div>
+        </form>
             <section>
                 <h1 class="d:none">구분</h1>
                 <ul class="board-list header-border">
@@ -61,13 +65,95 @@ layout:decorate="inc/layout">
                 <h1 class="d:none">게시글</h1>
                 <ul class="board-list title-border">
                     <li class="board-no" th:text="${list.id}">1</li>
-                    <li class="board-title js:start ml:10"><a href="detail?id=" th:href="@{detail(id=${list.id})}" th:text="${list.title}">글</a></li>
+                    <li class="board-title js:start ml:10">
+                        <a href="detail?id=" th:href="@{detail(id=${list.id})}" th:text="${list.title}">글</a>
+                        <a class="font-color ml:1" th:href="@{detail(id=${list.id})}+${'#cmt'}" th:text="${cmtCount[list.id]}">댓글수</a>
+                    </li>
                     <li class="board-date" th:text="${displayDate}">8-24</li>
                     <li class="board-recommend">0</li>
                     <li class="board-hit" th:text="${list.viewCount}">2</li>
                 </ul>
             </section>
-            <section><h1 class="d:none">페이저</h1></section>
+            <section>
+                <h1 class="d:none">페이저</h1>
+                <div class="d:none md:d:block"><!-- 10짜리 -->
+                    <ul class="d:flex mt:5 jc:center"
+                        th:with="page=${param.p} eq null ? 1 : ${{param.p}}
+                                ,s = ((${param.s} == null)?15:${{param.s}} == '' )? 15 : ${param.s}
+                                ,floatnum=(${page}-1)/10
+                                ,intnum=${T(java.lang.Math).floor(floatnum)}
+                                ,startnum=${intnum}*10+1
+                                ,endfloatnum=${count} % ${{s}} >0 ? ${count} / ${{s}} +1 :${count} / ${{s}}
+                                ,endintnum=${T(java.lang.Math).floor(endfloatnum)}
+                                ,lastnum=(${endintnum}*10)/10">
+                                <!--${s}는 화면에 표시되는 리스트갯수 15는 기본-->
+                        <!-- ========='<<'============== -->
+                        <li><span th:if="${page} lt 2" class="icon icon:page_start icon-size:2"></span>
+                            <a th:if="${page} ge 2" href="list?p=1" th:href="@{list(p=1,s=${param.s})}" class="icon icon:page_start icon-size:2"></a></li>
+
+                        <!-- ========='<'============== -->
+                        <li><span th:if="${page} lt 11" class="icon icon:caret_left icon-size:2"></span>
+                            <a th:if="${page} ge 11" th:href="@{list(p=${startnum}-1,s=${param.s})}" href="" class="icon icon:caret_left icon-size:2"></a></li>
+
+                        <!-- ========='1'============== -->
+                        <li th:each="n : ${#numbers.sequence(startnum,startnum+9)}"  
+                        th:class="${{page}}== ${n}?'active'">
+                        <span th:if="${n} gt ${lastnum}" th:text="${n}" class="ml:2"></span>
+                        
+                        <a class="ml:2" href="list?p=1" th:href="@{list(p=${n},s=${param.s})}" th:text="${n}"
+                        th:if="${n} le ${lastnum}">1</a></li>
+
+                        <!-- ========='>'============== -->
+                        <li class="ml:2"><span th:if="${lastnum} lt ${startnum+10}" class="icon icon:caret_right icon-size:2"></span>
+                            <a th:if="${lastnum} ge ${startnum+10}" th:href="@{list(p=${startnum}+10,s=${param.s})}" href="" class="icon icon:caret_right icon-size:2"></a></li>
+
+                        <!-- ========='>>'============== -->
+                        <li class="mr:8"><span th:if="${lastnum} eq ${page}" class="icon icon:page_end icon-size:2"></span>
+                            <a th:if="${lastnum} gt ${page}" th:href="@{list(p=${lastnum},s=${param.s})}" href="" class="icon icon:page_end icon-size:2"></a></li>
+                    </ul>
+                </div>
+                <div class="d:block md:d:none"><!-- 5짜리 -->
+                    <ul style="display: flex; justify-content: center;" 
+                    th:with="page=${param.p} eq null ? 1 : ${{param.p}},
+                    s = ((${param.s} == null)?5:${{param.s}} == '' )? 5 : ${param.s},
+                    floatnum=(${page}-1)/5,
+                    intnum=${T(java.lang.Math).floor(floatnum)},
+                    startnum=${intnum}*5+1
+                    ,endfloatnum=${count} % ${{s}} >0 ? ${count} / ${{s}} +1 :${count} / ${{s}}
+                    ,endintnum=${T(java.lang.Math).floor(endfloatnum)}
+                    ,lastnum=(${endintnum}*10)/10"> 
+            
+                    <!-- <li th:text="${count div 6}+1">aa</li> -->
+
+                    <li><span th:if="${page} lt 6">이전</span>
+                        <a th:if="${page} ge 6" href="list?p=1" th:href="@{list(p=${startnum}-1,s=${param.s})}">이전</a>
+                    </li>
+                    <li  th:each="n : ${#numbers.sequence(startnum,startnum+4)}"  
+                    th:class="${{page}}== ${n}?'active'"><!-- ★★★ -->
+
+                    
+                        <span th:if="${n} gt ${lastnum}" th:text="${n}">1</span><!-- ★★★ -->
+                        <a href="list?p=1" th:href="@{list(p=${n},s=${param.s})}" th:text="${n}"
+                            th:if="${n} le ${lastnum}">1</a>
+                    </li>
+                    
+                    <li><span th:if="${lastnum} lt ${startnum+5}">다음</span>
+                        <a href="list?p=${startnum}+5" th:if="${lastnum} ge ${startnum+5}" th:href="@{list(p=${startnum}+5,s=${param.s})}">다음</a>
+                    </li>
+                </ul>
+
+                </div>
+                <div id="page-move" class="d:flex jc:center ai:center mt:1" 
+                th:with="s = ((${param.s} == null)?15:${{param.s}} == '' )? 15 : ${param.s}
+                        ,endfloatnum=${count} % ${{s}} >0 ? ${count} / ${{s}} +1 :${count} / ${{s}}
+                        ,endintnum=${T(java.lang.Math).floor(endfloatnum)}
+                        ,lastnum=(${endintnum}*10)/10">
+                    <input class="n-textbox n-textbox-type:outline w:1" th:placeholder="${param.p}==null? 1 : ${param.p}">
+                    <span class="mr:2 ml:2">/</span>
+                    <span th:text="${lastnum}">38</span>
+                    <a href="" class="n-btn n-btn-type:outline deco-ml:1 deco-size:2 deco-pos:right icon:caret_right deco ml:2">Go</a>
+                </div>
+            </section>
         </section>
 
 

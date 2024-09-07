@@ -143,6 +143,13 @@
     background-color: #f3f1f1;
   }
 
+  .font-color{
+    font-size: xx-small;
+    font-weight: bold;
+    color: rgb(242, 136, 136);
+    vertical-align: 15%;
+    
+  }
 
 /* ===================게시판 디테일 =========================*/
 
@@ -182,3 +189,62 @@
 .post-bottom-border{
   border-bottom: 2px solid #aaa;
 }
+
+/* ==========================댓글============================= */
+
+.comment{
+
+  display: grid;
+  grid-template-areas: 
+  "name comment del" ;
+  grid-template-rows: 1fr;
+  grid-template-columns: 100px 1fr 120px;
+  
+
+  /* 라인 */
+  border-bottom: 1px solid #e9e3e3;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+}
+
+.cmt-title{
+  grid-area:cmt-title;
+}
+.cmt-name{
+  grid-area:name;
+}
+.cmt-comment{
+  grid-area:comment;
+}
+.cmt-del{
+  grid-area:del;
+}
+
+.refresh{
+  grid-area: refresh;
+}
+/* -----------댓 작성란-------- */
+.insert-cmt{
+  display: grid;
+  grid-template-areas: 
+  "insert submit";
+ 
+  grid-template-rows:100px;
+  grid-template-columns: 1fr 100px;
+
+}
+
+.cmt-insert{
+  grid-area: insert;
+ }
+.cmt-submit{
+  grid-area:submit;
+ }
+
+ .cmt-list{
+
+  border-top: 2px solid #aaa;
+  border-bottom: 2px solid #aaa;
+
+ }
