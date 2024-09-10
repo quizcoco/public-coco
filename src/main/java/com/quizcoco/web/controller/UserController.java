@@ -39,9 +39,19 @@ public class UserController {
     private PasswordEncoder encoder;
     
     @GetMapping("login")
-    public String login(Model model) {
+    public String login(HttpServletRequest request, Model model) {
 
         model.addAttribute("pageTitle","Login");
+
+        //요청 헤더의 Referer(이전페이지)를 세션에 저장
+        String uri = request.getHeader("Referer");
+    if (uri != null && !uri.contains("/login")) { // '/login'는 로그인 실패등의 이유
+        request.getSession().setAttribute("prevPage", uri);
+    }
+    //XXX RequestURI 사용하는 경우 알아놓자
+    // if (request.getRequestURI().startsWith("/reg") && !request.isUserInRole("ROLE_MEMBER")) {
+    //     request.getSession().setAttribute("redirectUrl", request.getRequestURI());
+    // }
 
         
         return "user/login";

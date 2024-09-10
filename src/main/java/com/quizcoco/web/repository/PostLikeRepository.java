@@ -12,6 +12,8 @@ public interface PostLikeRepository {
 
     int deleteLike(Long postId, Long userId);
 
+    boolean existsLiked(Long postId, Long userId);
+
     Integer countLikesByPostId(Long postId);
 
     List<Map<String, Object>> countLikes();

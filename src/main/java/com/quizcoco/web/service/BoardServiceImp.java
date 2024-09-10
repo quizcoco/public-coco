@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.Board;
 import com.quizcoco.web.entity.BoardImage;
+import com.quizcoco.web.entity.BoardLikeView;
 import com.quizcoco.web.entity.User;
 import com.quizcoco.web.repository.BoardRepository;
 
@@ -53,7 +54,7 @@ public class BoardServiceImp implements BoardService {
     public Board getById(Long id) {
       Board board = repository.findById(id);
 
-      board.setImg(repository.findImgByBoardId(id)); //이미지 담기
+      // board.setImg(repository.findImgByBoardId(id)); //이미지 담기
 
       return board;
     }
@@ -129,6 +130,11 @@ public class BoardServiceImp implements BoardService {
     @Override
     public int getCount(String query) {
       return repository.count(query);
+    }
+
+    @Override
+    public List<BoardLikeView> getLikeList(Integer count) {
+      return repository.findWithLikeCount(count);
     }
 
 }

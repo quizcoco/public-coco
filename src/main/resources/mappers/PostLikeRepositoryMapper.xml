@@ -42,4 +42,12 @@ VALUES(#{userId},#{postId})
      
 </delete>
 
+
+
+<select id="existsLiked" resultType="java.lang.Boolean">
+  select count(id)>0 from board_recommend where post_id=#{postId} and user_id=#{userId}
+
+</select>
+
+
 </mapper>

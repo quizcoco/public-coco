@@ -17,6 +17,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 @Configuration
 // @EnableWebSecurity
@@ -49,7 +50,7 @@ public class WebSecurityConfig {
 			)
 			.formLogin((form) -> form
 			.loginPage("/user/login")
-			// .defaultSuccessUrl("/")
+			.defaultSuccessUrl("/")
 			.usernameParameter("username")
 			.permitAll()
 			.successHandler(loginSuccessHandler)
@@ -63,8 +64,10 @@ public class WebSecurityConfig {
 			.logoutUrl("/logout")
 			.logoutSuccessUrl("/")
 			.invalidateHttpSession(true) //로그아웃시 사용자 섹션 삭제
-			.permitAll());
-
+			.permitAll())
+			.requestCache(requestCache -> requestCache
+        	.requestCache(new HttpSessionRequestCache()));
+			
 
 		return http.build();
 	}

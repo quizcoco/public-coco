@@ -165,7 +165,7 @@ utill.css 목록
       background-color: var(--color-base-2) !important;
       border: 1px solid transparent !important;
       color: var(--color-base-8) !important; 
-      display: flex !important;
+      /* display: flex !important; */
       justify-content: center !important;
       align-items: center !important;
   }

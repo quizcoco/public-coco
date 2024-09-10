@@ -17,11 +17,11 @@ layout:decorate="inc/layout">
                 <section class="d:flex">
                     <h1 class="d:none">정렬 메뉴</h1>
                     <div>
-                        <select name="c">
-                            <option value="0" th:selected="${{param.c}}==0">전체글</option>
-                            <option value="10" th:selected="${{param.c}}==10">추천 10</option>
-                            <option value="30" th:selected="${{param.c}}==30">추천 30</option>
-                            <option value="50" th:selected="${{param.c}}==50">추천 50</option>
+                        <select name="r">
+                            <option value="0" th:selected="${{param.r}}==0">전체글</option>
+                            <option value="1" th:selected="${{param.r}}==1">추천 1</option>
+                            <option value="5" th:selected="${{param.r}}==5">추천 5</option>
+                            <option value="50" th:selected="${{param.r}}==50">추천 50</option>
                         </select>
                     </div> 
                     <div> 
@@ -33,15 +33,8 @@ layout:decorate="inc/layout">
                         </select>
                     </div> 
                 </section>
-                <section>
-                    <h1 class="d:none">검색</h1>
-                    <div><input placeholder="검색어 입력" name="q"><button class="n-btn n-btn:filled">검색</button></div>
-                </section>
-                <div class="m-left:auto n-btn n-btn:filled">
-                    <a href="reg" sec:authorize="isAuthenticated()">작성</a>
-                    <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">작성</a>
-                </div>
             </div>
+            <!-- 이 디브 지워도? -->
         </form>
             <section>
                 <h1 class="d:none">구분</h1>
@@ -65,8 +58,8 @@ layout:decorate="inc/layout">
                 <h1 class="d:none">게시글</h1>
                 <ul class="board-list title-border">
                     <li class="board-no" th:text="${list.id}">1</li>
-                    <li class="board-title js:start ml:10">
-                        <a href="detail?id=" th:href="@{detail(id=${list.id})}" th:text="${list.title}">글</a>
+                    <li class="board-title js:start ml:10 ln-clamp:1">
+                        <a href="detail?id=" th:href="@{detail(id=${list.id}, q=${param.q})}" th:text="${list.title}">제목 들어가는 곳</a>
                         <a class="font-color ml:1" th:href="@{detail(id=${list.id})}+${'#cmt'}" th:text="${cmtCount[list.id]}">댓글수</a>
                     </li>
                     <li class="board-date" th:text="${displayDate}">8-24</li>
@@ -74,10 +67,22 @@ layout:decorate="inc/layout">
                     <li class="board-hit" th:text="${list.viewCount}">2</li>
                 </ul>
             </section>
+            <div class="d:flex mt:1">
+                <section>
+                    <h1 class="d:none">검색</h1>
+                    <div><form method="get" action="list">
+                        <input placeholder="검색어 입력" name="q" class="bd-bottom mr:1"><button class="n-btn n-btn:filled-2">검색</button>
+                    </form></div>
+                </section>
+                <div class="m-left:auto n-btn n-btn:filled-2">
+                    <a href="reg" sec:authorize="isAuthenticated()">작성</a>
+                    <a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">작성</a>
+                </div>
+            </div>
             <section>
                 <h1 class="d:none">페이저</h1>
                 <div class="d:none md:d:block"><!-- 10짜리 -->
-                    <ul class="d:flex mt:5 jc:center"
+                    <ul class="d:flex jc:center"
                         th:with="page=${param.p} eq null ? 1 : ${{param.p}}
                                 ,s = ((${param.s} == null)?15:${{param.s}} == '' )? 15 : ${param.s}
                                 ,floatnum=(${page}-1)/10

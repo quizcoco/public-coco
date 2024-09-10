@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.quizcoco.web.entity.Board;
 import com.quizcoco.web.entity.BoardImage;
+import com.quizcoco.web.entity.BoardLikeView;
 
 public interface BoardService {
 
@@ -23,5 +24,7 @@ public interface BoardService {
 
     //카운트(리스트)
     int getCount(String query);
+
+    List<BoardLikeView> getLikeList(Integer count);
 }
 

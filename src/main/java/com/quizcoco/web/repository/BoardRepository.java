@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.quizcoco.web.entity.Board;
 import com.quizcoco.web.entity.BoardImage;
+import com.quizcoco.web.entity.BoardLikeView;
 
 @Mapper
 public interface BoardRepository {
@@ -28,6 +29,8 @@ public interface BoardRepository {
 
     //카운트(리스트)
     int count(String query);
+
+    List<BoardLikeView> findWithLikeCount(Integer count);
 
 
 }

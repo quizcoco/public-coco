@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Board {
+public class BoardLikeView {
     private Long id;
     private String title;
-    // private List<BoardImage> img; //이거 지울듯
     private String content;
     private LocalDateTime regDate;
     private int viewCount;
-
     private Long userId;
+
+    private Integer likeCount;
 
 }

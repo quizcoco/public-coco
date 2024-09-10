@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.quizcoco.web.config.security.CocoUserDetails;
 import com.quizcoco.web.entity.Board;
+import com.quizcoco.web.entity.BoardLikeView;
 import com.quizcoco.web.service.BoardService;
 import com.quizcoco.web.service.CommentService;
 import com.quizcoco.web.service.PostLikeService;
@@ -46,19 +47,26 @@ public class BoardController {
 
     @GetMapping("list")
     public String list(Model model
+                        ,@RequestParam(name="r", required = false) Integer recommend
                         ,@RequestParam(name="q", required = false) String query
                         ,@RequestParam(name="p", defaultValue = "1") Integer page
                         ,@RequestParam(name="s", required = false, defaultValue = "15") Integer size){
 
-        List<Board> list = service.getList(query, page, size);
+
+        if(recommend==null ||recommend==0){
+            List<Board> list = service.getList(query, page, size);
+            model.addAttribute("boardList",list);
+        }
+        else{
+            List<BoardLikeView> list = service.getLikeList(recommend);
+            model.addAttribute("boardList",list);
+        }
 
         int count = service.getCount(query);
 
         Map<Long,Long> cmtCount = commentService.getCmtCount();
         Map<Long,Long> likesCount = postLikeService.getLikesCountMap();
 
-
-        model.addAttribute("boardList",list);
         model.addAttribute("count",count);
         model.addAttribute("cmtCount",cmtCount);
         model.addAttribute("likesCount",likesCount);
@@ -82,8 +90,12 @@ public class BoardController {
     public String detail(Model model,Long id
                         ,@RequestParam(name="q", required = false) String query
                         ,@RequestParam(name="p", defaultValue = "1") Integer page
-                        ,@RequestParam(name="s", required = false, defaultValue = "15") Integer size) {
+                        ,@RequestParam(name="s", required = false, defaultValue = "15") Integer size
+                        ,@AuthenticationPrincipal CocoUserDetails userDetails) {
 
+        Long userId=null;
+        if(userDetails!=null)
+        userId = userDetails.getId();
         
         //본문
         Board board = service.getById(id);
@@ -102,11 +114,13 @@ public class BoardController {
 
         //좋아요
         Integer likeCount =  postLikeService.getLikesCount(id);
+        boolean hasliked = postLikeService.hasUserLiked(id,userId);
 
 
         model.addAttribute("boardList",list);
         model.addAttribute("count",count);
         model.addAttribute("likeCount",likeCount);
+        model.addAttribute("hasliked",hasliked);
         model.addAttribute("cmtCountMap",cmtCountMap);
         model.addAttribute("likesCountMap",likesCountMap);
         model.addAttribute("pageTitle","자유 게시판");
@@ -221,10 +235,10 @@ public class BoardController {
             }
 
             //기존이미지 삭제시
-            if(existingImg==null || board.getImg().size() > existingImg.size()){
-                service.delImgById(board.getId(), existingImg);
+            // if(existingImg==null || board.getImg().size() > existingImg.size()){
+            //     service.delImgById(board.getId(), existingImg);
 
-            }
+            // }
         }
           
         board.setTitle(updated.getTitle());

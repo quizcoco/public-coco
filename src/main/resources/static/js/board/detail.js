@@ -2,24 +2,27 @@ const cmtSection = this.document.querySelector("#cmt");
 const cmtList = cmtSection.querySelector(".cmt-list");
 const cmtRefresh = cmtSection.querySelector(".refresh");
 const cmtBtn = this.document.querySelector(".cmt-btn");
+const textarea = this.document.querySelector("textarea[name='comment']");
 
 const postId = cmtSection.getAttribute("data-id");
 const postUserId = cmtSection.getAttribute("data-post-user-id");
 const currentUserId = cmtSection.getAttribute("data-current-user-id")||null; 
 
 const likeBtn = document.querySelector("#like");
-const likeNum = likeBtn.querySelector(".like-number")
 
 //==================좋아요======================
-async function loadlikesCount() {
-
-const response = await fetch(`/api/post-likes/countLikes?id=${postId}`);
-const list = await response.text(); // JSON 데이터 파싱
-likeNum.textContent=list;
-}
-loadlikesCount();
-
-async function cancelLikes() {
+if(likeBtn){
+    
+    const likeNum = likeBtn.querySelector(".like-number");
+    async function loadlikesCount() {
+        
+        const response = await fetch(`/api/post-likes/countLikes?id=${postId}`);
+        const list = await response.text(); // JSON 데이터 파싱
+        likeNum.textContent=list;
+    }
+    loadlikesCount();
+    
+    async function cancelLikes() {
 
     const response = await fetch(`/api/post-likes/unlike`, {
         method: 'POST', // POST
@@ -34,6 +37,8 @@ async function cancelLikes() {
 
 
 likeBtn.addEventListener("click",async()=>{
+    likeBtn.classList.replace("n-btn:filled-2","n-btn:filled");
+    
     const response = await fetch(`/api/post-likes/like`, {
         method: 'POST', // POST
         headers: {
@@ -41,13 +46,16 @@ likeBtn.addEventListener("click",async()=>{
         },
         body: JSON.stringify(postId)
         });
-        if(!response.ok)
+        if(!response.ok){
+            likeBtn.classList.replace("n-btn:filled","n-btn:filled-2");
             return await cancelLikes();//여기서 지우기 함수
+        }
 
         await loadlikesCount();
 
 })
 
+}
 
 
 //=============코멘트 부르기==================
@@ -191,6 +199,10 @@ cmtBtn.addEventListener("click",async()=>{
     // const postId = this.document.querySelector("input[type='hidden']").value;
 
     
+    if(!currentUserId){
+        openLoginModal(); 
+        return;
+    }
     if (!cmtValue) {
         console.error('코멘트가 없습니다.');
         return;
@@ -212,6 +224,25 @@ cmtBtn.addEventListener("click",async()=>{
     await loadComments();
 });
 
+//===============코멘트창 로그인 모달 ===================
+// textarea.addEventListener("click",()=>{
+//     if (!currentUserId) {
+//         openLoginModal(); 
+//       }
+
+// })
+
+function openLoginModal(){
+    const loginModal = document.querySelector("#login");
+    const closeBtn = loginModal.querySelector(".login-close");
+    loginModal.classList.remove("d:none");
+
+    closeBtn.addEventListener("click",()=>{
+        loginModal.classList.add("d:none");
+
+    })
+
+}
 
 //=================댓글 새로고침======================
 

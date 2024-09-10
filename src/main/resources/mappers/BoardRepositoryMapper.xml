@@ -44,6 +44,17 @@ limit #{offset}, #{size}
 select * from board where id=#{id}
 </select>
 
+<!-- 추천수에 따라 -->
+<select id="findWithLikeCount" resultType="BoardLikeView">
+
+select * from
+(select board.*, br.count from (select post_id, count(id) count from board_recommend group by post_id) br right join board
+on br.post_id = board.id) view
+
+where count >= #{count}
+</select>
+
+
 <insert id="save" parameterType="Board" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO board
 		(

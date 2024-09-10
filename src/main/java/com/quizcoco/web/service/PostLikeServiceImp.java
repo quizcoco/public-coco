@@ -52,5 +52,10 @@ public class PostLikeServiceImp implements PostLikeService{
       }
       return result;
     }
+
+    @Override
+    public boolean hasUserLiked(Long postId, Long userId) {
+       return repository.existsLiked(postId,userId);
+    }
     
 }
