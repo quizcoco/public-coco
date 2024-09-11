@@ -16,7 +16,8 @@ layout:decorate="inc/layout">
             <div class="post-hit d:flex"><p>추천</p><p th:text="${likeCount}">0</p></div>
             <div class="post-hit ml:auto" th:text="${#temporals.format(post.regDate,'yyyy.MM.dd HH:mm:ss')}">시간</div>
         </div>
-        <div class="post-content" th:utext="${post.content}">내용</div>
+        <!-- <div class="post-content" th:utext="${post.content}">내용</div> -->
+        <div class="post-content" th:text="${#strings.escapeXml(post.content)}">이스케이핑.....</div>
         <!-- <div class="post-image" th:if="${post.img} != null"><img th:each="image:${post.img}" th:src="@{'/img/board/' + ${image.imageUrl}}"></div> -->
     </section>
     <section class="board-margin d:flex mt:1">
@@ -33,7 +34,7 @@ layout:decorate="inc/layout">
         <div class="d:flex order:1">
             <div id="like" class="order:3 n-btn" th:classappend="${hasliked}?'n-btn:filled':'n-btn:filled-2'" sec:authorize="isAuthenticated()">좋아요<span class="like-number">0</span></div>
             <div class="order:2 d:none">댓글</div>
-            <div class="order:1 n-btn n-btn:filled-2 mr:1"><a href="#list">목록</a></div>
+            <div class="order:1 n-btn n-btn:filled-2 mr:1"><a href="list">목록</a></div>
         </div>
     </section>
     <section id="cmt" class="board-margin mt:4" th:data-id="${post.id}" th:data-post-user-id="${post.userId}" th:data-current-user-id="${currentUser != null ? currentUser.id : ''}">
@@ -89,7 +90,7 @@ layout:decorate="inc/layout">
             </ul>
         </section>
         <div class="d:flex mt:1">
-            <div class="order:1 n-btn n-btn:filled-2 mr:1"><a href="list">전체</a></div>
+            <div class="order:1 n-btn n-btn:filled-2 mr:1"><a href="list">목록</a></div>
             <div class="n-btn n-btn:filled-2 ml:auto"><a href="reg" sec:authorize="isAuthenticated()">작성</a><a href="" sec:authorize="isAnonymous()" th:href="@{/user/login}">작성</a></div>
         </div>
 
