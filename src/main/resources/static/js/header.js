@@ -1,4 +1,4 @@
-let header = document.querySelector("#header");
+let header = this.document.querySelector("#header");
 let mobileMenuIcon = header.querySelectorAll("nav.root-header-menu a");
 let mobileMenus = header.querySelector("nav.menu");
 let mobileOverlay = header.querySelector(".mobile-overlay");

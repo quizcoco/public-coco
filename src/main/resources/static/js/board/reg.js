@@ -1,4 +1,4 @@
-let contentArea = this.document.querySelector("div [name='contentData']");
+let contentArea = this.document.querySelector("div[name='contentData']");
 // let img = contentArea.querySelector("img");
 let images = contentArea.querySelectorAll("img");
 let form = this.document.querySelector("form");
@@ -27,6 +27,7 @@ form.onsubmit = function(){ //본문의 html를 서버로 전송
 function InputFileList(input){
     this.input = input;
     this.saved = { files: new DataTransfer().files };  // this.saved 초기화
+    this.original = { files: new DataTransfer().files }; //input을 통한 순수 모든 파일
 }
 
 InputFileList.prototype={
@@ -44,29 +45,83 @@ InputFileList.prototype={
     },
     inputAdd:function(file){
         var dt = new DataTransfer();
+        // var files = this.input.files;
         var files = this.saved.files;
-
+        
         for(var f of files)
             dt.items.add(f);
         dt.items.add(file);
 
         this.input.files = dt.files;
         this.saved.files = dt.files;
+        this.original.files = dt.files;
         console.log(this.input.files)
 
 
     },
-    del:function(delFile){
-        var dt = new DataTransfer();
-        var files = this.input.files;
+    paste:async function(e){
+        const dt = new DataTransfer();
+        let files = this.input.files;
+        for(var f of files)
+            dt.items.add(f);
 
-        for(var f of files){
-            if(f !== delFile)
+        for (let item of e.clipboardData.items) {
+            if (item.type === "text/html") {
+                const htmlContent = await new Promise((resolve) => {
+                    item.getAsString((htmlContent) => {
+                        resolve(htmlContent); // getAsString이 완료될 때까지 기다림
+                    });
+                });
+
+
+                    
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(htmlContent, 'text/html'); // htmlContent를 HTML로 파싱
+                    const imgTags = doc.querySelectorAll('img');
+
+                    imgTags.forEach((imgTags)=>{
+                        const copiedFile = imgTags.getAttribute('data-filename')
+                    
+                        let filelists = this.original.files;
+                            for(const file of filelists){
+                                if(copiedFile== file.name)
+                                    dt.items.add(file);
+                            }
+                    })
+            }
+        }
+        this.input.files = dt.files;
+
+        const images = Array.from(contentArea.querySelectorAll('img'));
+        this.swapFiles(images);
+
+    },
+    del:function(delFile){
+        let dt = new DataTransfer();
+        let files = this.input.files;
+
+
+        const fileName = delFile.getAttribute('data-filename');
+
+        for(let f of files){
+            if(f.name !== fileName)
             dt.items.add(f);
         }
         this.input.files = dt.files;
+        this.saved.files = dt.files;
+
+        console.log(this.input.files)
+
     },
     swapFiles:function(children){
+
+        if(this.input.files.length < children.length) //잘라내기 후 붙여넣기 한 경우
+            this.reArrange();
+
+        if(this.input.files.length != children.length) //단순 업로드일 경우
+            return;
+
+
         const dt = new DataTransfer();
         // const imgs = contentArea.getElementsByClassName("img-container"); //이미지 컨테이너들
 
@@ -82,12 +137,31 @@ InputFileList.prototype={
 
             if (file) {
                 dt.items.add(file);
+                
             }
         }
 
         this.input.files = dt.files;
+        this.saved.files = dt.files;
+
         console.log(this.input.files)
 
+    },
+    reArrange:function(){
+        //최종 전송하기전에
+        let dt = new DataTransfer();
+        let files = this.original.files;
+
+        for(const file of files){
+            Array.from(contentArea.querySelectorAll('img')).forEach((f)=>{
+                const displayed = f.getAttribute('data-filename');
+    
+                if(file.name == displayed)
+                    dt.items.add(file);
+            });
+        }
+        this.input.files = dt.files;
+        console.log(this.input.files)
     },
     srcToName:function(){
         let files = this.input.files;
@@ -146,7 +220,7 @@ function readFile(file,contentArea){
     // },10);
     
     
-    //==========================드래그&드롭==============================================
+    //==========================드래그&드롭으로 순서변경 =====================================
     img.addEventListener("dragstart", function (e) {
         console.log("이미지 드래그시작!!");
 
@@ -196,6 +270,7 @@ var imgInput = regForm.querySelector(".img-input");
 var previewPanel = regForm.querySelector(".preview-panel");
 var imgLabel = regForm.querySelector(".img-label");
 
+//========================== 드래그&드롭으로 업로드 ===========================
 imgLabel.ondragenter = function(e){
 
     console.log("들어왔다");
@@ -228,8 +303,13 @@ imgLabel.ondrop=function(e){
 
     console.log("놓았다");
 
-
     var files = e.dataTransfer.files;
+
+    if(files.length>3){
+        console.warn("이미지는 최대 3장만 허용됩니다.");
+        return;
+        //또 추가할경우 막기
+    }
     for(var file of files){
 
         // var file = files[0];
@@ -248,6 +328,10 @@ imgInput.oninput = function(e){
     // let currentFiles = imgInput.files;
     
     let files = e.target.files;
+    if(files.length>3){
+        console.warn("이미지는 최대 3장만 허용됩니다.");
+        return;
+    }
     
     for(var file of files){
         
@@ -259,13 +343,24 @@ imgInput.oninput = function(e){
 
 
 //================사진 복붙해서 옮길때==========================
-
 const observer = new MutationObserver((mutationsList) => {
     for (let mutation of mutationsList) {
         if (mutation.type === 'childList') {
 
+            //==========삭제했을 경우===========
+            if(!hasAddedNodes(mutationsList)) //추가된 노드 없을때. 추가된 노드있으면 드래그로 위치바꾼경우임
+            mutation.removedNodes.forEach(node => {
+                if (node.tagName === 'IMG') {
+                    // if(!document.body.contains(node))
+                        inputBox.del(node);
+                    return;
+                }
+            });
+
+            //========순서바꾸는 경우===========
             // 이미지들만 추출
             const images = Array.from(contentArea.querySelectorAll('img'));
+            console.log(images);
 
             // 기존 파일 순서에 맞춰 다시 정렬
             inputBox.swapFiles(images);
@@ -273,4 +368,22 @@ const observer = new MutationObserver((mutationsList) => {
     }
 });
 
+function hasAddedNodes(mutationsList){
+
+    for (let mutation of mutationsList) {
+        if (mutation.addedNodes.length != 0) {
+            return true; // 추가된 노드가 있으면 true를 반환
+        }
+    }
+    return false; // 추가된 노드가 없으면 false를 반환
+
+}
+
 observer.observe(contentArea, { childList: true, subtree: true });
+
+// =========자르고 붙여넣기 ==========
+    contentArea.addEventListener('paste',(e)=>
+        {inputBox.paste(e);
+
+        }
+);

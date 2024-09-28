@@ -59,9 +59,10 @@ header ul{
     height: 40px;
     width: 40px;
     background-color: rgb(255, 255, 255);
-    /* border-radius: 50px; */ 
+    border-radius: 50px; 
     background-image: url('../../image/logo.png');
     background-size: cover;
+    border: 3px solid #D26363;
 }
 
 .online-num{
@@ -74,6 +75,18 @@ header ul{
     text-align: center;
     line-height: 40px;
     font-size: 15px;
+}
+
+.offline-user{
+
+    display: block;
+    height: 40px;
+    width: 40px;
+    background-color: rgb(255, 255, 255);
+    /* border-radius: 50px; */ 
+    background-image: url('../../image/logo.png');
+    background-size: cover;
+
 }
 
 /* ============================햄버거 메뉴========================= */

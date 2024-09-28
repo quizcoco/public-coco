@@ -2,8 +2,11 @@ package com.quizcoco.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,6 +14,7 @@ import java.util.UUID;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.safety.Safelist;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -44,6 +48,40 @@ public class BoardController {
     private CommentService commentService;
     @Autowired
     private PostLikeService postLikeService;
+
+//===============================================================================================================
+
+    private static final List<String> ALLOWED_DOMAINS = Arrays.asList( //허용할 도메인
+    "quizcoco.net"
+);
+
+public boolean isWhitelistedDomain(String url) {
+    try {
+        URI uri = new URI(url);
+        
+        // base64일 경우 허용 (절대 경로가 아닌 경우)
+        if (uri.getHost() == null) {
+            return url.startsWith("data:image/"); //참거짓 반환
+        }
+        
+        // 절대 경로일 경우 도메인 검사
+        String domain = uri.getHost();
+        return ALLOWED_DOMAINS.stream().anyMatch(domain::endsWith);
+        
+    } catch (URISyntaxException e) {
+        return false; // URL이 잘못된 경우 처리
+    }
+}
+
+//=============================================================================================================
+     public static String sanitize(String input) {
+        Safelist safelist = Safelist.none()
+                .addTags("img", "br") // 허용할 태그
+                .addAttributes("img", "src", "width", "height","draggable","data-filename"); // img 태그 속성 추가
+        
+        return Jsoup.clean(input, safelist);
+    }
+//=================================================================================================================
 
     @GetMapping("list")
     public String list(Model model
@@ -153,7 +191,7 @@ public class BoardController {
                                 userId = userDetails.getId();
                                 
                                 // HTML 파싱을 위한 Jsoup 사용
-                            String contentHtml = board.getContent();  // 게시판 내용 (텍스트 + 이미지 포함)
+                            String contentHtml = sanitize(board.getContent());  // 게시판 내용 (텍스트 + 이미지 포함) 하고 sanitize
                             Document doc = Jsoup.parse(contentHtml);
 
                             List<String> fileNames = new ArrayList<>();
@@ -161,14 +199,18 @@ public class BoardController {
                             String path = "/img/board";
                             
                             Elements imgElements = doc.select("img");
+                            for (Element imgElement : imgElements){
+                                //허용되지 않은 주소면 엘리먼트 제거
+                                if(!isWhitelistedDomain(imgElement.attr("src")))
+                                    imgElement.remove();
+                                
+                            }
 
-        // for (MultipartFile imgFile : imgFiles){
     if (!imgFiles.isEmpty() && !imgElements.isEmpty()) {
         for (int i = 0; i < imgFiles.size(); i++) {
             MultipartFile imgFile = imgFiles.get(i);
             Element imgElement = imgElements.get(i); // 현재 img 태그
-                              
-
+            
             if(imgFile != null && !imgFile.isEmpty())   
             {
                 fileName = imgFile.getOriginalFilename();
@@ -177,12 +219,12 @@ public class BoardController {
                 String realPath = request.getServletContext().getRealPath(path);
                 File pathFile = new File(realPath);
                 if(!pathFile.exists())
-                    pathFile.mkdirs();
+                pathFile.mkdirs();
                 File file = new File(realPath+File.separator+fileName);
                 
-                Elements spanElements = doc.select("span"); //span태그 제거
-                spanElements.remove();
-
+                // Elements spanElements = doc.select("span"); //span태그 제거 (지워)
+                // spanElements.remove();
+        
                 imgFile.transferTo(file); //이미지를 경로에 저장
                 
                 imgElement.attr("src", path + "/" + fileName);
