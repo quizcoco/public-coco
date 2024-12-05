@@ -64,7 +64,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
                     
                     url="/user/sign";
                 }
-
+                sessionImgSave(request,userDetails); //세션에 이미지 저장
                 redirectStrategy.sendRedirect(request, response, url);
     }
 
@@ -75,5 +75,15 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
             session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         }
     }
+
+
+    protected void sessionImgSave(HttpServletRequest request,CocoUserDetails userDetails){
+
+        HttpSession session = request.getSession();
+
+        session.setAttribute("img", userDetails.getImg());
+    }
+
+
     
 }

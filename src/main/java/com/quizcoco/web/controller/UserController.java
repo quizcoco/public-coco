@@ -17,10 +17,12 @@ import com.quizcoco.web.entity.User;
 import com.quizcoco.web.service.AvatarService;
 import com.quizcoco.web.service.CocoService;
 import com.quizcoco.web.service.UserService;
+import com.quizcoco.web.websocket.handler.ActiveUsersHandler;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("user")
@@ -37,6 +39,8 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder encoder;
+    @Autowired
+    private ActiveUsersHandler activeUsersHandler;
     
     @GetMapping("login")
     public String login(HttpServletRequest request, Model model) {
@@ -58,18 +62,20 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public String login(String username, 
-                        String password,
-                        HttpServletResponse response) {
+    public String login(String username
+                        ,String password
+                        ,HttpServletResponse response) {
+
+        //XXX 이 구역은 사실상 패싱당하는것 같다.
         
          // 아이디로 사용자 정보 가져오기
          User user = service.getByUserName(username);
-     
-         if (user == null || !encoder.matches(password, user.getPw())) {
-            return "redirect:/user/login?error";
-         }
-
          
+         if (user == null || !encoder.matches(password, user.getPw())) {
+             return "redirect:/user/login?error";
+            }
+            
+            
          Cookie uidCookie = new Cookie("uid", "1");
          uidCookie.setPath("/");    
          
@@ -78,8 +84,7 @@ public class UserController {
  
          response.addCookie(uidCookie);
          response.addCookie(nameCookie);
-         System.out.println("=============================="+username);
- 
+
         return "redirect:/index";
     }
 

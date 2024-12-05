@@ -17,7 +17,7 @@ public class WebSocketConfig implements WebSocketConfigurer {
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
        registry.addHandler(new ActiveUsersHandler(), "/active-users")
-    //    .addInterceptors(new HttpSessionHandshakeInterceptor())
+       .addInterceptors(new HttpSessionInterceptor())
     .setAllowedOrigins("http://localhost:8080","http://quizcoco.net"); //*은 전체에서
     }
     
