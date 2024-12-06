@@ -13,10 +13,10 @@
 
     <section id="online" class="d:none md:d:flex root-header-menu">
         <h1 class="d:none">접속중인 친구</h1>
-        <div class="d:flex gap:4">
-            <span sec:authorize="isAnonymous()" class="offline-user"></span>
+        <div class="d:flex gap:4 online-users" sec:authorize="isAuthenticated()">
             <span class="online-num"></span>
         </div>
+        <div sec:authorize="isAnonymous()"><span class="offline-user"></span></div>
     </section>
     <nav class="root-header-menu">
         <h1 class="d:none">유저 메뉴</h1>

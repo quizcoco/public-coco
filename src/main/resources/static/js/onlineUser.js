@@ -1,4 +1,4 @@
-const onlineInfo = this.document.querySelector("#online div");
+const onlineInfo = this.document.querySelector(".online-users");
 const onlineNum = onlineInfo.querySelector(".online-num");//span
 // const onlineUsers = onlineInfo.querySelector(".online-users");//div
 
