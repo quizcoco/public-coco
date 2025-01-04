@@ -3,13 +3,45 @@
 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="inc/layout">
 <head>
+    <link href="/css/bbs.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
-    <main layout:fragment="main" class="of:auto">
-        <h1 th:text="'Welcome to ' + ${username} + '\'s Guestbook!'"></h1>
-    
-           
+    <main layout:fragment="main" class="of:auto ji:center">
+        
+        <section class="width">
+            <h1 class="d:none" th:text="'Welcome to ' + ${username} + '\'s Guestbook!'"></h1>        
+            <section class="w:10p">
+                <h1 class="d:none">입력창</h1>
+                <div class="d:flex ai:center">
+                    <form method="post" th:action="${username}" class="w:10p">
+                    <textarea class="w:9p h:10p n-textbox n-textbox-user" name="content"></textarea>
+                    <button class="ml:2 h:1 n-btn n-btn:filled-2">작성</button>
+                    </form>
+                <div>
+            </section>
+            <section class="w:10p mt:10 list-border">
+                <h1 class="d:none">목록</h1>
+                <div class="list-grid">
+                    <span class="no-g">번호</span><span class="writer-g">작성자</span><span class="content-g">내용</span><span class="date-g">날짜</span>
+                </div>
+                <div class="list-grid fs:1" th:each="list:${list}">
+                    <span class="no-g" th:text="${list.id}">0</span><span class="writer-g" th:text="${list.writerName}">김퀴즈</span>
+                    <div class="content-g js:start d:flex">
+                        <span th:text="${list.content}">안녕~</span>
+                        <div><ul class="d:flex">
+                            <li sec:authorize="isAuthenticated()" th:if="${list.writerId==currentUser.id}">수정</li>
+                            <li sec:authorize="isAuthenticated()" th:if="${list.writerId==currentUser.id}">삭제</li>
+                            <li>답글</li>
+                        </ul></div>
+                    </div>
+                    <span class="date-g" th:text="${list.regDate}">05-20</span>
+                </div>
+            </section>
+            <section>
+                <h1 class="d:none">페이저</h1>
+            </section>   
+        </section>
    </main>
 </body>
 </html>

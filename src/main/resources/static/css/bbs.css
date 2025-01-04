@@ -1,0 +1,42 @@
+.width{
+
+display: flex;
+flex-direction: column;
+
+align-items: center;
+
+width: 80%;
+}
+
+.list-grid{
+    display: grid;
+    grid-template: 
+      "no writer content date" 25px
+      /50px 0.2fr 1.5fr 0.2fr;
+    
+    width: 100%;
+    place-items: center;
+
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #aaa;
+}
+
+.no-g{
+    grid-area: no;
+}
+.writer-g{
+    grid-area: writer;
+}
+.content-g{
+    grid-area: content;
+}
+.date-g{
+    grid-area: date;
+}
+
+.list-border{
+
+    /* border-top: 1px solid #aaa; */
+    border-bottom: 1px solid #aaa;
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.quizcoco.web.repository.GuestBookRepository">
+<!-- 
+
+<resultMap id="BoardResultMap" type="Board">
+    <id property="id" column="id"/>
+    <result property="title" column="title"/>
+    <result property="content" column="content"/>
+    <result property="regDate" column="reg_date"/>
+    <result property="viewCount" column="view_count"/>
+    <result property="userId" column="user_id"/>
+    <collection property="img" ofType="BoardImage" column="id" javaType="ArrayList" select="findImgByBoardId"/>
+</resultMap> -->
+
+
+<select id="findByUserId" resultType="GuestBook">
+select ROW_NUMBER() over(order by reg_date asc) id, u.nick_name writer_name, gb.writer_id, gb.content, gb.user_id, gb.reg_date from guestbook gb
+join "user" u on gb.writer_id=u.id
+where gb.user_id=#{userId}
+
+order by reg_date desc
+
+limit #{size} offset #{offset}
+<!-- limit #{offset}, #{size} //PostgreSQL변경부분 :mysql에선 가능했다 ,user""큰 따옴표 안에 넣음-->
+</select>
+
+<!-- <select id="count" resultType="Integer">
+        select count(id) from board
+        <where>
+        <if test="query != null">
+            title LIKE '%${query}%' OR 
+            content LIKE '%${query}%'
+        </if>
+        </where>
+</select> -->
+
+<!-- 
+<select id="findById" resultType="Board">
+select * from board where id=#{id}
+</select> -->
+
+<!-- 추천수에 따라 -->
+<!-- <select id="findWithLikeCount" resultType="BoardLikeView">
+
+select * from
+(select board.*, br.count from (select post_id, count(id) count from board_recommend group by post_id) br right join board
+on br.post_id = board.id) view
+
+where count >= #{count}
+</select> -->
+
+
+<insert id="save" parameterType="GuestBook">
+		INSERT INTO guestbook
+		(
+            writer_id,
+            content,
+            user_id
+		)
+		VALUES
+		(
+            #{writerId},
+            #{content},
+            #{userId}
+		)
+		
+	</insert>
+
+<!-- 조회수,수정 -->
+<!-- <update id="update" parameterType="com.quizcoco.web.entity.Board">
+        
+            UPDATE board
+            SET
+                 title=#{title}
+                ,content=#{content}
+                ,view_count = #{viewCount}
+            where
+                id = #{id}
+        
+</update> -->
+
+<!-- <delete id="deleteById" parameterType="Long">
+        
+      DELETE FROM board
+      WHERE id = #{id}
+</delete> -->
+
+       
+</mapper>

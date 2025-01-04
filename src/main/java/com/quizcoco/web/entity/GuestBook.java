@@ -1,5 +1,7 @@
 package com.quizcoco.web.entity;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class Test {
+public class GuestBook {
     
     private Long id;
-    private String quiz;
-    private String answer; 
+    private Long writerId;
+    private String writerName;
+    private String content; 
+    private Long userId;
+    private LocalDateTime regDate;
+
     
 }

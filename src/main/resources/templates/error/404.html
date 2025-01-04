@@ -7,8 +7,13 @@ layout:decorate="inc/layout">
 </head>
 <body>
     <main layout:fragment="main" class="of:auto">
-<p>찾으시는 페이지가 없어요..</p>
-<a href="javascript:history.back()"><< 되돌아 가자!</a>    
+        <div>
+            <p th:text="${errorMessage}">찾으시는 페이지가 없어요..</p>
+        </div>
+        <div class="mt:4">
+            <a href="javascript:history.back()"><< 되돌아 가자!</a>
+        </div>
+
    </main>
 </body>
 </html>

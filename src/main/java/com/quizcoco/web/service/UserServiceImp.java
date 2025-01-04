@@ -33,7 +33,7 @@ public class UserServiceImp implements UserService {
 
         //User user = repository.findByUserName(username);
        
-        return repository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return repository.findByUserName(username).orElseThrow(() -> new UsernameNotFoundException("\""+username+"\" 회원을 찾을 수 없습니다."));
     }    
 
 

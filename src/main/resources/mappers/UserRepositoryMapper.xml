@@ -4,25 +4,25 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.quizcoco.web.repository.UserRepository">
 
-<!-- 로그인 -->
+<!-- 로그인 // PostgreSQL에서 user가 예약어이므로 ""따옴표 사용하였다-->
 <select id="findByUserName" resultType="User">
     select 
       *
-    from user
-    where username=#{username}
+    from "user"
+    where username=#{userName}
 </select>
 
 <!-- 소셜 로그인 -->
 <select id="findByEmail" resultType="User">
     select 
       *
-    from user
+    from "user"
     where mail=#{mail}
 </select>
 
 <!-- 회원가입 -->
 <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-    insert into user
+    insert into "user"
     (
       username,
       pw,
@@ -41,14 +41,14 @@
 <!-- 회원 가입 시 아이디 중복 체크 -->
 <select id="usernameExists" resultType="int">
   select count(*)
-  from user
-  where username = #{username}
+  from "user"
+  where username = #{userName}
 </select>
 
 <!-- 회원 가입 시 메일 중복 체크 -->
 <select id="mailExists" resultType="int">
   select count(*)
-  from user
+  from "user"
   where mail = #{mail}
 </select>
 
@@ -56,7 +56,7 @@
 
 <!-- 포인트 변경 등 -->
 <update id="update" parameterType="User">
-    UPDATE user
+    UPDATE "user"
     SET
 
     nick_name = #{nickName},
@@ -73,13 +73,13 @@
 <select id="findByUserId" resultType="User">
     select 
       *
-    from user
+    from "user"
     where id=#{id}
 </select>
 
 <!-- 유저 프로필 사진 및 정보 업데이트 -->
 <update id="updateUser" parameterType="User">
-  update user set 
+  update "user" set 
     img = #{img},
     nick_name = #{nickName},
     message = #{message}
@@ -89,31 +89,31 @@
 <!-- 회원 가입, 업데이트 시 닉네임 중복 체크 -->
 <select id="nicknameExists" resultType="int">
   select count(*)
-  from user
-  where nick_name = #{nickname}
+  from "user"
+  where nick_name = #{nickName}
 </select>
 
 <!-- 회원 정보 업데이트 시 메세지 체크 -->
 <select id="messageExists" resultType="int">
   select count(*)
-  from user
+  from "user"
   where message = #{message}
 </select>
 
 <!-- 회원 정보 불러오기 (레벨, 경험치,포인트 ) -->
 <select id="findLevelByUserId" resultType="int" parameterType="Long">
   select level
-  from user
+  from "user"
   where id = #{id}
 </select>
 <select id="findExpByUserId" resultType="int" parameterType="Long">
   select exp
-  from user
+  from "user"
   where id = #{id}
 </select>
 <select id="findPointByUserId" resultType="int" parameterType="Long">
   select point
-  from user
+  from "user"
   where id = #{id}
 </select>
 
